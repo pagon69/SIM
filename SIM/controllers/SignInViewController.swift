@@ -26,6 +26,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     
     
+    
+    
+    
     //creates a user account on firebase
     @IBAction func signUpButton(_ sender: UIButton) {
         
@@ -80,6 +83,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    
+    
     
     
     @IBAction func YesorNoSwitchAction(_ sender: UISwitch) {

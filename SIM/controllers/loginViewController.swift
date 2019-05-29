@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class loginViewController: UIViewController {
 
@@ -54,13 +55,26 @@ class loginViewController: UIViewController {
         
     }
     
+
     
+    
+    //anonymous user creation function
     @IBAction func AnonButtonLogin(_ sender: UIButton) {
         //create an anonomous account for use
         //save it and attach to the device iD or somethign unique about the user
         //automatically log user into service in the future
         
+        Auth.auth().signInAnonymously() { (authResult, error) in
         
+            if let user = authResult?.user{
+            
+                let isAnonymous = user.isAnonymous  // true
+                let uid = user.uid
+                
+                print("succeeded in creatign an anonymous user?: \(isAnonymous), and userid: \(uid)")
+            }
+            
+        }
         
     }
     

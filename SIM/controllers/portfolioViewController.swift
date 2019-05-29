@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class portfolioViewController: UIViewController {
 
@@ -19,8 +20,15 @@ class portfolioViewController: UIViewController {
     
     //helper functions
     
-    
-    
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+                withError error: NSError!) {
+        if (error == nil) {
+            // Perform any operations on signed in user here.
+            // ...
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
     
     
     //view that will display

@@ -35,7 +35,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="239" height="55"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqm-ax-3WI">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqm-ax-3WI" customClass="GIDSignInButton">
                                                         <rect key="frame" x="0.0" y="55" width="239" height="55"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     </view>
