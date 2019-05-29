@@ -7,9 +7,23 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class portfolioViewController: UIViewController {
 
+    
+    
+    //globals
+    var handles = Auth.auth()
+    
+    
+    //helper functions
+    
+    
+    
+    
+    
+    //view that will display
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,14 +31,40 @@ class portfolioViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    //override default functions
+    override func viewWillAppear(_ animated: Bool) {
+       
+        
+        handles.addStateDidChangeListener { (auth, user) in
+        
+        // do something when the state changed
+        print("state changed and somethign happened")
+            
+            if let user = user {
+                // The user's ID, unique to the Firebase project.
+                // Do NOT use this value to authenticate with your backend server,
+                // if you have one. Use getTokenWithCompletion:completion: instead.
+                let uid = user.uid
+                let email = user.email ?? "No email address found"
+                let photoURL = user.photoURL
+                
+                print("this is all info i have: \(uid), email address: \(String(describing: email)), and photoURL: \(String(describing: photoURL))")
+                
+            }
+            
+        }
     }
-    */
+    
+  
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        //
+       // Auth.auth().removeStateDidChangeListener(handles)
+        Auth.auth().removeStateDidChangeListener(handles)
+        print("leaving")
+    }
+    
+    
 
 }

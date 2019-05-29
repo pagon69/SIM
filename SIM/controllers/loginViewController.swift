@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class loginViewController: UIViewController {
 
@@ -37,8 +38,18 @@ class loginViewController: UIViewController {
     @IBAction func validateAndLogin(_ sender: UIButton) {
         
      
-        performSegue(withIdentifier: "goToPortfolio", sender: self)
+        if let email = usernameOutlet.text, let password = userPwdOutlet.text{
         
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
+                guard let strongSelf = self else { return }
+                
+                
+                
+            }
+            
+            performSegue(withIdentifier: "goToPortfolio", sender: self)
+        
+        }
         
         
     }
