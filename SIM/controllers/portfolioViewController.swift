@@ -13,6 +13,18 @@ import GoogleSignIn
 class portfolioViewController: UIViewController {
 
     
+    //ibactions
+    
+    @IBAction func logoutButton(_ sender: UIBarButtonItem) {
+        
+        dismiss(animated: true) {
+            
+            // send to login screen or maybe have a pop up
+            
+        }
+        
+    }
+    
     
     //globals
     var handles = Auth.auth()

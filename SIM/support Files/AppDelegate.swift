@@ -12,7 +12,58 @@ import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
-   
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+        if let error = error {
+            //if an error happens print it out
+            print(error)
+            return
+        }else {
+            /*
+            print(user.userID)
+            
+            let userId = user.userID                  // For client-side use only!
+            let idToken = user.authentication.idToken // Safe to send to the server
+            let fullName = user.profile.name
+            let givenName = user.profile.givenName
+            let familyName = user.profile.familyName
+            let email = user.profile.email
+             */
+        }
+        
+        guard let authentication = user.authentication else {return}
+        let credentials = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+    
+        Auth.auth().signIn(with: credentials) {( authResult, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+        }
+    
+    }
+    
+    
+    
+    // google disconnect handler
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        //what to do when the user disconnects
+        
+        let firebaseAUTH = Auth.auth()
+        
+        do{
+            try firebaseAUTH.signOut()
+        }catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+        
+        
+    }
+
+    /*
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
         if let error = error {
@@ -28,43 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             // ...
         }
     }
-    
-    
-    // is GIDSignInDelegate needed?
-    
-    /* google sign in handler
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        // ...
-        if (error == nil) {
-            /*
-            authentication = user.authentication
-
-            GIDAuthentication authentication = user.authentication
-            AuthCredential credential =
-                [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
-                    accessToken:authentication.accessToken]
-            */
- 
-            // ...
-        } else {
-            // ...
-        }
-    }
-
-    
-    // google disconnect handler
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        //what to do when the user disconnects
-        
-        
-    }
     */
-
+  
     var window: UIWindow?
 
     
-    /*
+    
     //deployed for google signin
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
@@ -80,8 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
                                                  annotation: annotation)
     }
     
-    */
     
+
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

@@ -26,6 +26,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     
     
+   
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        
+        dismiss(animated: true) {
+            
+        }
+        
+    }
     
     
     

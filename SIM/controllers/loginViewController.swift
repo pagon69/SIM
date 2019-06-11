@@ -9,20 +9,10 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import GoogleSignIn
 
-class loginViewController: UIViewController {
+class loginViewController: UIViewController, GIDSignInUIDelegate {
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     //ibactions
     
@@ -46,6 +36,7 @@ class loginViewController: UIViewController {
                 
                 
                 
+                
             }
             
             performSegue(withIdentifier: "goToPortfolio", sender: self)
@@ -55,7 +46,9 @@ class loginViewController: UIViewController {
         
     }
     
+    
 
+    
     
     
     //anonymous user creation function
@@ -79,35 +72,18 @@ class loginViewController: UIViewController {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        GIDSignIn.sharedInstance()?.uiDelegate = self
+       // GIDSignIn.sharedInstance()?.signIn()
+        
+        
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    /// end of code
 
 }
