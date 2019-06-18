@@ -20,16 +20,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             print(error)
             return
         }else {
-            /*
-            print(user.userID)
-            
+
             let userId = user.userID                  // For client-side use only!
+            print(userId ?? "")
+            
             let idToken = user.authentication.idToken // Safe to send to the server
+            print(idToken ?? "")
+            
             let fullName = user.profile.name
+            print(fullName ?? "")
+            
             let givenName = user.profile.givenName
+            print(givenName ?? "")
+            
             let familyName = user.profile.familyName
+            print(familyName ?? "")
+            
             let email = user.profile.email
-             */
+            print(email ?? "")
+            
+ 
         }
         
         guard let authentication = user.authentication else {return}
@@ -107,6 +117,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        
+        //database information
+        var ref: DatabaseReference!
+        
+        ref = Database.database().reference()
+        
+        
+        
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self

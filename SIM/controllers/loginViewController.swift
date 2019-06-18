@@ -18,6 +18,7 @@ class loginViewController: UIViewController, GIDSignInUIDelegate {
     
     
     
+    @IBOutlet weak var loginOutlet: UIButton!
     @IBOutlet weak var userPwdOutlet: UITextField!
     @IBOutlet weak var usernameOutlet: UITextField!
     
@@ -27,19 +28,30 @@ class loginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     @IBAction func validateAndLogin(_ sender: UIButton) {
+        let email = usernameOutlet.text
+        let password = userPwdOutlet.text
         
-     
-        if let email = usernameOutlet.text, let password = userPwdOutlet.text{
+        // if let email = usernameOutlet.text, {
         
-            Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
-                guard let strongSelf = self else { return }
+        if email?.isEmpty ?? true || password?.isEmpty ?? true{
+            
+            loginOutlet.isEnabled = false
+            print("somethign went wrong")
+            
+            }else {
+            
+            Auth.auth().signIn(withEmail: email ?? "", password: password ?? "") { [weak self] user, error in
+                guard let strongSelf = self else {
+                    
+                    self?.performSegue(withIdentifier: "goToPortfolio", sender: self)
+                    return
+                }
                 
-                
-                
+               // self?.performSegue(withIdentifier: "goToPortfolio", sender: self)
                 
             }
             
-            performSegue(withIdentifier: "goToPortfolio", sender: self)
+            
         
         }
         

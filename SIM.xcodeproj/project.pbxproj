@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		74A715FF0F1F4BC1704C9459 /* Pods_SIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */; };
+		C173A8D122B12161001A7F97 /* SIMBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D022B12161001A7F97 /* SIMBrain.swift */; };
+		C173A8D322B1237A001A7F97 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D222B1237A001A7F97 /* Stock.swift */; };
+		C173A8D522B1250C001A7F97 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D422B1250C001A7F97 /* Player.swift */; };
+		C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D622B12D20001A7F97 /* SIMGame.swift */; };
 		C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCEB8229D772900633D00 /* AppDelegate.swift */; };
 		C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBC229D772900633D00 /* Main.storyboard */; };
 		C1BCCEC0229D772B00633D00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBF229D772B00633D00 /* Assets.xcassets */; };
@@ -20,6 +24,10 @@
 
 /* Begin PBXFileReference section */
 		52A7255E8B6D4800597A4527 /* Pods-SIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.debug.xcconfig"; sourceTree = "<group>"; };
+		C173A8D022B12161001A7F97 /* SIMBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMBrain.swift; path = SIM/controllers/SIMBrain.swift; sourceTree = SOURCE_ROOT; };
+		C173A8D222B1237A001A7F97 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stock.swift; path = SIM/controllers/Stock.swift; sourceTree = SOURCE_ROOT; };
+		C173A8D422B1250C001A7F97 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Player.swift; path = SIM/controllers/Player.swift; sourceTree = SOURCE_ROOT; };
+		C173A8D622B12D20001A7F97 /* SIMGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMGame.swift; path = SIM/controllers/SIMGame.swift; sourceTree = SOURCE_ROOT; };
 		C1BCCEB5229D772900633D00 /* SIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BCCEB8229D772900633D00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1BCCEBD229D772900633D00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +115,10 @@
 		C1BCCECC229DB93100633D00 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				C173A8D022B12161001A7F97 /* SIMBrain.swift */,
+				C173A8D222B1237A001A7F97 /* Stock.swift */,
+				C173A8D422B1250C001A7F97 /* Player.swift */,
+				C173A8D622B12D20001A7F97 /* SIMGame.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -259,6 +271,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -271,6 +284,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,8 +301,12 @@
 			files = (
 				C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */,
 				C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */,
+				C173A8D322B1237A001A7F97 /* Stock.swift in Sources */,
+				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
+				C173A8D522B1250C001A7F97 /* Player.swift in Sources */,
 				C1BCCECF229DB99400633D00 /* loginViewController.swift in Sources */,
+				C173A8D122B12161001A7F97 /* SIMBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

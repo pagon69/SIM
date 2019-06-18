@@ -15,6 +15,10 @@ class portfolioViewController: UIViewController {
     
     //ibactions
     
+    @IBOutlet weak var playNameOutlet: UILabel!
+    @IBOutlet weak var playersCurrentRank: UILabel!
+    @IBOutlet weak var cashOnHandOutlet: UILabel!
+    
     @IBAction func logoutButton(_ sender: UIBarButtonItem) {
         
         dismiss(animated: true) {
@@ -25,8 +29,15 @@ class portfolioViewController: UIViewController {
         
     }
     
-    
     //globals
+    var myPlayer = Player(userName: "Andy Alleyne", currentCash: 100000.00, totalStockValue: 0, userTotalWorth: 0, totalPlayerValue: 0)
+
+    var stock1 = Stock()
+    var stock2 = Stock()
+    var stock3 = Stock()
+    
+    let gameController = SIMGame()
+    
     var handles = Auth.auth()
     
     
@@ -42,11 +53,64 @@ class portfolioViewController: UIViewController {
         }
     }
     
+    func viewSetup() {
+        
+        
+        playNameOutlet.text = myPlayer.userName
+        
+        playersCurrentRank.text = String(5)
+        
+        
+        if(gameController.inProgress == false){
+        cashOnHandOutlet.isHidden = true
+        }else {
+            cashOnHandOutlet.isHidden = false
+            cashOnHandOutlet.text = String(myPlayer.totalPlayerValue)
+            
+        }
+        
+        
+        
+    }
     
     //view that will display
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewSetup()
+        
+        stock1.companyName = "aapl"
+        stock1.latestPrice = 204.32
+        stock1.sharesCurrentlyPurchased = 50
+        
+        stock2.companyName = "fb"
+        stock2.latestPrice = 104.32
+        stock2.sharesCurrentlyPurchased = 20
+        
+        stock3.companyName = "goog"
+        stock3.latestPrice = 1204.32
+        stock3.sharesCurrentlyPurchased = 5
+
+        myPlayer.listOfStock.append(stock1)
+        myPlayer.listOfStock.append(stock2)
+        //myPlayer.listOfStock.append(stock3)
+        
+        
+
+        print(myPlayer.calculateTotalValue())
+        print(myPlayer.listOfStock)
+        print(myPlayer.listOfStock.count)
+        print(myPlayer.userName)
+        print(myPlayer.totalStockValue)
+        print(myPlayer.currentCash)
+        
+        gameController.buyStock(currentCash: myPlayer.currentCash, stockToBuy: stock3, QuantitytoBuy: 30, currentPlayer: myPlayer)
+
+        print(myPlayer.currentCash)
+        print(myPlayer.listOfStock)
+        print(myPlayer.listOfStock.count)
+        print(myPlayer.calculateTotalValue())
+        print(myPlayer.totalStockValue)
         // Do any additional setup after loading the view.
     }
     
@@ -54,7 +118,6 @@ class portfolioViewController: UIViewController {
     
     //override default functions
     override func viewWillAppear(_ animated: Bool) {
-       
         
         handles.addStateDidChangeListener { (auth, user) in
         
@@ -65,11 +128,16 @@ class portfolioViewController: UIViewController {
                 // The user's ID, unique to the Firebase project.
                 // Do NOT use this value to authenticate with your backend server,
                 // if you have one. Use getTokenWithCompletion:completion: instead.
+            
                 let uid = user.uid
                 let email = user.email ?? "No email address found"
-                let photoURL = user.photoURL
+                let photoURL = user.displayName
+                let identifier = user.providerID
                 
-                print("this is all info i have: \(uid), email address: \(String(describing: email)), and photoURL: \(String(describing: photoURL))")
+                print("this is all info i have: \(uid), email address: \(String(describing: email)), and photoURL: \(String(describing: photoURL)) /n current identifier:\(identifier)")
+                
+                self.myPlayer.userName = email
+    
                 
             }
             
