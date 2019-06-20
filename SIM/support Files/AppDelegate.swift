@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             let email = user.profile.email
             print(email ?? "")
             
+            
  
         }
         

@@ -11,16 +11,21 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
-class loginViewController: UIViewController, GIDSignInUIDelegate {
+class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDelegate {
 
     
+    
+    //globals
+    var errorMessgae = "Incorrect username/psw or combination"
+    
+    
     //ibactions
-    
-    
-    
     @IBOutlet weak var loginOutlet: UIButton!
     @IBOutlet weak var userPwdOutlet: UITextField!
     @IBOutlet weak var usernameOutlet: UITextField!
+    @IBOutlet weak var errorMsgOutlet: UILabel!
+    
+    
     
     @IBAction func setupAccountButton(_ sender: UIButton) {
         //segue to another view which allows user account setup
@@ -31,38 +36,51 @@ class loginViewController: UIViewController, GIDSignInUIDelegate {
         let email = usernameOutlet.text
         let password = userPwdOutlet.text
         
-        // if let email = usernameOutlet.text, {
         
+        performSegue(withIdentifier: "goToPortfolio", sender: self)
+        
+        
+        
+        
+        
+        // if let email = usernameOutlet.text, {
+/*
         if email?.isEmpty ?? true || password?.isEmpty ?? true{
             
-            loginOutlet.isEnabled = false
-            print("somethign went wrong")
+            //loginOutlet.isEnabled = false
+            errorMsgOutlet.isHighlighted = false
             
-            }else {
+            }
+        //
+        else {
             
+            
+         
             Auth.auth().signIn(withEmail: email ?? "", password: password ?? "") { [weak self] user, error in
                 guard let strongSelf = self else {
                     
-                    self?.performSegue(withIdentifier: "goToPortfolio", sender: self)
+                    if(error != nil){
+                        print("a user was found in the DB \(user)")
+                        self?.performSegue(withIdentifier: "goToPortfolio", sender: self)
+                    }
+                    
+                  //  self?.performSegue(withIdentifier: "goToPortfolio", sender: self)
                     return
                 }
                 
-               // self?.performSegue(withIdentifier: "goToPortfolio", sender: self)
+            //self?.performSegue(withIdentifier: "goToPortfolio", sender: self)
                 
             }
             
             
-        
+    
         }
         
+        */
         
     }
     
-    
 
-    
-    
-    
     //anonymous user creation function
     @IBAction func AnonButtonLogin(_ sender: UIButton) {
         //create an anonomous account for use
@@ -83,6 +101,26 @@ class loginViewController: UIViewController, GIDSignInUIDelegate {
         
     }
     
+    //removes keyboard so i can see full screen
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        self.view.endEditing(true)
+        
+    }
+    
+    //enables login if content is within username/password buttons
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if (usernameOutlet.text?.isEmpty == false && userPwdOutlet.text?.isEmpty == false ){
+            
+            loginOutlet.isEnabled = true
+        }
+        
+    }
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +129,8 @@ class loginViewController: UIViewController, GIDSignInUIDelegate {
         
         GIDSignIn.sharedInstance()?.uiDelegate = self
        // GIDSignIn.sharedInstance()?.signIn()
+        
+        
         
         
     }
