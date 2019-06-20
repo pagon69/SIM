@@ -62,13 +62,25 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     
+    func getSymbols(){
+        
+        //https://cloud.iexapis.com/stable/ref-data/symbols
+        
+        //run alamofire and get the list of symbols
+        
+        //searchResults = array of stocksymbols
+        
     
+        
+        
+        
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        getSymbols()
         
         
         
