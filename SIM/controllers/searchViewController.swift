@@ -20,6 +20,30 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var searchTableViewOutlet: UITableView!
     
+    //purchase options alerts
+    @IBAction func buyAction(_ sender: UIButton) {
+       
+        performSegue(withIdentifier: "goToBuy", sender: self)
+        
+    }
+    
+    @IBAction func sellAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func longAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func shortAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func callAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func putAction(_ sender: UIButton) {
+    }
+    
+    
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

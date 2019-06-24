@@ -15,6 +15,9 @@
 		C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */; };
 		C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */; };
 		C19E163722C0FE02004EE77B /* disclaimers in Resources */ = {isa = PBXBuildFile; fileRef = C19E163622C0FE02004EE77B /* disclaimers */; };
+		C19E163922C15320004EE77B /* buyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163822C15320004EE77B /* buyViewController.swift */; };
+		C19E163B22C15335004EE77B /* sellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163A22C15335004EE77B /* sellViewController.swift */; };
+		C19E163D22C15348004EE77B /* longViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163C22C15348004EE77B /* longViewController.swift */; };
 		C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCEB8229D772900633D00 /* AppDelegate.swift */; };
 		C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBC229D772900633D00 /* Main.storyboard */; };
 		C1BCCEC0229D772B00633D00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBF229D772B00633D00 /* Assets.xcassets */; };
@@ -34,6 +37,9 @@
 		C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
 		C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockSymbols.swift; path = SIM/view/StockSymbols.swift; sourceTree = SOURCE_ROOT; };
 		C19E163622C0FE02004EE77B /* disclaimers */ = {isa = PBXFileReference; lastKnownFileType = text; path = disclaimers; sourceTree = "<group>"; };
+		C19E163822C15320004EE77B /* buyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buyViewController.swift; sourceTree = "<group>"; };
+		C19E163A22C15335004EE77B /* sellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sellViewController.swift; sourceTree = "<group>"; };
+		C19E163C22C15348004EE77B /* longViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longViewController.swift; sourceTree = "<group>"; };
 		C1BCCEB5229D772900633D00 /* SIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BCCEB8229D772900633D00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1BCCEBD229D772900633D00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -115,6 +121,9 @@
 				C1BCCECE229DB99400633D00 /* loginViewController.swift */,
 				C1BCCED0229DB9F000633D00 /* portfolioViewController.swift */,
 				C1BCCED2229DBC9200633D00 /* SignInViewController.swift */,
+				C19E163822C15320004EE77B /* buyViewController.swift */,
+				C19E163A22C15335004EE77B /* sellViewController.swift */,
+				C19E163C22C15348004EE77B /* longViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -310,14 +319,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */,
+				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,
 				C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */,
 				C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */,
 				C173A8D322B1237A001A7F97 /* Stock.swift in Sources */,
+				C19E163922C15320004EE77B /* buyViewController.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
 				C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */,
 				C173A8D522B1250C001A7F97 /* Player.swift in Sources */,
 				C1BCCECF229DB99400633D00 /* loginViewController.swift in Sources */,
+				C19E163B22C15335004EE77B /* sellViewController.swift in Sources */,
 				C173A8D122B12161001A7F97 /* SIMBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

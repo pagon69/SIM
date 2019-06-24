@@ -728,16 +728,25 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="123" height="30"/>
                                                                                 <color key="backgroundColor" red="0.48002232919999999" green="1" blue="0.98127144870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Buy"/>
+                                                                                <connections>
+                                                                                    <action selector="buyAction:" destination="LDW-Tf-YHw" eventType="touchUpInside" id="bDg-Dh-n2q"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVE-ZO-ej0" userLabel="Sell">
                                                                                 <rect key="frame" x="126" y="0.0" width="123" height="30"/>
                                                                                 <color key="backgroundColor" red="0.48002232919999999" green="1" blue="0.98127144870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Sell"/>
+                                                                                <connections>
+                                                                                    <action selector="sellAction:" destination="LDW-Tf-YHw" eventType="touchUpInside" id="h4Q-b7-jKw"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6A-Ed-ZGJ" userLabel="Long">
                                                                                 <rect key="frame" x="252" y="0.0" width="123" height="30"/>
                                                                                 <color key="backgroundColor" red="0.48002232919999999" green="1" blue="0.98127144870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Long"/>
+                                                                                <connections>
+                                                                                    <action selector="longAction:" destination="LDW-Tf-YHw" eventType="touchUpInside" id="RIT-yb-Ki9"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                         <constraints>
@@ -763,16 +772,25 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="123" height="30"/>
                                                                                 <color key="backgroundColor" red="0.48002232919999999" green="1" blue="0.98127144870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Short"/>
+                                                                                <connections>
+                                                                                    <action selector="shortAction:" destination="LDW-Tf-YHw" eventType="touchUpInside" id="S7m-yI-Afo"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0g-tw-E9E" userLabel="Call">
                                                                                 <rect key="frame" x="126" y="0.0" width="123" height="30"/>
                                                                                 <color key="backgroundColor" red="0.48002232919999999" green="1" blue="0.98127144870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Call"/>
+                                                                                <connections>
+                                                                                    <action selector="callAction:" destination="LDW-Tf-YHw" eventType="touchUpInside" id="Jrc-o8-a7f"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ub5-jM-8xA" userLabel="Put">
                                                                                 <rect key="frame" x="252" y="0.0" width="123" height="30"/>
                                                                                 <color key="backgroundColor" red="0.48002232919999999" green="1" blue="0.98127144870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Put"/>
+                                                                                <connections>
+                                                                                    <action selector="putAction:" destination="LDW-Tf-YHw" eventType="touchUpInside" id="HZR-QK-eZQ"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                         <constraints>
@@ -996,11 +1014,115 @@
                     <connections>
                         <outlet property="searchBarOutlet" destination="J5B-dz-h7N" id="btM-Lj-4jd"/>
                         <outlet property="searchTableViewOutlet" destination="C3C-9s-qDE" id="iEO-2g-HZZ"/>
+                        <segue destination="ZAz-Xw-OK6" kind="showDetail" identifier="goToBuy" id="bm9-fr-o36"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PkD-px-0OV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2024.8" y="-64.767616191904054"/>
+        </scene>
+        <!--Buy View Controller-->
+        <scene sceneID="B2G-Ay-d5G">
+            <objects>
+                <viewController id="ZAz-Xw-OK6" customClass="buyViewController" customModule="SIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PdS-XX-hXT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1j-KU-cmX">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="RAs-ek-Nf2"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="9lC-Ag-Qse">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="TuN-sZ-xvu">
+                                            <connections>
+                                                <action selector="backButton:" destination="ZAz-Xw-OK6" id="iI5-nN-Nhr"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="f1j-KU-cmX" firstAttribute="top" secondItem="4Wg-FZ-ZZe" secondAttribute="top" id="ATH-7y-ERW"/>
+                            <constraint firstItem="f1j-KU-cmX" firstAttribute="trailing" secondItem="4Wg-FZ-ZZe" secondAttribute="trailing" id="XcW-xb-Xe0"/>
+                            <constraint firstItem="f1j-KU-cmX" firstAttribute="leading" secondItem="4Wg-FZ-ZZe" secondAttribute="leading" id="l6C-1e-r8Q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4Wg-FZ-ZZe"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dLM-WB-Tdv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2054" y="938"/>
+        </scene>
+        <!--Sell View Controller-->
+        <scene sceneID="LhM-gg-PPF">
+            <objects>
+                <viewController id="5VZ-EV-F1j" customClass="sellViewController" customModule="SIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tSV-jj-5B8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7E3-sa-8gz">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="guv-on-6QY"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="YEz-vU-qhY">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="ADd-1c-06I"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7E3-sa-8gz" firstAttribute="top" secondItem="7Q1-wv-iE9" secondAttribute="top" id="CA8-eA-Omf"/>
+                            <constraint firstItem="7E3-sa-8gz" firstAttribute="trailing" secondItem="7Q1-wv-iE9" secondAttribute="trailing" id="Gbr-hw-v0a"/>
+                            <constraint firstItem="7E3-sa-8gz" firstAttribute="leading" secondItem="7Q1-wv-iE9" secondAttribute="leading" id="oqO-nj-S9m"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7Q1-wv-iE9"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7xI-d6-oCI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2833" y="938"/>
+        </scene>
+        <!--Long View Controller-->
+        <scene sceneID="Mda-xe-9Q6">
+            <objects>
+                <viewController id="ttP-vU-OXb" customClass="longViewController" customModule="SIM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="51Q-R6-aJV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kqS-J3-sGm">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="P3h-bx-kQS"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="gdj-2V-EbB">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="7Z8-JL-ogM"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kqS-J3-sGm" firstAttribute="trailing" secondItem="cM3-KU-s09" secondAttribute="trailing" id="Dij-9N-Dd8"/>
+                            <constraint firstItem="kqS-J3-sGm" firstAttribute="leading" secondItem="cM3-KU-s09" secondAttribute="leading" id="RT0-2h-buc"/>
+                            <constraint firstItem="kqS-J3-sGm" firstAttribute="top" secondItem="cM3-KU-s09" secondAttribute="top" id="dap-rR-PS7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cM3-KU-s09"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cIy-Uo-jNc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3662" y="938"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
