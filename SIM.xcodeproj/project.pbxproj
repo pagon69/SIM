@@ -14,6 +14,7 @@
 		C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D622B12D20001A7F97 /* SIMGame.swift */; };
 		C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */; };
 		C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */; };
+		C19E163722C0FE02004EE77B /* disclaimers in Resources */ = {isa = PBXBuildFile; fileRef = C19E163622C0FE02004EE77B /* disclaimers */; };
 		C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCEB8229D772900633D00 /* AppDelegate.swift */; };
 		C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBC229D772900633D00 /* Main.storyboard */; };
 		C1BCCEC0229D772B00633D00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBF229D772B00633D00 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 		C173A8D622B12D20001A7F97 /* SIMGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMGame.swift; path = SIM/controllers/SIMGame.swift; sourceTree = SOURCE_ROOT; };
 		C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
 		C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockSymbols.swift; path = SIM/view/StockSymbols.swift; sourceTree = SOURCE_ROOT; };
+		C19E163622C0FE02004EE77B /* disclaimers */ = {isa = PBXFileReference; lastKnownFileType = text; path = disclaimers; sourceTree = "<group>"; };
 		C1BCCEB5229D772900633D00 /* SIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BCCEB8229D772900633D00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1BCCEBD229D772900633D00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				C1BCCEB8229D772900633D00 /* AppDelegate.swift */,
 				C1BCCEBF229D772B00633D00 /* Assets.xcassets */,
+				C19E163622C0FE02004EE77B /* disclaimers */,
 			);
 			path = "support Files";
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			files = (
 				C1BCCEC3229D772B00633D00 /* LaunchScreen.storyboard in Resources */,
 				C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */,
+				C19E163722C0FE02004EE77B /* disclaimers in Resources */,
 				C1BCCEC0229D772B00633D00 /* Assets.xcassets in Resources */,
 				C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */,
 			);
