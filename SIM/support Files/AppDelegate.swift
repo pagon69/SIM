@@ -120,9 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         FirebaseApp.configure()
         
         //database information
-        var ref: DatabaseReference!
+        var myDatabaseRef = Database.database().reference()
         
-        ref = Database.database().reference()
+        myDatabaseRef.setValue("saved some data")
         
         
         

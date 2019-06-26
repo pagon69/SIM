@@ -10,6 +10,9 @@ import UIKit
 
 class longViewController: UIViewController {
 
+    var data : Stock?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

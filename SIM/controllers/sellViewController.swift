@@ -10,6 +10,9 @@ import UIKit
 
 class sellViewController: UIViewController {
 
+    var data : Stock?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

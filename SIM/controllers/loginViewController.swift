@@ -33,11 +33,28 @@ class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     }
     
     @IBAction func validateAndLogin(_ sender: UIButton) {
-        let email = usernameOutlet.text
-        let password = userPwdOutlet.text
+        
+        if let email = usernameOutlet.text, let password = userPwdOutlet.text{
         
         
-        performSegue(withIdentifier: "goToPortfolio", sender: self)
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            
+            if error != nil {
+                
+                 self.performSegue(withIdentifier: "goToPortfolio", sender: self)
+                
+            }else{
+                print(error)
+                
+            }
+            
+            
+        }
+    }
+        
+        
+        
+       
         
         
         

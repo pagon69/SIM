@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class SignInViewController: UIViewController, UITextFieldDelegate {
 
@@ -41,57 +42,38 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signUpButton(_ sender: UIButton) {
         
         if let email = emailAddress.text, let password = pswEnterOutlet.text, let passwordConfirm = pswConfirmed.text {
-         
-                    if (usersEmail == email){
-                        errorMessagelabel.text = "email address already exist"
-                        errorMessagelabel.isHidden = false
-                    }else{
-            
                         usersEmail = email
             
                         if password == passwordConfirm{
-                
+                            errorMessagelabel.isHidden = true
                         //  signupButtonOutet.isEnabled = true
-                        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                        //do some work below
-                        print(authResult?.user ?? "User was not created")
-                   
-                            if let createdUser = authResult?.user{
-                                //user was created
-                                print(createdUser)
-                                //isplay an alert and segue to new view
+                            Auth.auth().createUser(withEmail: email, password: password) { user, error in
+        
+                            if error != nil {
+                                //if something went wrong
+                                print(error!)
+                                self.errorMessagelabel.text = "somethign went wrong !!"
+                                // i can build in a check for error and provide usefull error message
+                                
+                                
+                            } else {
+                                //everythign worked
+                                print("Successfully registered: \(String(describing: user?.additionalUserInfo))")
+                                print(user?.user as Any)
+                                //print(user.)
                                 
                                 self.performSegue(withIdentifier: "goToPortfolio2", sender: self)
-                            }else{
-                                
-                                //failed to make user
-                                self.errorMessagelabel.text = "account exist,or an error happened."
-                                self.errorMessagelabel.isHidden = false
-                            }
-                            /*
-                        if error != nil{
-                            self.errorMessagelabel.text = "Accounts exist or Password issue"
-                        }else{
-                            //do an alert or something to let user know issue was resolved.
-                            
-                            print("sucessed in creating a new user")
-                            
                             }
                             
-                            */
                     }
                 
-                
-                
-                }else{
-                    errorMessagelabel.isHidden = false
-                
-                
-                }
-            }
+                        }else {
+                            errorMessagelabel.isHidden = false
+                            errorMessagelabel.text = "your password does not match or meet minimal reguirements!"
+                        }
+    
         }
     }
-    
     
     
     

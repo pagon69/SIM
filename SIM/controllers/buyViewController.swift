@@ -12,9 +12,22 @@ import UIKit
 
 class buyViewController: UIViewController {
 
+    //passed data
     var data : Stock?
     
+    //globals
+    
+    
+    
     //ibactions
+    
+    @IBOutlet weak var symbolOutlet: UILabel!
+    @IBOutlet weak var companyNameOutlet: UILabel!
+    @IBOutlet weak var quantityOutlet: UITextField!
+    @IBOutlet weak var estimatedCostOutlet: UILabel!
+    
+    
+    
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         
         dismiss(animated: true) {
@@ -25,13 +38,26 @@ class buyViewController: UIViewController {
     }
     
     
+    @IBAction func buyButton(_ sender: UIButton) {
+        var total = 0.00
+        
+        if let price = data?.latestPrice{
+            if let quantity = quantityOutlet.text{
+                
+                total = price * Double(quantity)!
+            }
+        }
+        
+        alertCode()
+    }
+    
+    
     
     func alertCode(){
         //basic alert code change to fit and add a yes and no button
-        
-        
+ 
         //defaunt alert code
-        let alert = UIAlertController(title: "Market Buy", message: "Purchasing: AAPL at $145.45", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Market Buy", message: "Purchasing: \(data?.symbol) at $\(data?.latestPrice)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
         }))
@@ -47,23 +73,20 @@ class buyViewController: UIViewController {
     }
     
     
-    
+    func viewSetup(){
+        companyNameOutlet.text = data?.companyName
+        symbolOutlet.text = data?.symbol
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
+        viewSetup()
         // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
