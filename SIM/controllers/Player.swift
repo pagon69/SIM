@@ -10,14 +10,17 @@ import Foundation
 
 class Player {
     
-    var userName: String
-    var currentCash: Double
-    var userTotalWorth: Double
+    var userNickName: String = "Dee"
+    var playerEmail: String = "test@tester.com"
+    var currentCash: Double = 100000.00
+    var userTotalWorth: Double = 0.0
     var listOfStock = [Stock]()
+    var listOfStringStock = "goog"
     
-    var totalStockValue: Double
-    var totalPlayerValue: Double
+    var totalStockValue: Double = 0.0
+    var totalPlayerValue: Double = 0.0
     
+    /*
     init(userName: String, currentCash: Double, totalStockValue: Double, userTotalWorth: Double, totalPlayerValue: Double) {
         
         self.userName = userName
@@ -28,6 +31,7 @@ class Player {
         self.totalPlayerValue = totalPlayerValue
 
     }
+    */
     
     func calculateTotalValue() -> Double{
        // var total = 0.00

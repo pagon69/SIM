@@ -41,10 +41,13 @@ class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
             
             if error != nil {
                 
-                 self.performSegue(withIdentifier: "goToPortfolio", sender: self)
-                
+                 print(error)
             }else{
-                print(error)
+               
+                
+                
+                
+                self.performSegue(withIdentifier: "goToPortfolio", sender: self)
                 
             }
             
@@ -53,12 +56,19 @@ class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
     }
         
         
-        
+        /* How to make custom Cells
+            1. create cell
+         let cell = tableview.dequeueReusablecell(withidentifier: "customcell", for indexPath) as! CustomessageCell
+            2.register a nib within viewDidLoad
+         messageTableViewOutlet.register(nibname: "messageCell", bundle:nil), forCellreuseIdentifer: "customMessageCell")
+         
+         //automatically makes the tableview cell the size of teh content  contained within
+         func configureTableView() {
+            messageTableView.rowHeight = UITableviewAutomaticDimension
+            messageTableview.stimatedRowHeight = 120.0
+         }
+         */
        
-        
-        
-        
-        
         
         // if let email = usernameOutlet.text, {
 /*

@@ -122,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         //database information
         var myDatabaseRef = Database.database().reference()
         
-        myDatabaseRef.setValue("saved some data")
+       // myDatabaseRef.setValue("saved some data")
         
         
         

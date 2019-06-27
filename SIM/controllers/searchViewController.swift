@@ -18,7 +18,8 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var searchData = ["apple pie","icecream","Footlocker","Cream pie","Foot","Apple"]
     var searchResults =  [String]()
     var userSearchText = ""
-    var foundStock: Stock?
+    var foundStock = Stock()
+    var currentPlayer = Player()
 
 
     //handles all of the segues for the various actions i can do
@@ -27,7 +28,9 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if(segue.identifier == "goToBuy"){
             let destVC: buyViewController = segue.destination as! buyViewController
             
-            destVC.data = foundStock
+            destVC.stockInfo = foundStock
+            destVC.player = currentPlayer
+            
         }
         
         if(segue.identifier == "goToSell"){
@@ -171,15 +174,59 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             //faking it for now
             
-            foundStock?.companyName = "Apple Company Inc"
-            foundStock?.latestPrice = 123.45
-            foundStock?.symbol = "aapl"
+            foundStock.companyName = "Apple Company Inc"
+            foundStock.latestPrice = 123.45
+            foundStock.symbol = "aapl"
+            
+            
+            /*
+ 
+             var userNickName: String = "Dee"
+             var playerEmail: String = "test@tester.com"
+             var currentCash: Double = 100000.00
+             var userTotalWorth: Double = 0.0
+             var listOfStock = [Stock]()
+             var listOfStringStock = ["goog"]
+             
+             var totalStockValue: Double = 0.0
+             var totalPlayerValue: Double = 0.0
+             */
             
             
             performSegue(withIdentifier: "goToBuy", sender: self)
         }
         
+    
+    //retreaves data from DB
+    func retrievePlayerData(){
         
+        let scoresDB = Database.database().reference().child("PlayerScore")
+        scoresDB.observe(.childAdded) { (snapshot) in
+           // let snapShootValue = snapshot.value as! Dictionary<String,Any>
+           //var test = snapshot.value(forKey: "playerEmail")
+           
+          //  print("what value is in test: \(test)")
+           
+            if let snapShootValue = snapshot.value as? [[String:String]]{
+                
+                for each in snapShootValue{
+                    
+                    var test = each["userNickName"]
+                    print("this is what is in Test:\(test)")
+                    print(each)
+                }
+                
+                
+              //  print(snapShootValue)
+                
+            }
+
+            
+            
+        }
+        
+    }
+    
     
     //tableview functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -219,7 +266,7 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         getSymbols()
-        
+        retrievePlayerData()
         
         
         

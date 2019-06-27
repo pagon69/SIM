@@ -30,7 +30,7 @@ class portfolioViewController: UIViewController {
     }
     
     //globals
-    var myPlayer = Player(userName: "Andy Alleyne", currentCash: 100000.00, totalStockValue: 0, userTotalWorth: 0, totalPlayerValue: 0)
+    var myPlayer = Player()
 
     var stock1 = Stock()
     var stock2 = Stock()
@@ -55,8 +55,41 @@ class portfolioViewController: UIViewController {
     
     func viewSetup() {
         
+        /* how to animate constraints within a view
         
-        playNameOutlet.text = myPlayer.userName
+         1. create a contstraint and IB action
+         
+        2. trigger the change in the cinstarint
+         
+         func textfielddidbeginEditing(_ textfield: uitextfield){
+         
+          uiView.animate(withduration: .5. animations: {
+            self.heightConstraint.constant = 300
+            self.view.layoutifneeded()
+         
+         })
+         
+         }
+         
+         3. update the layout
+        view.layoutifneeded()
+        */
+        
+        
+        /*how to detects taps within a View
+        1. create a tap Gesture
+         2. add it to the view
+         let tapGesture = UItapgestureRecognizer(target: self, action: #selector(tableviewTapped))
+        messageTableviewOutlet.addgestureRecognizer(tapGesture)
+         3. create action which should be done (#selector)
+         
+         func tableviewtapped(){
+          messagetextfieldOutlet.endeditting(true)
+         
+         }
+         
+        */
+        playNameOutlet.text = myPlayer.userNickName
         
         playersCurrentRank.text = String(5)
         
@@ -100,7 +133,7 @@ class portfolioViewController: UIViewController {
         print(myPlayer.calculateTotalValue())
         print(myPlayer.listOfStock)
         print(myPlayer.listOfStock.count)
-        print(myPlayer.userName)
+        print(myPlayer.userNickName)
         print(myPlayer.totalStockValue)
         print(myPlayer.currentCash)
         
@@ -136,7 +169,7 @@ class portfolioViewController: UIViewController {
                 
                 print("this is all info i have: \(uid), email address: \(String(describing: email)), and photoURL: \(String(describing: photoURL)) /n current identifier:\(identifier)")
                 
-                self.myPlayer.userName = email
+                self.myPlayer.userNickName = "NickName1"
     
                 
             }
