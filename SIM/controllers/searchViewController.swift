@@ -199,6 +199,37 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //retreaves data from DB
     func retrievePlayerData(){
+        /*
+        let databaseSearch = Database.database().reference().queryEqual(toValue: "pagon69@hotmail.com")
+        
+        databaseSearch.observe(.childAdded) { (snapshot) in
+            
+            print("This is what is within the snapshot \n \(snapshot)")
+        }
+        */
+        
+      //  let anotherDB = Database.database().reference().child("PlayerScore")
+        
+        
+        
+       // print(anotherDB)
+       // anotherDB.queryOrdered(byChild: "PlayerScore").queryEqual(toValue: "pagon69@hotmail.com")
+        
+        
+        let yetAnotherDB = Database.database().reference().child("PlayerScore").observe(.value) { (snapShot) in
+            
+            print(snapShot.value)
+          //  print(snapShot.value(forKey: "playerEmail"))
+            for each in (snapShot.value as?  [[String:String]])!{
+                
+                print(each)
+                
+            }
+            
+                
+            }
+        
+        
         
         let scoresDB = Database.database().reference().child("PlayerScore")
         scoresDB.observe(.childAdded) { (snapshot) in
@@ -212,12 +243,9 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 for each in snapShootValue{
                     
                     var test = each["userNickName"]
-                    print("this is what is in Test:\(test)")
-                    print(each)
+                    //print("this is what is in Test:\(test)")
+                   // print(each)
                 }
-                
-                
-              //  print(snapShootValue)
                 
             }
 

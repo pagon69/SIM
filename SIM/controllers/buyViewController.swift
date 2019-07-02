@@ -63,19 +63,13 @@ class buyViewController: UIViewController {
             //create database, should be done once and change to update database?
         let scoresDB = Database.database().reference().child("PlayerScore")
         
-        
-        //sets a value to put into the database
-      //  let playerValue = ["PlayerEmail": Auth.auth().currentUser?.email, "PlayerScore": "\(player.currentCash)"]
+            //sets a value to put into the database
+            let playerValue = ["PlayerEmail": Auth.auth().currentUser?.email, "PlayerScore": "\(player.currentCash)"]
         
         //set another value to go into database
-        
             let playerInfo = [["userNickName":"Dee"],["playerEmail": Auth.auth().currentUser?.email as Any],["currentCash":"\(player.currentCash)"],["userTotalWorth":"\(player.totalPlayerValue)"],["listOfStock":player.listOfStringStock]]
-       
-      //  scoresDB.childByAutoId().setValue(playerInfo)
-        
-        
-        //adds the value to the DB using random value as key
-            
+
+        // --adds the value to the DB using random value as key
             scoresDB.childByAutoId().setValue(playerInfo)
         {
             (error, reference) in
@@ -88,8 +82,50 @@ class buyViewController: UIViewController {
             }
             
         }
-        
-        
+            
+            // testing to figure out best way to build data in database
+            
+            //create database, should be done once and change to update database?
+          //  let anotherDB = Database.database().reference().child("SIMPlayerScores")
+            
+            //sets a value to put into the database
+         //   let values = ["PlayerEmail": Auth.auth().currentUser?.email, "PlayerScore": "\(player.currentCash)"]
+            
+            
+            /* -- works for searching a database with a defined key  created by me
+            anotherDB.observe(.value) { (snapshot) in
+               // snapshot.value(forKeyPath: "andy")
+                //snapshot.value(forKeyPath: "andy")
+                //print(snapshot.childSnapshot(forPath: "andy"))
+                
+                if let user = snapshot.childSnapshot(forPath: "andy").value as? [String: String]{
+                    
+                    print("the current users email address is: \(user["PlayerEmail"]!)")
+                    print("the current users score is: \(user["PlayerScore"]!)")                }
+
+                
+            }
+ 
+             */
+            
+            /* removed the code to add child objects under SIMPlayerScore
+            anotherDB.child("andy").setValue(values)
+            {
+                (error, reference) in
+                if error != nil{
+                    print(error)
+                }else{
+                    //do stuff when everything works
+                    print("saved player info successfully")
+                    
+                }
+                
+            }
+             
+            */
+ 
+            // end of testing and learning code
+            
         alertCode()
         }else{
             

@@ -13,6 +13,12 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
     
+    //remove when done testing
+    var nickName = ""
+    var email = ""
+    var cash = ""
+    
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
         if let error = error {
@@ -121,12 +127,98 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         
         //database information
         var myDatabaseRef = Database.database().reference()
+         // myDatabaseRef.setValue("testing")
+
+
+        // working on database knowledge
+        var username = "Mandy Moor"
+        var emailAddress : String? = "Mandy.DandyA@hotmail.com"
         
-       // myDatabaseRef.setValue("saved some data")
+        var newString = ""
+        var changeChar = "_"
+        
+        //removes the . and adds _
+        if let oldString = emailAddress{
+            
+            for letter in oldString{
+                
+                if letter == "." {
+                    newString = newString + String(changeChar)
+                }else{
+                  newString = newString + String(letter)
+                }
+                
+            }
+            
+        }
+        
+        var ref: DatabaseReference!
+        
+        ref = Database.database().reference()
+        
+        //ref.child("users").child("1234567").setValue(["username" : "Andy Alleyne"])
+        
+        var userDetails : [[String:String]]
+        var userDetailsTwo : [String: String]
+        
+        //created an array of dictionarys which contain Strings
+        userDetails = [["userNickName":"Dee"],
+                       ["playerEmail":"AndyA@hotmail.com"],
+                       ["currentCash":"125765.00"],
+                       ["usersTotalWorth":"435040.53"],
+                       ["listOfStock":"aapl,goog,fb,msft"]]
         
         
+        //this method is much better than the above because it is easier to get the data out
+        userDetailsTwo = ["usernickname":"Mandy",
+                          "playerEmail":"mandyAndy@outlook.com",
+                          "currentCash":"34567.93",
+                          "userTotalWorth":"53490.01",
+                          "listOfStock":"aapl,fb,msft"
+                            ]
         
+        //creates a database call SIMPlyerScores, makes the key name the users email address and adds data.
+        ref.child("SIMPlayerScores/\(newString)").setValue(userDetailsTwo)
+      
+        //reading data from the DB, generic without naming what to look for
+        ref.observe(DataEventType.value) { (snapShot) in
+            let pulleduserdata = snapShot.value as? [[String:String]] ?? [[:]]
+            
+        }
         
+ 
+        //looks within database SIM then looks for key newString which is email, put the values in a saved constant
+        ref.child("SIMPlayerScores").child(newString).observe(DataEventType.value) { (snapShot) in
+            
+            let pulleduserdata = snapShot.value as? [String:String] ?? [:]
+            
+            //pulleduserdata.isEmpty
+            
+            self.nickName = pulleduserdata["userNickName"] ?? ""
+            self.email = pulleduserdata["playerEmail"] ?? ""
+            self.cash = pulleduserdata["currentCash"] ?? ""
+            
+            print(self.nickName)
+            print(self.email)
+            print(self.cash)
+            }
+            
+        // update the database without making complete or rewrite of all data
+        let updates = ["":""]
+        
+        ref.child("SIMPlayerScores/\(newString))").updateChildValues(userDetailsTwo){(Error, ref) in
+            if let error = Error {
+                print("An error happened:\(error)")
+            }else{
+                print("data saved successfully")
+            }
+            
+        }
+        
+        //how do i remove handles?
+       //ref.removeObserver(withHandle: DatabaseHandle.)
+ 
+
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         

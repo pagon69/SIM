@@ -10,6 +10,7 @@ import Foundation
 
 class Player {
     
+    //displayname = usernickName may need to change this
     var userNickName: String = "Dee"
     var playerEmail: String = "test@tester.com"
     var currentCash: Double = 100000.00
