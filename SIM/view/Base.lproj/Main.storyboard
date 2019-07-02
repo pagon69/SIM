@@ -557,72 +557,49 @@
             <objects>
                 <viewController id="Sye-yL-mZr" customClass="AlertViewController" customModule="SIM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ixf-kA-42w">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6l0-6R-DvF">
-                                <rect key="frame" x="16" y="37" width="66" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="66" id="HbH-Yf-HLJ"/>
-                                    <constraint firstAttribute="height" constant="75" id="uaF-6f-TK1"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="Sye-yL-mZr" id="i4V-jm-PWC"/>
-                                    <outlet property="delegate" destination="Sye-yL-mZr" id="Dzc-WC-k3S"/>
-                                </connections>
-                            </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1n-R9-mej">
-                                <rect key="frame" x="137" y="52" width="97" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="97" id="jC1-Py-X1I"/>
-                                    <constraint firstAttribute="height" constant="21" id="np8-vB-kyI"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1n-R9-mej">
+                                <rect key="frame" x="231" y="128" width="128" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAN-rR-Jxa">
-                                <rect key="frame" x="58" y="157" width="116" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Ybo-kh-e7o"/>
-                                    <constraint firstAttribute="width" constant="116" id="jxa-lb-1o0"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAN-rR-Jxa">
+                                <rect key="frame" x="16" y="545" width="116" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="startAlert:" destination="Sye-yL-mZr" eventType="touchUpInside" id="tCJ-sl-kGD"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Aiu-9p-y6U">
+                                <rect key="frame" x="272" y="545" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                            <pickerView alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6l0-6R-DvF">
+                                <rect key="frame" x="0.0" y="372" width="375" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Sye-yL-mZr" id="i4V-jm-PWC"/>
+                                    <outlet property="delegate" destination="Sye-yL-mZr" id="Dzc-WC-k3S"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="E1n-R9-mej" secondAttribute="bottom" constant="177" id="09y-r6-pjJ"/>
-                            <constraint firstItem="E1n-R9-mej" firstAttribute="leading" secondItem="6l0-6R-DvF" secondAttribute="trailing" constant="55" id="6gl-bQ-Lol"/>
-                            <constraint firstItem="CAN-rR-Jxa" firstAttribute="top" secondItem="D6S-jP-beI" secondAttribute="top" constant="157" id="Bn8-1J-D1N"/>
-                            <constraint firstItem="D6S-jP-beI" firstAttribute="trailing" secondItem="CAN-rR-Jxa" secondAttribute="trailing" constant="76" id="D4h-IC-9Tb"/>
-                            <constraint firstItem="6l0-6R-DvF" firstAttribute="top" secondItem="D6S-jP-beI" secondAttribute="top" constant="37" id="DPu-pO-44I"/>
-                            <constraint firstItem="D6S-jP-beI" firstAttribute="trailing" secondItem="6l0-6R-DvF" secondAttribute="trailing" constant="168" id="H6u-lQ-KoZ"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="6l0-6R-DvF" secondAttribute="bottom" constant="138" id="PUM-tK-O9d"/>
-                            <constraint firstItem="E1n-R9-mej" firstAttribute="top" secondItem="D6S-jP-beI" secondAttribute="top" constant="52" id="RuK-ki-jKB"/>
-                            <constraint firstItem="E1n-R9-mej" firstAttribute="leading" secondItem="D6S-jP-beI" secondAttribute="leading" constant="137" id="Wb4-Ss-0oH"/>
-                            <constraint firstItem="6l0-6R-DvF" firstAttribute="leading" secondItem="D6S-jP-beI" secondAttribute="leading" constant="16" id="Xci-3E-YyR"/>
-                            <constraint firstItem="CAN-rR-Jxa" firstAttribute="top" secondItem="6l0-6R-DvF" secondAttribute="bottom" constant="45" id="ZGU-Wi-LSu"/>
-                            <constraint firstItem="D6S-jP-beI" firstAttribute="trailing" secondItem="E1n-R9-mej" secondAttribute="trailing" constant="16" id="akz-n8-Utm"/>
-                            <constraint firstItem="D6S-jP-beI" firstAttribute="bottom" secondItem="CAN-rR-Jxa" secondAttribute="bottom" constant="63" id="bPa-3l-iaU"/>
-                            <constraint firstItem="E1n-R9-mej" firstAttribute="leading" secondItem="6l0-6R-DvF" secondAttribute="trailing" constant="55" id="bXc-gW-mva"/>
-                            <constraint firstItem="CAN-rR-Jxa" firstAttribute="leading" secondItem="D6S-jP-beI" secondAttribute="leading" constant="58" id="gqt-TN-HdL"/>
-                            <constraint firstItem="CAN-rR-Jxa" firstAttribute="top" secondItem="E1n-R9-mej" secondAttribute="bottom" constant="84" id="r5x-Lk-wu5"/>
-                            <constraint firstItem="CAN-rR-Jxa" firstAttribute="top" secondItem="6l0-6R-DvF" secondAttribute="bottom" constant="45" id="sfy-HZ-Dfh"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="D6S-jP-beI"/>
                     </view>
-                    <size key="freeformSize" width="250" height="250"/>
                     <connections>
+                        <outlet property="activitymonitor" destination="Aiu-9p-y6U" id="bVX-gr-B16"/>
                         <outlet property="labelOutlet" destination="E1n-R9-mej" id="QTd-kv-w9A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wXp-xe-Eds" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2772.8000000000002" y="-1158.6206896551726"/>
+            <point key="canvasLocation" x="2772" y="-1159.9700149925038"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="b6W-E3-fc0">

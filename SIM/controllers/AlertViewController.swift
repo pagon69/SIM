@@ -12,19 +12,19 @@ class AlertViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     
     var numbers = ["1","2","3","4","5"]
-    
+    var values = ["Buy","Sell","Long","Short"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return numbers.count
+        return values.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return numbers[row]
+        return values[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -32,6 +32,8 @@ class AlertViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     
     @IBOutlet weak var labelOutlet: UILabel!
+    
+    @IBOutlet weak var activitymonitor: UIActivityIndicatorView!
     
     @IBAction func startAlert(_ sender: UIButton) {
         
@@ -41,7 +43,12 @@ class AlertViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             NSLog("The \"OK\" alert occured.")
         }))
         
-       // alert.addTextField
+        
+        alert.addTextField { (UITextField) in
+            
+        }
+        
+        
 
         self.present(alert, animated: true, completion: nil)
     }
