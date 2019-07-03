@@ -27,6 +27,8 @@
 		C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCED0229DB9F000633D00 /* portfolioViewController.swift */; };
 		C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCED2229DBC9200633D00 /* SignInViewController.swift */; };
 		C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */; };
+		C1F0BF0822CCC74A0016FC17 /* AnimationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */; };
+		C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		C1BCCED0229DB9F000633D00 /* portfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolioViewController.swift; sourceTree = "<group>"; };
 		C1BCCED2229DBC9200633D00 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationsViewController.swift; sourceTree = "<group>"; };
+		C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		DA0E60B8494A7314A219129D /* Pods-SIM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.release.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.release.xcconfig"; sourceTree = "<group>"; };
 		FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SIM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -119,6 +123,7 @@
 		C1BCCECB229DB92800633D00 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */,
 				C159FBCB22CBD2CD001E0A81 /* AlertViewController.swift */,
 				C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */,
 				C1BCCECE229DB99400633D00 /* loginViewController.swift */,
@@ -127,6 +132,7 @@
 				C19E163822C15320004EE77B /* buyViewController.swift */,
 				C19E163A22C15335004EE77B /* sellViewController.swift */,
 				C19E163C22C15348004EE77B /* longViewController.swift */,
+				C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -330,8 +336,10 @@
 				C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */,
 				C173A8D322B1237A001A7F97 /* Stock.swift in Sources */,
 				C19E163922C15320004EE77B /* buyViewController.swift in Sources */,
+				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
+				C1F0BF0822CCC74A0016FC17 /* AnimationsViewController.swift in Sources */,
 				C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */,
 				C173A8D522B1250C001A7F97 /* Player.swift in Sources */,
 				C1BCCECF229DB99400633D00 /* loginViewController.swift in Sources */,
