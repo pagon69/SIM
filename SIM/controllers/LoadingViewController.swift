@@ -1,5 +1,5 @@
 //
-//  PopUpViewController.swift
+//  LoadingViewController.swift
 //  SIM
 //
 //  Created by user147645 on 7/3/19.
@@ -8,33 +8,12 @@
 
 import UIKit
 
-class PopUpViewController: UIViewController {
+class LoadingViewController: UIViewController {
 
-    @IBOutlet weak var backButton: UIButton!
-    
-    @IBOutlet weak var popupview: UIView!
-    
-    @IBAction func backButtonAction(_ sender: UIButton) {
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        backButton.layer.cornerRadius = 10
-        
         // Do any additional setup after loading the view.
-        //how you round out corners for a view or anything
-        popupview.layer.cornerRadius = 10
-        
-        //how you mask something, this affects anythign within also
-        popupview.layer.masksToBounds = true
-        
-        
-        
     }
     
 

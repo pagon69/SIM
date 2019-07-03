@@ -436,6 +436,15 @@
                                     <action selector="tradeButtonClicked:" destination="k36-Id-nYo" eventType="touchUpInside" id="VdJ-oG-yXM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzW-bn-0nz">
+                                <rect key="frame" x="81" y="145" width="211" height="84"/>
+                                <color key="backgroundColor" red="1" green="0.71060696329999995" blue="0.44328233119999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="Wdq-fn-pcI"/>
+                                    <constraint firstAttribute="width" constant="211" id="mFW-XN-mhU"/>
+                                </constraints>
+                                <state key="normal" title="SIM"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -443,11 +452,13 @@
                             <constraint firstItem="rkf-jd-DMt" firstAttribute="leading" secondItem="cLF-VX-d9k" secondAttribute="leadingMargin" constant="151" id="2ga-if-F0y"/>
                             <constraint firstAttribute="bottomMargin" secondItem="gqI-xW-e5l" secondAttribute="bottom" constant="226" id="3Bi-DA-bzM"/>
                             <constraint firstItem="Qtv-bT-DHx" firstAttribute="top" secondItem="cLF-VX-d9k" secondAttribute="topMargin" constant="361" id="3WK-CY-3mu"/>
+                            <constraint firstItem="VzW-bn-0nz" firstAttribute="top" secondItem="hhC-bv-Yxj" secondAttribute="top" constant="125" id="3Xc-v3-md4"/>
                             <constraint firstItem="9fx-Jx-AIy" firstAttribute="leading" secondItem="cLF-VX-d9k" secondAttribute="leadingMargin" constant="246" id="46j-WC-Cne"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zKL-qi-xDE" secondAttribute="trailing" constant="265" id="4KB-w5-5G1"/>
                             <constraint firstAttribute="bottomMargin" secondItem="haf-H8-GB8" secondAttribute="bottom" constant="256" id="4U8-cT-3Da"/>
                             <constraint firstItem="Qtv-bT-DHx" firstAttribute="leading" secondItem="cLF-VX-d9k" secondAttribute="leadingMargin" constant="186" id="4xR-8r-LZN"/>
                             <constraint firstItem="zKL-qi-xDE" firstAttribute="leading" secondItem="cLF-VX-d9k" secondAttribute="leadingMargin" constant="48" id="6L3-Gn-kfP"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="VzW-bn-0nz" secondAttribute="bottom" constant="438" id="7Lv-Mn-sdk"/>
                             <constraint firstItem="haf-H8-GB8" firstAttribute="top" secondItem="cLF-VX-d9k" secondAttribute="topMargin" constant="361" id="8el-Q4-3d6"/>
                             <constraint firstAttribute="bottomMargin" secondItem="zKL-qi-xDE" secondAttribute="bottom" constant="180" id="AyJ-NI-DRA"/>
                             <constraint firstItem="gbz-rP-5ik" firstAttribute="leading" secondItem="cLF-VX-d9k" secondAttribute="leadingMargin" constant="48" id="GO4-LI-cUS"/>
@@ -457,11 +468,14 @@
                             <constraint firstItem="9fx-Jx-AIy" firstAttribute="top" secondItem="cLF-VX-d9k" secondAttribute="topMargin" constant="437" id="QQa-xo-spn"/>
                             <constraint firstAttribute="bottomMargin" secondItem="gbz-rP-5ik" secondAttribute="bottom" constant="226" id="QvS-fr-xm6"/>
                             <constraint firstItem="gqI-xW-e5l" firstAttribute="leading" secondItem="gbz-rP-5ik" secondAttribute="trailing" constant="168" id="RQF-E7-BhP"/>
+                            <constraint firstItem="hhC-bv-Yxj" firstAttribute="trailing" secondItem="VzW-bn-0nz" secondAttribute="trailing" constant="83" id="SSw-PS-w71"/>
                             <constraint firstItem="gqI-xW-e5l" firstAttribute="top" secondItem="cLF-VX-d9k" secondAttribute="topMargin" constant="391" id="UWO-od-4mu"/>
+                            <constraint firstItem="VzW-bn-0nz" firstAttribute="leading" secondItem="hhC-bv-Yxj" secondAttribute="leading" constant="81" id="Uj6-bi-oVZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gqI-xW-e5l" secondAttribute="trailing" constant="67" id="Ytk-dA-lZk"/>
                             <constraint firstItem="haf-H8-GB8" firstAttribute="leading" secondItem="cLF-VX-d9k" secondAttribute="leadingMargin" constant="112" id="Zt9-eU-0v0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gbz-rP-5ik" secondAttribute="trailing" constant="265" id="aK1-kx-uwA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rkf-jd-DMt" secondAttribute="trailing" constant="152" id="cVi-iT-LWP"/>
+                            <constraint firstItem="Qtv-bT-DHx" firstAttribute="top" secondItem="VzW-bn-0nz" secondAttribute="bottom" constant="152" id="foB-tj-rjd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qtv-bT-DHx" secondAttribute="trailing" constant="123" id="gTJ-Hk-Agf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="haf-H8-GB8" secondAttribute="trailing" constant="193" id="hor-nF-paE"/>
                             <constraint firstItem="9fx-Jx-AIy" firstAttribute="top" secondItem="gqI-xW-e5l" secondAttribute="bottom" constant="16" id="oOv-kG-eTS"/>
@@ -478,6 +492,9 @@
                         <viewLayoutGuide key="safeArea" id="hhC-bv-Yxj"/>
                     </view>
                     <connections>
+                        <outlet property="animatedButton" destination="VzW-bn-0nz" id="MmS-3u-piI"/>
+                        <outlet property="animatedButtonHeight" destination="Wdq-fn-pcI" id="UtC-IU-fWw"/>
+                        <outlet property="animatedButtonWidth" destination="mFW-XN-mhU" id="ykM-I7-dDh"/>
                         <outlet property="buyButtonOutlet" destination="zKL-qi-xDE" id="BoP-cG-FFq"/>
                         <outlet property="callButtonOutlet" destination="gqI-xW-e5l" id="3rc-eU-xnk"/>
                         <outlet property="longButtonOutlet" destination="Qtv-bT-DHx" id="nba-ra-K24"/>
@@ -489,7 +506,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asA-O7-oVA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-426" y="-1964"/>
+            <point key="canvasLocation" x="-426.39999999999998" y="-1964.1679160419792"/>
         </scene>
         <!--Pop Up View Controller-->
         <scene sceneID="bBk-zb-2of">

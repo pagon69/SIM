@@ -29,6 +29,7 @@
 		C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */; };
 		C1F0BF0822CCC74A0016FC17 /* AnimationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */; };
 		C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */; };
+		C1F0BF0C22CD2FA40016FC17 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0BF0B22CD2FA40016FC17 /* LoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationsViewController.swift; sourceTree = "<group>"; };
 		C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		C1F0BF0B22CD2FA40016FC17 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		DA0E60B8494A7314A219129D /* Pods-SIM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.release.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.release.xcconfig"; sourceTree = "<group>"; };
 		FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SIM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -123,6 +125,7 @@
 		C1BCCECB229DB92800633D00 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C1F0BF0B22CD2FA40016FC17 /* LoadingViewController.swift */,
 				C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */,
 				C159FBCB22CBD2CD001E0A81 /* AlertViewController.swift */,
 				C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */,
@@ -331,6 +334,7 @@
 			files = (
 				C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */,
 				C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */,
+				C1F0BF0C22CD2FA40016FC17 /* LoadingViewController.swift in Sources */,
 				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,
 				C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */,
 				C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */,

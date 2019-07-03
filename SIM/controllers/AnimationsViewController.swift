@@ -26,15 +26,28 @@ class AnimationsViewController: UIViewController {
     
     @IBOutlet weak var buyButtonOutlet: UIButton!
     
+    @IBOutlet weak var animatedButton: UIButton!
+    
+    @IBOutlet weak var animatedButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var animatedButtonHeight: NSLayoutConstraint!
     //action outlets
+    
+    
     
    
     @IBAction func tradeButtonClicked(_ sender: UIButton) {
      
         //put the animated buttons within a view and contrint that to a specifc area
         
-        viewDidLayoutSubviews()
+        
         //if sender.currentImage == image1 {
+        
+        
+        UIView.animate(withDuration: 1.5) {
+            self.animatedButton.alpha = 1
+            
+        }
+        
         
         //expand buttons
         UIView.animate(withDuration: 0.5) {
@@ -107,8 +120,11 @@ class AnimationsViewController: UIViewController {
     
     func viewSetup(){
         
-        viewDidLayoutSubviews()
-
+        animatedButton.layer.cornerRadius = 20
+        animatedButton.alpha = 0
+        
+        //animatedButtonHeight.se= 0
+        
         //collects the center location for all buttons before anything is done
         buyButtonCenter = buyButtonOutlet.center
         sellButtonCenter = sellButtonOutlet.center
