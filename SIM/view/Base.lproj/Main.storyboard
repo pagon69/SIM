@@ -519,7 +519,7 @@
                             <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backGround" translatesAutoresizingMaskIntoConstraints="NO" id="2du-Vg-fcs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZH-ID-etv" userLabel="loginView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZH-ID-etv" userLabel="loginView">
                                 <rect key="frame" x="40" y="112" width="294" height="442"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginScreen" translatesAutoresizingMaskIntoConstraints="NO" id="kuq-U4-vjn">
@@ -535,6 +535,18 @@
                                             <action selector="emailButtonClicked:" destination="4MC-hp-F77" eventType="touchUpInside" id="ctu-wj-bmV"/>
                                             <segue destination="omD-D1-vBS" kind="showDetail" id="asI-4b-mDK"/>
                                         </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGP-9T-hmF" userLabel="SignUp">
+                                        <rect key="frame" x="176" y="351" width="46" height="13"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYD-Gs-I4h" userLabel="termsbutton">
+                                        <rect key="frame" x="119" y="395" width="75" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Id7-Mn-1YQ" userLabel="privacyButton">
+                                        <rect key="frame" x="202" y="395" width="61" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -604,6 +616,16 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtQ-8x-zBL">
+                                        <rect key="frame" x="261" y="93" width="75" height="9"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="9" id="sYj-le-fSl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="logout">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -613,9 +635,13 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="110" id="M3h-LJ-Yqu"/>
                                     <constraint firstAttribute="height" constant="110" id="NnE-qG-U2N"/>
                                     <constraint firstItem="3Zr-CG-NmO" firstAttribute="leading" secondItem="zTz-cM-iPx" secondAttribute="leading" constant="8" id="QTp-Jf-B8f"/>
+                                    <constraint firstItem="gtQ-8x-zBL" firstAttribute="leading" secondItem="zTz-cM-iPx" secondAttribute="leading" constant="261" id="XWI-EB-9Ni"/>
                                     <constraint firstAttribute="bottom" secondItem="3Zr-CG-NmO" secondAttribute="bottom" constant="17" id="bLB-dn-pjb"/>
+                                    <constraint firstItem="gtQ-8x-zBL" firstAttribute="top" secondItem="WAT-P1-xrV" secondAttribute="bottom" id="fD2-WM-JDS"/>
                                     <constraint firstItem="WAT-P1-xrV" firstAttribute="leading" secondItem="3Zr-CG-NmO" secondAttribute="trailing" constant="8" id="fWH-sB-pWC"/>
+                                    <constraint firstAttribute="trailing" secondItem="gtQ-8x-zBL" secondAttribute="trailing" constant="8" id="gSQ-qa-lWu"/>
                                     <constraint firstItem="3Zr-CG-NmO" firstAttribute="top" secondItem="zTz-cM-iPx" secondAttribute="top" constant="18" id="k2Z-DT-77w"/>
+                                    <constraint firstItem="gtQ-8x-zBL" firstAttribute="top" secondItem="zTz-cM-iPx" secondAttribute="top" constant="93" id="kHO-nA-tjt"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97b-Yl-dpz" userLabel="MiddleWindow">
@@ -742,6 +768,7 @@
                         <outlet property="bannerOutlet" destination="zTz-cM-iPx" id="dmg-fb-8bt"/>
                         <outlet property="bottomWindowOutlet" destination="PAr-BO-JTU" id="g5v-pG-l03"/>
                         <outlet property="labelOutlet" destination="lZW-pY-iw6" id="WJy-SM-mvc"/>
+                        <outlet property="logoutOutlet" destination="gtQ-8x-zBL" id="dMQ-m5-tR9"/>
                         <outlet property="middleImageOutlet" destination="p4o-vD-sqS" id="V1c-7L-XkP"/>
                         <outlet property="middleWindow" destination="97b-Yl-dpz" id="g7R-qP-7g8"/>
                         <outlet property="profileIconOutlet" destination="WAT-P1-xrV" id="Lcg-nD-P9w"/>

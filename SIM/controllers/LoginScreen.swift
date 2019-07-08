@@ -40,8 +40,11 @@ class LoginScreen: UIViewController {
     
     func viewSetup(){
         
-        emailButtonOutlet.layer.cornerRadius = 10
-        loginViewOutlet.layer.cornerRadius =  10
+        emailButtonOutlet.layer.cornerRadius = 20
+        loginViewOutlet.layer.cornerRadius =  40
+        
+        loginViewOutlet.layer.masksToBounds = true
+        emailButtonOutlet.layer.masksToBounds = true
         
     }
     

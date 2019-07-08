@@ -23,6 +23,7 @@ class Portfolio: UIViewController, UIViewControllerTransitioningDelegate {
     @IBOutlet weak var welcomeMessage: UILabel!
     @IBOutlet weak var middleImageOutlet: UIImageView!
     @IBOutlet weak var labelOutlet: UILabel!
+    @IBOutlet weak var logoutOutlet: UIButton!
     
     //animate to come from left
     @IBOutlet weak var bannerOutlet: UIView!
