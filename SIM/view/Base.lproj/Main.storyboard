@@ -519,15 +519,18 @@
                             <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backGround" translatesAutoresizingMaskIntoConstraints="NO" id="2du-Vg-fcs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZH-ID-etv" userLabel="loginView">
+                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZH-ID-etv" userLabel="loginView">
                                 <rect key="frame" x="40" y="112" width="294" height="442"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginScreen" translatesAutoresizingMaskIntoConstraints="NO" id="kuq-U4-vjn">
                                         <rect key="frame" x="0.0" y="0.0" width="294" height="442"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMf-RE-NjC" userLabel="emailLogin">
-                                        <rect key="frame" x="30" y="252" width="234" height="39"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMf-RE-NjC" userLabel="emailLogin">
+                                        <rect key="frame" x="27" y="247" width="240" height="49"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="Eed-YK-Xug"/>
+                                        </constraints>
+                                        <state key="normal" image="emailButton"/>
                                         <connections>
                                             <action selector="emailButtonClicked:" destination="4MC-hp-F77" eventType="touchUpInside" id="ctu-wj-bmV"/>
                                             <segue destination="omD-D1-vBS" kind="showDetail" id="asI-4b-mDK"/>
@@ -537,8 +540,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="kuq-U4-vjn" firstAttribute="leading" secondItem="dZH-ID-etv" secondAttribute="leading" id="Axe-Wz-qgy"/>
+                                    <constraint firstItem="eMf-RE-NjC" firstAttribute="leading" secondItem="dZH-ID-etv" secondAttribute="leading" constant="27" id="Gak-Vf-MpS"/>
                                     <constraint firstAttribute="height" constant="442" id="IHW-jJ-dch"/>
                                     <constraint firstAttribute="trailing" secondItem="kuq-U4-vjn" secondAttribute="trailing" id="YT1-SF-Lu8"/>
+                                    <constraint firstItem="eMf-RE-NjC" firstAttribute="top" secondItem="dZH-ID-etv" secondAttribute="top" constant="247" id="d5R-0r-9Xc"/>
+                                    <constraint firstAttribute="trailing" secondItem="eMf-RE-NjC" secondAttribute="trailing" constant="27" id="fj6-Yl-P3u"/>
                                     <constraint firstAttribute="bottom" secondItem="kuq-U4-vjn" secondAttribute="bottom" id="kWl-ds-6Cf"/>
                                     <constraint firstItem="kuq-U4-vjn" firstAttribute="top" secondItem="dZH-ID-etv" secondAttribute="top" id="pVB-lF-5h6"/>
                                 </constraints>
@@ -558,6 +564,7 @@
                     </view>
                     <connections>
                         <outlet property="emailButtonOutlet" destination="eMf-RE-NjC" id="LgI-8B-tS7"/>
+                        <outlet property="loginViewOutlet" destination="dZH-ID-etv" id="cKh-r0-dYy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mu8-Jt-Yow" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1912,6 +1919,7 @@
     <resources>
         <image name="MainBanner" width="438" height="241"/>
         <image name="backGround" width="322" height="675"/>
+        <image name="emailButton" width="296" height="49"/>
         <image name="loginScreen" width="350" height="487"/>
         <image name="profileIcon" width="21" height="21"/>
     </resources>

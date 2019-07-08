@@ -1,2 +1,13 @@
 This file will contain any disclaimers and attribution information needed.
 Alleyne Ventures created the below application and has all rights and benefits that come from it.
+
+# Pods for SIM
+pod 'Firebase'
+pod 'Firebase/Auth'
+pod 'GoogleSignIn'
+pod 'SVProgressHUD'
+pod 'FBSDKLoginKit'
+pod 'Firebase/Analytics'
+pod 'Firebase/Database'
+pod 'Alamofire'
+#pod 'SwiftyJSON'

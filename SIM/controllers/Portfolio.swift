@@ -8,8 +8,9 @@
 
 import UIKit
 
-class Portfolio: UIViewController {
+class Portfolio: UIViewController, UIViewControllerTransitioningDelegate {
 
+    
     
     
     //globals and IBactions
@@ -40,11 +41,14 @@ class Portfolio: UIViewController {
 
         //start my animations
         setupViews()
-        animateViews()
+       // animateViews()
         print("view did load ran ")
     }
     
 //helper functions
+    
+    
+    
     func setupViews(){
         
         //collecting the current center points
@@ -52,26 +56,45 @@ class Portfolio: UIViewController {
         bottomCenter = bottomWindowOutlet.center
         bannerCenter = bannerOutlet.center
         
+        bannerOutlet.isHidden = true
+        middleWindow.isHidden = true
+        bottomWindowOutlet.isHidden = true
+        
         //bannerOutlet.alpha = 0.0
         
         //moves the views off screen or disables
         bannerOutlet.center = CGPoint(x: 172.0, y: -75.0)
         middleWindow.center = CGPoint(x: -250.0, y: 253.0)
         bottomWindowOutlet.center = CGPoint(x: 187.0, y: 900.0)
+        //
+        print("in setupview")
+    
     }
     
     func animateViews(){
         
-        UIView.animate(withDuration: 5.0) {
+        
+        
+        UIView.animate(withDuration: 1.0) {
            // self.bannerOutlet.alpha = 1.0
             self.bannerOutlet.center = self.bannerCenter
             self.middleWindow.center = self.middleCenter
             self.bottomWindowOutlet.center = self.bottomCenter
                 print("animation ran within closure")
+            
+            self.bannerOutlet.isHidden = false
+            self.middleWindow.isHidden = false
+            self.bottomWindowOutlet.isHidden = false
+            
+            
         }
-        
         
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        
+        animateViews()
+    }
+    
+    
 }

@@ -13,6 +13,7 @@ class LoginScreen: UIViewController {
     //globals and IB outlets
     
     @IBOutlet weak var emailButtonOutlet: UIButton!
+    @IBOutlet weak var loginViewOutlet: UIView!
     
     
     //button click actions
@@ -24,14 +25,25 @@ class LoginScreen: UIViewController {
     }
     
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        viewSetup()
     }
+   
+    
     
 //helper functions
- 
+    
+    func viewSetup(){
+        
+        emailButtonOutlet.layer.cornerRadius = 10
+        loginViewOutlet.layer.cornerRadius =  10
+        
+    }
     
     
     
