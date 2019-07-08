@@ -41,6 +41,7 @@ class Portfolio: UIViewController {
         //start my animations
         setupViews()
         animateViews()
+        print("view did load ran ")
     }
     
 //helper functions
@@ -66,7 +67,7 @@ class Portfolio: UIViewController {
             self.bannerOutlet.center = self.bannerCenter
             self.middleWindow.center = self.middleCenter
             self.bottomWindowOutlet.center = self.bottomCenter
-            
+                print("animation ran within closure")
         }
         
         
