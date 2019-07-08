@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		74A715FF0F1F4BC1704C9459 /* Pods_SIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */; };
+		C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3422D378510018E1F6 /* LoginScreen.swift */; };
+		C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3622D3A4040018E1F6 /* Portfolio.swift */; };
 		C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C159FBCB22CBD2CD001E0A81 /* AlertViewController.swift */; };
 		C173A8D122B12161001A7F97 /* SIMBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D022B12161001A7F97 /* SIMBrain.swift */; };
 		C173A8D322B1237A001A7F97 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D222B1237A001A7F97 /* Stock.swift */; };
@@ -34,8 +36,10 @@
 
 /* Begin PBXFileReference section */
 		52A7255E8B6D4800597A4527 /* Pods-SIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.debug.xcconfig"; sourceTree = "<group>"; };
+		C14C1C3422D378510018E1F6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		C14C1C3622D3A4040018E1F6 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		C159FBCB22CBD2CD001E0A81 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
-		C173A8D022B12161001A7F97 /* SIMBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMBrain.swift; path = SIM/controllers/SIMBrain.swift; sourceTree = SOURCE_ROOT; };
+		C173A8D022B12161001A7F97 /* SIMBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMBrain.swift; path = "SIM/support Files/SIMBrain.swift"; sourceTree = SOURCE_ROOT; };
 		C173A8D222B1237A001A7F97 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stock.swift; path = SIM/controllers/Stock.swift; sourceTree = SOURCE_ROOT; };
 		C173A8D422B1250C001A7F97 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Player.swift; path = SIM/controllers/Player.swift; sourceTree = SOURCE_ROOT; };
 		C173A8D622B12D20001A7F97 /* SIMGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMGame.swift; path = SIM/controllers/SIMGame.swift; sourceTree = SOURCE_ROOT; };
@@ -136,6 +140,8 @@
 				C19E163A22C15335004EE77B /* sellViewController.swift */,
 				C19E163C22C15348004EE77B /* longViewController.swift */,
 				C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */,
+				C14C1C3422D378510018E1F6 /* LoginScreen.swift */,
+				C14C1C3622D3A4040018E1F6 /* Portfolio.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -143,7 +149,6 @@
 		C1BCCECC229DB93100633D00 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				C173A8D022B12161001A7F97 /* SIMBrain.swift */,
 				C173A8D222B1237A001A7F97 /* Stock.swift */,
 				C173A8D422B1250C001A7F97 /* Player.swift */,
 				C173A8D622B12D20001A7F97 /* SIMGame.swift */,
@@ -158,6 +163,7 @@
 				C1BCCEB8229D772900633D00 /* AppDelegate.swift */,
 				C1BCCEBF229D772B00633D00 /* Assets.xcassets */,
 				C19E163622C0FE02004EE77B /* disclaimers */,
+				C173A8D022B12161001A7F97 /* SIMBrain.swift */,
 			);
 			path = "support Files";
 			sourceTree = "<group>";
@@ -343,6 +349,8 @@
 				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
+				C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */,
+				C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */,
 				C1F0BF0822CCC74A0016FC17 /* AnimationsViewController.swift in Sources */,
 				C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */,
 				C173A8D522B1250C001A7F97 /* Player.swift in Sources */,
