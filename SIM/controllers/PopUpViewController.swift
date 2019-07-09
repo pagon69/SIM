@@ -11,6 +11,7 @@ import UIKit
 class PopUpViewController: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var signUpImage: UIImageView!
     
     @IBOutlet weak var popupview: UIView!
     
@@ -29,10 +30,10 @@ class PopUpViewController: UIViewController {
         // Do any additional setup after loading the view.
         //how you round out corners for a view or anything
         popupview.layer.cornerRadius = 10
-        
+        signUpImage.layer.cornerRadius = 10
         //how you mask something, this affects anythign within also
         popupview.layer.masksToBounds = true
-        
+        signUpImage.layer.masksToBounds = true
         
         
     }
