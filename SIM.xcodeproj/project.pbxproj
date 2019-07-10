@@ -17,10 +17,13 @@
 		C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D622B12D20001A7F97 /* SIMGame.swift */; };
 		C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */; };
 		C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */; };
-		C193E5BA22D4ED4E004E16DB /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193E5B922D4ED4E004E16DB /* NewUser.swift */; };
 		C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193E5BB22D4EE11004E16DB /* SignIn.swift */; };
 		C193E5BE22D52636004E16DB /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193E5BD22D52636004E16DB /* SignUp.swift */; };
 		C193E5C022D529C0004E16DB /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193E5BF22D529C0004E16DB /* ForgotPassword.swift */; };
+		C19B03D922D65CEA00DC0AA9 /* FindGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19B03D822D65CEA00DC0AA9 /* FindGame.swift */; };
+		C19B03DB22D65FD000DC0AA9 /* TradeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19B03DA22D65FD000DC0AA9 /* TradeWindow.swift */; };
+		C19B03DF22D6773400DC0AA9 /* searchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19B03DD22D6773400DC0AA9 /* searchResultsCell.swift */; };
+		C19B03E022D6773400DC0AA9 /* searchResultsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19B03DE22D6773400DC0AA9 /* searchResultsCell.xib */; };
 		C19E163722C0FE02004EE77B /* disclaimers in Resources */ = {isa = PBXBuildFile; fileRef = C19E163622C0FE02004EE77B /* disclaimers */; };
 		C19E163922C15320004EE77B /* buyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163822C15320004EE77B /* buyViewController.swift */; };
 		C19E163B22C15335004EE77B /* sellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163A22C15335004EE77B /* sellViewController.swift */; };
@@ -49,10 +52,13 @@
 		C173A8D622B12D20001A7F97 /* SIMGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMGame.swift; path = SIM/controllers/SIMGame.swift; sourceTree = SOURCE_ROOT; };
 		C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
 		C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockSymbols.swift; path = SIM/view/StockSymbols.swift; sourceTree = SOURCE_ROOT; };
-		C193E5B922D4ED4E004E16DB /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
 		C193E5BB22D4EE11004E16DB /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		C193E5BD22D52636004E16DB /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		C193E5BF22D529C0004E16DB /* ForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
+		C19B03D822D65CEA00DC0AA9 /* FindGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindGame.swift; sourceTree = "<group>"; };
+		C19B03DA22D65FD000DC0AA9 /* TradeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TradeWindow.swift; path = /Users/user147645/Desktop/SIM/SIM/controllers/TradeWindow.swift; sourceTree = "<absolute>"; };
+		C19B03DD22D6773400DC0AA9 /* searchResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchResultsCell.swift; sourceTree = "<group>"; };
+		C19B03DE22D6773400DC0AA9 /* searchResultsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = searchResultsCell.xib; sourceTree = "<group>"; };
 		C19E163622C0FE02004EE77B /* disclaimers */ = {isa = PBXFileReference; lastKnownFileType = text; path = disclaimers; sourceTree = "<group>"; };
 		C19E163822C15320004EE77B /* buyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buyViewController.swift; sourceTree = "<group>"; };
 		C19E163A22C15335004EE77B /* sellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sellViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +98,15 @@
 				FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C19B03DC22D676E200DC0AA9 /* custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C19B03DD22D6773400DC0AA9 /* searchResultsCell.swift */,
+				C19B03DE22D6773400DC0AA9 /* searchResultsCell.xib */,
+			);
+			path = "custom Cells";
 			sourceTree = "<group>";
 		};
 		C1BCCEAC229D772900633D00 = {
@@ -137,6 +152,8 @@
 		C1BCCECB229DB92800633D00 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C19B03DC22D676E200DC0AA9 /* custom Cells */,
+				C19B03DA22D65FD000DC0AA9 /* TradeWindow.swift */,
 				C1F0BF0B22CD2FA40016FC17 /* LoadingViewController.swift */,
 				C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */,
 				C159FBCB22CBD2CD001E0A81 /* AlertViewController.swift */,
@@ -150,10 +167,10 @@
 				C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */,
 				C14C1C3422D378510018E1F6 /* LoginScreen.swift */,
 				C14C1C3622D3A4040018E1F6 /* Portfolio.swift */,
-				C193E5B922D4ED4E004E16DB /* NewUser.swift */,
 				C193E5BB22D4EE11004E16DB /* SignIn.swift */,
 				C193E5BD22D52636004E16DB /* SignUp.swift */,
 				C193E5BF22D529C0004E16DB /* ForgotPassword.swift */,
+				C19B03D822D65CEA00DC0AA9 /* FindGame.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -250,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19B03E022D6773400DC0AA9 /* searchResultsCell.xib in Resources */,
 				C1BCCEC3229D772B00633D00 /* LaunchScreen.storyboard in Resources */,
 				C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */,
 				C19E163722C0FE02004EE77B /* disclaimers in Resources */,
@@ -357,17 +375,19 @@
 				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,
 				C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */,
 				C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */,
-				C193E5BA22D4ED4E004E16DB /* NewUser.swift in Sources */,
 				C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */,
 				C173A8D322B1237A001A7F97 /* Stock.swift in Sources */,
 				C19E163922C15320004EE77B /* buyViewController.swift in Sources */,
 				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
+				C19B03D922D65CEA00DC0AA9 /* FindGame.swift in Sources */,
+				C19B03DB22D65FD000DC0AA9 /* TradeWindow.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
 				C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */,
 				C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */,
 				C193E5C022D529C0004E16DB /* ForgotPassword.swift in Sources */,
 				C1F0BF0822CCC74A0016FC17 /* AnimationsViewController.swift in Sources */,
+				C19B03DF22D6773400DC0AA9 /* searchResultsCell.swift in Sources */,
 				C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */,
 				C173A8D522B1250C001A7F97 /* Player.swift in Sources */,
 				C1BCCECF229DB99400633D00 /* loginViewController.swift in Sources */,

@@ -1,14 +1,14 @@
 //
-//  NewUser.swift
+//  FindGame.swift
 //  SIM
 //
-//  Created by user147645 on 7/9/19.
+//  Created by user147645 on 7/10/19.
 //  Copyright © 2019 user147645. All rights reserved.
 //
 
 import UIKit
 
-class NewUser: UIViewController {
+class FindGame: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
