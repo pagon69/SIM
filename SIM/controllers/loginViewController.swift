@@ -43,9 +43,6 @@ class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
                 
                  print(error)
             }else{
-               
-                
-                
                 
                 self.performSegue(withIdentifier: "goToPortfolio", sender: self)
                 
@@ -106,6 +103,7 @@ class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
         */
         
     }
+    
     
 
     //anonymous user creation function
