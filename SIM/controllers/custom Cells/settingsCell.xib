@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="settingsCell" customModule="SIM" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="K7l-1d-89J">
+                        <rect key="frame" x="255" y="6" width="51" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="uTO-gM-haH"/>
+                        </constraints>
+                        <color key="onTintColor" red="1" green="0.7554323386359586" blue="0.62130964870925554" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMa-aO-KoL">
+                        <rect key="frame" x="16" y="6" width="231" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="8Uq-jW-W0q"/>
+                            <constraint firstAttribute="width" constant="231" id="lre-BG-TXH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" red="0.49411764705882355" green="0.49803921568627452" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="K7l-1d-89J" secondAttribute="bottom" constant="6.5" id="1Qs-46-KYu"/>
+                    <constraint firstItem="wMa-aO-KoL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="IF8-H5-cAF"/>
+                    <constraint firstItem="K7l-1d-89J" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="MYD-ur-jvx"/>
+                    <constraint firstItem="wMa-aO-KoL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="S8p-G8-miD"/>
+                    <constraint firstAttribute="bottom" secondItem="wMa-aO-KoL" secondAttribute="bottom" constant="6.5" id="f3f-rE-5h4"/>
+                    <constraint firstItem="K7l-1d-89J" firstAttribute="leading" secondItem="wMa-aO-KoL" secondAttribute="trailing" constant="8" id="fZ6-Qw-017"/>
+                    <constraint firstAttribute="trailing" secondItem="K7l-1d-89J" secondAttribute="trailing" constant="16" id="zYi-LQ-Vge"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="settingsLabel" destination="wMa-aO-KoL" id="rnl-Dg-xdR"/>
+                <outlet property="settingsSwitch" destination="K7l-1d-89J" id="s9B-ge-22u"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="111.54422788605699"/>
+        </tableViewCell>
+        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Clf-o1-8SZ">
+            <rect key="frame" x="0.0" y="0.0" width="121" height="28"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <segments>
+                <segment title="First"/>
+                <segment title="Second"/>
+            </segments>
+        </segmentedControl>
+    </objects>
+</document>
