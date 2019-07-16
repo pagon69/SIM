@@ -27,10 +27,20 @@ class searchResultsCell: UITableViewCell {
     @IBAction func tradeButtonAction(_ sender: UIButton) {
         
         print("within the trade button")
-        reactToButtonPush.self
+       // UIStoryboardSegue(identifier: "customCell", source: Portfolio.self, destination: TradeWindow.self as! UIViewController)
+        self.callMySegue()
+        /*
+        UIStoryboardSegue(identifier: <#T##String?#>, source: <#T##UIViewController#>, destination: <#T##UIViewController#>) {
+            <#code#>
+        }
+        */
         
     }
 
+    func callMySegue(){
+        
+        
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
