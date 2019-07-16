@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import Alamofire
 
-class Portfolio: UIViewController, UIViewControllerTransitioningDelegate {
-
+class Portfolio: UIViewController, UITableViewDelegate, UITableViewDataSource, reactToButtonPush {
     
     
-    
+  
     //globals and IBactions
+    
+    var currentLoggedInUser : [String:String] = [:]
+    var tableData = ["Test","aapl","fb","goog","msft"]
     
     var middleCenter : CGPoint!
     var bannerCenter : CGPoint!
@@ -22,34 +25,87 @@ class Portfolio: UIViewController, UIViewControllerTransitioningDelegate {
     @IBOutlet weak var profileIconOutlet: UIImageView!
     @IBOutlet weak var welcomeMessage: UILabel!
     @IBOutlet weak var middleImageOutlet: UIImageView!
-    @IBOutlet weak var labelOutlet: UILabel!
     @IBOutlet weak var logoutOutlet: UIButton!
+    @IBOutlet weak var currentCashOnHandOutlet: UILabel!
+    @IBOutlet weak var segmentControlOutlet: UISegmentedControl!
     
-    //animate to come from left
+    
+    @IBOutlet weak var stockTableViewOutlet: UITableView!
+    
+    //animate to view as it starts
     @IBOutlet weak var bannerOutlet: UIView!
-    
-    //animate to come from right
     @IBOutlet weak var middleWindow: UIView!
-    
-    //anitmate from bottom
     @IBOutlet weak var bottomWindowOutlet: UIView!
     
     
+    @IBAction func segmentButtomClicked(_ sender: UISegmentedControl) {
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = stockTableViewOutlet.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! searchResultsCell
+        
+        cell.companyName.text = "test"
+        cell.stockSymbol.text = "aapl"
+        cell.price.text = "120.34"
+        
+        //cell.
+        
+        return cell
+    }
+    
+    func callMysegue(myData dataObject: AnyObject) {
+        performSegue(withIdentifier: "goToTradeWindow", sender: self)
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //start my animations
-        setupViews()
-       // animateViews()
-        print("view did load ran ")
+    
+        
+            var test = processListOfStock()
+            setupViews()
+           print(test)
     }
     
 //helper functions
     
+    //makes an array full of stocks for the
+    func processListOfStock()-> [String] {
+        var myData = [String]()
+        var newString = ""
+        
+        
+        if let stockList = currentLoggedInUser["listOfStock"]{
+    
+        for letter in stockList{
+            
+            if letter != "," {
+                newString = "\(newString)\(letter)"
+                
+            }else{
+                myData.append(newString)
+            }
+            
+            }
+        }
+        
+        return myData
+    }
     
     
+    //get stock data from iexCloud
+    func getStockData(){
+        
+        
+        
+    }
+    
+    //setup the view
     func setupViews(){
         
         //collecting the current center points
@@ -67,14 +123,16 @@ class Portfolio: UIViewController, UIViewControllerTransitioningDelegate {
         bannerOutlet.center = CGPoint(x: 172.0, y: -75.0)
         middleWindow.center = CGPoint(x: -250.0, y: 253.0)
         bottomWindowOutlet.center = CGPoint(x: 187.0, y: 900.0)
-        //
-        print("in setupview")
-    
+        
+        //update current cash and stocks purchased
+        currentCashOnHandOutlet.text = "$\(String(describing: currentLoggedInUser["currentCash"] ?? ""))"
+        welcomeMessage.text = "Welcome back: \(String(describing: currentLoggedInUser["usernickname"] ?? ""))"
+        
+        stockTableViewOutlet.register(UINib(nibName: "searchResultsCell", bundle: nil), forCellReuseIdentifier: "customCell")
     }
     
+    //runs animation when view opens
     func animateViews(){
-        
-        
         
         UIView.animate(withDuration: 1.0) {
            // self.bannerOutlet.alpha = 1.0

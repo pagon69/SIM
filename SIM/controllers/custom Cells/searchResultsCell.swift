@@ -8,13 +8,16 @@
 
 import UIKit
 
+
+
+protocol reactToButtonPush {
+    func callMysegue(myData dataObject: AnyObject)
+}
+
 class searchResultsCell: UITableViewCell {
 
     
-    
-    
-    
-    
+
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var stockSymbol: UILabel!
     @IBOutlet weak var changeLabel: UILabel!
@@ -23,9 +26,11 @@ class searchResultsCell: UITableViewCell {
     
     @IBAction func tradeButtonAction(_ sender: UIButton) {
         
+        print("within the trade button")
+        reactToButtonPush.self
         
     }
-    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
