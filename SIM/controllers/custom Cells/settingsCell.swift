@@ -7,17 +7,28 @@
 //
 
 import UIKit
+
 class settingsCell: UITableViewCell {
 
-    
-    
-    
-    
-    
+    var defaultsValue = [true,
+                         false,
+                         false,
+                         false,
+                         false,
+                         true,
+                         false,
+                         false,
+                         false]
     
     @IBOutlet weak var settingsLabel: UILabel!
-    
     @IBOutlet weak var settingsSwitch: UISwitch!
+    
+    //tracks the state of the switch
+    @IBAction func switchChangeState(_ sender: UISwitch) {
+        
+        
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -60,6 +60,13 @@ class FindGame: UIViewController {
         
     }
     
+    
+    @IBAction func gameSettingsClicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "goToTradePage", sender: self)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

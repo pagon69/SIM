@@ -11,13 +11,16 @@ import UIKit
 
 
 protocol reactToButtonPush {
-    func callMysegue(myData dataObject: AnyObject)
+    func tradeButtonClicked(stock: String)
+    
 }
 
 class searchResultsCell: UITableViewCell {
 
+    var stockSymbolSelected: String = ""
+    var delegate: reactToButtonPush?
     
-
+    
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var stockSymbol: UILabel!
     @IBOutlet weak var changeLabel: UILabel!
@@ -26,32 +29,17 @@ class searchResultsCell: UITableViewCell {
     
     @IBAction func tradeButtonAction(_ sender: UIButton) {
         
-        print("within the trade button")
-       // UIStoryboardSegue(identifier: "customCell", source: Portfolio.self, destination: TradeWindow.self as! UIViewController)
-        self.callMySegue()
-        /*
-        UIStoryboardSegue(identifier: <#T##String?#>, source: <#T##UIViewController#>, destination: <#T##UIViewController#>) {
-            <#code#>
-        }
-        */
+        print("within the trade button:\(stockSymbol.text)")
         
+        stockSymbolSelected = self.stockSymbol.text ?? ""
+        delegate?.tradeButtonClicked(stock: stockSymbolSelected)
     }
 
-    func callMySegue(){
-        
-        
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
-        
-        
-        
-        
-        
-        
+  
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

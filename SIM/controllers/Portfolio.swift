@@ -11,9 +11,26 @@ import Alamofire
 
 class Portfolio: UIViewController, UITableViewDelegate, UITableViewDataSource, reactToButtonPush {
     
+    //responce to the protocol
+    func tradeButtonClicked(stock: String) {
+        dataProvided = stock
+        performSegue(withIdentifier: "goToTradePage", sender: self)
+       
+    }
     
-  
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToTradePage" {
+        
+            let DestVC = segue.destination as! TradeWindow
+            DestVC.data = dataProvided
+        }
+        
+    }
+
+    
     //globals and IBactions
+    var dataProvided: String = ""
     
     var currentLoggedInUser : [String:String] = [:]
     var tableData = ["Test","aapl","fb","goog","msft"]
@@ -53,14 +70,14 @@ class Portfolio: UIViewController, UITableViewDelegate, UITableViewDataSource, r
         cell.stockSymbol.text = "aapl"
         cell.price.text = "120.34"
         
-        //cell.
+        cell.delegate = self
         
         return cell
     }
     
-    func callMysegue(myData dataObject: AnyObject) {
-        performSegue(withIdentifier: "goToTradeWindow", sender: self)
-    }
+    
+    
+    
     
     
     override func viewDidLoad() {

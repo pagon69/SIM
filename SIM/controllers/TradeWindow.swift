@@ -9,6 +9,9 @@ import UIKit
 
 class TradeWindow: UIViewController {
 
+    var data: String = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
