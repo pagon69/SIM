@@ -176,7 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
                           "currentCash":"34567.93",
                           "userTotalWorth":"53490.01",
                           "listOfStock":"aapl,fb,msft",
-                          "gameInProgress":"true",
+                          "gameInProgress":"false",
                           "gamesJoined":"testGame1,testgame2",
                           "currentGame":"testGame1",
                         ]

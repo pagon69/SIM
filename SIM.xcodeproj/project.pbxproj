@@ -20,6 +20,11 @@
 		C173A8D322B1237A001A7F97 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D222B1237A001A7F97 /* Stock.swift */; };
 		C173A8D522B1250C001A7F97 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D422B1250C001A7F97 /* Player.swift */; };
 		C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D622B12D20001A7F97 /* SIMGame.swift */; };
+		C1784E5422E0AF4300A62B5C /* gameDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784E5222E0AF4300A62B5C /* gameDetailCell.swift */; };
+		C1784E5522E0AF4300A62B5C /* gameDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1784E5322E0AF4300A62B5C /* gameDetailCell.xib */; };
+		C1784E5A22E0B71600A62B5C /* profileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784E5822E0B71600A62B5C /* profileCell.swift */; };
+		C1784E5B22E0B71600A62B5C /* profileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1784E5922E0B71600A62B5C /* profileCell.xib */; };
+		C1784E5F22E0C05800A62B5C /* Overview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784E5E22E0C05800A62B5C /* Overview.swift */; };
 		C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */; };
 		C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */; };
 		C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193E5BB22D4EE11004E16DB /* SignIn.swift */; };
@@ -61,6 +66,11 @@
 		C173A8D222B1237A001A7F97 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stock.swift; path = SIM/controllers/Stock.swift; sourceTree = SOURCE_ROOT; };
 		C173A8D422B1250C001A7F97 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Player.swift; path = SIM/controllers/Player.swift; sourceTree = SOURCE_ROOT; };
 		C173A8D622B12D20001A7F97 /* SIMGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMGame.swift; path = SIM/controllers/SIMGame.swift; sourceTree = SOURCE_ROOT; };
+		C1784E5222E0AF4300A62B5C /* gameDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameDetailCell.swift; sourceTree = "<group>"; };
+		C1784E5322E0AF4300A62B5C /* gameDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = gameDetailCell.xib; sourceTree = "<group>"; };
+		C1784E5822E0B71600A62B5C /* profileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileCell.swift; sourceTree = "<group>"; };
+		C1784E5922E0B71600A62B5C /* profileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = profileCell.xib; sourceTree = "<group>"; };
+		C1784E5E22E0C05800A62B5C /* Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overview.swift; sourceTree = "<group>"; };
 		C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
 		C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockSymbols.swift; path = SIM/view/StockSymbols.swift; sourceTree = SOURCE_ROOT; };
 		C193E5BB22D4EE11004E16DB /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -119,6 +129,10 @@
 				C19B03DE22D6773400DC0AA9 /* searchResultsCell.xib */,
 				C14D174322DCA33600CE1B43 /* settingsCell.swift */,
 				C14D174422DCA33600CE1B43 /* settingsCell.xib */,
+				C1784E5222E0AF4300A62B5C /* gameDetailCell.swift */,
+				C1784E5322E0AF4300A62B5C /* gameDetailCell.xib */,
+				C1784E5822E0B71600A62B5C /* profileCell.swift */,
+				C1784E5922E0B71600A62B5C /* profileCell.xib */,
 			);
 			path = "custom Cells";
 			sourceTree = "<group>";
@@ -189,6 +203,7 @@
 				C1D311CE22D795F900440C1D /* TestViewController.swift */,
 				C14D174122DC9ED800CE1B43 /* GameSettings.swift */,
 				C133447B22DE0070002A04BF /* Privacy.swift */,
+				C1784E5E22E0C05800A62B5C /* Overview.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -285,12 +300,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1784E5522E0AF4300A62B5C /* gameDetailCell.xib in Resources */,
 				C19B03E022D6773400DC0AA9 /* searchResultsCell.xib in Resources */,
 				C1BCCEC3229D772B00633D00 /* LaunchScreen.storyboard in Resources */,
 				C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */,
 				C19E163722C0FE02004EE77B /* disclaimers in Resources */,
 				C14D174622DCA33600CE1B43 /* settingsCell.xib in Resources */,
 				C1BCCEC0229D772B00633D00 /* Assets.xcassets in Resources */,
+				C1784E5B22E0B71600A62B5C /* profileCell.xib in Resources */,
 				C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,9 +414,12 @@
 				C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */,
 				C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */,
 				C173A8D322B1237A001A7F97 /* Stock.swift in Sources */,
+				C1784E5422E0AF4300A62B5C /* gameDetailCell.swift in Sources */,
 				C19E163922C15320004EE77B /* buyViewController.swift in Sources */,
+				C1784E5A22E0B71600A62B5C /* profileCell.swift in Sources */,
 				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
 				C14D174222DC9ED800CE1B43 /* GameSettings.swift in Sources */,
+				C1784E5F22E0C05800A62B5C /* Overview.swift in Sources */,
 				C19B03D922D65CEA00DC0AA9 /* FindGame.swift in Sources */,
 				C19B03DB22D65FD000DC0AA9 /* TradeWindow.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,

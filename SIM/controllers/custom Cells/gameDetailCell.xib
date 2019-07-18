@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="gameDetailCell" customModule="SIM" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgT-ET-gt1" userLabel="static Game Description:">
+                        <rect key="frame" x="0.0" y="0.0" width="132" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="132" id="dX0-BS-VSd"/>
+                            <constraint firstAttribute="height" constant="21" id="vRq-xd-NDT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWk-Ll-P5T">
+                        <rect key="frame" x="0.0" y="24.5" width="320" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="T8g-lQ-KPp"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MQX-ST-tAW" userLabel="labelValues Stack view">
+                        <rect key="frame" x="0.0" y="79.5" width="320" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TestGame12345678" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgS-X3-FFQ">
+                                <rect key="frame" x="0.0" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aug 10, 2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqK-gd-qLy">
+                                <rect key="frame" x="80" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ExS-fN-AkZ">
+                                <rect key="frame" x="160" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="65%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TsY-tx-t6x">
+                                <rect key="frame" x="240" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="pKH-ze-IM0"/>
+                        </constraints>
+                    </stackView>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hE5-zO-fvG" userLabel="labelNames stack view">
+                        <rect key="frame" x="0.0" y="59.5" width="320" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX3-ha-xw3">
+                                <rect key="frame" x="0.0" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lc7-0T-36C">
+                                <rect key="frame" x="80" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="La7-HN-QLc">
+                                <rect key="frame" x="160" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="% complete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCp-nM-Lcn">
+                                <rect key="frame" x="240" y="0.0" width="80" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="wDh-IL-v2m"/>
+                        </constraints>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFo-Yj-7f9">
+                        <rect key="frame" x="0.0" y="38.5" width="132" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="132" id="J2z-6k-HQG"/>
+                            <constraint firstAttribute="height" constant="21" id="Ks1-wi-KnS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                <constraints>
+                    <constraint firstItem="kFo-Yj-7f9" firstAttribute="top" secondItem="uWk-Ll-P5T" secondAttribute="bottom" id="3ja-ll-0RZ"/>
+                    <constraint firstAttribute="trailing" secondItem="uWk-Ll-P5T" secondAttribute="trailing" id="71h-SQ-RbW"/>
+                    <constraint firstItem="wgT-ET-gt1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9PZ-ps-Y6N"/>
+                    <constraint firstAttribute="trailing" secondItem="MQX-ST-tAW" secondAttribute="trailing" id="EXt-nC-9He"/>
+                    <constraint firstItem="MQX-ST-tAW" firstAttribute="top" secondItem="hE5-zO-fvG" secondAttribute="bottom" id="Fkz-fM-odP"/>
+                    <constraint firstAttribute="trailing" secondItem="kFo-Yj-7f9" secondAttribute="trailing" constant="188" id="GYO-eK-xMf"/>
+                    <constraint firstAttribute="bottom" secondItem="MQX-ST-tAW" secondAttribute="bottom" id="Ymy-Ab-D56"/>
+                    <constraint firstItem="kFo-Yj-7f9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cmJ-nN-aEk"/>
+                    <constraint firstAttribute="trailing" secondItem="wgT-ET-gt1" secondAttribute="trailing" constant="188" id="f2x-Dx-O6h"/>
+                    <constraint firstItem="hE5-zO-fvG" firstAttribute="top" secondItem="kFo-Yj-7f9" secondAttribute="bottom" id="fAH-G9-t8s"/>
+                    <constraint firstAttribute="trailing" secondItem="hE5-zO-fvG" secondAttribute="trailing" id="gcc-0p-bW6"/>
+                    <constraint firstItem="wgT-ET-gt1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="h7X-Ns-y26"/>
+                    <constraint firstItem="MQX-ST-tAW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="noJ-mz-q89"/>
+                    <constraint firstItem="hE5-zO-fvG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ozE-Cm-aLy"/>
+                    <constraint firstItem="uWk-Ll-P5T" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rnl-Y6-vhc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dataStackViewoutlet" destination="hE5-zO-fvG" id="02w-lW-teR"/>
+                <outlet property="endDateOutlet" destination="qqK-gd-qLy" id="JAC-jd-jeU"/>
+                <outlet property="gameNameOutlet" destination="bgS-X3-FFQ" id="1uk-cX-1nn"/>
+                <outlet property="gamedescriptionLabel" destination="uWk-Ll-P5T" id="tHo-Z8-DHT"/>
+                <outlet property="labelStackViewOutlet" destination="MQX-ST-tAW" id="caQ-fK-9JJ"/>
+                <outlet property="numberOfPlayersOutlet" destination="ExS-fN-AkZ" id="Gc0-PW-5L4"/>
+                <outlet property="percentCompleteOutlet" destination="TsY-tx-t6x" id="fiN-dc-cwS"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="142.1289355322339"/>
+        </tableViewCell>
+    </objects>
+</document>
