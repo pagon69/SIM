@@ -13,14 +13,44 @@ class FindGame: UIViewController {
 
     //globals
     var currentLoggedInUser : [String:String] = [:]
+    var basicGameSettings = ""
+    var userSelectedSetings = ""
+    
     
     //IB outlets
     @IBOutlet weak var NavigationBarOutlet: UINavigationBar!
     @IBOutlet weak var bannerViewOutlet: UIView!
     @IBOutlet weak var segmentOutlet: UISegmentedControl!
     @IBOutlet weak var findGameOutlet: UIView!
-    @IBOutlet weak var newGameOutlet: UIView!
+    @IBOutlet weak var yourGamesView: UIView!
+    @IBOutlet weak var newGamesViews: UIView!
     @IBOutlet weak var welcomeTextOutlet: UILabel!
+    
+    //new game IBs
+    @IBOutlet weak var providedGmaeName: UITextField!
+    @IBOutlet weak var errorMsgLabel: UILabel!
+    @IBOutlet weak var providedGameDescription: UITextView!
+    @IBOutlet weak var providedStartingFunds: UITextField!
+    
+    //find game IB
+    
+    @IBOutlet weak var listOfAvailableGames: UITableView!
+    @IBOutlet weak var numberOfGamesLabel: UILabel!
+    @IBOutlet weak var searchForGame: UISearchBar!
+    
+    //Your Games IB
+    @IBOutlet weak var currentGameTableView: UITableView!
+    
+    @IBOutlet weak var watchListTable: UITableView!
+    
+    
+    
+    @IBAction func createGameButton(_ sender: UIButton) {
+        
+        
+    }
+    
+    
     
     //IB actions
     @IBAction func logoutClicked(_ sender: UIButton) {
@@ -41,19 +71,21 @@ class FindGame: UIViewController {
         if sender.selectedSegmentIndex == 0 {
             
             findGameOutlet.isHidden = true
-            newGameOutlet.isHidden = false
+            yourGamesView.isHidden = false
+            newGamesViews.isHidden = true
             
             
         }else if sender.selectedSegmentIndex == 1 {
             
             findGameOutlet.isHidden = false
-            newGameOutlet.isHidden = true
+            yourGamesView.isHidden = true
+            newGamesViews.isHidden = true
             
         }else {
             
             findGameOutlet.isHidden = true
-            newGameOutlet.isHidden = true
-            
+            yourGamesView.isHidden = true
+            newGamesViews.isHidden = false
         }
         
         
@@ -70,7 +102,9 @@ class FindGame: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        viewSetup()
+        
+        
     }
 
     //helper functions
@@ -89,8 +123,11 @@ class FindGame: UIViewController {
         
         //starts with  Create Game
        segmentOutlet.selectedSegmentIndex = 0
+        yourGamesView.isHidden = false
+        newGamesViews.isHidden = true
         findGameOutlet.isHidden = true
-        newGameOutlet.isHidden = false
+        //.isHidden = true
+        //newGameOutlet.isHidden = false
         //hide the continue button
         
     }
