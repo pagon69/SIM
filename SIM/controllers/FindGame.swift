@@ -9,12 +9,34 @@
 import UIKit
 import FirebaseAuth
 
-class FindGame: UIViewController {
+class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
 
     //globals
     var currentLoggedInUser : [String:String] = [:]
     var basicGameSettings = ""
     var userSelectedSetings = ""
+    var userSelectedSettings : [String:String] = [:]
+    
+    var defaultSettings = ["Short Sell",
+                           "Margin",
+                           "Limit Orders",
+                           "Stop Loss",
+                           "Partial Shares",
+                           "Commision",
+                           "Interest rate (Credit)",
+                           "Interest rate (Debt)" ]
+    
+    var defaultsValue = [true,
+                         false,
+                         false,
+                         false,
+                         false,
+                         true,
+                         false,
+                         false,
+                         false]
     
     
     //IB outlets
@@ -32,6 +54,29 @@ class FindGame: UIViewController {
     @IBOutlet weak var providedGameDescription: UITextView!
     @IBOutlet weak var providedStartingFunds: UITextField!
     
+    @IBOutlet weak var shortSaleSwitch: UISwitch!
+    @IBOutlet weak var marginSwitch: UISwitch!
+    @IBOutlet weak var partialSwitch: UISwitch!
+    @IBOutlet weak var commisionText: UITextField!
+    
+    @IBOutlet weak var interestRateText: UITextField!
+    
+    var providedGameName = ""
+    
+    @IBAction func interestrateStepper(_ sender: UIStepper) {
+        var provided: Double = 0.0
+        
+       // provided = Double(interestRateText.text)!
+        
+      interestRateText.text = String(sender.value)
+    }
+    
+    @IBAction func commisionStepper(_ sender: UIStepper) {
+        
+        interestRateText.text = String(sender.value)
+        
+    }
+    
     //find game IB
     
     @IBOutlet weak var listOfAvailableGames: UITableView!
@@ -41,11 +86,38 @@ class FindGame: UIViewController {
     //Your Games IB
     @IBOutlet weak var currentGameTableView: UITableView!
     
+    //this is an error
     @IBOutlet weak var watchListTable: UITableView!
     
     
     
     @IBAction func createGameButton(_ sender: UIButton) {
+        
+    
+        if providedGmaeName.text == "" || providedGameDescription.text == "" {
+            errorMsgLabel.text = "Please provide a game label or description"
+            
+        }else {
+            
+            let providedDesc = providedGameDescription.text ?? "nothing provided"
+            let providedGameName = providedGmaeName.text ?? "nothing provided"
+            let startingFunds = providedStartingFunds.text ?? "100000"
+            let commision = commisionText.text ?? "10.00"
+            let interest = interestRateText.text ?? "3"
+            
+        userSelectedSettings = [
+            "gameName":providedGameName,
+            "gameDescription":providedDesc,
+            "startingFunds":startingFunds,
+            "shortSale":"\(shortSaleSwitch.isOn)",
+            "margin":"\(marginSwitch.isOn)",
+            "partialShares":"\(partialSwitch.isOn)",
+            "commission":"\(commision)",
+            "interestRate":"\(interest)",
+        ]
+        
+        }
+        
         
         
     }
@@ -81,7 +153,7 @@ class FindGame: UIViewController {
             yourGamesView.isHidden = true
             newGamesViews.isHidden = true
             
-        }else {
+        }else if sender.selectedSegmentIndex == 2{
             
             findGameOutlet.isHidden = true
             yourGamesView.isHidden = true
@@ -123,6 +195,11 @@ class FindGame: UIViewController {
         
         //starts with  Create Game
        segmentOutlet.selectedSegmentIndex = 0
+        
+        yourGamesView.alpha = 1
+        newGamesViews.alpha = 1
+        findGameOutlet.alpha = 1
+        
         yourGamesView.isHidden = false
         newGamesViews.isHidden = true
         findGameOutlet.isHidden = true
@@ -136,6 +213,24 @@ class FindGame: UIViewController {
         
         
         
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        
+        
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell()
+        
+        
+        
+        
+        return cell
     }
     
     

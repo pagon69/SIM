@@ -1374,7 +1374,7 @@
                                     <action selector="segmentClicked:" destination="xts-D2-nyY" eventType="valueChanged" id="AwR-Ty-3BR"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQL-Et-kFp" userLabel="yourGames">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQL-Et-kFp" userLabel="yourGames">
                                 <rect key="frame" x="0.0" y="210" width="375" height="457"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" tag="9" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SwL-FM-gNh">
@@ -1502,11 +1502,11 @@
                                     <constraint firstItem="Aee-lB-gYi" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="z9O-cc-9HV"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-Kw-WuH" userLabel="newGameView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-Kw-WuH" userLabel="newGameView">
                                 <rect key="frame" x="0.0" y="210" width="375" height="457"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7P-4H-5MH" userLabel="gameDescription">
-                                        <rect key="frame" x="0.0" y="100" width="375" height="95"/>
+                                        <rect key="frame" x="0.0" y="70" width="375" height="95"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fTA-S3-CGY">
                                                 <rect key="frame" x="121" y="5" width="246" height="85"/>
@@ -1529,7 +1529,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ns-1L-06M" userLabel="startingFunds">
-                                        <rect key="frame" x="0.0" y="195" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="165" width="375" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="spb-Te-0GT">
                                                 <rect key="frame" x="121" y="5" width="216" height="30"/>
@@ -1566,22 +1566,8 @@
                                             <constraint firstAttribute="height" constant="50" id="Xf3-nB-7pc"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UU1-jS-PuB">
-                                        <rect key="frame" x="87" y="256" width="201" height="30"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="5Ni-F4-OkC"/>
-                                            <constraint firstAttribute="width" constant="201" id="a7B-4i-tyj"/>
-                                        </constraints>
-                                        <state key="normal" title="Button">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="createGameButton:" destination="xts-D2-nyY" eventType="touchUpInside" id="10e-S1-O7i"/>
-                                        </connections>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJi-XR-94I" userLabel="gameNameView">
-                                        <rect key="frame" x="0.0" y="40" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="10" width="375" height="60"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5rn-Cn-gnA" userLabel="userGameName">
                                                 <rect key="frame" x="121" y="5" width="216" height="30"/>
@@ -1618,18 +1604,155 @@
                                             <constraint firstAttribute="height" constant="60" id="qW9-wh-MYZ"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7u-5F-3l9" userLabel="moreGameSettings">
+                                        <rect key="frame" x="0.0" y="205" width="375" height="136"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNu-SR-e6v" userLabel="gameSettingV1">
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Short Sales" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2h-YX-Dca">
+                                                        <rect key="frame" x="8" y="0.0" width="109" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Znq-ac-9oL">
+                                                        <rect key="frame" x="39" y="25" width="49" height="31"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </switch>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DI-sc-W05" userLabel="gameSettingV2">
+                                                <rect key="frame" x="125" y="0.0" width="125" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Margin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dvg-ku-j7E" userLabel="Margin">
+                                                        <rect key="frame" x="8" y="0.0" width="109" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nsC-V6-0zp">
+                                                        <rect key="frame" x="39" y="25" width="49" height="31"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </switch>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nGS-CG-nuf" userLabel="gameSettingV3">
+                                                <rect key="frame" x="250" y="0.0" width="125" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Partial Shares" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYM-dM-tFj" userLabel="Partial Shares">
+                                                        <rect key="frame" x="8" y="0.0" width="109" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tnX-Cs-e1i">
+                                                        <rect key="frame" x="39" y="25" width="49" height="31"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </switch>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBQ-UI-xph" userLabel="gameSettingV4">
+                                                <rect key="frame" x="0.0" y="72" width="187" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Commission" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdQ-eH-tps">
+                                                        <rect key="frame" x="8" y="8" width="171" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="1" maximumValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="JSp-9g-kDj">
+                                                        <rect key="frame" x="85" y="27" width="94" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <connections>
+                                                            <action selector="commisionStepper:" destination="xts-D2-nyY" eventType="valueChanged" id="R1C-Jj-hBR"/>
+                                                        </connections>
+                                                    </stepper>
+                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="6" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USZ-DU-zpi">
+                                                        <rect key="frame" x="8" y="26" width="69" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDE-Pg-0Ul" userLabel="gameSettingV4">
+                                                <rect key="frame" x="188" y="72" width="187" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Interest Rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30q-DB-fFB">
+                                                        <rect key="frame" x="8" y="8" width="171" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minimumValue="1" maximumValue="100" stepValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="w1F-xi-Bu1">
+                                                        <rect key="frame" x="85" y="27" width="94" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <connections>
+                                                            <action selector="interestrateStepper:" destination="xts-D2-nyY" eventType="valueChanged" id="4OY-R3-EMY"/>
+                                                        </connections>
+                                                    </stepper>
+                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="10.00" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgD-Yu-KrT">
+                                                        <rect key="frame" x="8" y="26" width="69" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="136" id="cHN-9Q-wkX"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UU1-jS-PuB">
+                                        <rect key="frame" x="87" y="359" width="201" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="5Ni-F4-OkC"/>
+                                            <constraint firstAttribute="width" constant="201" id="a7B-4i-tyj"/>
+                                        </constraints>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createGameButton:" destination="xts-D2-nyY" eventType="touchUpInside" id="10e-S1-O7i"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="84L-Om-aeP" firstAttribute="top" secondItem="UU1-jS-PuB" secondAttribute="bottom" constant="121" id="4th-8q-URg"/>
+                                    <constraint firstItem="84L-Om-aeP" firstAttribute="top" secondItem="UU1-jS-PuB" secondAttribute="bottom" constant="18" id="4th-8q-URg"/>
                                     <constraint firstItem="F7P-4H-5MH" firstAttribute="top" secondItem="HJi-XR-94I" secondAttribute="bottom" id="9Lw-ns-fUV"/>
                                     <constraint firstAttribute="trailing" secondItem="7ns-1L-06M" secondAttribute="trailing" id="A4f-Kt-Omq"/>
+                                    <constraint firstAttribute="trailing" secondItem="O7u-5F-3l9" secondAttribute="trailing" id="G7k-qP-hbQ"/>
+                                    <constraint firstItem="O7u-5F-3l9" firstAttribute="top" secondItem="7ns-1L-06M" secondAttribute="bottom" id="MIq-qv-Bup"/>
                                     <constraint firstAttribute="trailing" secondItem="HJi-XR-94I" secondAttribute="trailing" id="MrJ-Qk-gsv"/>
-                                    <constraint firstAttribute="bottom" secondItem="UU1-jS-PuB" secondAttribute="bottom" constant="171" id="Nhj-gr-hm3"/>
+                                    <constraint firstAttribute="bottom" secondItem="UU1-jS-PuB" secondAttribute="bottom" constant="68" id="Nhj-gr-hm3"/>
                                     <constraint firstItem="HJi-XR-94I" firstAttribute="leading" secondItem="a1W-Kw-WuH" secondAttribute="leading" id="TVx-8f-kkX"/>
                                     <constraint firstAttribute="bottom" secondItem="84L-Om-aeP" secondAttribute="bottom" id="Uqi-nc-vWK"/>
                                     <constraint firstItem="F7P-4H-5MH" firstAttribute="leading" secondItem="a1W-Kw-WuH" secondAttribute="leading" id="Xe9-3d-RaK"/>
-                                    <constraint firstItem="UU1-jS-PuB" firstAttribute="top" secondItem="7ns-1L-06M" secondAttribute="bottom" constant="21" id="ixh-kc-gLO"/>
+                                    <constraint firstItem="O7u-5F-3l9" firstAttribute="leading" secondItem="a1W-Kw-WuH" secondAttribute="leading" id="go3-Vp-f6b"/>
+                                    <constraint firstItem="UU1-jS-PuB" firstAttribute="top" secondItem="7ns-1L-06M" secondAttribute="bottom" constant="154" id="ixh-kc-gLO"/>
                                     <constraint firstItem="UU1-jS-PuB" firstAttribute="leading" secondItem="a1W-Kw-WuH" secondAttribute="leading" constant="87" id="k15-Zq-0MW"/>
                                     <constraint firstItem="7ns-1L-06M" firstAttribute="top" secondItem="F7P-4H-5MH" secondAttribute="bottom" id="puF-Vg-5D4"/>
                                     <constraint firstItem="84L-Om-aeP" firstAttribute="leading" secondItem="a1W-Kw-WuH" secondAttribute="leading" id="rPB-4L-hZr"/>
@@ -1672,18 +1795,23 @@
                     <connections>
                         <outlet property="NavigationBarOutlet" destination="lmz-9v-PiU" id="ioM-vO-agM"/>
                         <outlet property="bannerViewOutlet" destination="w4T-st-1HP" id="wTg-bo-qSX"/>
-                        <outlet property="currentGameTableView" destination="SwL-FM-gNh" id="MhF-Ei-wTS"/>
+                        <outlet property="commisionText" destination="USZ-DU-zpi" id="ATH-0l-W1s"/>
+                        <outlet property="currentGameTableView" destination="SwL-FM-gNh" id="nas-MB-XNa"/>
                         <outlet property="errorMsgLabel" destination="FoC-Ds-8ZN" id="e8n-a6-35P"/>
                         <outlet property="findGameOutlet" destination="7ea-fZ-6Fw" id="y1u-E9-Jif"/>
+                        <outlet property="interestRateText" destination="UgD-Yu-KrT" id="Kgi-jQ-fUd"/>
                         <outlet property="listOfAvailableGames" destination="jED-bm-qVK" id="HWV-VG-9oM"/>
+                        <outlet property="marginSwitch" destination="nsC-V6-0zp" id="8oG-kd-NoC"/>
                         <outlet property="newGamesViews" destination="a1W-Kw-WuH" id="Usp-U0-Ayq"/>
                         <outlet property="numberOfGamesLabel" destination="Aee-lB-gYi" id="hoB-GN-Ikz"/>
+                        <outlet property="partialSwitch" destination="tnX-Cs-e1i" id="hEh-Bp-4Ba"/>
                         <outlet property="providedGameDescription" destination="fTA-S3-CGY" id="bTV-1T-3s2"/>
                         <outlet property="providedGmaeName" destination="5rn-Cn-gnA" id="Mk7-03-vfa"/>
                         <outlet property="providedStartingFunds" destination="spb-Te-0GT" id="UAB-ke-gNR"/>
                         <outlet property="searchForGame" destination="uB4-B9-tmd" id="OhC-r1-sle"/>
                         <outlet property="segmentOutlet" destination="aNn-at-SVE" id="bDS-rm-ldF"/>
-                        <outlet property="watchListTable" destination="zL2-3B-hnF" id="S0Y-6R-XAM"/>
+                        <outlet property="shortSaleSwitch" destination="Znq-ac-9oL" id="3Hv-GO-MQ3"/>
+                        <outlet property="watchListTable" destination="jED-bm-qVK" id="4YH-3e-O2T"/>
                         <outlet property="welcomeTextOutlet" destination="Bjt-YZ-Chj" id="nqw-b3-Jds"/>
                         <outlet property="yourGamesView" destination="bQL-Et-kFp" id="bUt-LJ-kvK"/>
                         <segue destination="4MC-hp-F77" kind="showDetail" identifier="goToLoginPage" id="XBu-cc-aTv"/>
