@@ -1439,18 +1439,17 @@
                                     <constraint firstItem="SwL-FM-gNh" firstAttribute="leading" secondItem="bQL-Et-kFp" secondAttribute="leading" id="v2e-a4-xuh"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ea-fZ-6Fw" userLabel="findGameView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ea-fZ-6Fw" userLabel="findGameView">
                                 <rect key="frame" x="0.0" y="210" width="375" height="457"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="Find a game by name" translatesAutoresizingMaskIntoConstraints="NO" id="uB4-B9-tmd">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="POs-H6-645"/>
-                                            <constraint firstAttribute="width" constant="375" id="pvf-8m-D4w"/>
                                         </constraints>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aee-lB-gYi" userLabel="numberOfGamesLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="4500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aee-lB-gYi" userLabel="numberOfGamesLabel">
                                         <rect key="frame" x="0.0" y="56" width="383" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="DKE-6a-SKg"/>
@@ -1460,7 +1459,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Games currently played" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciy-be-fau">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Games currently played" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciy-be-fau">
                                         <rect key="frame" x="0.0" y="100" width="375" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="n9g-XU-m4O"/>
@@ -1489,20 +1488,20 @@
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="uB4-B9-tmd" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="4IT-Dj-Blk"/>
                                     <constraint firstAttribute="trailing" secondItem="Aee-lB-gYi" secondAttribute="trailing" constant="-8" id="4oT-N7-oms"/>
                                     <constraint firstItem="ciy-be-fau" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="6Nc-1B-WTu"/>
                                     <constraint firstItem="ciy-be-fau" firstAttribute="top" secondItem="Aee-lB-gYi" secondAttribute="bottom" constant="8" id="7Qi-ys-TTG"/>
                                     <constraint firstAttribute="bottom" secondItem="jED-bm-qVK" secondAttribute="bottom" id="OvS-u2-j6H"/>
-                                    <constraint firstItem="uB4-B9-tmd" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="P9h-5d-yzQ"/>
                                     <constraint firstAttribute="trailing" secondItem="jED-bm-qVK" secondAttribute="trailing" id="Snq-Xn-MbS"/>
-                                    <constraint firstItem="Aee-lB-gYi" firstAttribute="top" secondItem="uB4-B9-tmd" secondAttribute="bottom" id="lmn-UJ-t7c"/>
                                     <constraint firstItem="jED-bm-qVK" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="lv3-pz-SEN"/>
+                                    <constraint firstAttribute="trailing" secondItem="uB4-B9-tmd" secondAttribute="trailing" id="s0P-Ht-OtY"/>
                                     <constraint firstItem="uB4-B9-tmd" firstAttribute="top" secondItem="7ea-fZ-6Fw" secondAttribute="top" id="uml-CS-wtW"/>
                                     <constraint firstAttribute="trailing" secondItem="ciy-be-fau" secondAttribute="trailing" id="urN-dd-E27"/>
                                     <constraint firstItem="Aee-lB-gYi" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="z9O-cc-9HV"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-Kw-WuH" userLabel="newGameView">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-Kw-WuH" userLabel="newGameView">
                                 <rect key="frame" x="0.0" y="210" width="375" height="457"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7P-4H-5MH" userLabel="gameDescription">
@@ -1681,7 +1680,7 @@
                                                             <action selector="commisionStepper:" destination="xts-D2-nyY" eventType="valueChanged" id="R1C-Jj-hBR"/>
                                                         </connections>
                                                     </stepper>
-                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="6" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USZ-DU-zpi">
+                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USZ-DU-zpi">
                                                         <rect key="frame" x="8" y="26" width="69" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1708,7 +1707,7 @@
                                                             <action selector="interestrateStepper:" destination="xts-D2-nyY" eventType="valueChanged" id="4OY-R3-EMY"/>
                                                         </connections>
                                                     </stepper>
-                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="10.00" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgD-Yu-KrT">
+                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgD-Yu-KrT">
                                                         <rect key="frame" x="8" y="26" width="69" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1815,11 +1814,12 @@
                         <outlet property="welcomeTextOutlet" destination="Bjt-YZ-Chj" id="nqw-b3-Jds"/>
                         <outlet property="yourGamesView" destination="bQL-Et-kFp" id="bUt-LJ-kvK"/>
                         <segue destination="4MC-hp-F77" kind="showDetail" identifier="goToLoginPage" id="XBu-cc-aTv"/>
+                        <segue destination="ATI-Mj-FBc" kind="showDetail" identifier="goToOverview" id="fXb-AS-6bl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sCY-hQ-MCF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2989.5999999999999" y="-2290.704647676162"/>
+            <point key="canvasLocation" x="2833" y="-2290"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="heM-re-J3Y">

@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -38,6 +39,10 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
                          false,
                          false]
     
+    //firebase Db setup
+    var ref: DatabaseReference!
+    
+    
     
     //IB outlets
     @IBOutlet weak var NavigationBarOutlet: UINavigationBar!
@@ -67,13 +72,13 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
         var provided: Double = 0.0
         
        // provided = Double(interestRateText.text)!
-        
-      interestRateText.text = String(sender.value)
+         interestRateText.text = "\(sender.value)%"
     }
     
     @IBAction func commisionStepper(_ sender: UIStepper) {
         
-        interestRateText.text = String(sender.value)
+       
+        commisionText.text = "$\(sender.value)"
         
     }
     
@@ -93,7 +98,9 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBAction func createGameButton(_ sender: UIButton) {
         
+        var newString = currentLoggedInUser["playerEmail"]
     
+    //adds
         if providedGmaeName.text == "" || providedGameDescription.text == "" {
             errorMsgLabel.text = "Please provide a game label or description"
             
@@ -114,10 +121,15 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
             "partialShares":"\(partialSwitch.isOn)",
             "commission":"\(commision)",
             "interestRate":"\(interest)",
+            "playersInGame":"\(currentLoggedInUser["playerEmail"] ?? "No user found")"
         ]
         
+            ref.child("GamesTrackedByGameName/\(providedGameName)").setValue(userSelectedSettings)
+            
+            //do a progress hud show
+            
+           // performSegue(withIdentifier: "goToOverview", sender: self)
         }
-        
         
         
     }
@@ -153,6 +165,22 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
             yourGamesView.isHidden = true
             newGamesViews.isHidden = true
             
+            //do progress hud show
+            
+            //look up user and games played
+            
+            ref.child("GameUsers").child(newString).observe(DataEventType.value) { (snapShot) in
+                
+                let pulleduserdata = snapShot.value as? [String:String] ?? [:]
+                
+                //pulleduserdata.isEmpty
+                
+                self.nickName = pulleduserdata["userNickName"] ?? ""
+                self.email = pulleduserdata["playerEmail"] ?? ""
+                self.cash = pulleduserdata["gameInProgress"] ?? ""
+                
+            }
+            
         }else if sender.selectedSegmentIndex == 2{
             
             findGameOutlet.isHidden = true
@@ -174,6 +202,8 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        ref = Database.database().reference()
+        
         viewSetup()
         
         
@@ -194,7 +224,9 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func viewSetup(){
         
         //starts with  Create Game
-       segmentOutlet.selectedSegmentIndex = 0
+        segmentOutlet.selectedSegmentIndex = 0
+        commisionText.text = "$10.00"
+        interestRateText.text = "3.0%"
         
         yourGamesView.alpha = 1
         newGamesViews.alpha = 1
