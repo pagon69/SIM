@@ -21,6 +21,9 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var userSelectedSettings : [String:String] = [:]
     var numberOfGames = 0
     var numGames = 0
+    var test = ["test1","test2", "test3","test4"]
+    
+    var myGameInfo = [GamesInfo]()
     
     var defaultSettings = ["Short Sell",
                            "Margin",
@@ -86,9 +89,11 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //find game IB
     
-    @IBOutlet weak var listOfAvailableGames: UITableView!
+    
     @IBOutlet weak var numberOfGamesLabel: UILabel!
     @IBOutlet weak var searchForGame: UISearchBar!
+    @IBOutlet weak var findGameTableView: UITableView!
+    
     
     //Your Games IB
     @IBOutlet weak var currentGameTableView: UITableView!
@@ -231,30 +236,65 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
             //do progress hud show
             
             //look up user and games played
-            
         
+            ref.child("GamesTrackedByGameName").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                
+                if let pulledData = snapshot.value as? [String:[String:String]]? ?? ["":[:]] {
+                    var newData = [GamesInfo]()
+                    for each in pulledData{
+                        print(each.value["commission"] ?? "test")
+                        
+                        var myData = GamesInfo(commission: each.value["commission"] ?? "",
+                                               gameDescription: each.value["gameDescription"] ?? "",
+                                                gameName: each.value["gamename"] ?? "",
+                                               interestRate: each.value["interestRate"] ?? "",
+                                               margin: each.value["margin"] ?? "",
+                                               endDate: each.value["endDate"] ?? "",
+                                               partialShares: each.value["partialShares"] ?? "",
+                                               playersInGame: each.value["playersInGame"] ?? "",
+                                               shortSale: each.value["shortSale"] ?? "",
+                                               startingFunds: each.value["startingFunds"] ?? ""
+                        )
+                        
+                        newData.append(myData)
+                    }
+                    
+                    self.myGameInfo = newData
+                    
+                    print("within pulledData: \(self.myGameInfo.count)")
+                    self.findGameTableView.reloadData()
+                    
+                }
+
+            }) { (error) in
+                
+                if error == nil{
+                    print("everythign worked")
+                    self.findGameTableView.reloadData()
+                }else{
+                    print("something went wrong: \(error)")
+                    self.findGameTableView.reloadData()
+                    
+                }
+            }
+            
+           // self.findGameTableView.reloadData()
+
+            print("number of items in myGamesInfo: \(myGameInfo.count)")
+           // self.listOfAvailableGames.reloadData()
+            
+            //looks at how many games going in system
             ref.child("NumberOfGamesInProgress/SIM").observe(DataEventType.value) { (snapShot) in
                 
                 let pulleduserdata = snapShot.value as? [String:String] ?? [:]
                 
                 self.numberOfGamesLabel.text = pulleduserdata["numberOfLiveGames"]
-             
-    
-                
             }
             
-            
- 
-            /*
-            ref.child("GameUsers").queryOrderedByKey(). { (snapShot) in
-                
-                let pulleduserdata = snapShot.value as? [[String:String]] ?? [[:]]
-                print(pulleduserdata.count)
-                print(pulleduserdata)
-            }
-            */
-        
-            
+            //can use this to serch for a game from the lst of games with searchbar
+          //  let itemtest = snapshot.hasChild(<#T##childPathString: String##String#>)
+
+            findGameTableView.reloadData()
             
         }else if sender.selectedSegmentIndex == 2{
             
@@ -277,6 +317,55 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
         performSegue(withIdentifier: "goToTradePage", sender: self)
     }
     
+    // my table view cells
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell: UITableViewCell = UITableViewCell()
+        
+        if(tableView.tag == 0){
+            cell = currentGameTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
+            
+        
+        }
+        
+        if(tableView.tag == 1){
+            cell = watchListTable.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! searchResultsCell
+        }
+        
+        if(tableView.tag == 2){
+            //cell = listOfAvailableGames.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
+            cell = findGameTableView.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
+        
+
+            print("in cell this should appear 2 times")
+        }
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        var count = 3
+        
+        if tableView.tag == 0{
+            
+            count = 2
+        }
+        if tableView.tag == 1{
+            
+            count = 2
+            
+        }
+        if tableView.tag == 2{
+            
+            count = myGameInfo.count
+            
+        }
+        
+        
+        return count
+    }
     
     
     override func viewDidLoad() {
@@ -286,9 +375,9 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         watchListTable.register(UINib(nibName: "searchResultsCell", bundle: nil), forCellReuseIdentifier: "customCell")
         currentGameTableView.register(UINib(nibName: "profileCell", bundle: nil), forCellReuseIdentifier: "profileCell")
-        listOfAvailableGames.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
+        findGameTableView.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
         
-        listOfAvailableGames.autoresizesSubviews = true
+        findGameTableView.autoresizesSubviews = true
         currentGameTableView.autoresizesSubviews = true
         watchListTable.autoresizesSubviews = true
         
@@ -328,6 +417,8 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
         //newGameOutlet.isHidden = false
         //hide the continue button
         
+       // findGameTableView.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -354,54 +445,31 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     //default functions for my table views
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        var count = 1
+   
+    
+   
+    
+    //used to manage the custom tableview cell sizes
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        var height: CGFloat = CGFloat(exactly: NSNumber(value: 44.0)) ?? 44.0
+    
         if tableView.tag == 0{
             
-            return count
+                height = 90.0
         }
         if tableView.tag == 1{
             
-            return count
+             height = 44.0
         }
         if tableView.tag == 2{
             
-            return count
+             height = 100.0
         }
         
+        return height
         
-        return 1
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var cell = UITableViewCell()
-        
-        
-        if(tableView.tag == 0){
-            cell = currentGameTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
-        }
-        
-        if(tableView.tag == 1){
-            cell = watchListTable.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! searchResultsCell
-            
-        }
-        
-       if(tableView.tag == 2){
-            
-         cell = listOfAvailableGames.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
-        
-        
-            
-       }
-        
-        
-        
-    return cell
-    }
-    
     
     
 }

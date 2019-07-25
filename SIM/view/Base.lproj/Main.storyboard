@@ -1384,7 +1384,7 @@
                                             <constraint firstAttribute="height" constant="176" id="OoQ-Yp-uR5"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profileCell" rowHeight="90" id="9RR-X9-Rqj">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profileCell" rowHeight="90" id="9RR-X9-Rqj" customClass="profileCell" customModule="SIM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9RR-X9-Rqj" id="H3G-XI-ziA">
@@ -1402,7 +1402,7 @@
                                         <rect key="frame" x="0.0" y="184" width="375" height="215"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="watchListCell" id="NE2-mA-ibt">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customCell" id="NE2-mA-ibt" customClass="searchResultsCell" customModule="SIM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NE2-mA-ibt" id="8QN-tK-hvj">
@@ -1439,7 +1439,7 @@
                                     <constraint firstItem="SwL-FM-gNh" firstAttribute="leading" secondItem="bQL-Et-kFp" secondAttribute="leading" id="v2e-a4-xuh"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ea-fZ-6Fw" userLabel="findGameView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ea-fZ-6Fw" userLabel="findGameView">
                                 <rect key="frame" x="0.0" y="210" width="375" height="457"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="Find a game by name" translatesAutoresizingMaskIntoConstraints="NO" id="uB4-B9-tmd">
@@ -1467,46 +1467,46 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jED-bm-qVK">
+                                    <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4nw-GP-7M3">
                                         <rect key="frame" x="0.0" y="129" width="375" height="328"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="328" id="RAR-Jy-u3J"/>
+                                            <constraint firstAttribute="height" constant="328" id="AW9-mC-1dV"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gameDetailCell" rowHeight="100" id="6HI-RS-zba">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="3xv-aY-LeN" customClass="gameDetailCell" customModule="SIM" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6HI-RS-zba" id="QqX-ex-sK6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3xv-aY-LeN" id="cV8-q5-eOC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
-                                            <outlet property="dataSource" destination="xts-D2-nyY" id="DML-Xx-Mkt"/>
-                                            <outlet property="delegate" destination="xts-D2-nyY" id="1ea-2d-KXT"/>
+                                            <outlet property="dataSource" destination="xts-D2-nyY" id="dKH-vm-m4f"/>
+                                            <outlet property="delegate" destination="xts-D2-nyY" id="f1M-g1-hgP"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="ciy-be-fau" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="6Nc-1B-WTu"/>
+                                    <constraint firstItem="ciy-be-fau" firstAttribute="top" secondItem="7ea-fZ-6Fw" secondAttribute="top" constant="100" id="8BN-d4-azq"/>
                                     <constraint firstItem="Aee-lB-gYi" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="979-Lo-W4z"/>
                                     <constraint firstAttribute="trailing" secondItem="Aee-lB-gYi" secondAttribute="trailing" id="9Jy-33-PTD"/>
                                     <constraint firstItem="Aee-lB-gYi" firstAttribute="top" secondItem="uB4-B9-tmd" secondAttribute="bottom" id="Ns1-AA-BMC"/>
-                                    <constraint firstAttribute="bottom" secondItem="jED-bm-qVK" secondAttribute="bottom" id="OvS-u2-j6H"/>
                                     <constraint firstAttribute="height" constant="457" id="QVE-SF-bqx"/>
-                                    <constraint firstAttribute="trailing" secondItem="jED-bm-qVK" secondAttribute="trailing" id="Snq-Xn-MbS"/>
                                     <constraint firstItem="uB4-B9-tmd" firstAttribute="top" secondItem="7ea-fZ-6Fw" secondAttribute="top" id="acr-Sk-G7u"/>
-                                    <constraint firstItem="ciy-be-fau" firstAttribute="top" secondItem="Aee-lB-gYi" secondAttribute="bottom" constant="8" id="c1n-P3-AbQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="4nw-GP-7M3" secondAttribute="trailing" id="fVR-q2-xuO"/>
                                     <constraint firstItem="uB4-B9-tmd" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="ifJ-aa-WHh"/>
-                                    <constraint firstItem="jED-bm-qVK" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="lv3-pz-SEN"/>
+                                    <constraint firstAttribute="bottom" secondItem="4nw-GP-7M3" secondAttribute="bottom" id="mB7-hI-ObR"/>
+                                    <constraint firstItem="4nw-GP-7M3" firstAttribute="leading" secondItem="7ea-fZ-6Fw" secondAttribute="leading" id="n0C-xU-2kU"/>
                                     <constraint firstAttribute="trailing" secondItem="ciy-be-fau" secondAttribute="trailing" id="urN-dd-E27"/>
                                     <constraint firstAttribute="trailing" secondItem="uB4-B9-tmd" secondAttribute="trailing" id="xcO-Zt-nz1"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-Kw-WuH" userLabel="newGameView">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-Kw-WuH" userLabel="newGameView">
                                 <rect key="frame" x="0.0" y="210" width="375" height="457"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7P-4H-5MH" userLabel="gameDescription">
@@ -1803,8 +1803,8 @@
                         <outlet property="currentGameTableView" destination="SwL-FM-gNh" id="nas-MB-XNa"/>
                         <outlet property="errorMsgLabel" destination="FoC-Ds-8ZN" id="e8n-a6-35P"/>
                         <outlet property="findGameOutlet" destination="7ea-fZ-6Fw" id="y1u-E9-Jif"/>
+                        <outlet property="findGameTableView" destination="4nw-GP-7M3" id="iTP-eA-cfS"/>
                         <outlet property="interestRateText" destination="UgD-Yu-KrT" id="Kgi-jQ-fUd"/>
-                        <outlet property="listOfAvailableGames" destination="jED-bm-qVK" id="HWV-VG-9oM"/>
                         <outlet property="marginSwitch" destination="nsC-V6-0zp" id="8oG-kd-NoC"/>
                         <outlet property="newGamesViews" destination="a1W-Kw-WuH" id="Usp-U0-Ayq"/>
                         <outlet property="numberOfGamesLabel" destination="Aee-lB-gYi" id="hoB-GN-Ikz"/>
