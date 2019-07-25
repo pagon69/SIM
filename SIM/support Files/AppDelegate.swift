@@ -188,9 +188,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
                           "gameName":"testGame1"
             
         ]
+        
+        var userDetailsFour = ["numberOfLiveGames":"1","UseForMissingAttributes":"inTheFuture" ]
+        
+        
         //creates a database call SIMPlyerScores, makes the key name the users email address and adds data.
         ref.child("GameUsers/\(newString)").setValue(userDetailsTwo)
       
+       // ref.child("NumberOfGamesInProgress/SIM").setValue(userDetailsFour)
+        
         //reading data from the DB, generic without naming what to look for
         ref.observe(DataEventType.value) { (snapShot) in
             let pulleduserdata = snapShot.value as? [[String:String]] ?? [[:]]
