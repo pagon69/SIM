@@ -9,6 +9,7 @@
 import UIKit
 
 
+
 class LoginScreen: UIViewController {
 
     //globals
@@ -16,7 +17,7 @@ class LoginScreen: UIViewController {
     
     
     
-    //ib actions
+    //MARK: - IB actions and globals
     @IBOutlet weak var emailButtonOutlet: UIButton!
     @IBOutlet weak var loginViewOutlet: UIView!
     
@@ -80,7 +81,7 @@ class LoginScreen: UIViewController {
         
     }
     
-    //starts animation right before the page appears.
+    //MARK: - fade in animation, starts animation right before the page appears.
     override func viewWillAppear(_ animated: Bool) {
         loginViewOutlet.alpha = 0
         loginViewOutlet.layer.cornerRadius =  40

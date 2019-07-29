@@ -20,6 +20,7 @@ class GamesInfo {
     var playersInGame: String
     var shortSale: String
     var startingFunds: String
+    var startDate: String
     
     
     func composeFBData() -> [String: String]{
@@ -34,13 +35,14 @@ class GamesInfo {
                   "partialShares":"\(partialShares)",
                   "playersInGame":"\(playersInGame)",
                   "shortSale":"\(shortSale)",
-                  "startingFunds":"\(startingFunds)"
+                  "startingFunds":"\(startingFunds)",
+                  "startDate":"\(startDate)"
         ]
         
         return fbData
     }
     
-    init(commission: String, gameDescription: String,gameName: String, interestRate: String, margin: String, endDate: String,partialShares: String,playersInGame: String,shortSale: String,startingFunds: String) {
+    init(commission: String, gameDescription: String,gameName: String, interestRate: String, margin: String, endDate: String,partialShares: String,playersInGame: String,shortSale: String,startingFunds: String, startDate: String) {
         self.commission = commission
         self.gameDescription = gameDescription
         self.gameName = gameName
@@ -51,6 +53,7 @@ class GamesInfo {
         self.playersInGame = playersInGame
         self.shortSale = shortSale
         self.startingFunds = startingFunds
+        self.startDate = startDate
     }
     
 }

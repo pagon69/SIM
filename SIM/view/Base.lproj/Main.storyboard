@@ -609,7 +609,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.46274509803921571" green="0.51764705882352946" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aIb-8i-t3F" firstAttribute="trailing" secondItem="dZH-ID-etv" secondAttribute="trailing" constant="41" id="MmS-RF-AVr"/>
                             <constraint firstItem="dZH-ID-etv" firstAttribute="leading" secondItem="aIb-8i-t3F" secondAttribute="leading" constant="40" id="ZUp-WI-SWY"/>
@@ -1398,11 +1398,11 @@
                                             <outlet property="delegate" destination="xts-D2-nyY" id="YB9-ud-E6k"/>
                                         </connections>
                                     </tableView>
-                                    <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zL2-3B-hnF">
+                                    <tableView clipsSubviews="YES" tag="3" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zL2-3B-hnF">
                                         <rect key="frame" x="0.0" y="184" width="375" height="215"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customCell" id="NE2-mA-ibt" customClass="searchResultsCell" customModule="SIM" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchResultsCell" id="NE2-mA-ibt" customClass="searchResultsCell" customModule="SIM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NE2-mA-ibt" id="8QN-tK-hvj">
@@ -1474,7 +1474,7 @@
                                             <constraint firstAttribute="height" constant="328" id="AW9-mC-1dV"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="3xv-aY-LeN" customClass="gameDetailCell" customModule="SIM" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gameDetailCell" id="3xv-aY-LeN" customClass="gameDetailCell" customModule="SIM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3xv-aY-LeN" id="cV8-q5-eOC">
@@ -3729,7 +3729,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.46274509803921571" green="0.51764705882352946" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="d33-To-oaN" firstAttribute="leading" secondItem="QC4-4D-bgu" secondAttribute="leading" constant="67" id="0fB-il-6xJ"/>
                             <constraint firstItem="d33-To-oaN" firstAttribute="top" secondItem="QC4-4D-bgu" secondAttribute="top" constant="142" id="Lj7-yQ-hge"/>

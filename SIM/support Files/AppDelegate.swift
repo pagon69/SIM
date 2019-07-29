@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
@@ -124,6 +125,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        
+        //MARK: - Chameleon pod with color choices
+        //Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatNavyBlueColorDark(), with: .light)
+        Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatGray(), withSecondaryColor: UIColor.flatWhite(), andContentStyle: .contrast)
         
         //database information
         var myDatabaseRef = Database.database().reference()

@@ -10,10 +10,32 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
+    //used to add and remove animation along with track when something happens when you start tying in a text field
+    //can be used to remove keyboard also
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //textFieldHeightConstraint.constant = 300
+        //view.layoutifneeded() - re-draw
+    }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //called when you finish typing and can be used to close or remove keyboard
+        
+        //someplace in my code i have to call the below end editting options
+        //myTextfield.endeditting = true
+    }
 
+    //custom tap jester below
+    
+   // let myCustomTapGester = UITapGestureRecognizer(target: self(), action: #selector(tableViewTapped))
+    
+    //create the tableviewTappped function, you can call any methed you wnat from this selector
+
+    //use the an outlet we have to add a gester reconizer
+    //mycustomOutlet.addGestureRecognizer(tapGesture)
+    
+    
     //globals
     var currentLoggedInUser : [String:String] = [:]
     var basicGameSettings = ""
@@ -221,7 +243,9 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
             yourGamesView.alpha = 1
             newGamesViews.alpha = 0
             
+            profileSetup(currentSegment: sender.selectedSegmentIndex)
             
+                
             
         }else if sender.selectedSegmentIndex == 1 {
             
@@ -236,6 +260,7 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
             //do progress hud show
             
             //look up user and games played
+            profileSetup(currentSegment: sender.selectedSegmentIndex)
         
             ref.child("GamesTrackedByGameName").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 
@@ -246,14 +271,15 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
                         
                         var myData = GamesInfo(commission: each.value["commission"] ?? "",
                                                gameDescription: each.value["gameDescription"] ?? "",
-                                                gameName: each.value["gamename"] ?? "",
+                                                gameName: each.value["gameName"] ?? "",
                                                interestRate: each.value["interestRate"] ?? "",
                                                margin: each.value["margin"] ?? "",
                                                endDate: each.value["endDate"] ?? "",
                                                partialShares: each.value["partialShares"] ?? "",
                                                playersInGame: each.value["playersInGame"] ?? "",
                                                shortSale: each.value["shortSale"] ?? "",
-                                               startingFunds: each.value["startingFunds"] ?? ""
+                                               startingFunds: each.value["startingFunds"] ?? "",
+                                               startDate: each.value["startDate"] ?? ""
                         )
                         
                         newData.append(myData)
@@ -313,31 +339,37 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     
+    
+    
     @IBAction func gameSettingsClicked(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "goToTradePage", sender: self)
     }
     
     // my table view cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var cell: UITableViewCell = UITableViewCell()
+        var cell = UITableViewCell()
         
         if(tableView.tag == 0){
-            cell = currentGameTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
-            
-        
+            let cell = currentGameTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
+            cell.cashRemainingOutlet?.text = "23453"
+            return cell
         }
         
-        if(tableView.tag == 1){
-            cell = watchListTable.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! searchResultsCell
+        if(tableView.tag == 3){
+            let cell = watchListTable.dequeueReusableCell(withIdentifier: "searchResultsCell", for: indexPath) as! searchResultsCell
+            cell.companyName?.text = "Google Inc"
+            return cell
         }
         
         if(tableView.tag == 2){
-            //cell = listOfAvailableGames.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
-            cell = findGameTableView.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
-        
-
-            print("in cell this should appear 2 times")
+            let cell = findGameTableView.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
+            cell.gameNameOutlet?.text = myGameInfo[indexPath.row].gameName
+            cell.gamedescriptionLabel?.text = myGameInfo[indexPath.row].gameDescription
+            cell.endDateOutlet?.text = myGameInfo[indexPath.row].endDate
+            cell.numberOfPlayersOutlet?.text = myGameInfo[indexPath.row].playersInGame
+            cell.percentCompleteOutlet?.text = "fix this"
+            
+            return cell
         }
         
         return cell
@@ -346,28 +378,26 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        var count = 3
+        var count = 1
         
-        if tableView.tag == 0{
-            
-            count = 2
-        }
         if tableView.tag == 1{
             
-            count = 2
+            count = 1
+        }
+        if tableView.tag == 3{
             
+            count = 1
         }
         if tableView.tag == 2{
             
             count = myGameInfo.count
             
         }
-        
-        
+
         return count
     }
     
-    
+    //MARK: - view did load
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -384,21 +414,48 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         viewSetup()
         
+        //testing
+        getDataFromFireBase()
+        
         
     }
 
     //helper functions
     
+    //TODO: create something pulls data from Firebase
     func getDataFromFireBase(){
         
+        //if cell.detailtext.text == someThingElse as String! {}  versus String(someData)
+        //chameleonFramework - colors and more
         
+        //good to check for changes to the DB
+        let searchResultsDBReferefence = Database.database().reference().child("GameUsers")
+        
+        //working search code: i can search a DB for something and display results
+        searchResultsDBReferefence.queryOrdered(byChild: "playerEmail").queryEqual(toValue: "a@a.com").observeSingleEvent(of: .value) { (snapshot) in
+            
+            print("\n\n\nthe results of my search: \(snapshot)/n/n\n")
+        }
+        
+        //
+        
+        searchResultsDBReferefence.observe(.childChanged) { (snapshot) in
+            snapshot.value as! [String: String]
+            print("this is what is within the snapshot: \(snapshot)")
+        }
+        
+        var tester = searchResultsDBReferefence.queryEqual(toValue: "a@a_com")
+        print("this is a quary search test: \(tester)")
+       // tester.
+        
+       // searchResultsDBReferefence.queryStarting(atValue: tester).
         
         
     }
     
     
     
-    
+    //Mark: - View setup functions
     func viewSetup(){
         
         //starts with  Create Game
@@ -413,13 +470,85 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
         yourGamesView.isHidden = false
         newGamesViews.isHidden = true
         findGameOutlet.isHidden = true
-        //.isHidden = true
-        //newGameOutlet.isHidden = false
-        //hide the continue button
         
-       // findGameTableView.reloadData()
-        
+       // profileSetup()
     }
+    
+    
+    
+    
+    //MARK: - profile setup function
+    func profileSetup(currentSegment: Int){
+        
+        if(currentSegment == 0){
+
+            /*lean code to save data and get pointer to data
+            
+             //saves data under a random key and saves a reference to the key which can be search for i think
+            ref.childByAutoId().setValue("data to save"){
+                (error, reference) in
+                
+                if error != nil {
+                    print(error!)
+                }else {
+                    print("data saved successfully")
+                }
+                
+            }
+
+            */
+            
+            /* pull from firebase
+             
+             
+            
+            
+            */
+            
+            
+            var quary = "a@a_com"
+            var userEmail = Auth.auth().currentUser?.email
+            
+            print("current user is: \(userEmail)")
+            
+            ref.child("GameUsers").queryOrdered(byChild: "a@a_com").queryStarting(atValue: quary).observeSingleEvent(of: .value) { (snapshot) in
+                
+                print(snapshot)
+                
+            }
+            
+            ref.child("GameUsers").queryEqual(toValue: "a@a.com").observeSingleEvent(of: DataEventType.value) { (snapshot) in
+            
+                print(snapshot)
+            }
+        
+        
+        ref.child("GameUsers").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            
+            if let pulledData = snapshot.value as? [String:[String:String]]? ?? ["":[:]] {
+                
+                for each in pulledData{
+                    print(each.value["currentCash"] ?? "")
+                }
+                
+            }
+            
+            
+            })
+        }
+        
+        
+        if (currentSegment == 1){
+            
+        }
+        
+        if(currentSegment == 2){
+            
+        }
+            
+    //end of the functions
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -434,7 +563,7 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if(tableView.tag == 0){
             heading = "Profile"
         }
-        if(tableView.tag == 1){
+        if(tableView.tag == 3){
             heading = "watchlist"
         }
         if(tableView.tag == 2){
@@ -458,7 +587,7 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate {
             
                 height = 90.0
         }
-        if tableView.tag == 1{
+        if tableView.tag == 3{
             
              height = 44.0
         }
