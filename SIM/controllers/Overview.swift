@@ -8,7 +8,17 @@
 
 import UIKit
 
-class Overview: UIViewController {
+class Overview: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        
+        return cell
+    }
+    
 
     
     //need to finish this up

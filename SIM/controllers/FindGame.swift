@@ -28,9 +28,14 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
     //custom tap jester below
     
-   // let myCustomTapGester = UITapGestureRecognizer(target: self(), action: #selector(tableViewTapped))
     
     //create the tableviewTappped function, you can call any methed you wnat from this selector
+    
+    @objc func tableViewTapped(){
+        
+        print("I tapped on the cell, go to segue")
+        performSegue(withIdentifier: "goToOverview", sender: self)
+    }
 
     //use the an outlet we have to add a gester reconizer
     //mycustomOutlet.addGestureRecognizer(tapGesture)
@@ -400,7 +405,12 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     //MARK: - view did load
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //tap gester code below
+        let myCustomTapGester = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
+        
+        currentGameTableView.addGestureRecognizer(myCustomTapGester)
+        
         ref = Database.database().reference()
         
         watchListTable.register(UINib(nibName: "searchResultsCell", bundle: nil), forCellReuseIdentifier: "customCell")
