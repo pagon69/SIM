@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         
         //MARK: - Chameleon pod with color choices
         //Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatNavyBlueColorDark(), with: .light)
-        Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatGray(), withSecondaryColor: UIColor.flatWhite(), andContentStyle: .contrast)
+       // Chameleon.setGlobalThemeUsingPrimaryColor(UIColor.flatNavyBlue(), withSecondaryColor: UIColor.flatWhite(), andContentStyle: .contrast)
         
         //database information
         var myDatabaseRef = Database.database().reference()
