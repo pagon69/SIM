@@ -16,6 +16,10 @@
 		C14D174522DCA33600CE1B43 /* settingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14D174322DCA33600CE1B43 /* settingsCell.swift */; };
 		C14D174622DCA33600CE1B43 /* settingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14D174422DCA33600CE1B43 /* settingsCell.xib */; };
 		C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C159FBCB22CBD2CD001E0A81 /* AlertViewController.swift */; };
+		C15AC3DD22F1CE6800BCBDAD /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3DC22F1CE6800BCBDAD /* RegisterPage.swift */; };
+		C15AC3DF22F1F23E00BCBDAD /* OverviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3DE22F1F23E00BCBDAD /* OverviewPage.swift */; };
+		C15AC3E122F2234B00BCBDAD /* FindGamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */; };
+		C15AC3E322F223F700BCBDAD /* CreateGamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */; };
 		C15CEF2322F0706D00F620B9 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15CEF2222F0706D00F620B9 /* LoginPage.swift */; };
 		C173A8D122B12161001A7F97 /* SIMBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D022B12161001A7F97 /* SIMBrain.swift */; };
 		C173A8D322B1237A001A7F97 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D222B1237A001A7F97 /* Stock.swift */; };
@@ -64,6 +68,10 @@
 		C14D174322DCA33600CE1B43 /* settingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsCell.swift; sourceTree = "<group>"; };
 		C14D174422DCA33600CE1B43 /* settingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = settingsCell.xib; sourceTree = "<group>"; };
 		C159FBCB22CBD2CD001E0A81 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		C15AC3DC22F1CE6800BCBDAD /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
+		C15AC3DE22F1F23E00BCBDAD /* OverviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewPage.swift; sourceTree = "<group>"; };
+		C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindGamePage.swift; sourceTree = "<group>"; };
+		C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGamePage.swift; sourceTree = "<group>"; };
 		C15CEF2222F0706D00F620B9 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		C173A8D022B12161001A7F97 /* SIMBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMBrain.swift; path = "SIM/support Files/SIMBrain.swift"; sourceTree = SOURCE_ROOT; };
 		C173A8D222B1237A001A7F97 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stock.swift; path = SIM/controllers/Stock.swift; sourceTree = SOURCE_ROOT; };
@@ -209,6 +217,10 @@
 				C133447B22DE0070002A04BF /* Privacy.swift */,
 				C1784E5E22E0C05800A62B5C /* Overview.swift */,
 				C15CEF2222F0706D00F620B9 /* LoginPage.swift */,
+				C15AC3DC22F1CE6800BCBDAD /* RegisterPage.swift */,
+				C15AC3DE22F1F23E00BCBDAD /* OverviewPage.swift */,
+				C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */,
+				C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -425,16 +437,20 @@
 				C1784E5422E0AF4300A62B5C /* gameDetailCell.swift in Sources */,
 				C19E163922C15320004EE77B /* buyViewController.swift in Sources */,
 				C1784E5A22E0B71600A62B5C /* profileCell.swift in Sources */,
+				C15AC3E122F2234B00BCBDAD /* FindGamePage.swift in Sources */,
 				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
 				C14D174222DC9ED800CE1B43 /* GameSettings.swift in Sources */,
+				C15AC3DD22F1CE6800BCBDAD /* RegisterPage.swift in Sources */,
 				C1784E5F22E0C05800A62B5C /* Overview.swift in Sources */,
 				C19B03D922D65CEA00DC0AA9 /* FindGame.swift in Sources */,
 				C19ADCB022E9CEC50073F5E9 /* GamesInfo.swift in Sources */,
 				C15CEF2322F0706D00F620B9 /* LoginPage.swift in Sources */,
 				C19B03DB22D65FD000DC0AA9 /* TradeWindow.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
+				C15AC3E322F223F700BCBDAD /* CreateGamePage.swift in Sources */,
 				C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
+				C15AC3DF22F1F23E00BCBDAD /* OverviewPage.swift in Sources */,
 				C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */,
 				C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */,
 				C193E5C022D529C0004E16DB /* ForgotPassword.swift in Sources */,

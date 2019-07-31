@@ -55,12 +55,16 @@ class LoginPage: UIViewController {
     
     //MARK: viewSetup - gets the view ready to go
     func viewSetup(){
-        
+        topViewOutlet.alpha = 0
     }
     
     //MARK: - Animates and rounds the corners on views
     func animationSetup(){
-      
+        
+        UIView.animate(withDuration: 2.0) {
+            self.topViewOutlet.alpha = 1
+            
+        }
         
         
     }
