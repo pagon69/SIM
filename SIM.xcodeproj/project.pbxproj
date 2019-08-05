@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		74A715FF0F1F4BC1704C9459 /* Pods_SIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */; };
+		C104E0F722F881AC002519D2 /* GameReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104E0F622F881AC002519D2 /* GameReviewPage.swift */; };
 		C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447922DE0047002A04BF /* TermsOfService.swift */; };
 		C133447C22DE0070002A04BF /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447B22DE0070002A04BF /* Privacy.swift */; };
 		C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3422D378510018E1F6 /* LoginScreen.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		52A7255E8B6D4800597A4527 /* Pods-SIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.debug.xcconfig"; sourceTree = "<group>"; };
+		C104E0F622F881AC002519D2 /* GameReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameReviewPage.swift; sourceTree = "<group>"; };
 		C133447922DE0047002A04BF /* TermsOfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
 		C133447B22DE0070002A04BF /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		C14C1C3422D378510018E1F6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				C15AC3DE22F1F23E00BCBDAD /* OverviewPage.swift */,
 				C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */,
 				C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */,
+				C104E0F622F881AC002519D2 /* GameReviewPage.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C104E0F722F881AC002519D2 /* GameReviewPage.swift in Sources */,
 				C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */,
 				C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */,
 				C14D174522DCA33600CE1B43 /* settingsCell.swift in Sources */,

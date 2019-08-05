@@ -37,6 +37,15 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     }
     
     @IBAction func segmentClicked(_ sender: UISegmentedControl) {
+        
+        if sender.selectedSegmentIndex == 0 {
+            performSegue(withIdentifier: "goToFindPage", sender: self)
+        }
+        if sender.selectedSegmentIndex ==  1 {
+            performSegue(withIdentifier: "goToNewGame", sender: self)        }
+        
+        
+        
     }
     
     @IBOutlet weak var rankPicture: UIImageView!
