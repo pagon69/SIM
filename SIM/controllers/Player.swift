@@ -11,13 +11,13 @@ import Foundation
 class Player {
     
     //displayname = usernickName may need to change this
-    var userNickName: String = "Dee"
-    var playerEmail: String = "test@tester.com"
+    var userNickName: String?
+    var playerEmail: String = ""
     var currentCash: Double = 100000.00
-    var userTotalWorth: Double = 0.0
+    var userTotalWorth: Double = 100000.0
     var listOfStock = [Stock]()
-    var listOfStringStock = "goog"
-    
+    var listOfStringStock = ""
+    var numberOfTrades: Double = 0
     var totalStockValue: Double = 0.0
     var totalPlayerValue: Double = 0.0
     

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate {
    
     //MARK: - globals
     var myTestData = ["Andy", "Ellis", "Scott", "Mark", "Catty"]
-    
+    var player = Player()
     
     
     //MARK: - IB actions and outlets
@@ -29,6 +31,11 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     }
     
     @IBAction func logoutButtonClicked(_ sender: UIBarButtonItem) {
+        
+        
+        
+        
+    
     }
     
     @IBOutlet weak var searchBarOutlet: UISearchBar!
@@ -85,11 +92,42 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     }
     
     
+    func pulledData(){
+        
+        
+        //ref.child("GamesTest").childByAutoId().setValue(userProfileData)
+        
+        //good to check for changes to the DB
+        let searchResultsDBReferefence = Database.database().reference().child("GamesTest")
+        
+        //working search code: i can search a DB for something and display results
+        searchResultsDBReferefence.queryOrdered(byChild: "playerEmail").queryEqual(toValue: Auth.auth().currentUser?.email).observeSingleEvent(of: .value) { (snapshot) in
+            var data = snapshot.value as? [String: String]
+            
+             let pulleduserdata = snapshot.value as? [String:[String:String]] ?? ["":[:]]
+        
+                for each in pulleduserdata  {
+                    print(each.value["playerEmail"] ?? "", each.value["currentCash"] ?? "", each.value["userNickName"] ?? "")
+                    
+                    //put everything into player and update the tableview
+                    
+                }
+
+            
+
+            
+        }
+        
+
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewSetup()
+        pulledData()
         // Do any additional setup after loading the view.
     }
     
