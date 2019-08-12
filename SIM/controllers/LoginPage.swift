@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class LoginPage: UIViewController {
+class LoginPage: UIViewController, UITextFieldDelegate {
 
     //MARK: - IBActions
    
@@ -55,7 +55,7 @@ class LoginPage: UIViewController {
                                 self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
                                 
                             }else {
-                                print(error)
+                                print(error ?? "An error has happened")
                                 self.errorMsgOutlet.text = "Invalidate password/Username or both"
                                 self.errorMsgOutlet.textColor = UIColor.red
                                 //progressHUD.dismiss
@@ -81,12 +81,17 @@ class LoginPage: UIViewController {
     @IBAction func RegisterButton(_ sender: UIButton) {
         //currently just a direct segue nothing by code
         
+        //SVProgressHUD can spin now
+        
     }
     
     
     @IBAction func Terms(_ sender: UIButton) {
         
         //currently just a direct segue nothing by code
+        
+        //SVProgressHUD can spin now, disable with SVProgressHUD.disable within the viewill Appear of upcoming view
+        
     }
     
     //MARK: - Views for animation
@@ -95,9 +100,38 @@ class LoginPage: UIViewController {
     @IBOutlet weak var midViewOutlet: UIView!
     @IBOutlet weak var botViewOutlet: UIView!
     
+
+    //MARK: - keyboard tracking stuff
+    //removes keyboard so i can see full screen
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        self.view.endEditing(true)
+        
+    }
+    
+    /* enables login if content is within username/password buttons
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if (usernameOutlet.text?.isEmpty == false && userPwdOutlet.text?.isEmpty == false ){
+            
+            loginOutlet.isEnabled = true
+        }
+        
+    }
+    
+    */
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
     
     //Mark: - View did load
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -112,6 +146,14 @@ class LoginPage: UIViewController {
     func viewSetup(){
         topViewOutlet.alpha = 0
         errorMsgOutlet.isHidden = true
+        
+        userprovidedEmail.layer.cornerRadius = 20
+        userprovidedEmail.layer.masksToBounds = true
+        
+        userProvidedPassword.layer.masksToBounds = true
+        userProvidedPassword.layer.cornerRadius = 20
+        
+        
         
     }
     

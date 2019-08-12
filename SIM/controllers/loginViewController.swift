@@ -144,7 +144,6 @@ class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
         
     }
     
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()

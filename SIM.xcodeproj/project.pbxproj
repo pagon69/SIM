@@ -10,6 +10,7 @@
 		74A715FF0F1F4BC1704C9459 /* Pods_SIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */; };
 		C104E0F722F881AC002519D2 /* GameReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104E0F622F881AC002519D2 /* GameReviewPage.swift */; };
 		C104E0F922F89DE8002519D2 /* GameSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */; };
+		C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A1F162301B2750067FAFA /* UserGameSettings.swift */; };
 		C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447922DE0047002A04BF /* TermsOfService.swift */; };
 		C133447C22DE0070002A04BF /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447B22DE0070002A04BF /* Privacy.swift */; };
 		C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3422D378510018E1F6 /* LoginScreen.swift */; };
@@ -65,6 +66,7 @@
 		52A7255E8B6D4800597A4527 /* Pods-SIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.debug.xcconfig"; sourceTree = "<group>"; };
 		C104E0F622F881AC002519D2 /* GameReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameReviewPage.swift; sourceTree = "<group>"; };
 		C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPage.swift; sourceTree = "<group>"; };
+		C11A1F162301B2750067FAFA /* UserGameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserGameSettings.swift; path = SIM/view/UserGameSettings.swift; sourceTree = SOURCE_ROOT; };
 		C133447922DE0047002A04BF /* TermsOfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
 		C133447B22DE0070002A04BF /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		C14C1C3422D378510018E1F6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
@@ -95,7 +97,7 @@
 		C193E5BF22D529C0004E16DB /* ForgotPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
 		C19ADCAF22E9CEC50073F5E9 /* GamesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GamesInfo.swift; path = SIM/controllers/GamesInfo.swift; sourceTree = SOURCE_ROOT; };
 		C19B03D822D65CEA00DC0AA9 /* FindGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindGame.swift; sourceTree = "<group>"; };
-		C19B03DA22D65FD000DC0AA9 /* TradeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TradeWindow.swift; path = /Users/user147645/Desktop/SIM/SIM/controllers/TradeWindow.swift; sourceTree = "<absolute>"; };
+		C19B03DA22D65FD000DC0AA9 /* TradeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeWindow.swift; sourceTree = "<group>"; };
 		C19B03DD22D6773400DC0AA9 /* searchResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchResultsCell.swift; sourceTree = "<group>"; };
 		C19B03DE22D6773400DC0AA9 /* searchResultsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = searchResultsCell.xib; sourceTree = "<group>"; };
 		C19E163622C0FE02004EE77B /* disclaimers */ = {isa = PBXFileReference; lastKnownFileType = text; path = disclaimers; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				C173A8D622B12D20001A7F97 /* SIMGame.swift */,
 				C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */,
 				C19ADCAF22E9CEC50073F5E9 /* GamesInfo.swift */,
+				C11A1F162301B2750067FAFA /* UserGameSettings.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */,
 				C14D174522DCA33600CE1B43 /* settingsCell.swift in Sources */,
 				C1F0BF0C22CD2FA40016FC17 /* LoadingViewController.swift in Sources */,
+				C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */,
 				C193E5BE22D52636004E16DB /* SignUp.swift in Sources */,
 				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,
 				C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */,

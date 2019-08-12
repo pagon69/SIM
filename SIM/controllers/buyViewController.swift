@@ -52,13 +52,13 @@ class buyViewController: UIViewController {
             costofstock = price * Double(quantity)!
         }
         
-        //do i have enough money?
+        /*do i have enough money?
         if player.currentCash - costofstock >= 0 {
             
             player.currentCash  = player.currentCash - costofstock
             player.totalPlayerValue = player.currentCash + player.totalStockValue
             player.listOfStringStock.append(stockInfo.symbol)
-            
+        */
             
             //create database, should be done once and change to update database?
         let scoresDB = Database.database().reference().child("PlayerScore")
@@ -125,13 +125,14 @@ class buyViewController: UIViewController {
             */
  
             // end of testing and learning code
-            
+      /*
         alertCode()
         }else{
             
             print("not enough money")
             
         }
+    */
         
     }
     

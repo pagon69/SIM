@@ -18,7 +18,7 @@ class SIMGame{
     //do short sales
     
     
-    //do buy
+    /* do buy
     
     func buyStock(currentCash: Double, stockToBuy: Stock, QuantitytoBuy: Int, currentPlayer: Player ) {
         
@@ -30,7 +30,7 @@ class SIMGame{
         
     }
     
-    
+    */
     
     //do sell
     

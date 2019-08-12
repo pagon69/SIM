@@ -137,7 +137,7 @@ class portfolioViewController: UIViewController {
         print(myPlayer.totalStockValue)
         print(myPlayer.currentCash)
         
-        gameController.buyStock(currentCash: myPlayer.currentCash, stockToBuy: stock3, QuantitytoBuy: 30, currentPlayer: myPlayer)
+       // gameController.buyStock(currentCash: myPlayer.currentCash, stockToBuy: stock3, QuantitytoBuy: 30, currentPlayer: myPlayer)
 
         print(myPlayer.currentCash)
         print(myPlayer.listOfStock)

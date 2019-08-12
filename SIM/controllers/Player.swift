@@ -13,13 +13,13 @@ class Player {
     //displayname = usernickName may need to change this
     var userNickName: String?
     var playerEmail: String = ""
-    var currentCash: Double = 100000.00
-    var userTotalWorth: Double = 100000.0
+    var currentCash: String = ""
+    var userTotalWorth: String = ""
     var listOfStock = [Stock]()
     var listOfStringStock = ""
-    var numberOfTrades: Double = 0
+    var numberOfTrades: String = ""
     var totalStockValue: Double = 0.0
-    var totalPlayerValue: Double = 0.0
+    var totalPlayerValue: String = ""
     
     /*
     init(userName: String, currentCash: Double, totalStockValue: Double, userTotalWorth: Double, totalPlayerValue: Double) {

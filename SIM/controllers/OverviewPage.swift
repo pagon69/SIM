@@ -15,6 +15,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     //MARK: - globals
     var myTestData = ["Andy", "Ellis", "Scott", "Mark", "Catty"]
     var player = Player()
+    var playerSettings = GameSettings()
     
     
     //MARK: - IB actions and outlets
@@ -24,15 +25,31 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     
     
     @IBAction func invitePlayerClicked(_ sender: UIButton) {
+        //how do i invite people to play ? how do i connect to the Game center feature?
+        
+        
     }
+    
     @IBOutlet weak var welcomeLabel: UINavigationItem!
     
     @IBAction func settingsClicked(_ sender: UIBarButtonItem) {
+        
+        // do any work i need in this section
+        //right now it should just push to the settings page
+        
     }
     
     @IBAction func logoutButtonClicked(_ sender: UIBarButtonItem) {
         
-        
+        //exit firebase and segue to login screen
+        do{
+            try Auth.auth().signOut()
+            performSegue(withIdentifier: "goBackToHome", sender: self)
+            
+        }catch{
+            print("The following error happened: \(error)")
+            //create an outlet for logoutbutton and make it red and shake it if something goes wrong.
+        }
         
         
     
@@ -58,7 +75,26 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     @IBOutlet weak var rankPicture: UIImageView!
     
     
+    @IBOutlet weak var profileLabel: UILabel!
     
+    //MARK: - custom table view cell sizes
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        var height: CGFloat = CGFloat(exactly: NSNumber(value: 44.0)) ?? 44.0
+        
+        if tableView.tag == 0{
+            
+            height = 100.0
+        }
+        
+        if tableView.tag == 1{
+            
+            height = 90.0
+        }
+        
+        return height
+        
+    }
     
     //MARK: - Tableview info
     
@@ -67,7 +103,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         var count = 0
         
         if(tableView.tag == 0){
-            count = myTestData.count
+            count = 1
         }
         
         if(tableView.tag == 1){
@@ -78,19 +114,43 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
-        cell.detailTextLabel?.text = myTestData[indexPath.row]
-    
+       
+        let cell = UITableViewCell()
+        
+        if(tableView.tag == 0){
+            let cell = profileTableViewOutlet.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
+            cell.cashRemainingOutlet.text = player.currentCash
+            cell.buyingPowerOutlet.text = player.userTotalWorth
+            cell.netWorthOutlet.text = player.userTotalWorth
+            cell.overAllGainsOutlet.text = "5%"
+            
+            
+            return cell
+        }
+        
+        if(tableView.tag == 1){
+            let cell = aboutTableView.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
+            cell.gameNameOutlet.text = "Google Inc"
+            
+            return cell
+        }
+        
+        
         return cell
     }
     
     //MARK: - view setup then view did load
     func viewSetup() {
         
+        profileLabel.text = "Welcome, \(String(describing: Auth.auth().currentUser?.email))"
         
+        aboutTableView.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
         
+        profileTableViewOutlet.register(UINib(nibName: "profileCell", bundle: nil), forCellReuseIdentifier: "profileCell")
+        
+        aboutTableView.autoresizesSubviews = true
+        profileTableViewOutlet.autoresizesSubviews = true
     }
-    
     
     func pulledData(){
         
@@ -111,10 +171,30 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
                     
                     //put everything into player and update the tableview
                     
-                }
+                    let currentCash = each.value["currentCash"]
+                    let listOfStock = each.value["listOfStock"]
+                    let listOfStringStock = each.value["listOfStringStock"]
+                    let numberOfTrades = each.value["numberOfTrades"]
+                    let playerEmail = each.value["playerEmail"]
+                    let totalPlayerValue = each.value["totalPlayerValue"]
+                    let totalStockValue = each.value["totalStockValue"]
+                    let userNickName = each.value["userNickName"]
+                    let userTotalWorth = each.value["userTotalWorth"]
+                    
+                    self.player.currentCash = currentCash ?? ""
+                    self.player.listOfStringStock = listOfStringStock ?? ""
+                    self.player.numberOfTrades = numberOfTrades ?? "0"
+                    self.player.playerEmail = playerEmail ?? ""
+                    self.player.totalPlayerValue = totalPlayerValue ?? ""
+                    //self.player.totalStockValue = totalStockValue ?? ""
+                    self.player.userNickName = userNickName ?? ""
+                    self.player.userTotalWorth = userTotalWorth ?? ""
+                    
+            }
 
             
-
+            self.aboutTableView.reloadData()
+            self.profileTableViewOutlet.reloadData()
             
         }
         
@@ -126,6 +206,9 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+    
+        
         viewSetup()
         pulledData()
         // Do any additional setup after loading the view.
