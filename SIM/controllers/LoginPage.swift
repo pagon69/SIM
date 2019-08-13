@@ -20,8 +20,6 @@ class LoginPage: UIViewController, UITextFieldDelegate {
     //shows the secure text or hides it
     @IBAction func showOrHideButton(_ sender: UIButton) {
         userProvidedPassword.isSecureTextEntry = !userProvidedPassword.isSecureTextEntry
-    
-    
     }
     
     @IBAction func SignInButton(_ sender: UIButton) {
@@ -30,21 +28,33 @@ class LoginPage: UIViewController, UITextFieldDelegate {
         
         if let username = userprovidedEmail.text, let psw = userProvidedPassword.text{
             
-            if username == "" || psw == ""{
-                errorMsgOutlet.text = "Invalidate password/Username or both"
+            if username == "" && psw == ""{
+                errorMsgOutlet.text = "Invalidate password/Username combination"
                 errorMsgOutlet.textColor = UIColor.red
                 errorMsgOutlet.isHidden = false
+            }else if psw == "" {
+                errorMsgOutlet.text = "Please enter a password"
+                errorMsgOutlet.textColor = UIColor.red
+                errorMsgOutlet.isHidden = false
+                
+            }else if username == "" {
+                errorMsgOutlet.text = "please enter a validate email address"
+                errorMsgOutlet.textColor = UIColor.red
+                errorMsgOutlet.isHidden = false
+                
             }else {
                 
                 for letter in username {
                     if letter == "@"{
                         validate = true
-                        
+                    }else{
+                        //errorMsgOutlet.text = "please enter a validate email address"
+                       // errorMsgOutlet.textColor = UIColor.red
+                       // errorMsgOutlet.isHidden = false
                     }
                 }
             }
             
-                
                     if validate {
                         
                                 //progressHUD.show
@@ -55,8 +65,22 @@ class LoginPage: UIViewController, UITextFieldDelegate {
                                 self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
                                 
                             }else {
-                                print(error ?? "An error has happened")
-                                self.errorMsgOutlet.text = "Invalidate password/Username or both"
+                               
+                                let cleanError = error.debugDescription
+                            
+                                var newError :[Character] = []
+                                for letter in cleanError{
+                                    newError.append(letter)
+                                }
+
+                                let answer = newError.split(separator:"\"")
+                                var bestAnswer = ""
+                                
+                                for each in answer[1]{
+                                    bestAnswer = bestAnswer + String(each)
+                                }
+
+                                self.errorMsgOutlet.text = bestAnswer
                                 self.errorMsgOutlet.textColor = UIColor.red
                                 //progressHUD.dismiss
                             }

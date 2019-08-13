@@ -17,16 +17,12 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     var player = Player()
     var playerSettings = GameSettings()
     
-    
     //MARK: - IB actions and outlets
-    
     @IBOutlet weak var profileTableViewOutlet: UITableView!
     @IBOutlet weak var aboutTableView: UITableView!
     
-    
     @IBAction func invitePlayerClicked(_ sender: UIButton) {
         //how do i invite people to play ? how do i connect to the Game center feature?
-        
         
     }
     
@@ -66,14 +62,13 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             performSegue(withIdentifier: "goToFindPage", sender: self)
         }
         if sender.selectedSegmentIndex ==  1 {
-            performSegue(withIdentifier: "goToNewGame", sender: self)        }
-        
-        
+            performSegue(withIdentifier: "goToNewGame", sender: self)
+            
+        }
         
     }
     
     @IBOutlet weak var rankPicture: UIImageView!
-    
     
     @IBOutlet weak var profileLabel: UILabel!
     
@@ -97,7 +92,6 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     }
     
     //MARK: - Tableview info
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var count = 0
@@ -142,7 +136,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     //MARK: - view setup then view did load
     func viewSetup() {
         
-        profileLabel.text = "Welcome, \(String(describing: Auth.auth().currentUser?.email))"
+        profileLabel.text = "Welcome, \(String(describing: Auth.auth().currentUser?.email ?? ""))"
         
         aboutTableView.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
         
@@ -152,13 +146,48 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         profileTableViewOutlet.autoresizesSubviews = true
     }
     
+    
+    //MARK: - pulls data from FB and process
     func pulledData(){
-        
-        
+ 
         //ref.child("GamesTest").childByAutoId().setValue(userProfileData)
         
         //good to check for changes to the DB
         let searchResultsDBReferefence = Database.database().reference().child("GamesTest")
+        let gamesSearchDBReference = Database.database().reference().child("ActivePlayers")
+        
+        
+        gamesSearchDBReference.queryEqual(toValue: "b@b_com").observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot)
+            
+            var data = snapshot.value as? [String:[String:String]] ?? ["":[:]]
+            print("This is from games searchDB: \(data)")
+            
+        }
+    
+        
+        /*
+        gamesSearchDBReference.queryOrdered(byChild: "playersInGame").queryEqual(toValue: Auth.auth().currentUser?.email).observeSingleEvent(of: .value) { (snapshot) in
+            
+            var data = snapshot.value as? [String:[String:String]] ?? ["":[:]]
+            print("This is from games searchDB: \(data)")
+            
+        }
+    */
+ 
+      //  let gamesAndPlayers = ["a@a_com": [["cash":"100"],["test":"123456"],["playersinGame":["a@a.com","b@b.com","c@c.com","d@d.com"]]]]
+        /*
+        gamesSearchDBReference.queryOrdered(byChild: "b@b_com").queryEqual(toValue: "playerInGame").observeSingleEvent(of: .value) { (snapshot) in
+            
+           // let gamesAndPlayers = ["b@b_com": ["cash":"100","test":"123456","playersInGame":["a@a.com","d@d.com","b@b.com"]]]
+            
+            print(snapshot)
+            let data = snapshot.value as? [String:[[String:String]]] ?? ["test":[[:]]]
+            print("This is from games searchDB: \(data)")
+            
+        }
+        */
+        
         
         //working search code: i can search a DB for something and display results
         searchResultsDBReferefence.queryOrdered(byChild: "playerEmail").queryEqual(toValue: Auth.auth().currentUser?.email).observeSingleEvent(of: .value) { (snapshot) in
@@ -170,7 +199,6 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
                     print(each.value["playerEmail"] ?? "", each.value["currentCash"] ?? "", each.value["userNickName"] ?? "")
                     
                     //put everything into player and update the tableview
-                    
                     let currentCash = each.value["currentCash"]
                     let listOfStock = each.value["listOfStock"]
                     let listOfStringStock = each.value["listOfStringStock"]
@@ -192,7 +220,6 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
                     
             }
 
-            
             self.aboutTableView.reloadData()
             self.profileTableViewOutlet.reloadData()
             

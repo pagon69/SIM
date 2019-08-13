@@ -118,6 +118,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
                                                  annotation: annotation)
     }
     
+    //edit me for db search and wcreation
+    func buildDefaultDB(){
+        var ref: DatabaseReference!
+
+        ref = Database.database().reference()
+        
+        let userProfileData = ["another game": [
+            "gameName":"another game",
+            "Description":"last one i will make within code, remainign will be dynamic, i feel better about how this is working out",
+            "endDate":"9/20/2019",
+            "numberOfPlayers":"40",
+            "daysRemaining":"12",
+            "PlayersInGame": ["a@a.com","b@b.com","c@c.com","d@d.com"],
+            "startingFunds": "180000",
+            "shortSellingEnabled": "true",
+            "marginSellingEnabled": "true",
+            "enableLimitOrders": "true",
+            "enableStopLoss": "true",
+            "enablePartialShares": "true",
+            "enableCommision":"true",
+            "defaultCommission":"3.5",
+            "enableInterestRateCredit":"true",
+            "defaultIRC":"8.50",
+            "enableInterestRateDebit":" true",
+            "defaultIRD":"16.65",
+            "gameStillGoing":"true"
+            
+            
+            ]]
+      
+
+        
+        let test1 = ["d@d_com": [
+            "playerEmail":"d@d.com",
+            "listOfStockAndQuantity": [["aapl":"123"],["goog":"1"],["fb":"34"],["msft":"300"]],
+            "userNickName": "Mister D",
+            "gamesInProgress": ["my first game","yet another game", "Test another One", "another one"],
+            "currentCash": "615000",
+            "networth": "1509200",
+            "buyPower": "571200",
+            "currentStockValue": "164000"
+            
+            
+            ]]
+        
+        // ref.childByAutoId().child("GamesTest").setValue(userProfileData)
+        //  var ref: DatabaseReference!
+       // ref.child("gamesInProgressByGameName").childByAutoId().setValue(userProfileData)
+       // ref.child("userDataByEmail").childByAutoId().setValue(test1)
+    }
+    
+    
+    
+    
     
 
     
@@ -133,7 +187,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         //database information
         var myDatabaseRef = Database.database().reference()
          // myDatabaseRef.setValue("testing")
-
+        
+      //  var ref: DatabaseReference!
+        
+        buildDefaultDB()
+        
+        //MARK: - Code for adding Dbs a smarter way:  remove after DB is created
+        let gamesAndPlayers = ["b@b_com": ["cash":"100","test":"123456","playersInGame":["a@a.com","d@d.com","b@b.com"]]]
+        
+      //  myDatabaseRef.child("ActivePlayers").childByAutoId().setValue(gamesAndPlayers)
+        
 
         // working on database knowledge
         var username = "Mandy Moor"
@@ -198,7 +261,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         
         
         //creates a database call SIMPlyerScores, makes the key name the users email address and adds data.
-        ref.child("GameUsers/\(newString)").setValue(userDetailsTwo)
+      //  ref.child("GameUsers/\(newString)").setValue(userDetailsTwo)
       
        // ref.child("NumberOfGamesInProgress/SIM").setValue(userDetailsFour)
         
@@ -229,7 +292,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             
         // update the database without making complete or rewrite of all data
         let updates = ["":""]
-        
+        /*MARK: - updating
         ref.child("SIMPlayerScores/\(newString))").updateChildValues(userDetailsTwo){(Error, ref) in
             if let error = Error {
                 print("An error happened:\(error)")
@@ -238,7 +301,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             }
             
         }
-        
+ 
+ */
         //how do i remove handles?
        //ref.removeObserver(withHandle: DatabaseHandle.)
  
