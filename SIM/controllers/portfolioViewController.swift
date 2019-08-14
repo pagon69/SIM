@@ -124,17 +124,17 @@ class portfolioViewController: UIViewController {
         stock3.latestPrice = 1204.32
         stock3.sharesCurrentlyPurchased = 5
 
-        myPlayer.listOfStock.append(stock1)
-        myPlayer.listOfStock.append(stock2)
+      //  myPlayer.listOfStock.append(stock1)
+      //  myPlayer.listOfStock.append(stock2)
         //myPlayer.listOfStock.append(stock3)
         
         
 
-        print(myPlayer.calculateTotalValue())
+    //    print(myPlayer.calculateTotalValue())
         print(myPlayer.listOfStock)
         print(myPlayer.listOfStock.count)
         print(myPlayer.userNickName)
-        print(myPlayer.totalStockValue)
+     //   print(myPlayer.totalStockValue)
         print(myPlayer.currentCash)
         
        // gameController.buyStock(currentCash: myPlayer.currentCash, stockToBuy: stock3, QuantitytoBuy: 30, currentPlayer: myPlayer)
@@ -142,8 +142,8 @@ class portfolioViewController: UIViewController {
         print(myPlayer.currentCash)
         print(myPlayer.listOfStock)
         print(myPlayer.listOfStock.count)
-        print(myPlayer.calculateTotalValue())
-        print(myPlayer.totalStockValue)
+      //  print(myPlayer.calculateTotalValue())
+     //   print(myPlayer.totalStockValue)
         // Do any additional setup after loading the view.
     }
     

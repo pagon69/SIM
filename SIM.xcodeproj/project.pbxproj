@@ -13,6 +13,9 @@
 		C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A1F162301B2750067FAFA /* UserGameSettings.swift */; };
 		C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447922DE0047002A04BF /* TermsOfService.swift */; };
 		C133447C22DE0070002A04BF /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447B22DE0070002A04BF /* Privacy.swift */; };
+		C13C637323043AEF00BF1221 /* LeaderboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C637223043AEF00BF1221 /* LeaderboardPage.swift */; };
+		C13C6376230442C000BF1221 /* leaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C6374230442C000BF1221 /* leaderboardCell.swift */; };
+		C13C6377230442C000BF1221 /* leaderboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C13C6375230442C000BF1221 /* leaderboardCell.xib */; };
 		C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3422D378510018E1F6 /* LoginScreen.swift */; };
 		C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3622D3A4040018E1F6 /* Portfolio.swift */; };
 		C14D174222DC9ED800CE1B43 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14D174122DC9ED800CE1B43 /* GameSettings.swift */; };
@@ -69,6 +72,9 @@
 		C11A1F162301B2750067FAFA /* UserGameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserGameSettings.swift; path = SIM/view/UserGameSettings.swift; sourceTree = SOURCE_ROOT; };
 		C133447922DE0047002A04BF /* TermsOfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
 		C133447B22DE0070002A04BF /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
+		C13C637223043AEF00BF1221 /* LeaderboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardPage.swift; sourceTree = "<group>"; };
+		C13C6374230442C000BF1221 /* leaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = leaderboardCell.swift; sourceTree = "<group>"; };
+		C13C6375230442C000BF1221 /* leaderboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = leaderboardCell.xib; sourceTree = "<group>"; };
 		C14C1C3422D378510018E1F6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		C14C1C3622D3A4040018E1F6 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		C14D174122DC9ED800CE1B43 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
@@ -153,6 +159,8 @@
 				C1784E5322E0AF4300A62B5C /* gameDetailCell.xib */,
 				C1784E5822E0B71600A62B5C /* profileCell.swift */,
 				C1784E5922E0B71600A62B5C /* profileCell.xib */,
+				C13C6374230442C000BF1221 /* leaderboardCell.swift */,
+				C13C6375230442C000BF1221 /* leaderboardCell.xib */,
 			);
 			path = "custom Cells";
 			sourceTree = "<group>";
@@ -232,6 +240,7 @@
 				C104E0F622F881AC002519D2 /* GameReviewPage.swift */,
 				C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */,
 				C1722EAD22F9C2320035D925 /* DisclaimerPage.swift */,
+				C13C637223043AEF00BF1221 /* LeaderboardPage.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -331,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1784E5522E0AF4300A62B5C /* gameDetailCell.xib in Resources */,
+				C13C6377230442C000BF1221 /* leaderboardCell.xib in Resources */,
 				C19B03E022D6773400DC0AA9 /* searchResultsCell.xib in Resources */,
 				C1BCCEC3229D772B00633D00 /* LaunchScreen.storyboard in Resources */,
 				C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */,
@@ -455,6 +465,7 @@
 				C15AC3E122F2234B00BCBDAD /* FindGamePage.swift in Sources */,
 				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
 				C14D174222DC9ED800CE1B43 /* GameSettings.swift in Sources */,
+				C13C6376230442C000BF1221 /* leaderboardCell.swift in Sources */,
 				C15AC3DD22F1CE6800BCBDAD /* RegisterPage.swift in Sources */,
 				C1784E5F22E0C05800A62B5C /* Overview.swift in Sources */,
 				C19B03D922D65CEA00DC0AA9 /* FindGame.swift in Sources */,
@@ -466,6 +477,7 @@
 				C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
 				C15AC3DF22F1F23E00BCBDAD /* OverviewPage.swift in Sources */,
+				C13C637323043AEF00BF1221 /* LeaderboardPage.swift in Sources */,
 				C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */,
 				C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */,
 				C193E5C022D529C0004E16DB /* ForgotPassword.swift in Sources */,

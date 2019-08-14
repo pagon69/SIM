@@ -67,9 +67,9 @@ class buyViewController: UIViewController {
             let playerValue = ["PlayerEmail": Auth.auth().currentUser?.email, "PlayerScore": "\(player.currentCash)"]
         
         //set another value to go into database
-            let playerInfo = [["userNickName":"Dee"],["playerEmail": Auth.auth().currentUser?.email as Any],["currentCash":"\(player.currentCash)"],["userTotalWorth":"\(player.totalPlayerValue)"],["listOfStock":player.listOfStringStock]]
+        //    let playerInfo = [["userNickName":"Dee"],["playerEmail": Auth.auth().currentUser?.email as Any],["currentCash":"\(player.currentCash)"],["userTotalWorth":"\(player.totalPlayerValue)"],["listOfStock":player.listOfStringStock]]
 
-        // --adds the value to the DB using random value as key
+        /* --adds the value to the DB using random value as key
             scoresDB.childByAutoId().setValue(playerInfo)
         {
             (error, reference) in
@@ -82,7 +82,8 @@ class buyViewController: UIViewController {
             }
             
         }
-            
+            */
+        
             // testing to figure out best way to build data in database
             
             //create database, should be done once and change to update database?

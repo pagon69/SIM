@@ -73,10 +73,10 @@ class RegisterPage: UIViewController {
  
                         self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", userNickName: nickName)
                         
-                        self.player.userNickName = self.nickNameOutlet.text ?? "Nil"
-                        self.player.playerEmail = Auth.auth().currentUser?.email ?? "No user email data"
+                      //  self.player.userNickName = self.nickNameOutlet.text ?? "Nil"
+                      //  self.player.playerEmail = Auth.auth().currentUser?.email ?? "No user email data"
                         
-                        self.saveDataFB()
+                      //  self.saveDataFB()
                         
                     }
                 }
@@ -87,7 +87,7 @@ class RegisterPage: UIViewController {
         
     }
     
-    
+    // prepres the daa to be sent to FireBase
     func registerAUser(userEmail: String, userNickName: String){
         
         var ref: DatabaseReference!
@@ -106,11 +106,11 @@ class RegisterPage: UIViewController {
         }
         
         
-        let test1 = [newString: [
+        let userData = [newString: [
             "playerEmail":userEmail,
-            "listOfStockAndQuantity": [],
+            "listOfStockAndQuantity": "0", //should be a list of dictionaries with stock name and quantities
             "userNickName": userNickName,
-            "gamesInProgress": [],
+            "gamesInProgress": "", //should be an array of strings which are the name of the various games theuser is playing
             "currentCash": "0",
             "networth": "0",
             "buyPower": "0",
@@ -122,7 +122,7 @@ class RegisterPage: UIViewController {
             
             ]]
         
-         ref.child("userDataByEmail").childByAutoId().setValue(test1)
+         ref.child("userDataByEmail").setValue(userData)
     }
     
     
@@ -132,11 +132,11 @@ class RegisterPage: UIViewController {
         let userProfileData = [
             "playerEmail":player.playerEmail,
             "currentCash":String(player.currentCash),
-            "listOfStringStock":player.listOfStringStock,
+       //     "listOfStringStock":player.listOfStringStock,
             "numberOfTrades":String(player.numberOfTrades),
             "totalPlayerValue":String(player.totalPlayerValue),
-            "totalValue":String(player.calculateTotalValue()),
-            "totalValueTwo":String(player.totalStockValue),
+        //    "totalValue":String(player.calculateTotalValue()),
+            "totalValueTwo":String(player.netWorth),
             "userNickName":player.userNickName
 
         ]
@@ -194,7 +194,7 @@ class RegisterPage: UIViewController {
                 errorMsgOutlet.textColor = UIColor.red
                 errorMsgOutlet.isHidden = false
                 
-            }else {
+            }else { //follow up on the @ check
                 for letter in userName {
                     if letter == "@"{
                         results = true

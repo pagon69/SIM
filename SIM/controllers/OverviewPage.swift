@@ -13,9 +13,9 @@ import FirebaseDatabase
 class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate {
    
     //MARK: - globals
-    var myTestData = ["Andy", "Ellis", "Scott", "Mark", "Catty"]
     var player = Player()
     var playerSettings = GameSettings()
+    var myGameInfoArray = [GamesInfo]()
     
     //MARK: - IB actions and outlets
     @IBOutlet weak var profileTableViewOutlet: UITableView!
@@ -54,6 +54,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     @IBOutlet weak var searchBarOutlet: UISearchBar!
     
     @IBAction func leaderBoardClicked(_ sender: UIButton) {
+        // go to leaderboard and do some processing
+        
     }
     
     @IBAction func segmentClicked(_ sender: UISegmentedControl) {
@@ -101,7 +103,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         }
         
         if(tableView.tag == 1){
-            count = myTestData.count
+            count = myGameInfoArray.count
         }
         
         return count
@@ -114,21 +116,23 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         if(tableView.tag == 0){
             let cell = profileTableViewOutlet.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
             cell.cashRemainingOutlet.text = player.currentCash
-            cell.buyingPowerOutlet.text = player.userTotalWorth
-            cell.netWorthOutlet.text = player.userTotalWorth
-            cell.overAllGainsOutlet.text = "5%"
-            
-            
+            cell.buyingPowerOutlet.text = player.buyPower
+            cell.netWorthOutlet.text = player.netWorth
+            cell.overAllGainsOutlet.text = player.stockReturnpercentageAtGameEnd
+
             return cell
         }
         
         if(tableView.tag == 1){
             let cell = aboutTableView.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
-            cell.gameNameOutlet.text = "Google Inc"
+            cell.gameNameOutlet.text = myGameInfoArray[indexPath.row].gameName
+            cell.gamedescriptionLabel.text = myGameInfoArray[indexPath.row].gameDescription
+            cell.endDateOutlet.text = myGameInfoArray[indexPath.row].endDate
+            cell.numberOfPlayersOutlet.text = myGameInfoArray[indexPath.row].numberOfPlayersInGame
+            cell.percentCompleteOutlet.text = myGameInfoArray[indexPath.row].percentComplete
             
             return cell
         }
-        
         
         return cell
     }
@@ -153,11 +157,26 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         //ref.child("GamesTest").childByAutoId().setValue(userProfileData)
         
         //good to check for changes to the DB
-        let searchResultsDBReferefence = Database.database().reference().child("GamesTest")
-        let gamesSearchDBReference = Database.database().reference().child("ActivePlayers")
+        let searchResultsDBReferefence = Database.database().reference().child("userDataByEmail")
+        let gamesSearchDBReference = Database.database().reference().child("userDataByEmail")
         
+        let userEmail = Auth.auth().currentUser?.email ?? ""
         
-        gamesSearchDBReference.queryEqual(toValue: "b@b_com").observeSingleEvent(of: .value) { (snapshot) in
+        let changeChar = "_"
+        var newString = ""
+        
+        for letter in userEmail{
+            
+            if letter == "." {
+                newString = newString + String(changeChar)
+            }else{
+                newString = newString + String(letter)
+            }
+        }
+        
+        print(newString)
+        
+        gamesSearchDBReference.queryEqual(toValue: newString).observeSingleEvent(of: .value) { (snapshot) in
             print(snapshot)
             
             var data = snapshot.value as? [String:[String:String]] ?? ["":[:]]
@@ -165,6 +184,17 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             
         }
     
+        //working search code: i can search a DB for something and display results
+        searchResultsDBReferefence.queryOrdered(byChild: newString).queryEqual(toValue: newString).observeSingleEvent(of: .value) { (snapshot) in
+            
+            print(snapshot)
+            
+            var data = snapshot.value as? [String: String]
+            print(data)
+            
+            let pulleduserdata = snapshot.value as? [String:[String:String]] ?? ["":[:]]
+            print(pulleduserdata)
+        }
         
         /*
         gamesSearchDBReference.queryOrdered(byChild: "playersInGame").queryEqual(toValue: Auth.auth().currentUser?.email).observeSingleEvent(of: .value) { (snapshot) in
@@ -207,16 +237,16 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
                     let totalPlayerValue = each.value["totalPlayerValue"]
                     let totalStockValue = each.value["totalStockValue"]
                     let userNickName = each.value["userNickName"]
-                    let userTotalWorth = each.value["userTotalWorth"]
+                    let netWorth = each.value["userTotalWorth"]
                     
                     self.player.currentCash = currentCash ?? ""
-                    self.player.listOfStringStock = listOfStringStock ?? ""
+                  //  self.player.listOfStringStock = listOfStringStock ?? ""
                     self.player.numberOfTrades = numberOfTrades ?? "0"
                     self.player.playerEmail = playerEmail ?? ""
                     self.player.totalPlayerValue = totalPlayerValue ?? ""
                     //self.player.totalStockValue = totalStockValue ?? ""
                     self.player.userNickName = userNickName ?? ""
-                    self.player.userTotalWorth = userTotalWorth ?? ""
+                    self.player.netWorth = netWorth ?? ""
                     
             }
 

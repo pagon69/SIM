@@ -247,7 +247,7 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
             yourGamesView.alpha = 1
             newGamesViews.alpha = 0
             
-            profileSetup(currentSegment: sender.selectedSegmentIndex)
+         //   profileSetup(currentSegment: sender.selectedSegmentIndex)
             
                 
             
@@ -273,7 +273,7 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
                     for each in pulledData{
                         print(each.value["commission"] ?? "test")
                         
-                        var myData = GamesInfo(commission: each.value["commission"] ?? "",
+                  /*      var myData = GamesInfo(commission: each.value["commission"] ?? "",
                                                gameDescription: each.value["gameDescription"] ?? "",
                                                 gameName: each.value["gameName"] ?? "",
                                                interestRate: each.value["interestRate"] ?? "",
@@ -287,7 +287,9 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
                         )
                         
                         newData.append(myData)
-                    }
+ 
+                */
+                }
                     
                     self.myGameInfo = newData
                     
@@ -370,7 +372,7 @@ class FindGame: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
             cell.gameNameOutlet?.text = myGameInfo[indexPath.row].gameName
             cell.gamedescriptionLabel?.text = myGameInfo[indexPath.row].gameDescription
             cell.endDateOutlet?.text = myGameInfo[indexPath.row].endDate
-            cell.numberOfPlayersOutlet?.text = myGameInfo[indexPath.row].playersInGame
+            cell.numberOfPlayersOutlet?.text = myGameInfo[indexPath.row].numberOfPlayersInGame
             cell.percentCompleteOutlet?.text = "fix this"
             
             return cell

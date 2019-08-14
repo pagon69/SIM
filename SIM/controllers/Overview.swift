@@ -54,13 +54,7 @@ class Overview: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     func pullFBData(){
-        
-        //if cell.detailtext.text == someThingElse as String! {}  versus String(someData)
-        //chameleonFramework - colors and more
-        
-        
-        //ref.child("GamesTest").childByAutoId().setValue(userProfileData)
-        
+    
         //good to check for changes to the DB
         let searchResultsDBReferefence = Database.database().reference().child("GameUsers")
         
@@ -70,15 +64,23 @@ class Overview: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print("\n\n\nthe results of my search: \(snapshot)/n/n\n")
         }
         
-        searchResultsDBReferefence.observe(.childChanged) { (snapshot) in
-            snapshot.value as! [String: String]
-            print("this is what is within the snapshot: \(snapshot)")
-        }
         
-        var tester = searchResultsDBReferefence.queryEqual(toValue: "a@a_com")
-        print("this is a quary search test: \(tester)")
-        // tester.
-        // searchResultsDBReferefence.queryStarting(atValue: tester).
+        //searchs the DBfor the users edited email address
+        let ref = Database.database().reference()
+        
+        ref.child("userDataByEmail").child("b@b_com").observe(DataEventType.value) { (snapShot) in
+            
+            let pulleduserdata = snapShot.value as? [String:[String:String]] ?? ["":[:]]
+            print(pulleduserdata)
+            print(snapShot)
+            
+            //pulleduserdata.isEmpty
+            
+            // self.nickName = pulleduserdata["userNickName"] ?? ""
+            //  self.email = pulleduserdata["playerEmail"] ?? ""
+            //  self.cash = pulleduserdata["gameInProgress"] ?? ""
+
+        }
         
         
     }

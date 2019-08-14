@@ -12,14 +12,19 @@ class Player {
     
     //displayname = usernickName may need to change this
     var userNickName: String?
-    var playerEmail: String = ""
-    var currentCash: String = ""
-    var userTotalWorth: String = ""
-    var listOfStock = [Stock]()
-    var listOfStringStock = ""
-    var numberOfTrades: String = ""
-    var totalStockValue: Double = 0.0
-    var totalPlayerValue: String = ""
+    var playerEmail = ""
+    var currentCash = ""
+    var netWorth = ""
+    var listOfStock = [String]()
+    var gamesInProgress = [String]()
+    var buyPower = ""
+    var numberOfTrades = ""
+    var currentStockValue = ""
+    var gamesPlayed = ""
+    var gamesWon = ""
+    var totalPlayerValue = ""
+    var stockReturnpercentageAtGameEnd = ""
+    
     
     /*
     init(userName: String, currentCash: Double, totalStockValue: Double, userTotalWorth: Double, totalPlayerValue: Double) {
@@ -33,18 +38,5 @@ class Player {
 
     }
     */
-    
-    func calculateTotalValue() -> Double{
-       // var total = 0.00
-        
-        for each in listOfStock{
-            totalStockValue = totalStockValue + (each.latestPrice * Double(each.sharesCurrentlyPurchased) )
-        }
-
-        return totalStockValue
-    }
-    
-    
-    
     
 }

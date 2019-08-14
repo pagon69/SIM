@@ -82,6 +82,7 @@ class LoginPage: UIViewController, UITextFieldDelegate {
 
                                 self.errorMsgOutlet.text = bestAnswer
                                 self.errorMsgOutlet.textColor = UIColor.red
+                                self.errorMsgOutlet.isHidden = false
                                 //progressHUD.dismiss
                             }
                             

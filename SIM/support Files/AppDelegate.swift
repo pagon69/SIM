@@ -124,32 +124,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
 
         ref = Database.database().reference()
         
-        let userProfileData = ["another game": [
-            "gameName":"another game",
-            "Description":"last one i will make within code, remainign will be dynamic, i feel better about how this is working out",
+        let userProfileData = ["new game gam what now": [
+            "gameName":"news game game what now",
+            "Description":"last one i will make within code, remainign will be dynamic, i feel better about how this is working out now that i see it live. ow to search nd find it",
             "endDate":"9/20/2019",
-            "numberOfPlayers":"40",
+            "numberOfPlayers":"4",
             "daysRemaining":"12",
             "PlayersInGame": ["a@a.com","b@b.com","c@c.com","d@d.com"],
             "startingFunds": "180000",
             "shortSellingEnabled": "true",
             "marginSellingEnabled": "true",
-            "enableLimitOrders": "true",
+            "enableLimitOrders": "false",
             "enableStopLoss": "true",
             "enablePartialShares": "true",
             "enableCommision":"true",
-            "defaultCommission":"3.5",
-            "enableInterestRateCredit":"true",
-            "defaultIRC":"8.50",
+            "defaultCommission":"5.5",
+            "enableInterestRateCredit":"false",
+            "defaultIRC":"5.50",
             "enableInterestRateDebit":" true",
-            "defaultIRD":"16.65",
+            "defaultIRD":"12.65",
             "gameStillGoing":"true"
-            
-            
             ]]
-      
 
-        
         let test1 = ["d@d_com": [
             "playerEmail":"d@d.com",
             "listOfStockAndQuantity": [["aapl":"123"],["goog":"1"],["fb":"34"],["msft":"300"]],
@@ -165,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         
         // ref.childByAutoId().child("GamesTest").setValue(userProfileData)
         //  var ref: DatabaseReference!
-       // ref.child("gamesInProgressByGameName").childByAutoId().setValue(userProfileData)
+      // ref.child("gamesInProgressByGameName").childByAutoId().setValue(userProfileData)
        // ref.child("userDataByEmail").childByAutoId().setValue(test1)
     }
     
@@ -268,24 +264,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         //reading data from the DB, generic without naming what to look for
         ref.observe(DataEventType.value) { (snapShot) in
             let pulleduserdata = snapShot.value as? [[String:String]] ?? [[:]]
+          //  print(pulleduserdata)
+        }
+        
+ //displays everything within the Stock- SM FB database
+        ref.queryOrdered(byChild: "userDataByEmail").observe(.value) { (snaphot) in
+          //  print(snaphot)
             
         }
         
- 
-        //looks within database SIM then looks for key newString which is email, put the values in a saved constant
-        ref.child("GameUsers").child(newString).observe(DataEventType.value) { (snapShot) in
+        //same as above but faster
+        ref.queryOrdered(byChild: "userDataByEmail").observeSingleEvent(of: .value) { (snapshot) in
             
-            let pulleduserdata = snapShot.value as? [String:String] ?? [:]
+            let pulleduserdata = snapshot.value as? [String:[String:String]] ?? ["":[:]]
+          ///  print(pulleduserdata)
+        //print(snapshot)
+            
+        }
+        
+        //doesnt work
+        ref.queryEqual(toValue: "userDataByEmail").observeSingleEvent(of: .value) { (snapshot) in
+            
+            let pulleduserdata = snapshot.value as? [String:[String:String]] ?? ["":[:]]
+        //    print(pulleduserdata)
+        //    print(snapshot)
+            
+        }
+        
+       // print(newString)
+        //WORKS ------ does not use random key and uses the users email as the random key
+        //looks within database SIM then looks for key newString which is email, put the values in a saved constant
+        ref.child("userDataByEmail").child("b@b_com").observe(DataEventType.value) { (snapShot) in
+            
+            let pulleduserdata = snapShot.value as? [String:[String:String]] ?? ["":[:]]
+            print(pulleduserdata)
+            print(snapShot)
             
             //pulleduserdata.isEmpty
             
-            self.nickName = pulleduserdata["userNickName"] ?? ""
-            self.email = pulleduserdata["playerEmail"] ?? ""
-            self.cash = pulleduserdata["gameInProgress"] ?? ""
+           // self.nickName = pulleduserdata["userNickName"] ?? ""
+          //  self.email = pulleduserdata["playerEmail"] ?? ""
+          //  self.cash = pulleduserdata["gameInProgress"] ?? ""
             
-            print(self.nickName)
-            print(self.email)
-            print(self.cash)
+          //  print(self.nickName)
+          //  print(self.email)
+          //  print(self.cash)
             
             
             }

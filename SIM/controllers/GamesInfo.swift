@@ -14,13 +14,16 @@ class GamesInfo {
     var gameDescription: String
     var gameName: String
     var interestRate: String
-    var margin: String
+    var marginEnabled: Bool
     var endDate: String
-    var partialShares: String
-    var playersInGame: String
-    var shortSale: String
+    var partialSharesEnabled: Bool
+    var numberOfPlayersInGame: String
+    var playersInGameEmail: [String]
+    var shortSaleEnabled: Bool
     var startingFunds: String
     var startDate: String
+    var percentComplete: String
+    var stopLossEnabled: Bool
     
     
     func composeFBData() -> [String: String]{
@@ -28,32 +31,38 @@ class GamesInfo {
         
         fbData = ["commission":"\(commission)",
                   "gameDescription":"\(gameDescription)",
-                  "gamename":"\(gameName)",
+                  "gameName":"\(gameName)",
                   "interestRate":"\(interestRate)",
-                  "margin":"\(margin)",
+                  "marginEnabled":"\(marginEnabled)",
                   "endDate":"\(endDate)",
-                  "partialShares":"\(partialShares)",
-                  "playersInGame":"\(playersInGame)",
-                  "shortSale":"\(shortSale)",
+                  "partialSharesEnabled":"\(partialSharesEnabled)",
+                  "numberOfPlayersInGame":"\(numberOfPlayersInGame)",
+                  "playersInGameEmail":"\(playersInGameEmail)",
+                  "shortSaleEnable":"\(shortSaleEnabled)",
                   "startingFunds":"\(startingFunds)",
-                  "startDate":"\(startDate)"
+                  "startDate":"\(startDate)",
+                  "percentComplete":"\(percentComplete)",
+                  "stopLossEnabled":"\(stopLossEnabled)"
         ]
         
         return fbData
     }
     
-    init(commission: String, gameDescription: String,gameName: String, interestRate: String, margin: String, endDate: String,partialShares: String,playersInGame: String,shortSale: String,startingFunds: String, startDate: String) {
+    init(commission: String, gameDescription: String,gameName: String, interestRate: String, margin: Bool, endDate: String,partialShares: Bool,playersInGame: [String],shortSale: Bool,startingFunds: String, startDate: String, numberPlayers: String, stopLoss: Bool,percentComplete:  String) {
         self.commission = commission
         self.gameDescription = gameDescription
         self.gameName = gameName
         self.interestRate = interestRate
-        self.margin = margin
+        self.marginEnabled = margin
         self.endDate = endDate
-        self.partialShares = partialShares
-        self.playersInGame = playersInGame
-        self.shortSale = shortSale
+        self.partialSharesEnabled = partialShares
+        self.numberOfPlayersInGame = numberPlayers
+        self.playersInGameEmail = playersInGame
+        self.shortSaleEnabled = shortSale
         self.startingFunds = startingFunds
         self.startDate = startDate
+        self.stopLossEnabled = stopLoss
+        self.percentComplete = percentComplete
     }
     
 }
