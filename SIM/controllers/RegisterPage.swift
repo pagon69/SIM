@@ -105,24 +105,42 @@ class RegisterPage: UIViewController {
             }
         }
         
+     //   print(newString)
         
-        let userData = [newString: [
+        let userData = [
             "playerEmail":userEmail,
-            "listOfStockAndQuantity": "0", //should be a list of dictionaries with stock name and quantities
+            "listOfStockAndQuantity": ["test":"0"], //should be a list of dictionaries with stock name and quantities
             "userNickName": userNickName,
-            "gamesInProgress": "", //should be an array of strings which are the name of the various games theuser is playing
+            "gamesInProgress": [""], //should be an array of strings which are the name of the various games theuser is playing
             "currentCash": "0",
             "networth": "0",
             "buyPower": "0",
             "currentStockValue": "0",
-            "gamesPlayed":"0",
-            "gamesWon":"0",
-            "winningPercentage":"0", //divide gamesplayed by games won (used in leaderboard)
-            "stockReturnsPercentageAtGameEnd":"0" //devide returns percentage by games played
+            "gamesPlayed":"2",
+            "gamesWon":"1",
+            "winningPercentage":"50", //divide gamesplayed by games won (used in leaderboard)
+            "stockReturnsPercentageAtGameEnd":"8" //devide returns percentage by games played
             
-            ]]
+            ] as [String : Any]
         
-         ref.child("userDataByEmail").setValue(userData)
+       // ref.child("userDataByEmail").childByAutoId().setValue(userData)
+        
+        
+        //somthing strange is happening ere - removed child(newString)
+        ref.child("userDataByEmail").child(newString).setValue(userData) { (error, snapshot) in
+            
+            if error != nil{ //what happens when i dont have internet access?
+                print("it did not work")
+            }else{
+                print("it worked")
+            }
+            
+        }
+        //
+        
+        
+        
+        
     }
     
     
@@ -219,7 +237,7 @@ class RegisterPage: UIViewController {
         super.viewDidLoad()
 
         
-        ref = Database.database().reference()
+       // ref = Database.database().reference()
         
         // Do any additional setup after loading the view.
     }

@@ -8,11 +8,13 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class Overview: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - globals
-    var passedData = Player()
+    var userData = Player()
+    var gameData = [GamesInfo]()
     
     //MARK: - Table view stuff
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,24 +57,35 @@ class Overview: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func pullFBData(){
     
-        //good to check for changes to the DB
-        let searchResultsDBReferefence = Database.database().reference().child("GameUsers")
+        let userEmail = Auth.auth().currentUser?.email ?? ""
         
-        //working search code: i can search a DB for something and display results
-        searchResultsDBReferefence.queryOrdered(byChild: "playerEmail").queryEqual(toValue: "a@a.com").observeSingleEvent(of: .value) { (snapshot) in
+        let changeChar = "_"
+        var newString = ""
+        
+        for letter in userEmail{
             
-            print("\n\n\nthe results of my search: \(snapshot)/n/n\n")
+            if letter == "." {
+                newString = newString + String(changeChar)
+            }else{
+                newString = newString + String(letter)
+            }
         }
         
+        print(newString)
         
         //searchs the DBfor the users edited email address
         let ref = Database.database().reference()
         
-        ref.child("userDataByEmail").child("b@b_com").observe(DataEventType.value) { (snapShot) in
+        ref.child("userDataByEmail").child(newString).observe(DataEventType.value) { (snapShot) in
             
             let pulleduserdata = snapShot.value as? [String:[String:String]] ?? ["":[:]]
             print(pulleduserdata)
-            print(snapShot)
+            
+            
+            
+           //userData.buyPower = pulleduserdata
+            
+            
             
             //pulleduserdata.isEmpty
             

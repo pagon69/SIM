@@ -17,6 +17,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     var playerSettings = GameSettings()
     var myGameInfoArray = [GamesInfo]()
     
+    //keep these remove above player and game Info
+    var userData = Player()
+    var gameData = [GamesInfo]()
+    
     //MARK: - IB actions and outlets
     @IBOutlet weak var profileTableViewOutlet: UITableView!
     @IBOutlet weak var aboutTableView: UITableView!
@@ -115,10 +119,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         
         if(tableView.tag == 0){
             let cell = profileTableViewOutlet.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
-            cell.cashRemainingOutlet.text = player.currentCash
-            cell.buyingPowerOutlet.text = player.buyPower
-            cell.netWorthOutlet.text = player.netWorth
-            cell.overAllGainsOutlet.text = player.stockReturnpercentageAtGameEnd
+            cell.cashRemainingOutlet.text = userData.currentCash
+            cell.buyingPowerOutlet.text = userData.buyPower
+            cell.netWorthOutlet.text = userData.netWorth
+            cell.overAllGainsOutlet.text = userData.stockReturnpercentageAtGameEnd
 
             return cell
         }
@@ -174,7 +178,51 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             }
         }
         
-        print(newString)
+        let ref = Database.database().reference()
+        
+        ref.child("userDataByEmail").child(newString).observe(DataEventType.value) { (snapShot) in
+            
+            let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
+            print(pulleduserdata)
+            
+            print("player: \(pulleduserdata["playerEmail"] ?? "") has won \(pulleduserdata["gamesWon"] ?? "") games")
+            
+            
+            
+//print(snapShot)
+            /*
+            for each in pulleduserdata{
+                
+                self.userData.buyPower = each.value["buyPower"] ?? ""
+                self.userData.currentCash = each.value["currentCash"] ?? ""
+                self.userData.currentStockValue = each.value["currentStockValue"] ?? ""
+               // self.userData.gamesInProgress = each.value["gamesInProgress"]
+               
+                for item in each.value["gamesInProgress"] ?? ""{
+                //    self.userData.gamesInProgress.append(item)
+                }
+                
+             
+                self.userData.gamesPlayed = each.value["gamesPlayed"] ?? ""
+                self.userData.gamesWon = each.value["gamesWon"] ?? ""
+                
+              //  self.userData.listOfStock = each.value["listOfStock"] ?? [""]
+                
+                self.userData.netWorth = each.value["netWorth"] ?? ""
+                self.userData.numberOfTrades = each.value["numberOfTrades"] ?? ""
+                self.userData.playerEmail = each.value["playerEmail"] ?? ""
+                self.userData.stockReturnpercentageAtGameEnd = each.value["stockReturnPercentageAtGameEnd"] ?? ""
+                self.userData.totalPlayerValue = each.value["totalPlayerValue"] ?? ""
+                self.userData.userNickName = each.value["userNickName"] ?? ""
+             
+            }
+            */
+            //look at games played DB for games and populate a array of games
+            
+        }
+        
+        
+        
         
         gamesSearchDBReference.queryEqual(toValue: newString).observeSingleEvent(of: .value) { (snapshot) in
             print(snapshot)
@@ -196,27 +244,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             print(pulleduserdata)
         }
         
-        /*
-        gamesSearchDBReference.queryOrdered(byChild: "playersInGame").queryEqual(toValue: Auth.auth().currentUser?.email).observeSingleEvent(of: .value) { (snapshot) in
-            
-            var data = snapshot.value as? [String:[String:String]] ?? ["":[:]]
-            print("This is from games searchDB: \(data)")
-            
-        }
-    */
- 
-      //  let gamesAndPlayers = ["a@a_com": [["cash":"100"],["test":"123456"],["playersinGame":["a@a.com","b@b.com","c@c.com","d@d.com"]]]]
-        /*
-        gamesSearchDBReference.queryOrdered(byChild: "b@b_com").queryEqual(toValue: "playerInGame").observeSingleEvent(of: .value) { (snapshot) in
-            
-           // let gamesAndPlayers = ["b@b_com": ["cash":"100","test":"123456","playersInGame":["a@a.com","d@d.com","b@b.com"]]]
-            
-            print(snapshot)
-            let data = snapshot.value as? [String:[[String:String]]] ?? ["test":[[:]]]
-            print("This is from games searchDB: \(data)")
-            
-        }
-        */
+       
         
         
         //working search code: i can search a DB for something and display results

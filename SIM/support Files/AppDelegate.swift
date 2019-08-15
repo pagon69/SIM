@@ -297,8 +297,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         ref.child("userDataByEmail").child("b@b_com").observe(DataEventType.value) { (snapShot) in
             
             let pulleduserdata = snapShot.value as? [String:[String:String]] ?? ["":[:]]
-            print(pulleduserdata)
-            print(snapShot)
+            //print(pulleduserdata)
+           // print(snapShot)
             
             //pulleduserdata.isEmpty
             
