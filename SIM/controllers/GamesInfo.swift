@@ -10,29 +10,35 @@ import Foundation
 
 class GamesInfo {
     
-    var commission: String
-    var gameDescription: String
-    var gameName: String
-    var interestRate: String
-    var marginEnabled: Bool
-    var endDate: String
-    var partialSharesEnabled: Bool
-    var numberOfPlayersInGame: String
-    var playersInGameEmail: [String]
-    var shortSaleEnabled: Bool
-    var startingFunds: String
-    var startDate: String
-    var percentComplete: String
-    var stopLossEnabled: Bool
+    var defaultCommission: String = "5.5"
+    var enableCommission = false
+    var gameDescription: String = ""
+    var gameName: String = ""
+    var marginEnabled: Bool = true
+    var endDate: String = ""
+    var partialSharesEnabled: Bool = false
+    var numberOfPlayersInGame: String = ""
+    var playersInGameEmail: [String] = [""]
+    var shortSaleEnabled: Bool = true
+    var startingFunds: String = ""
+    var startDate: String = ""
+    var percentComplete: String = ""
+    var stopLossEnabled: Bool = true
+    var daysRemaining = ""
+    var defaultIRC = "3.25"
+    var defaultIRD = "6.25"
+    var enableInterestRateCredit = false
+    var enableInterestRateDebt = false
+    var enableLimitOrders = false
+    var gameStillActive = true
     
     
     func composeFBData() -> [String: String]{
         var fbData: [String:String] = [:]
         
-        fbData = ["commission":"\(commission)",
+        fbData = ["commission":"\(defaultCommission)",
                   "gameDescription":"\(gameDescription)",
                   "gameName":"\(gameName)",
-                  "interestRate":"\(interestRate)",
                   "marginEnabled":"\(marginEnabled)",
                   "endDate":"\(endDate)",
                   "partialSharesEnabled":"\(partialSharesEnabled)",
@@ -48,6 +54,7 @@ class GamesInfo {
         return fbData
     }
     
+    /*
     init(commission: String, gameDescription: String,gameName: String, interestRate: String, margin: Bool, endDate: String,partialShares: Bool,playersInGame: [String],shortSale: Bool,startingFunds: String, startDate: String, numberPlayers: String, stopLoss: Bool,percentComplete:  String) {
         self.commission = commission
         self.gameDescription = gameDescription
@@ -64,5 +71,6 @@ class GamesInfo {
         self.stopLossEnabled = stopLoss
         self.percentComplete = percentComplete
     }
+    */
     
 }

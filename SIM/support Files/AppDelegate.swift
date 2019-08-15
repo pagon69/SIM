@@ -124,44 +124,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
 
         ref = Database.database().reference()
         
-        let userProfileData = ["new game gam what now": [
-            "gameName":"news game game what now",
-            "Description":"last one i will make within code, remainign will be dynamic, i feel better about how this is working out now that i see it live. ow to search nd find it",
-            "endDate":"9/20/2019",
-            "numberOfPlayers":"4",
-            "daysRemaining":"12",
-            "PlayersInGame": ["a@a.com","b@b.com","c@c.com","d@d.com"],
-            "startingFunds": "180000",
-            "shortSellingEnabled": "true",
+        let userProfileData = [
+            "gameName":"Yet Another",
+            "defaultCommission":"5.5",
+            "enableCommission":"true",
+            "gameDescription":"This is a quick test, of the data i can save within this database and display using a tableview cell. I need the have a long description for edititng.",
+            "endDate":"11/20/2019",
+            "numberOfPlayers":"2",
+            "daysRemaining":"13",
+            "PlayersInGameEmail": ["a@a.com","b@b.com"],
+            "startingFunds": "100000",
+            "shortSellingEnabled": "false",
             "marginSellingEnabled": "true",
             "enableLimitOrders": "false",
             "enableStopLoss": "true",
             "enablePartialShares": "true",
             "enableCommision":"true",
-            "defaultCommission":"5.5",
             "enableInterestRateCredit":"false",
             "defaultIRC":"5.50",
             "enableInterestRateDebit":" true",
-            "defaultIRD":"12.65",
-            "gameStillGoing":"true"
-            ]]
-
-        let test1 = ["d@d_com": [
-            "playerEmail":"d@d.com",
-            "listOfStockAndQuantity": [["aapl":"123"],["goog":"1"],["fb":"34"],["msft":"300"]],
-            "userNickName": "Mister D",
-            "gamesInProgress": ["my first game","yet another game", "Test another One", "another one"],
-            "currentCash": "615000",
-            "networth": "1509200",
-            "buyPower": "571200",
-            "currentStockValue": "164000"
-            
-            
-            ]]
-        
+            "defaultIRD":"2.65",
+            "gameStillActive":"true",
+            "startDate":"9/25/2019",
+            "percentComplete":"40"
+            ] as [String : Any]
+    
         // ref.childByAutoId().child("GamesTest").setValue(userProfileData)
         //  var ref: DatabaseReference!
-      // ref.child("gamesInProgressByGameName").childByAutoId().setValue(userProfileData)
+     //ref.child("gamesInProgressByGamename").child("Yet Another").setValue(userProfileData)
        // ref.child("userDataByEmail").childByAutoId().setValue(test1)
     }
     
