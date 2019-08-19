@@ -80,18 +80,6 @@ class Overview: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             let pulleduserdata = snapShot.value as? [String:[String:String]] ?? ["":[:]]
             print(pulleduserdata)
-            
-            
-            
-           //userData.buyPower = pulleduserdata
-            
-            
-            
-            //pulleduserdata.isEmpty
-            
-            // self.nickName = pulleduserdata["userNickName"] ?? ""
-            //  self.email = pulleduserdata["playerEmail"] ?? ""
-            //  self.cash = pulleduserdata["gameInProgress"] ?? ""
 
         }
         

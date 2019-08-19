@@ -10,6 +10,9 @@ import UIKit
 
 class GameReviewPage: UIViewController {
 
+    var incomingGameData: [String: Any] = [:]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

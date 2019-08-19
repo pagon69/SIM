@@ -12,29 +12,190 @@ class GameSettingsPage: UITableViewController {
 
     //MARK: - globals
     
-    
+    var userSelectedSettings: [String: Any] = [:]
     
     
     
     //MARK: - outlets and ibactions
     
+    @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
+        
+        //save current values for the system
+        updateSettings()
+        dismiss(animated: true)
+        
+        
+    }
+    
+    
     @IBOutlet weak var navBarOutlet: UINavigationBar!
     @IBOutlet var tableViewsOutlet: UITableView!
     
-    
-    @IBAction func createGameButtonClicked(_ sender: UIButton) {
+    @IBOutlet weak var IRCTextOutlet: UITextField!
+    @IBOutlet weak var IRCOutlet: UISwitch!
+    @IBAction func IRCclicked(_ sender: UISwitch) {
+        if sender.isOn {
+            IRCTextOutlet.isHidden = false
+        }else {
+            IRCTextOutlet.isHidden = true
+            
+        }
+        
     }
+    
+    @IBOutlet weak var IRDTextOutlet: UITextField!
+    @IBOutlet weak var IRDOutlet: UISwitch!
+    @IBAction func IRDclicked(_ sender: UISwitch) {
+        if sender.isOn {
+            IRDTextOutlet.isHidden = false
+        }else {
+            IRDTextOutlet.isHidden = true
+        }
+    }
+
+    @IBOutlet weak var partailSharesOutlet: UISwitch!
+    @IBOutlet weak var stopLossOutlet: UISwitch!
+    @IBOutlet weak var limitOrdersOutlet: UISwitch!
+    @IBOutlet weak var shortSaleOutlet: UISwitch!
+    @IBOutlet weak var marginSaleOutlet: UISwitch!
+    
+    @IBOutlet weak var comissionTextOutlet: UITextField!
+    @IBOutlet weak var privateGameOutlet: UISwitch!
+    
+    @IBOutlet weak var comissionSwitchOutlet: UISwitch!
+    @IBAction func commisonSwitchOutlet(_ sender: UISwitch) {
+        if sender.isOn == true{
+            comissionTextOutlet.isHidden = false
+        }else{
+            comissionTextOutlet.isHidden = true
+        }
+    }
+    
+    
+    @IBOutlet weak var resetOutlet: UISwitch!
+    @IBAction func resetClicked(_ sender: UISwitch) {
+    
+        //reset to default values
+    }
+    
+    
+    
+    @IBOutlet weak var deleteGameOutlet: UISwitch!
+    @IBAction func deleteGameClicked(_ sender: UISwitch) {
+        
+       // deploy an alert confirming and then logout user and delete account
+        
+    }
+    
+    func viewSetup(){
+        IRCOutlet.isOn = userSelectedSettings["enableInterestRateCredit"] as! Bool
+        IRCTextOutlet.isHidden = true
+        partailSharesOutlet.isOn = userSelectedSettings["enablePartialShares"] as! Bool
+        IRDOutlet.isOn = userSelectedSettings["enableInterestRateDebt"] as! Bool
+        IRDTextOutlet.isHidden = true
+        stopLossOutlet.isOn = userSelectedSettings["enableStopLoss"] as! Bool
+        limitOrdersOutlet.isOn = userSelectedSettings["enableLimitOrders"] as! Bool
+        comissionSwitchOutlet.isOn = userSelectedSettings["enableCommission"] as! Bool
+        comissionTextOutlet.isHidden = true
+        privateGameOutlet.isOn = userSelectedSettings["privateGames"] as! Bool
+        deleteGameOutlet.isOn = false
+        resetOutlet.isOn = false
+    }
+    
+    func updateSettings(){
+        var commission = ""
+        if comissionTextOutlet.isHidden {
+            commission = "3.5"
+        }else{
+            commission = comissionTextOutlet.text ?? "3.5"
+        }
+        
+        var IRC = ""
+        if IRCTextOutlet.isHidden {
+            IRC = "6.5"
+        }else{
+            IRC = IRCTextOutlet.text ?? "6.5"
+        }
+
+        var IRD = ""
+        if IRDTextOutlet.isHidden {
+            IRD = "1.5"
+        }else{
+            IRD = IRCTextOutlet.text ?? "1.5"
+        }
+        
+        userSelectedSettings = [
+            "gameName": "",
+            "defaultCommission":commission,
+            "enableCommission":"\(comissionSwitchOutlet.isOn)",
+            "gameDescription":"",
+            "endDate":"",
+            "numberOfPlayers":"",
+            "daysRemaining":"",
+            "PlayersInGameEmail": [""],
+            "startingFunds": "",
+            "shortSellingEnabled": "\(shortSaleOutlet.isOn)",
+            "marginSellingEnabled": "\(marginSaleOutlet.isOn)",
+            "enableLimitOrders": "\(limitOrdersOutlet.isOn)",
+            "enableStopLoss": "\(stopLossOutlet.isOn)",
+            "enablePartialShares": "\(partailSharesOutlet.isOn)",
+            "enableInterestRateCredit":"\(IRCOutlet.isOn)",
+            "defaultIRC":"\(IRC)",
+            "enableInterestRateDebit":"\(IRDOutlet.isOn)",
+            "defaultIRD":"\(IRD)",
+            "gameStillActive":"true",
+            "startDate":"",
+            "percentComplete":"",
+            "PrivateGames":"\(privateGameOutlet.isOn)"
+            
+            ] as [String : Any]
+        
+        print(userSelectedSettings["enableInterestRateCredit"])
+    }
+    
+    func defaultSetup(){
+        
+        userSelectedSettings = [
+            "gameName": "",
+            "defaultCommission":"3.5",
+            "enableCommission":"false",
+            "gameDescription":"",
+            "endDate":"",
+            "numberOfPlayers":"",
+            "daysRemaining":"",
+            "PlayersInGameEmail": [""],
+            "startingFunds": "",
+            "shortSellingEnabled": "true",
+            "marginSellingEnabled": "true",
+            "enableLimitOrders": "false",
+            "enableStopLoss": "false",
+            "enablePartialShares": "false",
+            "enableInterestRateCredit":"false",
+            "defaultIRC":"5.50",
+            "enableInterestRateDebit":" false",
+            "defaultIRD":"2.65",
+            "gameStillActive":"true",
+            "startDate":"",
+            "percentComplete":"",
+            "PrivateGames":"false"
+            
+            ] as [String : Any]
+        
+        viewSetup()
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+         self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        
+        defaultSetup()
         
     }
 
@@ -42,12 +203,31 @@ class GameSettingsPage: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        var count = 0
+        
+        //advanced
+        if section == 0{
+            count = 5
+            
+        }
+        //basic
+        if section == 1{
+            count = 3
+            
+        }
+        //privacy
+        if section == 3{
+            count = 4
+            
+        }
+        
+        return count
     }
 
     /*

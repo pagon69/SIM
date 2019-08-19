@@ -27,6 +27,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     @IBOutlet weak var profileTableViewOutlet: UITableView!
     @IBOutlet weak var aboutTableView: UITableView!
     
+    @IBOutlet weak var mySegmentOutlet: UISegmentedControl!
+    
     @IBAction func invitePlayerClicked(_ sender: UIButton) {
         //how do i invite people to play ? how do i connect to the Game center feature?
         
@@ -67,9 +69,19 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     @IBAction func segmentClicked(_ sender: UISegmentedControl) {
         
         if sender.selectedSegmentIndex == 0 {
-            performSegue(withIdentifier: "goToFindPage", sender: self)
+           // performSegue(withIdentifier: "goToFindPage", sender: self)
+            //0 should be the default
+            print(sender.selectedSegmentIndex)
+            
         }
-        if sender.selectedSegmentIndex ==  1 {
+        if sender.selectedSegmentIndex == 1 {
+            print(sender.selectedSegmentIndex)
+            performSegue(withIdentifier: "goToFindGame", sender: self)
+        }
+        
+        if sender.selectedSegmentIndex ==  2 {
+            
+            print(sender.selectedSegmentIndex)
             performSegue(withIdentifier: "goToNewGame", sender: self)
             
         }
@@ -125,6 +137,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             cell.buyingPowerOutlet.text = userData.buyPower
             cell.netWorthOutlet.text = userData.netWorth
             cell.overAllGainsOutlet.text = userData.stockReturnpercentageAtGameEnd
+            cell.debtRemainingOutlet.text = "12345"
+            cell.returnsPercentageOutlet.text = "3%"
 
             return cell
         }
@@ -151,6 +165,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         aboutTableView.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
         
         profileTableViewOutlet.register(UINib(nibName: "profileCell", bundle: nil), forCellReuseIdentifier: "profileCell")
+        // can i have nothing selected until a user clicks it?
+        mySegmentOutlet.selectedSegmentIndex = 0
         
         aboutTableView.autoresizesSubviews = true
         profileTableViewOutlet.autoresizesSubviews = true
@@ -265,54 +281,54 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             
         }
         
-
     }
     
     //work in games info
     func checkGames(listOfGames: [String]){
         
-        
         for each in listOfGames{
-            print("within for loop checkign : \(each)")
+           
             if each == "" {
-                
+                print("within for loop checkign : \(each)")
                 //test for no games joined
                 
             }else{
             // use this to do a search for game names, take data from above steps
-                print("This is what i see: \(each)")
-            ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value) { (snapshot) in
-                if snapshot.hasChildren(){
-                   // print("found the data")
-                   // print(snapshot)
+                print("within the else, data within list of games \(each)")
+                ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value) { (snapshot) in
+                    if snapshot.hasChildren(){
                     
+                        
                     if let data = snapshot.value as? [String: Any] {
+                        let myGameinfo = GamesInfo()
                         
-                        self.myGameinfo.daysRemaining = data["daysRemaining"] as? String ?? ""
-                        self.myGameinfo.defaultCommission = data["defaultCommission"] as? String ?? ""
-                        self.myGameinfo.defaultIRC = data["defaultIRC"] as? String ?? ""
-                        self.myGameinfo.defaultIRD = data["defaultIRD"] as? String ?? ""
-                        self.myGameinfo.enableCommission = data["enableCommission"] as? Bool ?? true
-                        self.myGameinfo.enableInterestRateCredit = data["enableInterestRateCredit"] as? Bool ?? false
-                        self.myGameinfo.enableInterestRateDebt = data["enableInterestRateDebt"] as? Bool ?? false
-                        self.myGameinfo.enableLimitOrders = data["enableLimitOrders"] as? Bool ?? false
-                        self.myGameinfo.endDate = data["enddate"] as? String ?? ""
-                        self.myGameinfo.gameDescription = data["gameDescription"] as? String ?? ""
-                        self.myGameinfo.gameName = data["gameName"] as? String ?? ""
-                        self.myGameinfo.gameStillActive = data["gameStillActive"] as? Bool ?? false
-                        self.myGameinfo.marginEnabled = data["marginEnabled"] as? Bool ?? true
-                        self.myGameinfo.numberOfPlayersInGame = data["numberOfPlayersInGame"] as? String ?? ""
-                        self.myGameinfo.partialSharesEnabled = data["partialSharesEnabled"] as? Bool ?? false
-                        self.myGameinfo.percentComplete = data["percentComplete"] as? String ?? ""
-                        self.myGameinfo.playersInGameEmail = data["playersInGameEmail"] as? [String] ?? []
-                        self.myGameinfo.shortSaleEnabled = data["shortSaleEnabled"] as? Bool ?? true
-                        self.myGameinfo.startDate = data["startDate"] as? String ?? ""
-                        self.myGameinfo.startingFunds = data["startingFunds"] as? String ?? ""
-                        self.myGameinfo.stopLossEnabled = data["stopLossEnabled"] as? Bool ?? false
+                        myGameinfo.daysRemaining = data["daysRemaining"] as? String ?? ""
+                        myGameinfo.defaultCommission = data["defaultCommission"] as? String ?? ""
+                        myGameinfo.defaultIRC = data["defaultIRC"] as? String ?? ""
+                        myGameinfo.defaultIRD = data["defaultIRD"] as? String ?? ""
+                        myGameinfo.enableCommission = data["enableCommission"] as? Bool ?? true
+                        myGameinfo.enableInterestRateCredit = data["enableInterestRateCredit"] as? Bool ?? false
+                        myGameinfo.enableInterestRateDebt = data["enableInterestRateDebt"] as? Bool ?? false
+                        myGameinfo.enableLimitOrders = data["enableLimitOrders"] as? Bool ?? false
+                        myGameinfo.endDate = data["enddate"] as? String ?? ""
+                        myGameinfo.gameDescription = data["gameDescription"] as? String ?? ""
+                        myGameinfo.gameName = data["gameName"] as? String ?? ""
+                        myGameinfo.gameStillActive = data["gameStillActive"] as? Bool ?? false
+                        myGameinfo.marginEnabled = data["marginEnabled"] as? Bool ?? true
+                        myGameinfo.numberOfPlayersInGame = data["numberOfPlayersInGame"] as? String ?? ""
+                        myGameinfo.partialSharesEnabled = data["partialSharesEnabled"] as? Bool ?? false
+                        myGameinfo.percentComplete = data["percentComplete"] as? String ?? ""
+                        myGameinfo.playersInGameEmail = data["playersInGameEmail"] as? [String] ?? []
+                        myGameinfo.shortSaleEnabled = data["shortSaleEnabled"] as? Bool ?? true
+                        myGameinfo.startDate = data["startDate"] as? String ?? ""
+                        myGameinfo.startingFunds = data["startingFunds"] as? String ?? ""
+                        myGameinfo.stopLossEnabled = data["stopLossEnabled"] as? Bool ?? false
                         
-                        self.gameData.append(self.myGameinfo)
+                        self.gameData.append(myGameinfo)
                         
-                        print(self.myGameinfo.gameName)
+                        self.aboutTableView.reloadData()
+                        print("I just put this into myGameInfo: \(self.myGameinfo.gameName)")
+                        print("I currently have the following amount of items: \(self.gameData.count)")
                     }
                 
                 }else {
@@ -320,20 +336,31 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
                 //save the created game name to the firebase database
                     }
                 
-                self.aboutTableView.reloadData()
+                print("I just put this into myGameInfo: \(self.myGameinfo.gameName)")
+                print("I currently have the following amount of items: \(self.gameData.count)")
+                    
+               // self.aboutTableView.reloadData()
                 
+                    for each in self.gameData{
+                        print("doing a check on whats saved: \(each.gameName)")
+                    }
+                    
                 }
+                
+               // self.aboutTableView.reloadData()
+                
             }
+            
+          //  self.aboutTableView.reloadData()
+            
         }
+       // self.aboutTableView.reloadData()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-    
-        
+   
         viewSetup()
         pulledData()
         // Do any additional setup after loading the view.
