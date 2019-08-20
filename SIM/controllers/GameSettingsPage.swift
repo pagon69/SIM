@@ -7,21 +7,23 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class GameSettingsPage: UITableViewController {
 
     //MARK: - globals
     
     var userSelectedSettings: [String: Any] = [:]
-    
-    
+    var ref: DatabaseReference!
     
     //MARK: - outlets and ibactions
     
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         
         //save current values for the system
-        updateSettings()
+       // updateSettings()
+        
         dismiss(animated: true)
         
         
@@ -62,6 +64,10 @@ class GameSettingsPage: UITableViewController {
     @IBOutlet weak var comissionTextOutlet: UITextField!
     @IBOutlet weak var privateGameOutlet: UISwitch!
     
+    @IBAction func privateGameClicked(_ sender: UISwitch) {
+    }
+    
+    
     @IBOutlet weak var comissionSwitchOutlet: UISwitch!
     @IBAction func commisonSwitchOutlet(_ sender: UISwitch) {
         if sender.isOn == true{
@@ -71,6 +77,7 @@ class GameSettingsPage: UITableViewController {
         }
     }
     
+    @IBOutlet weak var gamePasswordOutlet: UITextField!
     
     @IBOutlet weak var resetOutlet: UISwitch!
     @IBAction func resetClicked(_ sender: UISwitch) {
@@ -88,21 +95,41 @@ class GameSettingsPage: UITableViewController {
     }
     
     func viewSetup(){
-        IRCOutlet.isOn = userSelectedSettings["enableInterestRateCredit"] as! Bool
+        
+        IRCOutlet.isOn = (userSelectedSettings["enableInterestRateCredit"] != nil)
         IRCTextOutlet.isHidden = true
         partailSharesOutlet.isOn = userSelectedSettings["enablePartialShares"] as! Bool
-        IRDOutlet.isOn = userSelectedSettings["enableInterestRateDebt"] as! Bool
+        IRDOutlet.isOn = (userSelectedSettings["enableInterestRateDebt"] != nil)
         IRDTextOutlet.isHidden = true
         stopLossOutlet.isOn = userSelectedSettings["enableStopLoss"] as! Bool
         limitOrdersOutlet.isOn = userSelectedSettings["enableLimitOrders"] as! Bool
         comissionSwitchOutlet.isOn = userSelectedSettings["enableCommission"] as! Bool
         comissionTextOutlet.isHidden = true
-        privateGameOutlet.isOn = userSelectedSettings["privateGames"] as! Bool
-        deleteGameOutlet.isOn = false
-        resetOutlet.isOn = false
+        privateGameOutlet.isOn = userSelectedSettings["PrivateGames"] as! Bool
+        deleteGameOutlet.isOn = userSelectedSettings["deleteAccount"] as! Bool
+        resetOutlet.isOn = userSelectedSettings["resetToDefault"] as! Bool
+        gamePasswordOutlet.text = "\(userSelectedSettings["gamePassword"] ?? "")"
+
+        
     }
     
     func updateSettings(){
+        
+        ref = Database.database().reference()
+        
+        let userEmail = Auth.auth().currentUser?.email ?? ""
+        let changeChar = "_"
+        var newString = ""
+        
+        for letter in userEmail{
+            
+            if letter == "." {
+                newString = newString + String(changeChar)
+            }else{
+                newString = newString + String(letter)
+            }
+        }
+
         var commission = ""
         if comissionTextOutlet.isHidden {
             commission = "3.5"
@@ -125,61 +152,106 @@ class GameSettingsPage: UITableViewController {
         }
         
         userSelectedSettings = [
-            "gameName": "",
             "defaultCommission":commission,
-            "enableCommission":"\(comissionSwitchOutlet.isOn)",
-            "gameDescription":"",
-            "endDate":"",
-            "numberOfPlayers":"",
-            "daysRemaining":"",
-            "PlayersInGameEmail": [""],
-            "startingFunds": "",
-            "shortSellingEnabled": "\(shortSaleOutlet.isOn)",
-            "marginSellingEnabled": "\(marginSaleOutlet.isOn)",
-            "enableLimitOrders": "\(limitOrdersOutlet.isOn)",
-            "enableStopLoss": "\(stopLossOutlet.isOn)",
-            "enablePartialShares": "\(partailSharesOutlet.isOn)",
-            "enableInterestRateCredit":"\(IRCOutlet.isOn)",
-            "defaultIRC":"\(IRC)",
-            "enableInterestRateDebit":"\(IRDOutlet.isOn)",
-            "defaultIRD":"\(IRD)",
-            "gameStillActive":"true",
-            "startDate":"",
-            "percentComplete":"",
-            "PrivateGames":"\(privateGameOutlet.isOn)"
+            "enableCommission":comissionSwitchOutlet.isOn,
+            "shortSellingEnabled": shortSaleOutlet.isOn,
+            "marginSellingEnabled": marginSaleOutlet.isOn,
+            "enableLimitOrders": limitOrdersOutlet.isOn,
+            "enableStopLoss":  stopLossOutlet.isOn,
+            "enablePartialShares": partailSharesOutlet.isOn,
+            "enableInterestRateCredit": IRCOutlet.isOn,
+            "enableInterestRateDebit": IRDOutlet.isOn,
+            "gameStillActive": true,
+            "PrivateGames": privateGameOutlet.isOn,
+            "deleteAccount": deleteGameOutlet.isOn,
+            "resetToDefault": resetOutlet.isOn
             
             ] as [String : Any]
         
-        print(userSelectedSettings["enableInterestRateCredit"])
+        
+        
     }
     
     func defaultSetup(){
+        ref = Database.database().reference()
         
-        userSelectedSettings = [
-            "gameName": "",
-            "defaultCommission":"3.5",
-            "enableCommission":"false",
-            "gameDescription":"",
-            "endDate":"",
-            "numberOfPlayers":"",
-            "daysRemaining":"",
-            "PlayersInGameEmail": [""],
-            "startingFunds": "",
-            "shortSellingEnabled": "true",
-            "marginSellingEnabled": "true",
-            "enableLimitOrders": "false",
-            "enableStopLoss": "false",
-            "enablePartialShares": "false",
-            "enableInterestRateCredit":"false",
-            "defaultIRC":"5.50",
-            "enableInterestRateDebit":" false",
-            "defaultIRD":"2.65",
-            "gameStillActive":"true",
-            "startDate":"",
-            "percentComplete":"",
-            "PrivateGames":"false"
+        let userEmail = Auth.auth().currentUser?.email ?? ""
+        let changeChar = "_"
+        var newString = ""
+        
+        for letter in userEmail{
             
-            ] as [String : Any]
+            if letter == "." {
+                newString = newString + String(changeChar)
+            }else{
+                newString = newString + String(letter)
+            }
+        }
+        
+        ref.child("gameSettingsByUserEmail").child(newString).observeSingleEvent(of: .value) { (snapshot) in
+           
+            if let pulledData = snapshot.value as? [String: Any]{
+                
+                self.userSelectedSettings = [
+                    "gameName": pulledData["gameName"] as! String,
+                    "defaultCommission": pulledData["defaultCommission"] as! String,
+                    "enableCommission": pulledData["enableCommission"] as! Bool,
+                    "gameDescription": pulledData["gameDescription"] as! String,
+                    "endDate": pulledData["endDate"] as! String,
+                    "numberOfPlayers": pulledData["numberOfPlayers"] as! String,
+                    "daysRemaining": pulledData["daysRemaining"] as! String,
+                    "PlayersInGameEmail": pulledData["PlayersInGameEmail"] as! [String],
+                    "startingFunds": pulledData["startingFunds"] as! String,
+                    "shortSellingEnabled": pulledData["shortSellingEnabled"] as! Bool,
+                    "marginSellingEnabled": pulledData["marginSellingEnabled"] as! Bool,
+                    "enableLimitOrders": pulledData["enableLimitOrders"] as! Bool,
+                    "enableStopLoss": pulledData["enableStopLoss"] as! Bool,
+                    "enablePartialShares": pulledData["enablePartialShares"] as! Bool,
+                    "enableInterestRateCredit": pulledData["enableInterestRateCredit"] as! Bool,
+                    "defaultIRC": pulledData["defaultIRC"] as! String,
+                    "enableInterestRateDebit": pulledData["enableInterestRateDebit"] as! Bool,
+                    "defaultIRD": pulledData["defaultIRD"] as! String,
+                    "gameStillActive": pulledData["gameStillActive"] as! Bool,
+                    "startDate": pulledData["startDate"] as! String,
+                    "percentComplete": pulledData["percentComplete"] as! String,
+                    "PrivateGames": pulledData["PrivateGames"] as! Bool,
+                    "deleteAccount": pulledData["deleteAccount"] as! Bool,
+                    "gamePassword": pulledData["gamePassword"] as! String,
+                    "resetToDefault": pulledData["resetToDefault"] as! Bool
+                    
+                    ] as [String : Any]
+                
+                
+                
+            }else {
+
+                self.userSelectedSettings = [
+                  
+                    "defaultCommission":"3.5",
+                    "enableCommission":false,
+                    "shortSellingEnabled": true,
+                    "marginSellingEnabled": true,
+                    "enableLimitOrders": false,
+                    "enableStopLoss": false,
+                    "enablePartialShares": false,
+                    "enableInterestRateCredit":false,
+                    "defaultIRC":"5.50",
+                    "enableInterestRateDebit":false,
+                    "defaultIRD":"2.65",
+                    "gameStillActive":true,
+                    "PrivateGames": true,
+                    "deleteAccount": false,
+                    "resetToDefault": false
+                    
+                    ] as [String : Any]
+            }
+            
+            
+            
+        }
+            
+            
+        
         
         viewSetup()
     }
@@ -222,7 +294,7 @@ class GameSettingsPage: UITableViewController {
             
         }
         //privacy
-        if section == 3{
+        if section == 2{
             count = 4
             
         }

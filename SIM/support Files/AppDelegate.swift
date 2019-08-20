@@ -148,10 +148,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             "startDate":"9/25/2019",
             "percentComplete":"40"
             ] as [String : Any]
+        
+        
+        let userSelectedSettings = [
+            "gameName": "",
+            "defaultCommission":"3.5",
+            "enableCommission":false,
+            "gameDescription":"",
+            "endDate":"",
+            "numberOfPlayers":"",
+            "daysRemaining":"",
+            "PlayersInGameEmail": [""],
+            "startingFunds": "",
+            "shortSellingEnabled": true,
+            "marginSellingEnabled": true,
+            "enableLimitOrders": false,
+            "enableStopLoss": false,
+            "enablePartialShares": false,
+            "enableInterestRateCredit":false,
+            "defaultIRC":"5.50",
+            "enableInterestRateDebit":false,
+            "defaultIRD":"2.65",
+            "gameStillActive":true,
+            "startDate":"",
+            "percentComplete":"",
+            "PrivateGames": false,
+            "deleteAccount": false,
+            "gamePassword":"",
+            "resetToDefault": false
+            
+            ] as [String : Any]
     
         // ref.childByAutoId().child("GamesTest").setValue(userProfileData)
         //  var ref: DatabaseReference!
-     //ref.child("gamesInProgressByGamename").child("Yet Another").setValue(userProfileData)
+    // ref.child("gameSettingsByUserEmail").child("b@_com").setValue(userSelectedSettings)
        // ref.child("userDataByEmail").childByAutoId().setValue(test1)
     }
     

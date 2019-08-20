@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		74A715FF0F1F4BC1704C9459 /* Pods_SIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */; };
-		C104E0F722F881AC002519D2 /* GameReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104E0F622F881AC002519D2 /* GameReviewPage.swift */; };
 		C104E0F922F89DE8002519D2 /* GameSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */; };
 		C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A1F162301B2750067FAFA /* UserGameSettings.swift */; };
 		C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447922DE0047002A04BF /* TermsOfService.swift */; };
@@ -16,6 +15,7 @@
 		C13C637323043AEF00BF1221 /* LeaderboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C637223043AEF00BF1221 /* LeaderboardPage.swift */; };
 		C13C6376230442C000BF1221 /* leaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C6374230442C000BF1221 /* leaderboardCell.swift */; };
 		C13C6377230442C000BF1221 /* leaderboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C13C6375230442C000BF1221 /* leaderboardCell.xib */; };
+		C1445E9C230C6FF900CECF0B /* ConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1445E9B230C6FF900CECF0B /* ConfirmationPage.swift */; };
 		C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3422D378510018E1F6 /* LoginScreen.swift */; };
 		C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3622D3A4040018E1F6 /* Portfolio.swift */; };
 		C14D174222DC9ED800CE1B43 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14D174122DC9ED800CE1B43 /* GameSettings.swift */; };
@@ -67,7 +67,6 @@
 
 /* Begin PBXFileReference section */
 		52A7255E8B6D4800597A4527 /* Pods-SIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.debug.xcconfig"; sourceTree = "<group>"; };
-		C104E0F622F881AC002519D2 /* GameReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameReviewPage.swift; sourceTree = "<group>"; };
 		C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPage.swift; sourceTree = "<group>"; };
 		C11A1F162301B2750067FAFA /* UserGameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserGameSettings.swift; path = SIM/view/UserGameSettings.swift; sourceTree = SOURCE_ROOT; };
 		C133447922DE0047002A04BF /* TermsOfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		C13C637223043AEF00BF1221 /* LeaderboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardPage.swift; sourceTree = "<group>"; };
 		C13C6374230442C000BF1221 /* leaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = leaderboardCell.swift; sourceTree = "<group>"; };
 		C13C6375230442C000BF1221 /* leaderboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = leaderboardCell.xib; sourceTree = "<group>"; };
+		C1445E9B230C6FF900CECF0B /* ConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPage.swift; sourceTree = "<group>"; };
 		C14C1C3422D378510018E1F6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		C14C1C3622D3A4040018E1F6 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		C14D174122DC9ED800CE1B43 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 				C15AC3DE22F1F23E00BCBDAD /* OverviewPage.swift */,
 				C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */,
 				C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */,
-				C104E0F622F881AC002519D2 /* GameReviewPage.swift */,
+				C1445E9B230C6FF900CECF0B /* ConfirmationPage.swift */,
 				C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */,
 				C1722EAD22F9C2320035D925 /* DisclaimerPage.swift */,
 				C13C637223043AEF00BF1221 /* LeaderboardPage.swift */,
@@ -446,11 +446,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C104E0F722F881AC002519D2 /* GameReviewPage.swift in Sources */,
 				C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */,
 				C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */,
 				C14D174522DCA33600CE1B43 /* settingsCell.swift in Sources */,
 				C1F0BF0C22CD2FA40016FC17 /* LoadingViewController.swift in Sources */,
+				C1445E9C230C6FF900CECF0B /* ConfirmationPage.swift in Sources */,
 				C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */,
 				C193E5BE22D52636004E16DB /* SignUp.swift in Sources */,
 				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,

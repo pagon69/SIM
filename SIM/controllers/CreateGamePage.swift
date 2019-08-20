@@ -14,6 +14,8 @@ class CreateGamePage: UIViewController {
 
     //MARK: - globals
     var ref: DatabaseReference!
+    
+    
     var userSelectedSettings: [String: Any] = [:]
     
     //MARK: - outlets and actions
@@ -35,12 +37,13 @@ class CreateGamePage: UIViewController {
     }
     
     @IBAction func createButtonClicked(_ sender: UIButton) {
+        
     }
     
     
     @IBAction func gameSettingsClicked(_ sender: UIBarButtonItem) {
         
-        
+        //do i need to do anything ?
         
     }
     
@@ -92,10 +95,11 @@ class CreateGamePage: UIViewController {
     
     func viewSetup(){
         
-        
+    
     }
     
     func buildFBData(){
+
         ref = Database.database().reference()
         
         var gameName = ""
@@ -110,9 +114,20 @@ class CreateGamePage: UIViewController {
             
             if gameDesc != "" && gameName != "" && startingFunds != "" {
                 
-                var myEndDate = endDatePickerOutlet.date
                 
+             //   my date and time stuff needs work
+                
+                var myEndDate = Date(timeInterval: .init(), since: endDatePickerOutlet.date)
+            
                 var todayDate = Date()
+             
+                var worked = DateInterval(start: todayDate, end: myEndDate)
+                print(worked.duration)
+                var testing = DateInterval(start: todayDate, duration: worked.duration)
+                
+                var yetAnother = Date(timeInterval: worked.duration, since: todayDate)
+                print(yetAnother)
+                
                 var numPlayers = 0
                 var shortSale = true
                 
@@ -121,49 +136,34 @@ class CreateGamePage: UIViewController {
                 }else {
                     shortSale = false
                 }
-                
-                
-                print(ShortSellMarginSwitchOutlet.state)
-                print("todays date is: \(todayDate)")
-                print("enddate is : \(myEndDate)")
-                //print("can i subtract one from other: \(TimeInterval(myEndDate) - TimeInterval(todayDate))")
-                
-                var test = DateInterval(start: todayDate, end: myEndDate)
-                print(test.duration)
-                
-                var tester = Date(timeInterval: test.duration, since: todayDate)
-                print(tester)
-                
-              //  var testing = DateIntervalFormatter.string(<#T##DateIntervalFormatter#>)
-                
-                
-                
-               // var daysRemaining = myEndDate -
-                //var totalDays = myEndDate - todayDate
-                
+
                 let userProfileData = [
-                    "gameName":gameName,
-                    "defaultCommission":"5.5",
-                    "enableCommission":"false",
-                    "gameDescription":gameDesc,
-                    "endDate":"\(String(describing: myEndDate))",
-                    "numberOfPlayers":"\(numPlayers)",
-                    "daysRemaining":"10",
-                    "PlayersInGameEmail": ["\(String(describing: Auth.auth().currentUser?.email))"],
+                    "gameName": gameName,
+                    "defaultCommission":"3.5",
+                    "enableCommission":false,
+                    "gameDescription": gameDesc,
+                    "endDate":"\(myEndDate)",
+                    "numberOfPlayers":"",
+                    "daysRemaining":"",
+                    "PlayersInGameEmail": ["\(Auth.auth().currentUser?.email)"],
                     "startingFunds": startingFunds,
-                    "shortSellingEnabled": "\(shortSale)",
-                    "marginSellingEnabled": "true",
-                    "enableLimitOrders": "false",
-                    "enableStopLoss": "false",
-                    "enablePartialShares": "false",
-                    "enableCommision":"false",
-                    "enableInterestRateCredit":"false",
+                    "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
+                    "marginSellingEnabled": marginSwitchOutlet.isOn,
+                    "enableLimitOrders": false,
+                    "enableStopLoss": false,
+                    "enablePartialShares": false,
+                    "enableInterestRateCredit":false,
                     "defaultIRC":"5.50",
-                    "enableInterestRateDebit":" false",
+                    "enableInterestRateDebit":false,
                     "defaultIRD":"2.65",
-                    "gameStillActive":"true",
+                    "gameStillActive":true,
                     "startDate":"\(todayDate)",
-                    "percentComplete":""
+                    "percentComplete":"",
+                    "PrivateGames": false,
+                    "deleteAccount": false,
+                    "gamePassword":"",
+                    "resetToDefault": false
+                    
                     ] as [String : Any]
                 
                 //used to pass something to confrim page
@@ -171,8 +171,7 @@ class CreateGamePage: UIViewController {
                 
                 performSegue(withIdentifier: "goToConfirmationPage", sender: self)
             }
-            
-            
+             
         }else {
             print("cannot continue missing data")
         }
@@ -183,7 +182,7 @@ class CreateGamePage: UIViewController {
         
         if segue.identifier == "goToConfirmationPage" {
             
-            let DestVC = segue.destination as! GameReviewPage
+            let DestVC = segue.destination as! ConfirmationPage
             DestVC.incomingGameData = userSelectedSettings
         }
     }
