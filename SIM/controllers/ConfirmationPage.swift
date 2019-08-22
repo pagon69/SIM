@@ -15,6 +15,7 @@ class ConfirmationPage: UITableViewController {
 
     //globals
     var incomingGameData: [String: Any] = [:]
+    var userSettings: [String: Any] = [:]
     var ref: DatabaseReference!
     
     //IB actions and more
@@ -87,8 +88,62 @@ class ConfirmationPage: UITableViewController {
             }
         }
         
-        ref.child("gameSettingsByUserEmail").child(newString).setValue(incomingGameData)
-        SVProgressHUD.show()
+        
+         userSettings = [
+            "defaultCommission":"3.5",
+            "enableCommission":false,
+            "startingFunds": "\(incomingGameData["startingFunds"] ?? "0")",
+            "shortSellingEnabled": "\(incomingGameData["shortSellingEnabled"] ?? "true")",
+            "marginSellingEnabled": "\(incomingGameData["marginSellingEnabled"] ?? "true")",
+            "enableLimitOrders": false,
+            "enableStopLoss": false,
+            "enablePartialShares": false,
+            "enableInterestRateCredit":false,
+            "defaultIRC":"5.50",
+            "enableInterestRateDebit":false,
+            "defaultIRD":"2.65",
+            "PrivateGames": false,
+            "deleteAccount": false,
+            "gamePassword":"",
+            "resetToDefault": false
+            
+            ] as [String : Any]
+        
+        //add the game by user who created it
+        ref.child("gameSettingsByUserEmail").child(newString).setValue(userSettings)
+       
+        //add the game for others to join
+        ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
+        
+        //search for liveGames and updates by adding 1 to the number of games
+        ref.child("liveGames").observeSingleEvent(of: .value) { (snapShot) in
+            
+            if let pulleduserdata = snapShot.value as? [String: String]{
+            
+                if let numberOfGames = Int(pulleduserdata["currentActiveGames"] ?? "0"){
+                    var num = numberOfGames
+                    num += 1
+                    
+                    var currentActiveGames: [String: String] = [:]
+                    
+                    currentActiveGames = [
+                        "currentActiveGames":"\(num)"
+                    ]
+
+                    self.ref.child("liveGames").updateChildValues(currentActiveGames){(Error, ref) in
+                        if let error = Error {
+                            print("An error happened:\(error)")
+                        }else{
+                            print("data saved successfully")
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        
+        SVProgressHUD.dismiss()
     }
     
     

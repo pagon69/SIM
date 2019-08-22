@@ -9,10 +9,6 @@
 import UIKit
 
 class FindGamePage: UIViewController {
-
-    
-    
-    
     
     //MARK: - gloabls
     

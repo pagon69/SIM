@@ -145,7 +145,7 @@ class CreateGamePage: UIViewController {
                     "endDate":"\(myEndDate)",
                     "numberOfPlayers":"",
                     "daysRemaining":"",
-                    "PlayersInGameEmail": ["\(Auth.auth().currentUser?.email)"],
+                    "PlayersInGameEmail": ["\(Auth.auth().currentUser?.email ?? "")"],
                     "startingFunds": startingFunds,
                     "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
                     "marginSellingEnabled": marginSwitchOutlet.isOn,
@@ -166,8 +166,40 @@ class CreateGamePage: UIViewController {
                     
                     ] as [String : Any]
                 
+                let userProfileDataTwo = [
+                    "gameName": gameName,
+                    "defaultCommission":"3.5",
+                    "enableCommission":false,
+                    "gameDescription": gameDesc,
+                    "endDate":"\(myEndDate)",
+                    "numberOfPlayers":"",
+                    "daysRemaining":"",
+                    "PlayersInGameEmail": ["\(Auth.auth().currentUser?.email)"],
+                    "startingFunds": startingFunds,
+                    "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
+                    "marginSellingEnabled": marginSwitchOutlet.isOn,
+                    "advancedSettings":[
+                                        "enableLimitOrders": false,
+                                        "enableStopLoss": false,
+                                        "enablePartialShares": false,
+                                        "enableInterestRateCredit":false,
+                                        "defaultIRC":"5.50",
+                                        "enableInterestRateDebit":false,
+                                        "defaultIRD":"2.65"],
+                    
+                    "gameStillActive":true,
+                    "startDate":"\(todayDate)",
+                    "percentComplete":"",
+                    "privacySettings":["PrivateGames": false,
+                                       "deleteAccount": false,
+                                       "gamePassword":""],
+                    "resetToDefault": false
+                    
+                    ] as [String : Any]
+                
+                
                 //used to pass something to confrim page
-                userSelectedSettings = userProfileData
+                userSelectedSettings = userProfileDataTwo
                 
                 performSegue(withIdentifier: "goToConfirmationPage", sender: self)
             }

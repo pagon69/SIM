@@ -179,6 +179,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             
             ] as [String : Any]
     
+        var currentActiveGames: [String: String] = [:]
+        
+        currentActiveGames = [
+            "currentActiveGames":"0"
+        ]
+        
+       // ref.child("gameSettingsByUserEmail").child(newString).setValue(incomingGameData)
+      //  ref.child("liveGames").setValue(currentActiveGames)
+        
         // ref.childByAutoId().child("GamesTest").setValue(userProfileData)
         //  var ref: DatabaseReference!
     // ref.child("gameSettingsByUserEmail").child("b@_com").setValue(userSelectedSettings)
