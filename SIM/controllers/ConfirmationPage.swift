@@ -109,11 +109,26 @@ class ConfirmationPage: UITableViewController {
             
             ] as [String : Any]
         
-        //add the game by user who created it
-        ref.child("gameSettingsByUserEmail").child(newString).setValue(userSettings)
-       
+      
         //add the game for others to join
         ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
+        
+        
+        //collects all of the needed user data
+        ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapShot) in
+            
+            let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
+            // print(pulleduserdata)
+            
+            var userData = pulleduserdata["gamesInProgress"] as? [String: String] ?? []
+        
+            userData.append("\(self.incomingGameData["gameName"])")
+            
+            self.incomingGameData["gamesInProgress"] = userData
+            //add the game by user who created it
+            self.ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
+            
+        }
         
         
         //update the userData by email
