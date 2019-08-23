@@ -121,8 +121,12 @@ class CreateGamePage: UIViewController {
             
                 var todayDate = Date()
              
+                
+                //this is an error when the same date is used fix this
                 var worked = DateInterval(start: todayDate, end: myEndDate)
-                print(worked.duration)
+                    
+                
+                
                 var testing = DateInterval(start: todayDate, duration: worked.duration)
                 
                 var yetAnother = Date(timeInterval: worked.duration, since: todayDate)

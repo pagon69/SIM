@@ -115,6 +115,30 @@ class ConfirmationPage: UITableViewController {
         //add the game for others to join
         ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
         
+        
+        //update the userData by email
+        let updates = ["gamesInProgress":["891":"\(incomingGameData["gameName"] ?? "")"]]
+        
+        //ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error, ref) in
+        
+        /*fix is as follows
+         get a snapshot of users account info
+         put what is in gamesInProgress into an array
+         add the lastest game
+         upload to firebase using update the data
+ 
+         */
+        
+        ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error, ref) in
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+            }else{
+                print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+            }
+ 
+        }
+        
+        
         //search for liveGames and updates by adding 1 to the number of games
         ref.child("liveGames").observeSingleEvent(of: .value) { (snapShot) in
             

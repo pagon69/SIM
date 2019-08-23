@@ -523,7 +523,13 @@
                                     <constraint firstAttribute="height" constant="44" id="Aw0-2a-Kwv"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Title" id="Fep-va-VX8"/>
+                                    <navigationItem title="Title" id="Fep-va-VX8">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="gMu-Qs-hWJ">
+                                            <connections>
+                                                <action selector="backButtonClicked:" destination="SKX-MX-W9h" id="mdL-Uj-Pyg"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6f-Vd-Ogm" userLabel="topView">
@@ -574,7 +580,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="createGameClicked:" destination="SKX-MX-W9h" eventType="touchUpInside" id="y24-sy-FVf"/>
-                                                    <segue destination="1kx-Uf-I2i" kind="showDetail" id="fas-jg-8pA"/>
+                                                    <segue destination="1kx-Uf-I2i" kind="showDetail" id="9A8-of-3II"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -632,28 +638,12 @@
                                         <rect key="frame" x="8" y="8" width="359" height="377"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myCell" textLabel="fpK-NY-6tz" detailTextLabel="KUh-l9-kDz" style="IBUITableViewCellStyleValue1" id="enL-7l-QtF">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gameDetailCell" rowHeight="44" id="enL-7l-QtF" customClass="gameDetailCell" customModule="SIM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="359" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="enL-7l-QtF" id="vQw-X7-wq4">
                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fpK-NY-6tz">
-                                                            <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KUh-l9-kDz">
-                                                            <rect key="frame" x="300" y="12" width="44" height="20.5"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </tableViewCell>
@@ -6255,7 +6245,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YDN-bf-XOJ"/>
-        <segue reference="fas-jg-8pA"/>
+        <segue reference="9A8-of-3II"/>
         <segue reference="T2c-Ao-f6i"/>
         <segue reference="xAb-Ie-oOO"/>
         <segue reference="MNh-bP-MyF"/>
