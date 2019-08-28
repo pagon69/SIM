@@ -194,6 +194,8 @@ class CreateGamePage: UIViewController {
                     "gameStillActive":true,
                     "startDate":"\(todayDate)",
                     "percentComplete":"",
+                    "gamesInProgress":["Another One",
+                                        "Yet Another"],
                     "privacySettings":["PrivateGames": false,
                                        "deleteAccount": false,
                                        "gamePassword":""],

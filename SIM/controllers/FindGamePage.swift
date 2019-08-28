@@ -102,16 +102,9 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
             
             if let data = snapshot.value as? [String:[String:Any]]{
                 let myGameinfo = GamesInfo()
-                
-                //print("what i found in data: \(data)/n/n/n/n\n\n\n\n")
-                
-                for each in data{
-                   // print(each.value["gameName"])
-                    
-                  //  print("within the each.value :\(each.value)\n\n\n/n/n/n")
-                  //  print("whats in the key: \(each.key) \n\n\n\n/n/n/n/n/n")
-                 //   print("whats in the  value: \(each.value["gameName"]) \n\n\n\n/n/n/n")
 
+                for each in data{
+        
                     myGameinfo.gameName = each.value["gameName"] as? String ?? ""
                     myGameinfo.gameDescription = each.value["gameDescription"] as? String ?? ""
                     myGameinfo.endDate = "\(Date())"

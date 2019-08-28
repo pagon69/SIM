@@ -71,6 +71,44 @@ class ConfirmationPage: UITableViewController {
     }
     
     
+    
+    func convertData(data: [String]){
+        
+        var newdata2 = [""]
+
+        var newdata = ["andy","bob","bill"]
+        
+        var newest = ["Progress": newdata]
+        
+        ref.child("TestDB").setValue(newest)
+        
+        ref.childByAutoId().child("GamesTest").setValue(newdata)
+        
+        print(" This the data coming in: \(data)")
+        
+       // "PlayersInGameEmail": ["a@a.com","b@b.com"]
+        
+        var newFormate = ""
+        
+        var count = data.count
+        
+        for each in data{
+            newFormate = newFormate + "\(each),"
+            
+            
+        }
+        
+        var test = {"\"yet another\"\"again another\""}
+       
+        print(test)
+        print(newFormate)
+        
+        
+    }
+
+    
+    
+    
     func buildAndSend(){
         SVProgressHUD.show()
         ref = Database.database().reference()
@@ -87,7 +125,6 @@ class ConfirmationPage: UITableViewController {
                 newString = newString + String(letter)
             }
         }
-        
         
          userSettings = [
             "defaultCommission":"3.5",
@@ -109,31 +146,60 @@ class ConfirmationPage: UITableViewController {
             
             ] as [String : Any]
         
-      
-        //add the game for others to join
-        ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
-        
-        
         //collects all of the needed user data
         ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapShot) in
             
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
             // print(pulleduserdata)
             
-            var userData = pulleduserdata["gamesInProgress"] as? [String: String] ?? []
-        
-            userData.append("\(self.incomingGameData["gameName"])")
+                var userData = pulleduserdata["gamesInProgress"] as! [String]
             
-            self.incomingGameData["gamesInProgress"] = userData
-            //add the game by user who created it
-            self.ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
+                let test = self.incomingGameData["gameName"] as! String
             
+                userData.append(test)
+               // userData.append("\(self.incomingGameData["gameName"] ?? "")")
+            
+             //   self.incomingGameData["gamesInProgress"] = userData
+               // print("afterwrads: \(userData)")
+            
+                print("whats Async incomingGamedata: \(self.incomingGameData["gamesInProgress"])")
+              //  self.ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
+            
+                //keep track of the new changes
+               // let updates = self.incomingGameData["gamesInProgress"] as! [String]
+            
+            //makes the update to the system
+            
+            // this is the issue that needs to be addressed, i have to make this look like a string
+           // let updates = ["gamesInProgress":["\(arc4random())":"\(self.incomingGameData["gamesInProgress"])"]]
+            let updates = ["gamesInProgress":userData]
+            
+           // self.convertData(data: self.incomingGameData["gamesInProgress"] as! [String])
+            
+            self.ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error, ref) in
+                if let error = Error {
+                    print("somethign went way wrong:\(error)")
+                }else{
+                    print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+                }
+             
+             }
+  
         }
+        
+        //change games current settings
+        ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
+      //  print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
+        
+        //add the game for others to join
+        ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
+        
         
         
         //update the userData by email
-        let updates = ["gamesInProgress":["891":"\(incomingGameData["gameName"] ?? "")"]]
+      //  let updates = ["gamesInProgress":["891":"\(incomingGameData["gameName"] ?? "")"]]
         
+       // let update = ["gamesInProgress" : ["\(incomingGameData["gameName"] ?? "")"]]
         //ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error, ref) in
         
         /*fix is as follows
@@ -143,16 +209,16 @@ class ConfirmationPage: UITableViewController {
          upload to firebase using update the data
  
          */
-        
-        ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error, ref) in
+        /*
+        ref.child("userDataByEmail/\(newString)").updateChildValues(update){(Error, ref) in
             if let error = Error {
                 print("somethign went way wrong:\(error)")
             }else{
-                print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+                print("updates made sucessfully: \(update) added /n/n/n\n\n\n")
             }
  
         }
-        
+        */
         
         //search for liveGames and updates by adding 1 to the number of games
         ref.child("liveGames").observeSingleEvent(of: .value) { (snapShot) in

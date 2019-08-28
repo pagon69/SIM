@@ -175,6 +175,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             "PrivateGames": false,
             "deleteAccount": false,
             "gamePassword":"",
+            "gamesInProgress":["Another One",
+                               "Yet Another"],
             "resetToDefault": false
             
             ] as [String : Any]
@@ -190,7 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         
         // ref.childByAutoId().child("GamesTest").setValue(userProfileData)
         //  var ref: DatabaseReference!
-    // ref.child("gameSettingsByUserEmail").child("b@_com").setValue(userSelectedSettings)
+     ref.child("userDataByEmail").child("a@a_com").setValue(userSelectedSettings)
        // ref.child("userDataByEmail").childByAutoId().setValue(test1)
     }
     
