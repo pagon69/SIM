@@ -29,6 +29,12 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     @IBOutlet weak var gamestableViewOutlet: UITableView!
     
     
+    //MARK: - primary views
+    
+    
+    
+    
+    
     @IBAction func backButtonClicked(_ sender: Any) {
         dismiss(animated: true)
     }

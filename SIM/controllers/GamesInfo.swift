@@ -31,6 +31,12 @@ class GamesInfo {
     var enableInterestRateDebt = false
     var enableLimitOrders = false
     var gameStillActive = true
+    var gamesInProgress: [String] = [""]
+    var privateGame = false
+    var accountReset = false
+    var gamePassword = ""
+    var resetTodefault = false
+    
     
     
     func composeFBData() -> [String: String]{

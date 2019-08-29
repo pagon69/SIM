@@ -4635,7 +4635,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Title" id="6eB-1X-hHv">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="teg-H3-Ro5"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="teg-H3-Ro5">
+                                            <connections>
+                                                <segue destination="ATI-Mj-FBc" kind="showDetail" id="rrH-gY-ghf"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="logout" id="CZD-gY-8vt"/>
                                     </navigationItem>
                                 </items>
@@ -4651,6 +4655,9 @@
                                     <segment title="Rankings"/>
                                     <segment title="Settings"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentControlClicked:" destination="DrF-le-076" eventType="valueChanged" id="VpG-wj-j1D"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRP-9p-dZR" userLabel="google ad">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
@@ -4675,6 +4682,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="DrF-le-076" id="1vN-4Q-CpR"/>
+                                            <outlet property="delegate" destination="DrF-le-076" id="VqR-QJ-rmY"/>
+                                        </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKe-GG-YxE" userLabel="topView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
@@ -4841,7 +4852,7 @@
                                     <constraint firstAttribute="trailing" secondItem="DKe-GG-YxE" secondAttribute="trailing" id="dKn-g6-GYc"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-YK-5PQ" userLabel="portfoilio view">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-YK-5PQ" userLabel="portfoilio view">
                                 <rect key="frame" x="0.0" y="91" width="375" height="526"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4bV-4U-PMX">
@@ -4877,7 +4888,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Cvh-tR-wt5" secondAttribute="trailing" id="yYm-1b-Rne"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgH-RA-wFP" userLabel="ranking view">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgH-RA-wFP" userLabel="ranking view">
                                 <rect key="frame" x="0.0" y="91" width="375" height="526"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vhv-We-tU3" userLabel="game rtanking">
@@ -4913,8 +4924,8 @@
                                     <constraint firstItem="5P5-I0-DFm" firstAttribute="leading" secondItem="sgH-RA-wFP" secondAttribute="leading" id="oND-jh-RvX"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="weD-eh-2k9" userLabel="settings view">
-                                <rect key="frame" x="0.0" y="91" width="375" height="526"/>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="weD-eh-2k9" userLabel="settings view">
+                                <rect key="frame" x="0.0" y="99" width="375" height="518"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -4947,11 +4958,23 @@
                             <constraint firstItem="22v-gX-46c" firstAttribute="top" secondItem="Gec-94-h3n" secondAttribute="bottom" id="qrl-8s-ffK"/>
                             <constraint firstItem="HRP-9p-dZR" firstAttribute="leading" secondItem="tUo-Cw-gEr" secondAttribute="leading" id="sPl-0J-rQh"/>
                             <constraint firstItem="Gec-94-h3n" firstAttribute="top" secondItem="sOH-4r-9Km" secondAttribute="bottom" id="tAA-we-Oul"/>
-                            <constraint firstItem="weD-eh-2k9" firstAttribute="top" secondItem="Gec-94-h3n" secondAttribute="bottom" id="uE3-9e-Mh1"/>
+                            <constraint firstItem="weD-eh-2k9" firstAttribute="top" secondItem="Gec-94-h3n" secondAttribute="bottom" constant="8" symbolic="YES" id="uE3-9e-Mh1"/>
                             <constraint firstItem="Gec-94-h3n" firstAttribute="trailing" secondItem="tUo-Cw-gEr" secondAttribute="trailing" id="z30-1Q-F2G"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tUo-Cw-gEr"/>
                     </view>
+                    <connections>
+                        <outlet property="overviewOutlet" destination="22v-gX-46c" id="MHp-gi-Y7N"/>
+                        <outlet property="playerNameOutlet" destination="f7j-tE-8Tx" id="Sej-fJ-02S"/>
+                        <outlet property="playersInGameTable" destination="erq-Ex-hkE" id="LN6-X5-H6B"/>
+                        <outlet property="portfolioiew" destination="6f7-YK-5PQ" id="20Y-0t-phF"/>
+                        <outlet property="rankingOutlet" destination="sgH-RA-wFP" id="IkP-jc-5R5"/>
+                        <outlet property="segwayOutlet" destination="Gec-94-h3n" id="RkH-6h-HS7"/>
+                        <outlet property="settingsOutlet" destination="weD-eh-2k9" id="tZF-4H-s0a"/>
+                        <outlet property="userNameOutlet" destination="xwF-br-s2e" id="HBq-I6-53S"/>
+                        <outlet property="userNetWorthOutlet" destination="CvS-8p-XKO" id="p85-24-RVD"/>
+                        <outlet property="userTotalReturnOutlet" destination="g1s-fD-bV1" id="1Pq-Ym-0VL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2fX-jT-pth" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -6572,7 +6595,7 @@
         <segue reference="YDN-bf-XOJ"/>
         <segue reference="9A8-of-3II"/>
         <segue reference="T2c-Ao-f6i"/>
-        <segue reference="xAb-Ie-oOO"/>
+        <segue reference="rrH-gY-ghf"/>
         <segue reference="MNh-bP-MyF"/>
     </inferredMetricsTieBreakers>
 </document>
