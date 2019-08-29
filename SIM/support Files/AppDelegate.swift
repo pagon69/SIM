@@ -180,11 +180,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             "resetToDefault": false
             
             ] as [String : Any]
-    
+        
+        let leaderBoardStats = ["":""
+                                ]
         var currentActiveGames: [String: String] = [:]
         
         currentActiveGames = [
-            "currentActiveGames":"0"
+                    "currentActiveGames":"0"
         ]
         
        // ref.child("gameSettingsByUserEmail").child(newString).setValue(incomingGameData)
@@ -192,7 +194,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
         
         // ref.childByAutoId().child("GamesTest").setValue(userProfileData)
         //  var ref: DatabaseReference!
-     ref.child("userDataByEmail").child("a@a_com").setValue(userSelectedSettings)
+     //ref.child("userDataByEmail").child("a@a_com").setValue(userSelectedSettings)
        // ref.child("userDataByEmail").childByAutoId().setValue(test1)
     }
     

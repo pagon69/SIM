@@ -19,6 +19,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
     var gamesInProgress: [String] = [""]
     var gamesInProgressDetails = [GamesInfo]()
     let gameDetails = GamesInfo()
+    var myPlayersInfo = [Player]()
     
     
     //overview IBactions and Outlets
@@ -87,14 +88,14 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     //tableview functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameDetails.playersInGameEmail.count
+        return myPlayersInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
     
         
-        cell.textLabel?.text = gameDetails.playersInGameEmail[indexPath.row]
+        cell.textLabel?.text = myPlayersInfo[indexPath.row].playerEmail
         
         return cell
     }
@@ -112,11 +113,13 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func pullUserData(){
-        
+        ref = Database.database().reference()
+
+
         let userEmail = Auth.auth().currentUser?.email ?? ""
         let changeChar = "_"
         var newString = ""
-        var usersGamesInProgress: [String]
+     //   var usersGamesInProgress: [String]
         
         for letter in userEmail{
             
@@ -127,30 +130,68 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
             }
         }
         
+        
+        //found nil ?
         ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapshot) in
             
             if let pulledData = snapshot.value as? [String: Any]{
                 
-                let playerEmail = pulledData["PlayerEmail"] as! String
-                let totalReturn = pulledData["stockReturnsPercentageAtGameEnd"] as! String
-                let networth = pulledData["networth"] as! String
-                let gamesInProgress = pulledData["gamesInProgress"] as! [String]
+                let playerEmail = pulledData["playerEmail"] as? String
+                let totalReturn = pulledData["stockReturnsPercentageAtGameEnd"] as? String
+                let networth = pulledData["networth"] as? String
+                let gamesInProgress = pulledData["gamesInProgress"] as? [String]
                 
                 self.userNameOutlet.text = playerEmail
                 self.userNetWorthOutlet.text = networth
                 self.userTotalReturnOutlet.text = totalReturn
-                self.gamesInProgress = gamesInProgress
+                self.gamesInProgress = gamesInProgress ?? [""]
                 
-                if gamesInProgress.count != 0 {
+                if gamesInProgress?.count != 0 {
                     
-                    
-                    for each in gamesInProgress{
+                    for each in gamesInProgress ?? [""]{
                     
                         self.ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value, with: { (snapshot) in
                             
                             if let pulledData = snapshot.value as? [String: Any]{
                                 
-                                self.gameDetails.playersInGameEmail = pulledData["PlayersInGameEmail"] as! [String]
+                                self.gameDetails.playersInGameEmail = pulledData["PlayersInGameEmail"] as? [String] ?? [""]
+                                
+                                for each in self.gameDetails.playersInGameEmail{
+                                    
+                                    let userEmail = each
+                                    let changeChar = "_"
+                                    var newString = ""
+  
+                                    for letter in userEmail{
+                                        
+                                        if letter == "." {
+                                            newString = newString + String(changeChar)
+                                        }else{
+                                            newString = newString + String(letter)
+                                        }
+                                    }
+                                    
+                                    self.ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value, with: { (snapshot) in
+                                        var playerInfo = Player()
+                                        
+                                        if let pulledData = snapshot.value as? [String: Any]{
+                                            //save network or whatever labels someplace
+                                            playerInfo.netWorth = pulledData["networth"] as! String
+                                            playerInfo.gamesWon = pulledData["gamesWon"] as! String
+                                            playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as! String
+                                            playerInfo.playerEmail = pulledData["playerEmail"] as! String
+                                            
+                                            self.myPlayersInfo.append(playerInfo)
+                                            self.playersInGameTable.reloadData()
+                                        }
+                                        
+                                        
+                                    })
+                                    
+                                    
+                                }
+                                
+                                
                                 self.playersInGameTable.reloadData()
                             }
                             

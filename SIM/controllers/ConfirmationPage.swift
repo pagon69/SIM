@@ -162,7 +162,7 @@ class ConfirmationPage: UITableViewController {
              //   self.incomingGameData["gamesInProgress"] = userData
                // print("afterwrads: \(userData)")
             
-                print("whats Async incomingGamedata: \(self.incomingGameData["gamesInProgress"])")
+            print("whats Async incomingGamedata: \(String(describing: self.incomingGameData["gamesInProgress"] ?? ""))")
               //  self.ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
             
                 //keep track of the new changes
@@ -239,7 +239,7 @@ class ConfirmationPage: UITableViewController {
                         if let error = Error {
                             print("An error happened:\(error)")
                         }else{
-                            print("data saved successfully")
+                            print("data saved successfully, live games is now updated")
                         }
                     }
                 }

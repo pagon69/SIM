@@ -149,7 +149,7 @@ class CreateGamePage: UIViewController {
                     "endDate":"\(myEndDate)",
                     "numberOfPlayers":"",
                     "daysRemaining":"",
-                    "PlayersInGameEmail": ["\(Auth.auth().currentUser?.email ?? "")"],
+                    "PlayersInGameEmail": [Auth.auth().currentUser?.email ?? ""],
                     "startingFunds": startingFunds,
                     "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
                     "marginSellingEnabled": marginSwitchOutlet.isOn,
