@@ -141,6 +141,12 @@ class CreateGamePage: UIViewController {
                     shortSale = false
                 }
 
+                var usersInGame: [String] = [String]()
+                
+                //is the below test Data needed?
+                usersInGame.append("testData")
+                usersInGame.append(Auth.auth().currentUser?.email ?? "")
+                
                 let userProfileData = [
                     "gameName": gameName,
                     "defaultCommission":"3.5",
@@ -149,7 +155,7 @@ class CreateGamePage: UIViewController {
                     "endDate":"\(myEndDate)",
                     "numberOfPlayers":"",
                     "daysRemaining":"",
-                    "PlayersInGameEmail": [Auth.auth().currentUser?.email ?? ""],
+                    "PlayersInGameEmail": usersInGame,
                     "startingFunds": startingFunds,
                     "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
                     "marginSellingEnabled": marginSwitchOutlet.isOn,
@@ -178,7 +184,7 @@ class CreateGamePage: UIViewController {
                     "endDate":"\(myEndDate)",
                     "numberOfPlayers":"",
                     "daysRemaining":"",
-                    "PlayersInGameEmail": Auth.auth().currentUser?.email ?? "",
+                    "PlayersInGameEmail": usersInGame,
                     "startingFunds": startingFunds,
                     "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
                     "marginSellingEnabled": marginSwitchOutlet.isOn,

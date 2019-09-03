@@ -158,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
             "endDate":"",
             "numberOfPlayers":"",
             "daysRemaining":"",
-            "PlayersInGameEmail": [""],
+            "PlayersInGameEmail": ["b@b.com","c@c.com"],
             "startingFunds": "",
             "shortSellingEnabled": true,
             "marginSellingEnabled": true,

@@ -109,9 +109,9 @@ class RegisterPage: UIViewController {
         
         let userData = [
             "playerEmail":userEmail,
-            "listOfStockAndQuantity": ["test":"0"], //should be a list of dictionaries with stock name and quantities
+            "listOfStockAndQuantity": ["test data"], //should be a list of dictionaries with stock name and quantities
             "userNickName": userNickName,
-            "gamesInProgress": [""], //should be an array of strings which are the name of the various games theuser is playing
+            "gamesInProgress": ["test data"], //should be an array of strings which are the name of the various games theuser is playing
             "currentCash": "0",
             "networth": "0",
             "buyPower": "0",

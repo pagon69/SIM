@@ -153,6 +153,7 @@ class ConfirmationPage: UITableViewController {
             // print(pulleduserdata)
             
                 var userData = pulleduserdata["gamesInProgress"] as! [String]
+            print(userData)
             
                 let test = self.incomingGameData["gameName"] as! String
             
@@ -176,7 +177,9 @@ class ConfirmationPage: UITableViewController {
             
            // self.convertData(data: self.incomingGameData["gamesInProgress"] as! [String])
             
-            self.ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error, ref) in
+            self.ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error,
+                
+                ref) in
                 if let error = Error {
                     print("somethign went way wrong:\(error)")
                 }else{
@@ -190,6 +193,9 @@ class ConfirmationPage: UITableViewController {
         //change games current settings
         ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
       //  print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
+        
+        let testing = incomingGameData["gameName"] as? String ?? ""
+        print(" What is in the testing: \(testing) \n\n\n\n/n/n/n/n")
         
         //add the game for others to join
         ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
@@ -234,7 +240,8 @@ class ConfirmationPage: UITableViewController {
                     currentActiveGames = [
                         "currentActiveGames":"\(num)"
                     ]
-
+                    
+                    
                     self.ref.child("liveGames").updateChildValues(currentActiveGames){(Error, ref) in
                         if let error = Error {
                             print("An error happened:\(error)")
@@ -242,6 +249,8 @@ class ConfirmationPage: UITableViewController {
                             print("data saved successfully, live games is now updated")
                         }
                     }
+                    
+ 
                 }
             }
         }

@@ -150,12 +150,23 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
                     
                     for each in gamesInProgress ?? [""]{
                     
-                        self.ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value, with: { (snapshot) in
+                self.ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value, with: { (snapshot) in
                             
-                            if let pulledData = snapshot.value as? [String: Any]{
-                                
-                                self.gameDetails.playersInGameEmail = pulledData["PlayersInGameEmail"] as? [String] ?? [""]
-                                
+                    if let pulledData = snapshot.value as? [String: Any]{
+                        
+                        var listOfUsers: [String] = [String]()
+                        let userDataList = pulledData["PlayersInGameEmail"]
+                        
+                        print("This is within userDatalist: \(userDataList)")
+                        
+                        //  listOfUsers.append(pulledData["PlayersInGameEmail"] as? String ?? "test data")
+                        listOfUsers.append(contentsOf: pulledData["PlayersInGameEmail"] as? [String] ?? ["testData","TestData2"])
+
+                        self.gameDetails.playersInGameEmail = listOfUsers
+                               // self.gameDetails.playersInGameEmail = pulledData["PlayersInGameEmail"] as? [String] ?? ["test data"]
+                        
+                        print("This is what i see: \(pulledData["PlayersInGameEmail"]) \n\n\n")
+                        
                                 for each in self.gameDetails.playersInGameEmail{
                                     
                                     let userEmail = each
@@ -172,14 +183,15 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
                                     }
                                     
                                     self.ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value, with: { (snapshot) in
+                                        
                                         var playerInfo = Player()
                                         
                                         if let pulledData = snapshot.value as? [String: Any]{
                                             //save network or whatever labels someplace
-                                            playerInfo.netWorth = pulledData["networth"] as! String
-                                            playerInfo.gamesWon = pulledData["gamesWon"] as! String
-                                            playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as! String
-                                            playerInfo.playerEmail = pulledData["playerEmail"] as! String
+                                            playerInfo.netWorth = pulledData["networth"] as? String ?? "0"
+                                            playerInfo.gamesWon = pulledData["gamesWon"] as? String ?? "0"
+                                            playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? String ?? "0"
+                                            playerInfo.playerEmail = pulledData["playerEmail"] as? String ?? "pagon69@hotmail.com"
                                             
                                             self.myPlayersInfo.append(playerInfo)
                                             self.playersInGameTable.reloadData()
