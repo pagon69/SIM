@@ -92,12 +92,47 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        // let cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
     
+        let cell: UITableViewCell?
+    
+        //overview
+        if tableView.tag == 0 {
+           
+           // let cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+            
+          //cell.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+            
+            cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+            
+            cell?.textLabel?.text = myPlayersInfo[indexPath.row].playerEmail
+            cell?.detailTextLabel?.text = myPlayersInfo[indexPath.row].netWorth
+            return cell!
+        }
         
-        cell.textLabel?.text = myPlayersInfo[indexPath.row].playerEmail
+        //portfolio
+        if tableView.tag == 1 {
+            
+           // let cell =
+            
+            
+        }
         
-        return cell
+        //ranking
+        if tableView.tag == 2 {
+            
+            
+        }
+        
+        //settings
+        if tableView.tag == 3 {
+            
+            
+        }
+        
+       return cell!
+        
+        
     }
     
     

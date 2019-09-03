@@ -12,6 +12,8 @@ class Player {
     
     //displayname = usernickName may need to change this
     var userNickName: String?
+    var firstName = ""
+    var lastName = ""
     var playerEmail = ""
     var currentCash = ""
     var netWorth = ""
