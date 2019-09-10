@@ -31,10 +31,6 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     //MARK: - primary views
     
-    
-    
-    
-    
     @IBAction func backButtonClicked(_ sender: Any) {
         dismiss(animated: true)
     }
@@ -54,6 +50,25 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     //table view info
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gameInfo.count
+    }
+    
+    //MARK: - custom table view cell sizes
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        var height: CGFloat = CGFloat(exactly: NSNumber(value: 44.0)) ?? 44.0
+        
+        if tableView.tag == 0{
+            
+            height = 100.0
+        }
+        
+        if tableView.tag == 1{
+            
+            height = 90.0
+        }
+        
+        return height
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -19,7 +19,7 @@ class Stock {
     var closeTime = 0
     var high = 0.00
     var low = 0.00
-    var latestPrice = 0.00
+    var latestPrice = ""
     var latestSource =  ""
     var latestTime = ""
     var latestUpdate = 0
@@ -34,9 +34,9 @@ class Stock {
     var extendedChangePercent = 0.00
     var extendedPriceTime = 0
     var previousClose = 0.00
-    var change = 0.00
-    var changePercent = 0.00
-    var iexMarketPercent = 0.00
+    var change = ""
+    var changePercent = ""
+    var iexMarketPercent = ""
     var iexVolume = 0
     var avgTotalVolume = 0
     var iexBidPrice = 0.00
@@ -47,6 +47,7 @@ class Stock {
     var week52High = 0.00
     var week52Low = 0.00
     var ytdChange = 0.00
+    var type = ""
     
     //needed for game
     var sharesCurrentlyPurchased = 0

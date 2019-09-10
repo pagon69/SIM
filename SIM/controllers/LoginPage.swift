@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import Alamofire
+
 
 class LoginPage: UIViewController, UITextFieldDelegate {
 
@@ -93,6 +95,20 @@ class LoginPage: UIViewController, UITextFieldDelegate {
     }
 
     
+    func getSymbols(){
+        
+        let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
+
+        Alamofire.request(defaultURL).responseJSON { (JSON) in
+          
+            
+           print(JSON)
+            
+        }
+        
+    }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //any data needs to be transfered ?
@@ -161,6 +177,7 @@ class LoginPage: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
             viewSetup()
+          //  getSymbols()
         
     }
     

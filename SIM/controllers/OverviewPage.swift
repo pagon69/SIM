@@ -127,6 +127,26 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         return count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        performSegue(withIdentifier: "goToGameStatPage", sender: self)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToGameStatPage" {
+            let destVC = segue.destination as! GameStatsPage
+            destVC.passedData = myGameinfo
+            
+        }
+        
+        
+    }
+    
+    
+    //used to update the data in the tableview
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         let cell = UITableViewCell()
@@ -156,6 +176,9 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         
         return cell
     }
+    
+    
+    
     
     //MARK: - view setup then view did load
     func viewSetup() {

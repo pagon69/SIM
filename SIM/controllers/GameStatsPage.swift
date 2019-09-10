@@ -9,8 +9,10 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import Alamofire
 
-class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate {
+    
     
     //MARK: - globals
     
@@ -20,6 +22,11 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
     var gamesInProgressDetails = [GamesInfo]()
     let gameDetails = GamesInfo()
     var myPlayersInfo = [Player]()
+    var passedData = GamesInfo()
+    var forSymbolsSearch = [Symbol]()
+    var userInput = ""
+    var searchR: [Symbol]?
+    var userSelected = ""
     
     
     //overview IBactions and Outlets
@@ -86,28 +93,129 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
     }
     
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //checks for changes to text
+        print("within TextDidChange: \(searchBar.text?.lowercased() ?? "")")
+        
+        userInput = searchBar.text?.lowercased() ?? ""
+        doSearch(searchV: userInput)
+        searchBar.placeholder = "Enter stock"
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //used when the enter button is clicked
+        print("within SearchBarSearchButton Clicked: \(String(describing: searchBar.text))")
+    }
+    
+    //gets all the symbols currently on the exchange and put into an array of symbols
+    //Should i pass this between views that need it ?
+    func getSymbols(){
+        
+        let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
+        
+        Alamofire.request(defaultURL).responseJSON { (JSON) in
+            print("The amount of data received: \(String(describing: JSON.data))")
+ 
+            if let myData = JSON.value as? [[String: Any]]{
+                
+                for each in myData {
+                    let data = Symbol()
+                    
+                    if each["isEnabled"] as! Int == 1{
+                        data.name = each["name"] as! String
+                        data.symbol = each["symbol"] as! String
+                        data.type = each["type"] as! String
+                        self.forSymbolsSearch.append(data)
+                    }
+                }
+            }
+        
+            self.processSymbols(jsonData: self.forSymbolsSearch)
+        }
+    }
+    
+    func doSearch(searchV: String){
+        
+        let searchResults = forSymbolsSearch.filter { (item) -> Bool in
+            
+            item.symbol.lowercased().contains(searchV)
+            
+        }
+        
+        self.searchR = searchResults
+        
+        
+    }
+    //do i need this  now?
+    func processSymbols(jsonData: [Symbol]){
+       
+        /*example of a array search
+         searchR = myArray.filter({ (item) -> Bool in
+         item.lowercased().contains(searchV)
+         })
+         */
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        userSelected = searchR?[indexPath.row].symbol ?? ""
+        performSegue(withIdentifier: "goToStockSearch", sender: self)
+        
+    }
+    
     //tableview functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myPlayersInfo.count
+        var count = 0
+        
+        if tableView.tag == 6 {
+            count = myPlayersInfo.count
+        }
+        if tableView.tag == 0 {
+            count = searchR?.count ?? 1
+        }
+        
+        
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // let cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+
+        var cell = UITableViewCell()
     
-        let cell: UITableViewCell?
-    
-        //overview
         if tableView.tag == 0 {
-           
-           // let cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
             
-          //cell.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+            cell.textLabel?.text = searchR?[indexPath.row].symbol
+            cell.detailTextLabel?.text = searchR?[indexPath.row].name
             
-            cell = playersInGameTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        }
+        
+        
+        //overview
+        if tableView.tag == 6 {
             
-            cell?.textLabel?.text = myPlayersInfo[indexPath.row].playerEmail
-            cell?.detailTextLabel?.text = myPlayersInfo[indexPath.row].netWorth
-            return cell!
+            let myCell = playersInGameTable.dequeueReusableCell(withIdentifier: "leaderboardCell", for: indexPath) as! leaderboardCell
+            
+                myCell.nameLabelOutlet.text = myPlayersInfo[indexPath.row].playerEmail
+                myCell.netWorthOutlet.text = myPlayersInfo[indexPath.row].netWorth
+            
+                //figure out how to do ranking, download player Info and networth
+                var userRank: Int = Int(arc4random_uniform(10))
+            
+                if userRank <= 3 {
+                    myCell.rankViewOutlet.backgroundColor = UIColor.green
+                }
+            
+                if userRank < 6 {
+                    myCell.rankViewOutlet.backgroundColor = UIColor.brown
+                
+                }
+                myCell.rankLabelOutlet.text = String(userRank)
+                return myCell
         }
         
         //portfolio
@@ -130,7 +238,19 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
             
         }
         
-       return cell!
+        
+       return cell
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToStockSearch" {
+            let destVC = segue.destination as! QuotePageViewC
+            destVC.userSearch = userSelected
+            destVC.receivedData = forSymbolsSearch
+        }
         
         
     }
@@ -143,7 +263,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
         portfolioiew.alpha = 0
         rankingOutlet.alpha = 0
         settingsOutlet.alpha = 0
-        
+        getSymbols()
         
     }
     
@@ -256,24 +376,19 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
     }
     
+    func registerCustomCell(){
+        
+        playersInGameTable.register(UINib(nibName: "leaderboardCell", bundle: nil), forCellReuseIdentifier: "leaderboardCell")
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewSetup()
         pullUserData()
+        registerCustomCell()
         
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

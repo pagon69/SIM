@@ -175,7 +175,7 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             //faking it for now
             
             foundStock.companyName = "Apple Company Inc"
-            foundStock.latestPrice = 123.45
+            foundStock.latestPrice = "123.45"
             foundStock.symbol = "aapl"
             
             

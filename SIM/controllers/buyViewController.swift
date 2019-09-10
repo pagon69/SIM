@@ -49,7 +49,8 @@ class buyViewController: UIViewController {
             
             
             purchasedShares = Double(quantity)!
-            costofstock = price * Double(quantity)!
+           // costofstock = price * Double(quantity)!
+            
         }
         
         /*do i have enough money?
@@ -142,10 +143,12 @@ class buyViewController: UIViewController {
     func alertCode(){
         //basic alert code change to fit and add a yes and no button
  
-        let total = stockInfo.latestPrice * purchasedShares
+        //purchasedShares
+        let total = stockInfo.latestPrice
         
         //defaunt alert code
         let alert = UIAlertController(title: "Market Buy", message: "Purchasing: \(stockInfo.symbol) at $\(total)", preferredStyle: .alert)
+       
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
         }))

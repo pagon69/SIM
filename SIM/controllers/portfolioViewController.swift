@@ -113,15 +113,15 @@ class portfolioViewController: UIViewController {
         viewSetup()
         
         stock1.companyName = "aapl"
-        stock1.latestPrice = 204.32
+        stock1.latestPrice = "204.32"
         stock1.sharesCurrentlyPurchased = 50
         
         stock2.companyName = "fb"
-        stock2.latestPrice = 104.32
+        stock2.latestPrice = "104.32"
         stock2.sharesCurrentlyPurchased = 20
         
         stock3.companyName = "goog"
-        stock3.latestPrice = 1204.32
+        stock3.latestPrice = "1204.32"
         stock3.sharesCurrentlyPurchased = 5
 
       //  myPlayer.listOfStock.append(stock1)

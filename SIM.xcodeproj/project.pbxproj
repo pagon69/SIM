@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		74A715FF0F1F4BC1704C9459 /* Pods_SIM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB2C1D667EEA6E5D5BA14BF /* Pods_SIM.framework */; };
 		C104E0F922F89DE8002519D2 /* GameSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */; };
+		C10795D42322D32F00044254 /* QuotePageViewC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10795D32322D32F00044254 /* QuotePageViewC.swift */; };
+		C10795D62322D42500044254 /* TradePageViewC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10795D52322D42500044254 /* TradePageViewC.swift */; };
+		C10795D82322D76C00044254 /* FullDetailsPageViewC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10795D72322D76C00044254 /* FullDetailsPageViewC.swift */; };
 		C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11A1F162301B2750067FAFA /* UserGameSettings.swift */; };
 		C12CD1C623170DE200FBA211 /* GameStatsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CD1C523170DE200FBA211 /* GameStatsPage.swift */; };
 		C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133447922DE0047002A04BF /* TermsOfService.swift */; };
@@ -28,6 +31,7 @@
 		C15AC3E122F2234B00BCBDAD /* FindGamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */; };
 		C15AC3E322F223F700BCBDAD /* CreateGamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */; };
 		C15CEF2322F0706D00F620B9 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15CEF2222F0706D00F620B9 /* LoginPage.swift */; };
+		C16115D223268438000CAA89 /* ProfileSettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16115D123268438000CAA89 /* ProfileSettingsPage.swift */; };
 		C1722EAE22F9C2320035D925 /* DisclaimerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1722EAD22F9C2320035D925 /* DisclaimerPage.swift */; };
 		C173A8D122B12161001A7F97 /* SIMBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D022B12161001A7F97 /* SIMBrain.swift */; };
 		C173A8D322B1237A001A7F97 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D222B1237A001A7F97 /* Stock.swift */; };
@@ -52,6 +56,7 @@
 		C19E163922C15320004EE77B /* buyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163822C15320004EE77B /* buyViewController.swift */; };
 		C19E163B22C15335004EE77B /* sellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163A22C15335004EE77B /* sellViewController.swift */; };
 		C19E163D22C15348004EE77B /* longViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163C22C15348004EE77B /* longViewController.swift */; };
+		C1A89C2D2327E46500FAAB3F /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A89C2C2327E46500FAAB3F /* Symbol.swift */; };
 		C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCEB8229D772900633D00 /* AppDelegate.swift */; };
 		C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBC229D772900633D00 /* Main.storyboard */; };
 		C1BCCEC0229D772B00633D00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBF229D772B00633D00 /* Assets.xcassets */; };
@@ -69,6 +74,9 @@
 /* Begin PBXFileReference section */
 		52A7255E8B6D4800597A4527 /* Pods-SIM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SIM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SIM/Pods-SIM.debug.xcconfig"; sourceTree = "<group>"; };
 		C104E0F822F89DE8002519D2 /* GameSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPage.swift; sourceTree = "<group>"; };
+		C10795D32322D32F00044254 /* QuotePageViewC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotePageViewC.swift; sourceTree = "<group>"; };
+		C10795D52322D42500044254 /* TradePageViewC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradePageViewC.swift; sourceTree = "<group>"; };
+		C10795D72322D76C00044254 /* FullDetailsPageViewC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullDetailsPageViewC.swift; sourceTree = "<group>"; };
 		C11A1F162301B2750067FAFA /* UserGameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserGameSettings.swift; path = SIM/view/UserGameSettings.swift; sourceTree = SOURCE_ROOT; };
 		C12CD1C523170DE200FBA211 /* GameStatsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatsPage.swift; sourceTree = "<group>"; };
 		C133447922DE0047002A04BF /* TermsOfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
@@ -88,6 +96,7 @@
 		C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindGamePage.swift; sourceTree = "<group>"; };
 		C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGamePage.swift; sourceTree = "<group>"; };
 		C15CEF2222F0706D00F620B9 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		C16115D123268438000CAA89 /* ProfileSettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsPage.swift; sourceTree = "<group>"; };
 		C1722EAD22F9C2320035D925 /* DisclaimerPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerPage.swift; sourceTree = "<group>"; };
 		C173A8D022B12161001A7F97 /* SIMBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMBrain.swift; path = "SIM/support Files/SIMBrain.swift"; sourceTree = SOURCE_ROOT; };
 		C173A8D222B1237A001A7F97 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stock.swift; path = SIM/controllers/Stock.swift; sourceTree = SOURCE_ROOT; };
@@ -112,6 +121,7 @@
 		C19E163822C15320004EE77B /* buyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buyViewController.swift; sourceTree = "<group>"; };
 		C19E163A22C15335004EE77B /* sellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sellViewController.swift; sourceTree = "<group>"; };
 		C19E163C22C15348004EE77B /* longViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longViewController.swift; sourceTree = "<group>"; };
+		C1A89C2C2327E46500FAAB3F /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Symbol.swift; path = SIM/controllers/Symbol.swift; sourceTree = SOURCE_ROOT; };
 		C1BCCEB5229D772900633D00 /* SIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BCCEB8229D772900633D00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1BCCEBD229D772900633D00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -244,6 +254,10 @@
 				C1722EAD22F9C2320035D925 /* DisclaimerPage.swift */,
 				C13C637223043AEF00BF1221 /* LeaderboardPage.swift */,
 				C12CD1C523170DE200FBA211 /* GameStatsPage.swift */,
+				C10795D32322D32F00044254 /* QuotePageViewC.swift */,
+				C10795D52322D42500044254 /* TradePageViewC.swift */,
+				C10795D72322D76C00044254 /* FullDetailsPageViewC.swift */,
+				C16115D123268438000CAA89 /* ProfileSettingsPage.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -257,6 +271,7 @@
 				C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */,
 				C19ADCAF22E9CEC50073F5E9 /* GamesInfo.swift */,
 				C11A1F162301B2750067FAFA /* UserGameSettings.swift */,
+				C1A89C2C2327E46500FAAB3F /* Symbol.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -451,16 +466,19 @@
 			files = (
 				C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */,
 				C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */,
+				C10795D42322D32F00044254 /* QuotePageViewC.swift in Sources */,
 				C14D174522DCA33600CE1B43 /* settingsCell.swift in Sources */,
 				C1F0BF0C22CD2FA40016FC17 /* LoadingViewController.swift in Sources */,
 				C1445E9C230C6FF900CECF0B /* ConfirmationPage.swift in Sources */,
 				C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */,
 				C193E5BE22D52636004E16DB /* SignUp.swift in Sources */,
 				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,
+				C10795D82322D76C00044254 /* FullDetailsPageViewC.swift in Sources */,
 				C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */,
 				C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */,
 				C12CD1C623170DE200FBA211 /* GameStatsPage.swift in Sources */,
 				C1722EAE22F9C2320035D925 /* DisclaimerPage.swift in Sources */,
+				C1A89C2D2327E46500FAAB3F /* Symbol.swift in Sources */,
 				C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */,
 				C173A8D322B1237A001A7F97 /* Stock.swift in Sources */,
 				C1784E5422E0AF4300A62B5C /* gameDetailCell.swift in Sources */,
@@ -468,6 +486,7 @@
 				C1784E5A22E0B71600A62B5C /* profileCell.swift in Sources */,
 				C15AC3E122F2234B00BCBDAD /* FindGamePage.swift in Sources */,
 				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
+				C16115D223268438000CAA89 /* ProfileSettingsPage.swift in Sources */,
 				C14D174222DC9ED800CE1B43 /* GameSettings.swift in Sources */,
 				C13C6376230442C000BF1221 /* leaderboardCell.swift in Sources */,
 				C15AC3DD22F1CE6800BCBDAD /* RegisterPage.swift in Sources */,
@@ -490,6 +509,7 @@
 				C19B03DF22D6773400DC0AA9 /* searchResultsCell.swift in Sources */,
 				C104E0F922F89DE8002519D2 /* GameSettingsPage.swift in Sources */,
 				C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */,
+				C10795D62322D42500044254 /* TradePageViewC.swift in Sources */,
 				C173A8D522B1250C001A7F97 /* Player.swift in Sources */,
 				C133447C22DE0070002A04BF /* Privacy.swift in Sources */,
 				C1BCCECF229DB99400633D00 /* loginViewController.swift in Sources */,
