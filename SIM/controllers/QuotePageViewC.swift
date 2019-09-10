@@ -8,40 +8,14 @@
 
 import UIKit
 import Alamofire
+import GoogleMobileAds
 
 class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        var count = 0
-        
-        if tableView.tag == 0 {
-            count = searchR?.count ?? 1
-        }
-        
-        
-        return count
-        
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var cell = UITableViewCell()
-        
-        if tableView.tag == 0 {
-            
-            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
-            cell.textLabel?.text = searchR?[indexPath.row].symbol
-            cell.detailTextLabel?.text = searchR?[indexPath.row].name
-            
-        }
-        
-        return cell
-        
-        
-    }
+   
     
     
-    
+    var interstitial: GADInterstitial!
     var receivedData: [Symbol]?
     var userSearch: String?
     var userStockData = Stock()
@@ -56,31 +30,63 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
     @IBOutlet weak var stockPriceOutlet: UILabel!
     @IBOutlet weak var symbolOutlet: UILabel!
     
+    @IBOutlet weak var stackviewOutlet: UIStackView!
+    
+    @IBOutlet weak var stackViewAnimation: NSLayoutConstraint!
+    
+    
+    @IBAction func DetialsViewClicked(_ sender: UIButton) {
+        //do a full page ad then show details ?
+        //do some animation to move this up or down maybe ?
+        if interstitial.isReady {
+            interstitial.present(fromRootViewController: self)
+            animateStackView()
+        } else {
+            print("Ad wasn't ready")
+        }
+        
+    }
+
+    func animateStackView(){
+    
+        let stackViewEndLocation = self.view.frame.height - 100
+        
+        UIView.animate(withDuration: 2.0) {
+            self.stackViewAnimation.constant = CGFloat(exactly: stackViewEndLocation) ?? 350
+        }
+        
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-7563192023707820/8287847119")
+        interstitial.delegate = self as? GADInterstitialDelegate
+        interstitial.load(GADRequest())
+        print("Interstitial ad ready")
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
+    }
     
     func doSearch(searchV: String){
         
         let searchResults = receivedData?.filter { (item) -> Bool in
-            
             item.symbol.lowercased().contains(searchV)
-            
         }
-        
-        
         //questionable bit of code here
         self.searchR = searchResults ?? [Symbol]()
-        
-        
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         searchBar.placeholder = "Enter stock symbol"
-        var userInput = searchBar.text?.lowercased() ?? ""
+        let userInput = searchBar.text?.lowercased() ?? ""
         doSearch(searchV: userInput)
     }
     
     func viewSetup(){
-        
-        
+        interstitial = createAndLoadInterstitial()
         
     }
     
@@ -111,6 +117,37 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
             
         }
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        var count = 0
+        
+        if tableView.tag == 0 {
+            count = searchR?.count ?? 1
+        }
+        
+        
+        return count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell = UITableViewCell()
+        
+        if tableView.tag == 0 {
+            
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+            cell.textLabel?.text = searchR?[indexPath.row].symbol
+            cell.detailTextLabel?.text = searchR?[indexPath.row].name
+            
+        }
+        
+        return cell
+        
+        
+    }
+    
     
     
     override func viewDidLoad() {

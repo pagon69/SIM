@@ -5109,6 +5109,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D9h-kk-kgf">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                                        <color key="backgroundColor" red="0.31484792979999998" green="0.61167512690000003" blue="0.57145453530000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Trade"/>
                                         <connections>
                                             <segue destination="On6-XD-tmy" kind="showDetail" id="PMg-ch-U9x"/>
@@ -5116,8 +5117,10 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTq-sN-M6P">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Full Details"/>
                                         <connections>
+                                            <action selector="DetialsViewClicked:" destination="Eyp-Km-PUJ" eventType="touchUpInside" id="RMO-oL-ujm"/>
                                             <segue destination="DBp-GH-Igf" kind="showDetail" id="rOW-hE-Ezw"/>
                                         </connections>
                                     </button>
@@ -5141,7 +5144,7 @@
                             <constraint firstItem="vEg-eL-ozA" firstAttribute="bottom" secondItem="NaO-ex-J6o" secondAttribute="bottom" id="OXd-aW-OYr"/>
                             <constraint firstItem="M74-Qj-L7Y" firstAttribute="leading" secondItem="vEg-eL-ozA" secondAttribute="leading" id="RgE-BY-dQC"/>
                             <constraint firstItem="NaO-ex-J6o" firstAttribute="top" secondItem="vEg-eL-ozA" secondAttribute="top" id="Vwn-bo-kTY"/>
-                            <constraint firstItem="vEg-eL-ozA" firstAttribute="bottom" secondItem="7UT-Fh-diB" secondAttribute="bottom" constant="307" id="bfF-b8-dkn"/>
+                            <constraint firstItem="7UT-Fh-diB" firstAttribute="top" secondItem="xVo-1M-jb9" secondAttribute="bottom" constant="8" id="WD5-2W-1Qd"/>
                             <constraint firstItem="kid-19-KLl" firstAttribute="leading" secondItem="vEg-eL-ozA" secondAttribute="leading" id="gbV-wk-0RO"/>
                             <constraint firstItem="NaO-ex-J6o" firstAttribute="leading" secondItem="vEg-eL-ozA" secondAttribute="leading" id="iMK-Fz-1qX"/>
                             <constraint firstItem="M74-Qj-L7Y" firstAttribute="top" secondItem="kid-19-KLl" secondAttribute="bottom" id="lOH-d3-TgB"/>
@@ -5156,6 +5159,8 @@
                         <outlet property="changeInPrice" destination="p5K-d9-SP2" id="c5f-Yt-gmu"/>
                         <outlet property="companyNameOutlet" destination="ff4-2K-jzC" id="I9a-NY-76s"/>
                         <outlet property="searchDisplayController" destination="zyE-1Q-CbB" id="CKp-Q1-CEQ"/>
+                        <outlet property="stackViewAnimation" destination="WD5-2W-1Qd" id="muZ-sh-9GH"/>
+                        <outlet property="stackviewOutlet" destination="7UT-Fh-diB" id="JVD-uv-Mu5"/>
                         <outlet property="stockPriceOutlet" destination="2WS-Iz-9nF" id="tNR-2S-cEX"/>
                         <outlet property="symbolOutlet" destination="tft-AA-y6u" id="ovS-bV-kqq"/>
                     </connections>
