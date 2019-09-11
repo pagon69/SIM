@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Alamofire
+//import Alamofire
 import Firebase
 
 
@@ -141,7 +141,7 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let searchStringTest = "https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + userSearch.lowercased() + ",&types=quote&token=pk_77b4f9e303f64472a2a520800130d684"
         
-    
+    /*
         Alamofire.request(searchStringTest).responseJSON { (response) in
             
             /* used to look at success or failure
@@ -162,9 +162,8 @@ class searchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                    // self.displayAlert(alertMessage: "\(selectedValue) could not be found", resultsMessage: "🛑")
                 */
             }
- 
-                
         }
+        */
         
     }
     

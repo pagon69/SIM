@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Alamofire
+//import Alamofire
 import GoogleMobileAds
 
 class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -96,6 +96,7 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
         
         print(defaultURL)
         
+        /*
         Alamofire.request(defaultURL).responseJSON { (JSON) in
             print("The amount of data received: \(String(describing: JSON.data))")
             
@@ -116,6 +117,8 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
             }
             
         }
+        */
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Alamofire
+//import Alamofire
 
 class Portfolio: UIViewController, UITableViewDelegate, UITableViewDataSource, reactToButtonPush {
     

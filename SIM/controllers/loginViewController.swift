@@ -11,9 +11,9 @@ import FirebaseAuth
 import Firebase
 import GoogleSignIn
 
-class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDelegate {
+class loginViewController: UIViewController, UITextFieldDelegate {
 
-    
+    //GIDSignInUIDelegate
     
     //globals
     var errorMessgae = "Incorrect username/psw or combination"
@@ -156,7 +156,7 @@ class loginViewController: UIViewController, GIDSignInUIDelegate, UITextFieldDel
 
         // Do any additional setup after loading the view.
         
-        GIDSignIn.sharedInstance()?.uiDelegate = self
+      //  GIDSignIn.sharedInstance()?.uiDelegate = self
        // GIDSignIn.sharedInstance()?.signIn()
         
         

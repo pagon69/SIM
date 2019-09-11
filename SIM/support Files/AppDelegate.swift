@@ -12,7 +12,9 @@ import GoogleSignIn
 //import ChameleonFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate{
+    
+    //GIDSignInDelegate
     
     //remove when done testing
     var nickName = ""
@@ -106,16 +108,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
     //deployed for google signin
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
-            return GIDSignIn.sharedInstance().handle(url,
+            return true
+                /*
+                GIDSignIn.sharedInstance().handle(url,
                                                      sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                                                      annotation: [:])
+    */
     }
 
     // for legacy ios devices and google sign in
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url,
+        return true
+           /*
+            GIDSignIn.sharedInstance().handle(url,
                                                  sourceApplication: sourceApplication,
                                                  annotation: annotation)
+    */
+    
     }
     
     //edit me for db search and wcreation
@@ -363,8 +372,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
        //ref.removeObserver(withHandle: DatabaseHandle.)
  
 
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
+      //  GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+      //  GIDSignIn.sharedInstance().delegate = self
         
         return true
     }

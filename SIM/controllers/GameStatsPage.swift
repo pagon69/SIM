@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
-import Alamofire
+//import Alamofire
 
 class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate {
     
@@ -100,13 +100,19 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         userInput = searchBar.text?.lowercased() ?? ""
         doSearch(searchV: userInput)
-        searchBar.placeholder = "Enter stock"
+        searchBar.placeholder = "Enter stock symbol or company name"
+        
         
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //used when the enter button is clicked
         print("within SearchBarSearchButton Clicked: \(String(describing: searchBar.text))")
+        
+        userInput = searchBar.text?.lowercased() ?? ""
+        doSearch(searchV: userInput)
+        searchBar.placeholder = "Enter stock symbol or company name"
+        
     }
     
     //gets all the symbols currently on the exchange and put into an array of symbols
@@ -115,6 +121,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
         
+        /*
         Alamofire.request(defaultURL).responseJSON { (JSON) in
             print("The amount of data received: \(String(describing: JSON.data))")
  
@@ -134,6 +141,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
             self.processSymbols(jsonData: self.forSymbolsSearch)
         }
+        */
+        
     }
     
     func doSearch(searchV: String){
@@ -160,6 +169,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         userSelected = searchR?[indexPath.row].symbol ?? ""
@@ -167,13 +177,33 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
+    //setting up section headers
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        var myTitle = ""
+        
+        if tableView.tag == 6 {
+            
+           // print(passedData.percentComplete)
+          //  print(passedData.gameDescription)
+            myTitle = "Players in game: \(passedData.gameName)"
+
+        }
+        return myTitle
+ 
+    }
+    
+    
     //tableview functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
         
+        //players in game table
         if tableView.tag == 6 {
             count = myPlayersInfo.count
         }
+        
+        //search results
         if tableView.tag == 0 {
             count = searchR?.count ?? 1
         }

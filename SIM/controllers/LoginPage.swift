@@ -8,7 +8,7 @@
 
 import UIKit
 import FirebaseAuth
-import Alamofire
+//import Alamofire
 
 
 class LoginPage: UIViewController, UITextFieldDelegate {
@@ -99,12 +99,14 @@ class LoginPage: UIViewController, UITextFieldDelegate {
         
         let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
 
+        /*
         Alamofire.request(defaultURL).responseJSON { (JSON) in
           
             
            print(JSON)
             
         }
+        */
         
     }
     
