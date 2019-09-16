@@ -1,21 +1,24 @@
 //
-//  leaderboardCell.swift
+//  quickStats.swift
 //  SIM
 //
-//  Created by user147645 on 8/14/19.
+//  Created by user147645 on 9/16/19.
 //  Copyright © 2019 user147645. All rights reserved.
 //
 
 import UIKit
 
-class leaderboardCell: UITableViewCell {
+class quickStats: UITableViewCell {
 
-    @IBOutlet weak var nameLabelOutlet: UILabel!
-    @IBOutlet weak var netWorthOutlet: UILabel!
-    @IBOutlet weak var rankViewOutlet: UIView!
-    @IBOutlet weak var rankLabelOutlet: UILabel!
     
-
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var gamesWon: UILabel!
+    @IBOutlet weak var gamesPlayed: UILabel!
+    @IBOutlet weak var winningPercentage: UILabel!
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

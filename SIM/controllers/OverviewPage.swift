@@ -9,14 +9,20 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+//import Alamofire
 
-class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate {
+class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate, UISearchBarDelegate {
    
     //MARK: - globals
     var player = Player()
     var playerSettings = GameSettings()
     var myGameInfoArray = [GamesInfo]()
     let ref = Database.database().reference()
+    
+    //search data
+    var searchR: [Symbol]?
+    var receivedData: [Symbol]?
+    var userSearch: String?
     
     //keep these remove above player and game Info
     var userData = Player()
@@ -77,13 +83,15 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         if sender.selectedSegmentIndex == 1 {
             print(sender.selectedSegmentIndex)
             performSegue(withIdentifier: "goToFindGame", sender: self)
+            mySegmentOutlet.selectedSegmentIndex = 0
+            
         }
         
         if sender.selectedSegmentIndex ==  2 {
             
             print(sender.selectedSegmentIndex)
             performSegue(withIdentifier: "goToNewGame", sender: self)
-            
+            mySegmentOutlet.selectedSegmentIndex = 0
         }
         
     }
@@ -92,14 +100,64 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     
     @IBOutlet weak var profileLabel: UILabel!
     
+    
+    func doSearch(searchV: String){
+        
+        let searchResults = receivedData?.filter { (item) -> Bool in
+            item.symbol.lowercased().contains(searchV)
+        }
+        //questionable bit of code here
+        self.searchR = searchResults ?? [Symbol]()
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        searchBar.placeholder = "Enter stock symbol"
+        let userInput = searchBar.text?.lowercased() ?? ""
+        doSearch(searchV: userInput)
+    }
+    
+    func getUserData(){
+        
+        let defaultURL = "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684"
+        
+        print(defaultURL)
+        
+        /*
+         Alamofire.request(defaultURL).responseJSON { (JSON) in
+         print("The amount of data received: \(String(describing: JSON.data))")
+         
+         print(JSON)
+         //add all the data later on
+         if let myData = JSON.value as? [String:Any]{
+         
+         self.userStockData.companyName = myData["companyName"] as! String
+         self.userStockData.symbol = myData["symbol"] as! String
+         self.userStockData.latestPrice = String(myData["latestPrice"] as! Double)
+         self.userStockData.change = String(myData["change"]  as! Double)
+         self.userStockData.changePercent = String(myData["changePercent"]  as! Double)
+         
+         self.symbolOutlet.text = self.userStockData.symbol
+         self.changeInPrice.text = self.userStockData.change
+         self.companyNameOutlet.text = self.userStockData.companyName
+         self.stockPriceOutlet.text = self.userStockData.latestPrice
+         }
+         
+         }
+         */
+        
+    }
+    
+    
     //MARK: - custom table view cell sizes
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         var height: CGFloat = CGFloat(exactly: NSNumber(value: 44.0)) ?? 44.0
         
-        if tableView.tag == 0{
+        if tableView.tag == 9{
             
-            height = 100.0
+            height = 44.0
         }
         
         if tableView.tag == 1{
@@ -116,7 +174,11 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
         
         var count = 0
         
-        if(tableView.tag == 0){
+        if tableView.tag == 0 {
+            count = searchR?.count ?? 1
+        }
+        
+        if(tableView.tag == 9){
             count = 1
         }
         
@@ -151,15 +213,36 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
        
         let cell = UITableViewCell()
         
-        if(tableView.tag == 0){
-            let cell = profileTableViewOutlet.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileCell
-            cell.cashRemainingOutlet.text = userData.currentCash
-            cell.buyingPowerOutlet.text = userData.buyPower
-            cell.netWorthOutlet.text = userData.netWorth
-            cell.overAllGainsOutlet.text = userData.stockReturnpercentageAtGameEnd
-            cell.debtRemainingOutlet.text = "12345"
-            cell.returnsPercentageOutlet.text = "3%"
-
+        if tableView.tag == 0 {
+            
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+            cell.textLabel?.text = searchR?[indexPath.row].symbol
+            cell.detailTextLabel?.text = searchR?[indexPath.row].name
+            
+        }
+        
+        
+        if(tableView.tag == 9){
+            let cell = profileTableViewOutlet.dequeueReusableCell(withIdentifier: "quickStats", for: indexPath) as! quickStats
+            
+          //  print("this is what is in fullName: \(userData.fullName)")
+            cell.userName.text = userData.fullName
+            cell.gamesWon.text = String(userData.gamesWon)
+            cell.gamesPlayed.text = String(userData.gamesPlayed)
+            
+            let won = userData.gamesWon
+            let played = userData.gamesPlayed
+            
+            if played == 0 {
+                cell.winningPercentage.text = "-"
+                
+            }else {
+                let percentage = won / played
+                cell.winningPercentage.text = "\(percentage * 100)%"
+            }
+            
+            
+            
             return cell
         }
         
@@ -183,11 +266,11 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
     //MARK: - view setup then view did load
     func viewSetup() {
         
-        profileLabel.text = "Welcome, \(String(describing: Auth.auth().currentUser?.email ?? ""))"
+      //  profileLabel.text = "Welcome, \(String(describing: Auth.auth().currentUser?.email ?? ""))"
         
         aboutTableView.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
         
-        profileTableViewOutlet.register(UINib(nibName: "profileCell", bundle: nil), forCellReuseIdentifier: "profileCell")
+        profileTableViewOutlet.register(UINib(nibName: "quickStats", bundle: nil), forCellReuseIdentifier: "quickStats")
         // can i have nothing selected until a user clicks it?
         mySegmentOutlet.selectedSegmentIndex = 0
         
@@ -230,8 +313,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             self.userData.buyPower = pulleduserdata["buyPower"] as? String ?? ""
             self.userData.currentCash = pulleduserdata["currentCash"] as? String ?? ""
             self.userData.currentStockValue = pulleduserdata["currentStockValue"] as? String ?? ""
-            self.userData.gamesPlayed = pulleduserdata["gamesPlayed"] as? String ?? ""
-            self.userData.gamesWon = pulleduserdata["gamesWon"] as? String ?? ""
+            self.userData.gamesPlayed = pulleduserdata["gamesPlayed"] as? Double ?? 0.0
+            self.userData.gamesWon = pulleduserdata["gamesWon"] as? Double ?? 0.0
             self.userData.netWorth = pulleduserdata["netWorth"] as? String ?? ""
             self.userData.numberOfTrades = pulleduserdata["numberOfTrades"] as? String ?? ""
             self.userData.playerEmail = pulleduserdata["playerEmail"] as? String ?? ""
@@ -239,11 +322,18 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate 
             self.userData.totalPlayerValue = pulleduserdata["totalPlayerValue"] as? String ?? ""
             self.userData.userNickName = pulleduserdata["userNickName"] as? String ?? ""
             
+            //self.userData.gamesWon = pulleduserdata["gamesWon"] as? String ?? ""
+            //self.userData.gamesPlayed = pulleduserdata["gamesPlayed"] as? String ?? ""
+            
+            self.userData.fullName = pulleduserdata["fullName"] as? String ?? ""
+            
             //my array of data
             self.userData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? []
-            self.userData.listOfStock = pulleduserdata["listOfStock"] as? [String] ?? []
+            self.userData.listOfStockAndQuantity = pulleduserdata["listOfStockAndQuantity"] as? [String:Double] ?? [:]
             
             self.profileTableViewOutlet.reloadData()
+            
+            self.profileLabel.text = "Welcome, \(self.userData.fullName)"
             
             self.checkGames(listOfGames: self.userData.gamesInProgress)
             

@@ -131,8 +131,8 @@ class portfolioViewController: UIViewController {
         
 
     //    print(myPlayer.calculateTotalValue())
-        print(myPlayer.listOfStock)
-        print(myPlayer.listOfStock.count)
+        print(myPlayer.listOfStockAndQuantity)
+        print(myPlayer.listOfStockAndQuantity.count)
         print(myPlayer.userNickName)
      //   print(myPlayer.totalStockValue)
         print(myPlayer.currentCash)
@@ -140,8 +140,8 @@ class portfolioViewController: UIViewController {
        // gameController.buyStock(currentCash: myPlayer.currentCash, stockToBuy: stock3, QuantitytoBuy: 30, currentPlayer: myPlayer)
 
         print(myPlayer.currentCash)
-        print(myPlayer.listOfStock)
-        print(myPlayer.listOfStock.count)
+        print(myPlayer.listOfStockAndQuantity)
+        print(myPlayer.listOfStockAndQuantity.count)
       //  print(myPlayer.calculateTotalValue())
      //   print(myPlayer.totalStockValue)
         // Do any additional setup after loading the view.

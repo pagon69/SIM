@@ -17,6 +17,8 @@ class ConfirmationPage: UITableViewController {
     var incomingGameData: [String: Any] = [:]
     var userSettings: [String: Any] = [:]
     var ref: DatabaseReference!
+    let refT = Database.database().reference()
+    var gamesPlayed = 0
     
     //IB actions and more
     
@@ -45,6 +47,11 @@ class ConfirmationPage: UITableViewController {
     
     func viewSetup(){
 
+        let userEmail = Auth.auth().currentUser?.email ?? ""
+        
+        let changeChar = "_"
+        var newString = ""
+        
         gameNameOutlet.text = incomingGameData["gameName"] as? String
         gameDescOutlet.text = incomingGameData["gameDescription"] as? String
         enddateOutlet.text = incomingGameData["endDate"] as? String
@@ -61,6 +68,42 @@ class ConfirmationPage: UITableViewController {
         limitOrderEnabled.text = "\(incomingGameData["enableLimitOrders"] as? Bool ?? false)"
         marginsEnabled.text = "\(incomingGameData["enableMargin"] as? Bool ?? true)"
         
+        //do a call to get a users settings
+        for letter in userEmail{
+            
+            if letter == "." {
+                newString = newString + String(changeChar)
+            }else{
+                newString = newString + String(letter)
+            }
+        }
+
+    //collects all of the needed user data
+        refT.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapShot) in
+            
+            let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
+            // print(pulleduserdata)
+            
+            self.gamesPlayed = pulleduserdata["gamesPlayed"] as? Int ?? 0
+            
+            if self.gamesPlayed >= 10 {
+                
+                let playername = pulleduserdata["fullName"] as? String ?? ""
+                var playerGamesPlayed = pulleduserdata["gamesPlayed"] as? Double ?? 0.0
+                let playerGamesWon = pulleduserdata["gamesWon"] as? Double ?? 0.0
+                let winningPercentage = (playerGamesWon / playerGamesPlayed) * 100
+                let playerEmail = pulleduserdata["playerEmail"] as? String ?? ""
+                
+                let userInfoForLeaderboard = [
+                    "playerEmail":"\(playerEmail)",
+                    "winningPercentage":winningPercentage
+                    ] as [String: Any]
+                
+                self.refT.child("leaderboard").child(newString).setValue(userInfoForLeaderboard)
+            }
+        }
+        
+      
     }
     
     @IBAction func createButtonClicked(_ sender: UIButton) {
@@ -126,8 +169,10 @@ class ConfirmationPage: UITableViewController {
             }
         }
         
+        gamesPlayed = gamesPlayed + 1
+        
          userSettings = [
-            "defaultCommission":"3.5",
+            "defaultCommission": "3.5",
             "enableCommission":false,
             "startingFunds": "\(incomingGameData["startingFunds"] ?? "0")",
             "shortSellingEnabled": "\(incomingGameData["shortSellingEnabled"] ?? "true")",
@@ -142,6 +187,7 @@ class ConfirmationPage: UITableViewController {
             "PrivateGames": false,
             "deleteAccount": false,
             "gamePassword":"",
+            "gamesPlayed":gamesPlayed,
             "resetToDefault": false
             
             ] as [String : Any]
@@ -153,7 +199,7 @@ class ConfirmationPage: UITableViewController {
             // print(pulleduserdata)
             
                 var userData = pulleduserdata["gamesInProgress"] as! [String]
-            print(userData)
+                print(userData)
             
                 let test = self.incomingGameData["gameName"] as! String
             
@@ -249,14 +295,10 @@ class ConfirmationPage: UITableViewController {
                             print("data saved successfully, live games is now updated")
                         }
                     }
-                    
- 
                 }
             }
         }
-        
-        
-        
+
         SVProgressHUD.dismiss()
     }
     

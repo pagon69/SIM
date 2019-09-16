@@ -9,16 +9,18 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import SVProgressHUD
 
 class RegisterPage: UIViewController {
     
     //MARK: - Globals
     var player = Player()
+    var firstNameVar = ""
+    var lastNameVar = ""
+    var fullNameVar = ""
     
     //firebase Db setup
     var ref: DatabaseReference!
-    
-    
     
     //MARK: - IB Actions and outlets
     
@@ -32,13 +34,25 @@ class RegisterPage: UIViewController {
     }
     
     @IBOutlet weak var nickNameOutlet: UITextField!
+    @IBOutlet weak var firstName: UITextField!
+    @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var emailOutlet: UITextField!
     @IBOutlet weak var passwordOutlet: UITextField!
     
     @IBAction func submitClick(_ sender: UIButton) {
+        //show some animation
+        SVProgressHUD.show()
         
         //progressHUD.show
         var nickName = ""
+       // var fullname = ""
+        
+        if firstName.text != "" || lastName.text != "" {
+            
+            firstNameVar = "\(firstName.text ?? "")"
+            lastNameVar = "\(lastName.text ?? "")"
+            fullNameVar = "\(firstNameVar) \(lastNameVar)"
+        }
         
         if let username = emailOutlet.text, let password = passwordOutlet.text{
         
@@ -67,7 +81,7 @@ class RegisterPage: UIViewController {
                         self.errorMsgOutlet.isHidden = false
                         
                     }else {
-                        //progressHUD.dismiss
+                        SVProgressHUD.dismiss()
                         self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
                         nickName = self.nickNameOutlet.text ?? ""
  
@@ -87,7 +101,7 @@ class RegisterPage: UIViewController {
         
     }
     
-    // prepres the daa to be sent to FireBase
+    // prepares the data to be sent to FireBase
     func registerAUser(userEmail: String, userNickName: String){
         
         var ref: DatabaseReference!
@@ -109,24 +123,26 @@ class RegisterPage: UIViewController {
         
         let userData = [
             "playerEmail":userEmail,
-            "listOfStockAndQuantity": ["test data"], //should be a list of dictionaries with stock name and quantities
+            "listOfStockAndQuantity": ["stockA":0,"stockB":0], //should be a list of dictionaries with stock name and quantities
             "userNickName": userNickName,
-            "gamesInProgress": ["test data"], //should be an array of strings which are the name of the various games theuser is playing
+            "firstName":"\(firstNameVar)",
+            "lastName":"\(lastNameVar)",
+            "fullName":"\(fullNameVar)",
+            "gamesInProgress": ["Test game Data"], //should be an array of strings which are the name of the various games theuser is playing
             "currentCash": "0",
-            "networth": "0",
+            "netWorth": "0",
             "buyPower": "0",
+            "numberOfTrades": 0,
             "currentStockValue": "0",
-            "gamesPlayed":"2",
-            "gamesWon":"1",
-            "winningPercentage":"50", //divide gamesplayed by games won (used in leaderboard)
+            "gamesPlayed": 0,
+            "gamesWon": 0,
+            "totalPlayerValue":"100000",
+            "winningPercentage": 0, //divide gamesplayed by games won (used in leaderboard)
             "stockReturnsPercentageAtGameEnd":"8" //devide returns percentage by games played
             
             ] as [String : Any]
-        
-       // ref.child("userDataByEmail").childByAutoId().setValue(userData)
-        
-        
-        //somthing strange is happening ere - removed child(newString)
+
+        //follow up on this
         ref.child("userDataByEmail").child(newString).setValue(userData) { (error, snapshot) in
             
             if error != nil{ //what happens when i dont have internet access?
@@ -137,9 +153,6 @@ class RegisterPage: UIViewController {
             
         }
         //
-        
-        
-        
         
     }
     
@@ -237,9 +250,10 @@ class RegisterPage: UIViewController {
         super.viewDidLoad()
 
         
-       // ref = Database.database().reference()
+       //do any anitmation or stuff i need here
         
-        // Do any additional setup after loading the view.
+        
+        
     }
     
 

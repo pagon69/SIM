@@ -9,122 +9,85 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKLoginKit
 //import ChameleonFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
-    //GIDSignInDelegate
-    
-    //remove when done testing
-    var nickName = ""
-    var email = ""
-    var cash = ""
-    
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        if let error = error {
-            //if an error happens print it out
-            print(error)
-            return
-        }else {
-
-            let userId = user.userID                  // For client-side use only!
-            print(userId ?? "")
-            
-            let idToken = user.authentication.idToken // Safe to send to the server
-            print(idToken ?? "")
-            
-            let fullName = user.profile.name
-            print(fullName ?? "")
-            
-            let givenName = user.profile.givenName
-            print(givenName ?? "")
-            
-            let familyName = user.profile.familyName
-            print(familyName ?? "")
-            
-            let email = user.profile.email
-            print(email ?? "")
-            
-            
- 
-        }
-        
-        guard let authentication = user.authentication else {return}
-        let credentials = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-    
-        Auth.auth().signIn(with: credentials) {( authResult, error) in
-            
-            if let error = error {
-                print(error)
-                return
-            }
-            
-        }
-    
-    }
-    
-    
-    
-    // google disconnect handler
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        //what to do when the user disconnects
-        
-        let firebaseAUTH = Auth.auth()
-        
-        do{
-            try firebaseAUTH.signOut()
-        }catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-        
-        
-    }
-
     /*
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        if let error = error {
-            print("\(error.localizedDescription)")
-        } else {
-            // Perform any operations on signed in user here.
-            let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
-            let email = user.profile.email
-            // ...
-        }
+    - (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+    didFinishLaunchingWithOptions:launchOptions];
+    // Add any custom logic here.
+    return YES;
+    }
+    
+    - (BOOL)application:(UIApplication *)application
+    openURL:(NSURL *)url
+    options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+    openURL:url
+    sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+    annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+    ];
+    // Add any custom logic here.
+    return handled;
     }
     */
-  
-    var window: UIWindow?
+    
+    
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+        
+        
+    }
+    
 
     
     
+    
+    var window: UIWindow?
+
     //deployed for google signin
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
-            return true
-                /*
-                GIDSignIn.sharedInstance().handle(url,
-                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                     annotation: [:])
-    */
+            
+            //return GIDSignIn.sharedInstance().handle(url)
+            
+           // let checkFB =fb FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+           // let checkGoogle = GIDSignIn.sharedInstance().handle(url as URL!,sourceApplication: sourceApplication,annotation: annotation)
+           
+            let checkFB = true
+            
+            let checkGoogle = GIDSignIn.sharedInstance().handle(url)
+            
+            return checkGoogle || checkFB
+            
+            
+         
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        
+        return GIDSignIn.sharedInstance().handle(url)
+        
     }
 
     // for legacy ios devices and google sign in
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return true
-           /*
-            GIDSignIn.sharedInstance().handle(url,
-                                                 sourceApplication: sourceApplication,
-                                                 annotation: annotation)
-    */
-    
+       // return true
+        
+       // return GIDSignIn.sharedInstance().handle(url)
+        
+        let checkFB = false
+        let checkGoogle = GIDSignIn.sharedInstance().handle(url)
+        
+        return checkGoogle || checkFB
     }
     
     //edit me for db search and wcreation
@@ -372,8 +335,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
        //ref.removeObserver(withHandle: DatabaseHandle.)
  
 
-      //  GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-      //  GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+      
+        // i did not put google sign in within app delegate so the below is not needed
+       // GIDSignIn.sharedInstance().delegate = self
         
         return true
     }

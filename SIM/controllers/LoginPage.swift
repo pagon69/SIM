@@ -9,10 +9,88 @@
 import UIKit
 import FirebaseAuth
 //import Alamofire
+import GoogleSignIn
+import FBSDKLoginKit
 
 
-class LoginPage: UIViewController, UITextFieldDelegate {
+class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
+    
+    
+    //google sign in action
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
 
+        print("\n\n\n/n/n/n this is a test \n\n\n\n/n/n/n/n")
+        
+        if let error = error {
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+                print("The user has not signed in before or they have since signed out.")
+            } else {
+                print("\(error.localizedDescription)")
+            }
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                          accessToken: authentication.accessToken)
+        
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                // ...
+                return
+            }
+            // User is signed in
+            print(" \n\n\n\n/n/n/n  this is within signin n\n\n\n\\n/n/n/n/n")
+            self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
+            
+            
+        }
+
+        // Perform any operations on signed in user here.
+        let userId = user.userID                  // For client-side use only!
+        let idToken = user.authentication.idToken // Safe to send to the server
+        let fullName = user.profile.name
+        let givenName = user.profile.givenName
+        let familyName = user.profile.familyName
+        let email = user.profile.email
+   
+    }
+    
+    
+    
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+        -> Bool {
+            
+            //return GIDSignIn.sharedInstance().handle(url)
+            
+            // let checkFB = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+            // let checkGoogle = GIDSignIn.sharedInstance().handle(url as URL!,sourceApplication: sourceApplication,annotation: annotation)
+            
+            // let checkFB = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+            let checkFB = false
+            let checkGoogle = GIDSignIn.sharedInstance().handle(url)
+            
+            return checkGoogle || checkFB
+            
+            
+            
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        
+        return GIDSignIn.sharedInstance().handle(url)
+        
+    }
+    
+    // for legacy ios devices and google sign in
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        // return true
+        
+        return GIDSignIn.sharedInstance().handle(url)
+        
+    }
+    
     //MARK: - IBActions
    
     @IBOutlet weak var userprovidedEmail: UITextField!
@@ -23,6 +101,19 @@ class LoginPage: UIViewController, UITextFieldDelegate {
     @IBAction func showOrHideButton(_ sender: UIButton) {
         userProvidedPassword.isSecureTextEntry = !userProvidedPassword.isSecureTextEntry
     }
+    
+    
+    @IBOutlet weak var FBSignInOutlet: FBLoginButton!
+    
+    
+    @IBOutlet weak var GoogleSignInOutlet: GIDSignInButton!
+    
+    /*I made this button is it needed
+    @IBAction func GoogleSigninButtonClicked(_ sender: GIDSignInButton) {
+        
+        
+    }
+    */
     
     @IBAction func SignInButton(_ sender: UIButton) {
         //if the user types something into username and password
@@ -181,6 +272,7 @@ class LoginPage: UIViewController, UITextFieldDelegate {
             viewSetup()
           //  getSymbols()
         
+        
     }
     
     
@@ -197,8 +289,18 @@ class LoginPage: UIViewController, UITextFieldDelegate {
         userProvidedPassword.layer.masksToBounds = true
         userProvidedPassword.layer.cornerRadius = 20
         
+        GoogleSignInOutlet.layer.cornerRadius = 20
+        GoogleSignInOutlet.layer.masksToBounds = true
+       // GoogleSignInOutlet.colorScheme = .light
+        GoogleSignInOutlet.style = .wide
         
+       print("in main body this is a test \n\n\n\n\n\n /n/n/n/n/n\n\n\n")
         
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        //GIDSignIn.sharedInstance()?.signIn()
+        
+        //let loginButton = FBLoginButton()
+        //FBSignInOutlet.delegate = self
     }
     
     //MARK: - Animates and rounds the corners on views

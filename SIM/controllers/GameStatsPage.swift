@@ -369,12 +369,12 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                                     
                                     self.ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value, with: { (snapshot) in
                                         
-                                        var playerInfo = Player()
+                                        let playerInfo = Player()
                                         
                                         if let pulledData = snapshot.value as? [String: Any]{
                                             //save network or whatever labels someplace
                                             playerInfo.netWorth = pulledData["networth"] as? String ?? "0"
-                                            playerInfo.gamesWon = pulledData["gamesWon"] as? String ?? "0"
+                                            playerInfo.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
                                             playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? String ?? "0"
                                             playerInfo.playerEmail = pulledData["playerEmail"] as? String ?? "pagon69@hotmail.com"
                                             
