@@ -8,6 +8,12 @@
 
 import UIKit
 
+
+protocol reactToJoinButtonPush {
+    func joinButtonClick(stock: String)
+}
+
+
 class gameDetailCell: UITableViewCell {
 
     
@@ -17,7 +23,11 @@ class gameDetailCell: UITableViewCell {
     @IBOutlet weak var numberOfPlayersOutlet: UILabel!
     @IBOutlet weak var percentCompleteOutlet: UILabel!
     
-    
+    @IBAction func joinButtonClicked(_ sender: UIButton){
+      //  print("within join button:")
+       // joinButtonClicked(sender)
+        
+    }
     
     
     //stackViewOutlets

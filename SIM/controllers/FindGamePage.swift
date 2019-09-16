@@ -10,8 +10,12 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate {
- 
+class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate, reactToJoinButtonPush {
+    
+    
+    func joinButtonClick(stock: String) {
+        print("within find page")
+    }
     
     //MARK: - gloabls
     var gameInfo = [GamesInfo]()

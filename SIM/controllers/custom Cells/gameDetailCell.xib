@@ -123,6 +123,9 @@
                         <state key="normal" title="Join Game">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
+                        <connections>
+                            <action selector="joinButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Rn4-ug-3FT"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
