@@ -206,11 +206,11 @@ class CreateGamePage: UIViewController {
                                        "deleteAccount": false,
                                        "gamePassword":""],
                     
-                    
-                    "playersInGameAndCash": [["\(Auth.auth().currentUser?.email ?? "")":0.0
+                    //what is up with this?
+                    "playersInGameAndCash": [["\(Auth.auth().currentUser?.email ?? "")":startingF
                                                     ]],
                     
-                    "playersStocksAndAmount": ["\(Auth.auth().currentUser?.email ?? "")":[["":0.0]]],
+                    "playersStocksAndAmount": ["\(Auth.auth().currentUser?.email ?? "")":[["test":0]]],
                 
                     
                     ] as [String : Any]
