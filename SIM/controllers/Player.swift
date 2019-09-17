@@ -19,6 +19,7 @@ class Player {
     var netWorth = ""
     var listOfStockAndQuantity = ["":0.0]
     var gamesInProgress = [""]
+    var currentGame = ""
     var buyPower = ""
     var numberOfTrades = ""
     var currentStockValue = ""

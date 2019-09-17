@@ -634,7 +634,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hoT-K9-QId" userLabel="midView">
                                 <rect key="frame" x="0.0" y="224" width="375" height="393"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZHp-9v-UoR">
+                                    <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZHp-9v-UoR">
                                         <rect key="frame" x="8" y="8" width="359" height="377"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -701,6 +701,7 @@
                         <outlet property="searchBarOutlet" destination="tzp-6w-4KV" id="qe9-YX-gxw"/>
                         <outlet property="searchDisplayController" destination="fAv-bF-on6" id="Hn6-KC-Bby"/>
                         <outlet property="topViewOutlet" destination="c6f-Vd-Ogm" id="SSs-XK-zEn"/>
+                        <segue destination="DrF-le-076" kind="showDetail" identifier="goToGameStats" id="Fpq-fX-Tn5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aj2-4z-ZZZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7500,7 +7501,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="XBu-cc-aTv"/>
         <segue reference="rfD-Wi-fGJ"/>
-        <segue reference="dwy-YR-99T"/>
+        <segue reference="Wvb-Dq-GgB"/>
         <segue reference="T2c-Ao-f6i"/>
         <segue reference="rrH-gY-ghf"/>
         <segue reference="hqA-Ih-mwe"/>

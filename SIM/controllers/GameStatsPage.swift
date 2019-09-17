@@ -12,11 +12,10 @@ import FirebaseAuth
 //import Alamofire
 
 class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate {
-    
-    
+
     //MARK: - globals
-    
     var ref: DatabaseReference!
+    
     var createdGameDetials = "" //pass the current game details
     var gamesInProgress: [String] = [""]
     var gamesInProgressDetails = [GamesInfo]()
@@ -96,12 +95,11 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //checks for changes to text
-        print("within TextDidChange: \(searchBar.text?.lowercased() ?? "")")
+       // print("within TextDidChange: \(searchBar.text?.lowercased() ?? "")")
         
         userInput = searchBar.text?.lowercased() ?? ""
         doSearch(searchV: userInput)
         searchBar.placeholder = "Enter stock symbol or company name"
-        
         
     }
     
@@ -150,13 +148,12 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         let searchResults = forSymbolsSearch.filter { (item) -> Bool in
             
             item.symbol.lowercased().contains(searchV)
-            
         }
         
         self.searchR = searchResults
         
-        
     }
+    
     //do i need this  now?
     func processSymbols(jsonData: [Symbol]){
        
@@ -186,7 +183,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             
            // print(passedData.percentComplete)
           //  print(passedData.gameDescription)
-            myTitle = "Players in game: \(passedData.gameName)"
+            myTitle = "Game:  \(passedData.gameName)"
+           // print("This is what was passed: \(passedData.gameName)")
 
         }
         return myTitle
@@ -223,15 +221,16 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             cell.detailTextLabel?.text = searchR?[indexPath.row].name
             
         }
-        
-        
+
         //overview
         if tableView.tag == 6 {
             
             let myCell = playersInGameTable.dequeueReusableCell(withIdentifier: "leaderboardCell", for: indexPath) as! leaderboardCell
             
-                myCell.nameLabelOutlet.text = myPlayersInfo[indexPath.row].playerEmail
+                myCell.nameLabelOutlet.text = myPlayersInfo[indexPath.row].fullName
                 myCell.netWorthOutlet.text = myPlayersInfo[indexPath.row].netWorth
+            
+                //getRankings()
             
                 //figure out how to do ranking, download player Info and networth
                 var userRank: Int = Int(arc4random_uniform(10))
@@ -240,10 +239,11 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                     myCell.rankViewOutlet.backgroundColor = UIColor.green
                 }
             
-                if userRank < 6 {
+                if userRank > 3 {
                     myCell.rankViewOutlet.backgroundColor = UIColor.brown
                 
                 }
+            
                 myCell.rankLabelOutlet.text = String(userRank)
                 return myCell
         }
@@ -274,6 +274,23 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
+    
+    func getRankings(){
+        ref = Database.database().reference()
+
+        let usersInGame = passedData.playersInGameEmail
+        
+        for each in usersInGame{
+            
+            
+            
+            
+            
+        }
+        
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "goToStockSearch" {
@@ -293,7 +310,10 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         portfolioiew.alpha = 0
         rankingOutlet.alpha = 0
         settingsOutlet.alpha = 0
+        
         getSymbols()
+        getRankings()
+        
         
     }
     
@@ -387,23 +407,15 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                                     
                                     
                                 }
-                                
-                                
+                        
                                 self.playersInGameTable.reloadData()
                             }
-                            
                         })
-                        
                     }
                 }
-
-                
             }
-            
-            
         }
-        
-        
+
     }
     
     func registerCustomCell(){
@@ -415,6 +427,9 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        print("what the view sees: \(passedData.gameName)")
+        
         viewSetup()
         pullUserData()
         registerCustomCell()

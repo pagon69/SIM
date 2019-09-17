@@ -205,10 +205,15 @@ class CreateGamePage: UIViewController {
                     "privacySettings":["PrivateGames": false,
                                        "deleteAccount": false,
                                        "gamePassword":""],
-                    "resetToDefault": false
+                    
+                    
+                    "playersInGameAndCash": [["\(Auth.auth().currentUser?.email ?? "")":0.0
+                                                    ]],
+                    
+                    "playersStocksAndAmount": ["\(Auth.auth().currentUser?.email ?? "")":[["":0.0]]],
+                
                     
                     ] as [String : Any]
-                
                 
                 //used to pass something to confrim page
                 userSelectedSettings = userProfileDataTwo

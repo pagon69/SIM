@@ -19,6 +19,11 @@ class GamesInfo {
     var partialSharesEnabled: Bool = false
     var numberOfPlayersInGame: String = ""
     var playersInGameEmail: [String] = [""]
+    
+    //can I start as empty with ? and then enter values
+    var playersInGameAndCash = [["":0.0]]
+    var playersStocksAndAmount = ["":[["":0.0]]]
+    
     var shortSaleEnabled: Bool = true
     var startingFunds: String = ""
     var startDate: String = ""

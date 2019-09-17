@@ -10,34 +10,42 @@ import UIKit
 
 
 protocol reactToJoinButtonPush {
-    func joinButtonClick(stock: String)
+    func passInfoFromSelectedCell(currentIndex: Int)
+
 }
 
-
-class gameDetailCell: UITableViewCell {
-
+class gameDetailCell: UITableViewCell{
     
     @IBOutlet weak var gamedescriptionLabel: UILabel!
     @IBOutlet weak var gameNameOutlet: UILabel!
     @IBOutlet weak var endDateOutlet: UILabel!
     @IBOutlet weak var numberOfPlayersOutlet: UILabel!
     @IBOutlet weak var percentCompleteOutlet: UILabel!
-    
-    @IBAction func joinButtonClicked(_ sender: UIButton){
-      //  print("within join button:")
-       // joinButtonClicked(sender)
-        
-    }
-    
-    
+    @IBOutlet weak var joinButtonOutlet: UIButton!
     //stackViewOutlets
     @IBOutlet weak var labelStackViewOutlet: UIStackView!
     @IBOutlet weak var dataStackViewoutlet: UIStackView!
+    
+    var currentLocations = 0
+    var cellDelegate: reactToJoinButtonPush?
+    var cellIndex: IndexPath?
+    
+    override func prepareForReuse() {
+       // joinButtonOutlet.titleLabel?.text = ""
+    }
+    
+    @IBAction func joinButtonClicked(_ sender: UIButton){
+      //  print("within join button:")
+    
+        cellDelegate?.passInfoFromSelectedCell(currentIndex: (cellIndex?.row)! )
+    
+    }
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -67,7 +67,12 @@ class ConfirmationPage: UITableViewController {
         shortSaleEnabled.text = "\(incomingGameData["enableShortSale"] as? Bool ?? true)"
         limitOrderEnabled.text = "\(incomingGameData["enableLimitOrders"] as? Bool ?? false)"
         marginsEnabled.text = "\(incomingGameData["enableMargin"] as? Bool ?? true)"
+       
+        //why is this wrong?
         
+        let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:Double]]
+        let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [String:[[String:Double]]]
+
         //do a call to get a users settings
         for letter in userEmail{
             

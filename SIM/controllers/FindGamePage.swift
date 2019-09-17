@@ -10,17 +10,34 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
+/*
+extension FindGame: reactToJoinButtonPush{
+    
+    func passInfoFromSelectedCell(currentIndex: Int) {
+        print("this is the current Index: \(currentIndex)")
+        
+    }
+
+}
+*/
+
 class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate, reactToJoinButtonPush {
     
-    
-    func joinButtonClick(stock: String) {
-        print("within find page")
+    func passInfoFromSelectedCell(currentIndex: Int) {
+       // print("this is the current Index: \(currentIndex)")
+       // print("The current game is:\(gameInfo[currentIndex].gameName) and players in game: \(gameInfo[currentIndex].playersInGameEmail)\n\n/n/n")
+        
+        passedData = gameInfo[currentIndex]
+        performSegue(withIdentifier: "goToGameStats", sender: self)
+        
     }
+    
     
     //MARK: - gloabls
     var gameInfo = [GamesInfo]()
     var ref = Database.database().reference()
-    
+    var passedData = GamesInfo()
+    var currentIndexPath = 0
     
     //MARK: - IB actions
     
@@ -44,6 +61,14 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
         //any clean up work i may need to do
     }
     
+    //segue work
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToGameStats" {
+            let destVC = segue.destination as! GameStatsPage
+            destVC.passedData = passedData
+        }
+    }
+    
     
     
     //MARK: - views for animation
@@ -53,7 +78,19 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     //table view info
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameInfo.count
+        
+        var count = 0
+        
+        if(tableView.tag == 0){
+            
+        }
+        
+        if(tableView.tag == 1){
+            
+            count = gameInfo.count
+        }
+        
+        return count
     }
     
     //MARK: - custom table view cell sizes
@@ -63,7 +100,7 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         if tableView.tag == 0{
             
-            height = 100.0
+            height = 44.0
         }
         
         if tableView.tag == 1{
@@ -78,11 +115,28 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       //  let cell = UITableView()
         
-        let cell = gamestableViewOutlet.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
+        let cell = UITableViewCell()
         
-       cell.gameNameOutlet?.text = gameInfo[indexPath.row].gameName
-        cell.endDateOutlet?.text = gameInfo[indexPath.row].endDate
-        cell.gamedescriptionLabel?.text = gameInfo[indexPath.row].gameDescription
+        if(tableView.tag == 0){
+            
+            
+        }
+        
+        
+        if(tableView.tag == 1){
+            let cell = gamestableViewOutlet.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
+        
+            cell.gameNameOutlet?.text = gameInfo[indexPath.row].gameName
+            cell.endDateOutlet?.text = gameInfo[indexPath.row].endDate
+            cell.gamedescriptionLabel?.text = gameInfo[indexPath.row].gameDescription
+            cell.joinButtonOutlet.setTitle("Join", for: .normal)
+            
+            //needed for protocol
+            cell.cellDelegate = self
+            cell.cellIndex = indexPath
+            
+            return cell
+        }
         
         //cell.gameNameOutlet?.text = "testing"
         
@@ -126,33 +180,25 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
         ref.child("gamesInProgressByGamename").observeSingleEvent(of: .value) { (snapshot) in
             
             if let data = snapshot.value as? [String:[String:Any]]{
-                let myGameinfo = GamesInfo()
+                
 
                 for each in data{
-        
+                    let myGameinfo = GamesInfo()
+
                     myGameinfo.gameName = each.value["gameName"] as? String ?? ""
                     myGameinfo.gameDescription = each.value["gameDescription"] as? String ?? ""
                     myGameinfo.endDate = "\(Date())"
                     myGameinfo.startingFunds = each.value["startingFunds"] as? String ?? ""
                     
                     self.gameInfo.append(myGameinfo)
-                    self.gamestableViewOutlet.reloadData()
+                   
                     
                 }
                 
-                
+                    self.gamestableViewOutlet.reloadData()
             }
         
         }
-        
-        
-        
-    
-                    
-        
-        
-        
-        
         
     }
     

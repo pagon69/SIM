@@ -11,7 +11,14 @@ import FirebaseAuth
 import FirebaseDatabase
 //import Alamofire
 
-class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate, UISearchBarDelegate {
+class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate, UISearchBarDelegate, reactToJoinButtonPush {
+    
+    func passInfoFromSelectedCell(currentIndex: Int) {
+        
+        passedData = gameData[currentIndex]
+        performSegue(withIdentifier: "goToGameStatPage", sender: self)
+    }
+    
    
     //MARK: - globals
     var player = Player()
@@ -19,12 +26,15 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     var myGameInfoArray = [GamesInfo]()
     let ref = Database.database().reference()
     
+    var currentIndex = 0
     //search data
     var searchR: [Symbol]?
     var receivedData: [Symbol]?
     var userSearch: String?
     
     //keep these remove above player and game Info
+    var passedData = GamesInfo()
+    
     var userData = Player()
     var myGameinfo = GamesInfo()
     var gameData = [GamesInfo]()
@@ -200,11 +210,9 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         
         if segue.identifier == "goToGameStatPage" {
             let destVC = segue.destination as! GameStatsPage
-            destVC.passedData = myGameinfo
-            
+            //destVC.passedData = myGameinfo
+            destVC.passedData = passedData
         }
-        
-        
     }
     
     
@@ -241,8 +249,6 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                 cell.winningPercentage.text = "\(percentage * 100)%"
             }
             
-            
-            
             return cell
         }
         
@@ -253,6 +259,12 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             cell.endDateOutlet.text = gameData[indexPath.row].endDate
             cell.numberOfPlayersOutlet.text = gameData[indexPath.row].numberOfPlayersInGame
             cell.percentCompleteOutlet.text = gameData[indexPath.row].percentComplete
+            //cell.joinButtonOutlet.titleLabel?.text = "Continue"
+            cell.joinButtonOutlet.setTitle("Continue", for: .normal)
+            
+            //needed for protocol
+            cell.cellDelegate = self
+            cell.cellIndex = indexPath
             
             return cell
         }

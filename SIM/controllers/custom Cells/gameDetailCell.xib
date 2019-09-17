@@ -120,7 +120,7 @@
                             <constraint firstAttribute="width" constant="74" id="Y6Y-Nc-yS8"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="Join Game">
+                        <state key="normal">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <connections>
@@ -155,6 +155,7 @@
                 <outlet property="endDateOutlet" destination="qqK-gd-qLy" id="JAC-jd-jeU"/>
                 <outlet property="gameNameOutlet" destination="bgS-X3-FFQ" id="1uk-cX-1nn"/>
                 <outlet property="gamedescriptionLabel" destination="uWk-Ll-P5T" id="tHo-Z8-DHT"/>
+                <outlet property="joinButtonOutlet" destination="q1W-Ah-Cdk" id="hgN-GE-sCx"/>
                 <outlet property="labelStackViewOutlet" destination="MQX-ST-tAW" id="caQ-fK-9JJ"/>
                 <outlet property="numberOfPlayersOutlet" destination="ExS-fN-AkZ" id="Gc0-PW-5L4"/>
                 <outlet property="percentCompleteOutlet" destination="TsY-tx-t6x" id="fiN-dc-cwS"/>
