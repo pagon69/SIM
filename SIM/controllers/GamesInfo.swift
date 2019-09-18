@@ -21,8 +21,8 @@ class GamesInfo {
     var playersInGameEmail: [String] = [""]
     
     //can I start as empty with ? and then enter values
-    var playersInGameAndCash = [["test":0]]
-    var playersStocksAndAmount = ["testy":[["tester":0]]]
+    var playersInGameAndCash = [["test":"0.0"]]
+    var playersStocksAndAmount = [["testy":[["tester":"0.0"]]]]
     
     var shortSaleEnabled: Bool = true
     var startingFunds: String = ""

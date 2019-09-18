@@ -52,27 +52,29 @@ class ConfirmationPage: UITableViewController {
         let changeChar = "_"
         var newString = ""
         
+       // print(incomingGameData["playersInGameEmail"])
+        
         gameNameOutlet.text = incomingGameData["gameName"] as? String
         gameDescOutlet.text = incomingGameData["gameDescription"] as? String
         enddateOutlet.text = incomingGameData["endDate"] as? String
         startDateOutlet.text = incomingGameData["startDate"] as? String
         publicGameOrNotOutlet.text = "\(incomingGameData["PrivateGames"] as? Bool ?? false)"
-        passwordProtectedOutlet.text = incomingGameData["gamePassword"] as? String
-        startingFunds.text = incomingGameData["startingFunds"] as? String
+        passwordProtectedOutlet.text = incomingGameData["gamePassword"] as? String ?? "defaultPSW"
+        startingFunds.text = incomingGameData["startingFunds"] as? String ?? ""
         commissionEnabled.text = "\(incomingGameData["enableCommission"] as? Bool ?? false)"
         IRCEnabled.text = "\(incomingGameData["enableInterestRateCredit"] as? Bool ?? false)"
         IRDEnabled.text = "\(incomingGameData["enableInterestRateDebt"] as? Bool ?? false)"
         partialShares.text = "\(incomingGameData["enablePartialShares"] as? Bool ?? false)"
-        stopLossEnabled.text = incomingGameData["enableStopLoss"] as? String
-        shortSaleEnabled.text = "\(incomingGameData["enableShortSale"] as? Bool ?? true)"
+        stopLossEnabled.text = "\(incomingGameData["enableStopLoss"] as? Bool ?? false)"
+        shortSaleEnabled.text = "\(incomingGameData["shortSellingEnabled"] as? Bool ?? true)"
         limitOrderEnabled.text = "\(incomingGameData["enableLimitOrders"] as? Bool ?? false)"
-        marginsEnabled.text = "\(incomingGameData["enableMargin"] as? Bool ?? true)"
-       
-        //why is this wrong?
+        marginsEnabled.text = "\(incomingGameData["marginSellingEnabled"] as? Bool ?? true)"
         
-        let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:Double]]
-        let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [String:[[String:Double]]]
-
+        let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:Double]] ?? [[:]]
+        let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [String:[[String:Double]]] ?? ["":[[:]]]
+        
+        let playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String]
+        
         //do a call to get a users settings
         for letter in userEmail{
             

@@ -4282,7 +4282,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-eu-sWR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-eu-sWR">
                                                     <rect key="frame" x="16" y="11" width="168" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="168" id="Z7v-wO-h4p"/>
@@ -4575,7 +4575,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Limit order" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IxL-hB-VBs">
-                                                    <rect key="frame" x="16" y="11" width="168" height="22"/>
+                                                    <rect key="frame" x="8" y="8" width="168" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="168" id="IJ0-hr-iev"/>
                                                     </constraints>
@@ -4596,10 +4596,10 @@
                                             <constraints>
                                                 <constraint firstItem="3Em-jn-gsK" firstAttribute="trailing" secondItem="uWw-SI-TTd" secondAttribute="trailingMargin" constant="-8" id="8cN-s1-e7n"/>
                                                 <constraint firstItem="3Em-jn-gsK" firstAttribute="top" secondItem="uWw-SI-TTd" secondAttribute="topMargin" constant="3" id="LWX-Kq-kJH"/>
-                                                <constraint firstItem="IxL-hB-VBs" firstAttribute="leading" secondItem="uWw-SI-TTd" secondAttribute="leadingMargin" constant="8" id="jav-UV-2wB"/>
+                                                <constraint firstItem="IxL-hB-VBs" firstAttribute="leading" secondItem="uWw-SI-TTd" secondAttribute="leadingMargin" id="jav-UV-2wB"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="3Em-jn-gsK" secondAttribute="bottom" constant="2.5" id="qzg-75-TXn"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="IxL-hB-VBs" secondAttribute="bottom" constant="2.5" id="xoa-sk-JJ3"/>
-                                                <constraint firstItem="IxL-hB-VBs" firstAttribute="top" secondItem="uWw-SI-TTd" secondAttribute="topMargin" constant="3" id="zeP-Cv-0Oy"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="IxL-hB-VBs" secondAttribute="bottom" id="xoa-sk-JJ3"/>
+                                                <constraint firstItem="IxL-hB-VBs" firstAttribute="top" secondItem="uWw-SI-TTd" secondAttribute="topMargin" id="zeP-Cv-0Oy"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -4611,7 +4611,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stop loss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeH-M5-crh">
-                                                    <rect key="frame" x="16" y="11" width="168" height="22"/>
+                                                    <rect key="frame" x="8" y="8" width="168" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="168" id="oWO-Ex-07O"/>
                                                     </constraints>
@@ -4630,10 +4630,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="QeH-M5-crh" firstAttribute="leading" secondItem="2B9-yO-cIw" secondAttribute="leadingMargin" constant="8" id="1qM-c7-gr3"/>
+                                                <constraint firstItem="QeH-M5-crh" firstAttribute="leading" secondItem="2B9-yO-cIw" secondAttribute="leadingMargin" id="1qM-c7-gr3"/>
                                                 <constraint firstItem="fKo-Mi-fqI" firstAttribute="trailing" secondItem="2B9-yO-cIw" secondAttribute="trailingMargin" constant="-8" id="4lW-bm-4eS"/>
-                                                <constraint firstItem="QeH-M5-crh" firstAttribute="top" secondItem="2B9-yO-cIw" secondAttribute="topMargin" constant="3" id="CYY-pI-OVb"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="QeH-M5-crh" secondAttribute="bottom" constant="2.5" id="QLI-mt-YEQ"/>
+                                                <constraint firstItem="QeH-M5-crh" firstAttribute="top" secondItem="2B9-yO-cIw" secondAttribute="topMargin" id="CYY-pI-OVb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="QeH-M5-crh" secondAttribute="bottom" id="QLI-mt-YEQ"/>
                                                 <constraint firstItem="fKo-Mi-fqI" firstAttribute="top" secondItem="2B9-yO-cIw" secondAttribute="topMargin" constant="3" id="Wqw-K2-Yx1"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fKo-Mi-fqI" secondAttribute="bottom" constant="2.5" id="sQB-NV-NK8"/>
                                             </constraints>
@@ -4647,7 +4647,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partial Shares" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJq-J5-0JT">
-                                                    <rect key="frame" x="16" y="11" width="168" height="22"/>
+                                                    <rect key="frame" x="8" y="8" width="168" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="168" id="oNn-Yh-5bc"/>
                                                     </constraints>
@@ -4666,9 +4666,9 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="NJq-J5-0JT" firstAttribute="top" secondItem="TIp-25-0H2" secondAttribute="topMargin" constant="3" id="4nw-JQ-kbN"/>
-                                                <constraint firstItem="NJq-J5-0JT" firstAttribute="leading" secondItem="TIp-25-0H2" secondAttribute="leadingMargin" constant="8" id="83B-vR-6wo"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="NJq-J5-0JT" secondAttribute="bottom" constant="2.5" id="Dyo-7w-8ar"/>
+                                                <constraint firstItem="NJq-J5-0JT" firstAttribute="top" secondItem="TIp-25-0H2" secondAttribute="topMargin" id="4nw-JQ-kbN"/>
+                                                <constraint firstItem="NJq-J5-0JT" firstAttribute="leading" secondItem="TIp-25-0H2" secondAttribute="leadingMargin" id="83B-vR-6wo"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NJq-J5-0JT" secondAttribute="bottom" id="Dyo-7w-8ar"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="EfY-cl-Xqp" secondAttribute="bottom" constant="2.5" id="b2C-5L-JbC"/>
                                                 <constraint firstItem="EfY-cl-Xqp" firstAttribute="top" secondItem="TIp-25-0H2" secondAttribute="topMargin" constant="3" id="eGM-pr-An6"/>
                                                 <constraint firstItem="EfY-cl-Xqp" firstAttribute="trailing" secondItem="TIp-25-0H2" secondAttribute="trailingMargin" constant="-8" id="pLv-Rk-Bag"/>
@@ -7501,7 +7501,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="XBu-cc-aTv"/>
         <segue reference="rfD-Wi-fGJ"/>
-        <segue reference="Wvb-Dq-GgB"/>
+        <segue reference="dwy-YR-99T"/>
         <segue reference="T2c-Ao-f6i"/>
         <segue reference="rrH-gY-ghf"/>
         <segue reference="hqA-Ih-mwe"/>

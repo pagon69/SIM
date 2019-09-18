@@ -16,6 +16,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     func passInfoFromSelectedCell(currentIndex: Int) {
         
         passedData = gameData[currentIndex]
+        
         performSegue(withIdentifier: "goToGameStatPage", sender: self)
     }
     
@@ -410,9 +411,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     
     //work in games info
     func checkGames(listOfGames: [String]){
-        
         for each in listOfGames{
-           
             if each == "" {
                 print("within for loop checkign : \(each)")
                 //test for no games joined
@@ -423,10 +422,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                 ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value) { (snapshot) in
                     if snapshot.hasChildren(){
                     
-                        
                     if let data = snapshot.value as? [String: Any] {
                         let myGameinfo = GamesInfo()
                         
+                        //validate that i have all values below
                         myGameinfo.daysRemaining = data["daysRemaining"] as? String ?? ""
                         myGameinfo.defaultCommission = data["defaultCommission"] as? String ?? ""
                         myGameinfo.defaultIRC = data["defaultIRC"] as? String ?? ""
@@ -448,12 +447,11 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                         myGameinfo.startDate = data["startDate"] as? String ?? ""
                         myGameinfo.startingFunds = data["startingFunds"] as? String ?? ""
                         myGameinfo.stopLossEnabled = data["stopLossEnabled"] as? Bool ?? false
+                        myGameinfo.playersInGameAndCash = data["playersInGameAndCash"] as? [[String: String]] ?? [[:]]
+                        myGameinfo.playersStocksAndAmount = data["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["":[["":""]]]]
                         
                         self.gameData.append(myGameinfo)
-                        
                         self.aboutTableView.reloadData()
-                        print("I just put this into myGameInfo: \(self.myGameinfo.gameName)")
-                        print("I currently have the following amount of items: \(self.gameData.count)")
                     }
                 
                 }else {

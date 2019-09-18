@@ -121,14 +121,9 @@ class CreateGamePage: UIViewController {
             
                 var todayDate = Date()
              
-                
                 //this is an error when the same date is used fix this
                 var worked = DateInterval(start: todayDate, end: myEndDate)
-                    
-                
-                
                 var testing = DateInterval(start: todayDate, duration: worked.duration)
-                
                 var yetAnother = Date(timeInterval: worked.duration, since: todayDate)
                 print(yetAnother)
                 
@@ -144,8 +139,24 @@ class CreateGamePage: UIViewController {
                 var usersInGame: [String] = [String]()
                 
                 //is the below test Data needed?
-                usersInGame.append("testData")
+               // usersInGame.append("testData")
                 usersInGame.append(Auth.auth().currentUser?.email ?? "")
+                
+                //remove special character from email
+                let userEmail = Auth.auth().currentUser?.email ?? ""
+                
+                let changeChar = "_"
+                var newString = ""
+                
+                for letter in userEmail{
+                    
+                    if letter == "." {
+                        newString = newString + String(changeChar)
+                    }else{
+                        newString = newString + String(letter)
+                    }
+                }
+                
                 
                 let userProfileData = [
                     "gameName": gameName,
@@ -176,14 +187,17 @@ class CreateGamePage: UIViewController {
                     
                     ] as [String : Any]
                 
+                print(usersInGame)
+                
                 let userProfileDataTwo = [
                     "gameName": gameName,
                     "defaultCommission":"3.5",
                     "enableCommission":false,
                     "gameDescription": gameDesc,
                     "endDate":"\(myEndDate)",
-                    "numberOfPlayers":"",
+                    "numberOfPlayers":"1",
                     "daysRemaining":"",
+                    
                     "PlayersInGameEmail": usersInGame,
                     "startingFunds": startingFunds,
                     "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
@@ -196,7 +210,6 @@ class CreateGamePage: UIViewController {
                                         "defaultIRC":"5.50",
                                         "enableInterestRateDebit":false,
                                         "defaultIRD":"2.65"],
-                    
                     "gameStillActive":true,
                     "startDate":"\(todayDate)",
                     "percentComplete":"",
@@ -206,18 +219,18 @@ class CreateGamePage: UIViewController {
                                        "deleteAccount": false,
                                        "gamePassword":""],
                     
-                    //what is up with this?
-                    "playersInGameAndCash": [["\(Auth.auth().currentUser?.email ?? "")":startingF
+                    "playersInGameAndCash": [[newString:startingF
                                                     ]],
-                    
-                    "playersStocksAndAmount": ["\(Auth.auth().currentUser?.email ?? "")":[["test":0]]],
+                    "playersStocksAndAmount": [[newString:[["test":0]]]],
                 
+                  //  updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
+                    
+                    // updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
                     
                     ] as [String : Any]
                 
                 //used to pass something to confrim page
                 userSelectedSettings = userProfileDataTwo
-                
                 performSegue(withIdentifier: "goToConfirmationPage", sender: self)
             }
              
