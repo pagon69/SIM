@@ -292,6 +292,7 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     
         return newString
+    
     }
     
     

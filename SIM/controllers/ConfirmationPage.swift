@@ -70,8 +70,8 @@ class ConfirmationPage: UITableViewController {
         limitOrderEnabled.text = "\(incomingGameData["enableLimitOrders"] as? Bool ?? false)"
         marginsEnabled.text = "\(incomingGameData["marginSellingEnabled"] as? Bool ?? true)"
         
-        let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:Double]] ?? [[:]]
-        let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [String:[[String:Double]]] ?? ["":[[:]]]
+        let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
+        let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["":[[:]]]]
         
         let playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String]
         
@@ -176,6 +176,7 @@ class ConfirmationPage: UITableViewController {
             }
         }
         
+        
         gamesPlayed = gamesPlayed + 1
         
          userSettings = [
@@ -243,11 +244,12 @@ class ConfirmationPage: UITableViewController {
   
         }
         
+        
         //change games current settings
         ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
       //  print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
         
-        let testing = incomingGameData["gameName"] as? String ?? ""
+        let testing = incomingGameData["players"] as? String ?? ""
         print(" What is in the testing: \(testing) \n\n\n\n/n/n/n/n")
         
         //add the game for others to join

@@ -143,50 +143,8 @@ class CreateGamePage: UIViewController {
                 usersInGame.append(Auth.auth().currentUser?.email ?? "")
                 
                 //remove special character from email
-                let userEmail = Auth.auth().currentUser?.email ?? ""
-                
-                let changeChar = "_"
-                var newString = ""
-                
-                for letter in userEmail{
-                    
-                    if letter == "." {
-                        newString = newString + String(changeChar)
-                    }else{
-                        newString = newString + String(letter)
-                    }
-                }
-                
-                
-                let userProfileData = [
-                    "gameName": gameName,
-                    "defaultCommission":"3.5",
-                    "enableCommission":false,
-                    "gameDescription": gameDesc,
-                    "endDate":"\(myEndDate)",
-                    "numberOfPlayers":"",
-                    "daysRemaining":"",
-                    "PlayersInGameEmail": usersInGame,
-                    "startingFunds": startingFunds,
-                    "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
-                    "marginSellingEnabled": marginSwitchOutlet.isOn,
-                    "enableLimitOrders": false,
-                    "enableStopLoss": false,
-                    "enablePartialShares": false,
-                    "enableInterestRateCredit":false,
-                    "defaultIRC":"5.50",
-                    "enableInterestRateDebit":false,
-                    "defaultIRD":"2.65",
-                    "gameStillActive":true,
-                    "startDate":"\(todayDate)",
-                    "percentComplete":"",
-                    "PrivateGames": false,
-                    "deleteAccount": false,
-                    "gamePassword":"",
-                    "resetToDefault": false
-                    
-                    ] as [String : Any]
-                
+                let newString = fixEmail()
+ 
                 print(usersInGame)
                 
                 let userProfileDataTwo = [
@@ -219,9 +177,8 @@ class CreateGamePage: UIViewController {
                                        "deleteAccount": false,
                                        "gamePassword":""],
                     
-                    "playersInGameAndCash": [[newString:startingF
-                                                    ]],
-                    "playersStocksAndAmount": [[newString:[["test":0]]]],
+                    "playersInGameAndCash": [[newString:startingF]],
+                    "playersStocksAndAmount": [[newString:[["test":"0"]]]],
                 
                   //  updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
                     
@@ -250,6 +207,25 @@ class CreateGamePage: UIViewController {
     }
     
     
+    func fixEmail()-> String{
+        
+        let userEmail = Auth.auth().currentUser?.email ?? ""
+        
+        let changeChar = "_"
+        var newString = ""
+        
+        for letter in userEmail{
+            
+            if letter == "." {
+                newString = newString + String(changeChar)
+            }else{
+                newString = newString + String(letter)
+            }
+        }
+        
+        return newString
+        
+    }
     
 //end of class
 }

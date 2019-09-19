@@ -49,9 +49,15 @@ class RegisterPage: UIViewController {
         
         if firstName.text != "" || lastName.text != "" {
             
+            player.firstName = "\(firstName.text ?? "")"
+            player.lastName = "\(lastName.text ?? "")"
+            player.fullName = "\(firstNameVar) \(lastNameVar)"
+            player.userNickName = "\(nickNameOutlet.text ?? "")"
+            
             firstNameVar = "\(firstName.text ?? "")"
             lastNameVar = "\(lastName.text ?? "")"
             fullNameVar = "\(firstNameVar) \(lastNameVar)"
+            nickName = nickNameOutlet.text ?? ""
         }
         
         if let username = emailOutlet.text, let password = passwordOutlet.text{
@@ -67,6 +73,7 @@ class RegisterPage: UIViewController {
                         var newError :[Character] = []
                         for letter in cleanError{
                             newError.append(letter)
+                            SVProgressHUD.dismiss()
                         }
                         
                         let answer = newError.split(separator:"\"")
@@ -82,10 +89,12 @@ class RegisterPage: UIViewController {
                         
                     }else {
                         SVProgressHUD.dismiss()
-                        self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
                         nickName = self.nickNameOutlet.text ?? ""
- 
-                        self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", userNickName: nickName)
+                        self.player.userNickName = self.nickNameOutlet.text ?? ""
+                        self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
+                        
+                      //  self.registerAUser(userEmail: <#T##String#>, userNickName: <#T##String#>)
+                        self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", fullName: self.fullNameVar)
                         
                       //  self.player.userNickName = self.nickNameOutlet.text ?? "Nil"
                       //  self.player.playerEmail = Auth.auth().currentUser?.email ?? "No user email data"
@@ -101,15 +110,13 @@ class RegisterPage: UIViewController {
         
     }
     
-    // prepares the data to be sent to FireBase
-    func registerAUser(userEmail: String, userNickName: String){
+    func fixEmail() -> String{
         
-        var ref: DatabaseReference!
-        ref = Database.database().reference()
+        let userEmail = Auth.auth().currentUser?.email ?? ""
         
         let changeChar = "_"
         var newString = ""
-
+        
         for letter in userEmail{
             
             if letter == "." {
@@ -119,15 +126,25 @@ class RegisterPage: UIViewController {
             }
         }
         
-     //   print(newString)
+        return newString
+    }
+    
+    
+    // prepares the data to be sent to FireBase
+    func registerAUser(userEmail: String, fullName: String){
+        
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        
+        let newString = fixEmail()
         
         let userData = [
             "playerEmail":userEmail,
             "listOfStockAndQuantity": ["stockA":0,"stockB":0], //should be a list of dictionaries with stock name and quantities
-            "userNickName": userNickName,
-            "firstName":"\(firstNameVar)",
-            "lastName":"\(lastNameVar)",
-            "fullName":"\(fullNameVar)",
+            "userNickName": "\(player.userNickName)",
+            "firstName":"\(player.firstName)",
+            "lastName":"\(player.lastName)",
+            "fullName":"\(fullName)",
             "gamesInProgress": ["Test game Data"], //should be an array of strings which are the name of the various games theuser is playing
             "currentCash": "0",
             "netWorth": "0",
@@ -136,12 +153,14 @@ class RegisterPage: UIViewController {
             "currentStockValue": "0",
             "gamesPlayed": 0,
             "gamesWon": 0,
-            "totalPlayerValue":"100000",
+            "totalPlayerValue": "0",
             "winningPercentage": 0, //divide gamesplayed by games won (used in leaderboard)
-            "stockReturnsPercentageAtGameEnd":"8" //devide returns percentage by games played
+            "stockReturnsPercentageAtGameEnd":"" //devide returns percentage by games played
             
             ] as [String : Any]
 
+        
+        
         //follow up on this
         ref.child("userDataByEmail").child(newString).setValue(userData) { (error, snapshot) in
             
@@ -168,7 +187,7 @@ class RegisterPage: UIViewController {
             "totalPlayerValue":String(player.totalPlayerValue),
         //    "totalValue":String(player.calculateTotalValue()),
             "totalValueTwo":String(player.netWorth),
-            "userNickName":player.userNickName
+            "userNickName":player.userNickName ?? ""
 
         ]
         
@@ -241,7 +260,10 @@ class RegisterPage: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // transfer information on current logged in user
-        
+        if segue.identifier == "goToOverviewPage" {
+            let destVC = segue.destination as! OverviewPage
+            destVC.userData = player
+        }
         
     }
     

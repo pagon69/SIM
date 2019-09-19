@@ -23,10 +23,10 @@ class Player {
     var buyPower = ""
     var numberOfTrades = ""
     var currentStockValue = ""
-    var gamesPlayed = 0.0
+    var gamesPlayed = 0
     var gamesWon = 0.0
     var totalPlayerValue = ""
     var stockReturnpercentageAtGameEnd = ""
     var fullName = ""
-    
+    var watchListStocks: [String]?
 }
