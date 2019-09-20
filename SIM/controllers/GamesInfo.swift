@@ -10,38 +10,51 @@ import Foundation
 
 class GamesInfo {
     
-    var defaultCommission: String = "5.5"
+    var defaultCommission: String = "3.5"
     var enableCommission = false
-    var gameDescription: String = ""
+    var gameDescription: String = "Enter a Game description and have fun!"
     var gameName: String = ""
     var marginEnabled: Bool = true
-    var endDate: String = ""
+    var endDate: String = "\(Date())"
     var partialSharesEnabled: Bool = false
-    var numberOfPlayersInGame: String = ""
-    var playersInGameEmail: [String] = [""]
+    var numberOfPlayersInGame: String = "0"
+    var playersInGameEmail: [String] = ["test@test.com"]
     
     //can I start as empty with ? and then enter values
-    var playersInGameAndCash = [["test":"0.0"]]
-    var playersStocksAndAmount = [["testy":[["tester":"0.0"]]]]
+    var playersInGameAndCash = [["test_com":"0.0"]]
+    var playersStocksAndAmount = [["GoogTest":[["tester":"0.0"]]]]
     
     var shortSaleEnabled: Bool = true
-    var startingFunds: String = ""
-    var startDate: String = ""
-    var percentComplete: String = ""
+    var startingFunds: String = "0"
+    var startDate: String = "\(Date())"
+    var percentComplete: String = "0"
     var stopLossEnabled: Bool = true
-    var daysRemaining = ""
+    var daysRemaining = "-"
     var defaultIRC = "3.25"
     var defaultIRD = "6.25"
     var enableInterestRateCredit = false
     var enableInterestRateDebt = false
     var enableLimitOrders = false
     var gameStillActive = true
-    var gamesInProgress: [String] = [""]
+    var gamesInProgress: [String] = ["Test Game Data"]
     var privateGame = false
     var accountReset = false
-    var gamePassword = ""
+    var gamePassword = "defaultPSW"
     var resetTodefault = false
     
+    
+    func daysRemainingCalulation()-> Int{
+        
+        
+        
+        return 1
+    }
+    
+    func gameStillGoingCalculation()-> Bool{
+        
+        
+        return true
+    }
     
     
     func composeFBData() -> [String: String]{

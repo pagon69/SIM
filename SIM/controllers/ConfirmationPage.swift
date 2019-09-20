@@ -19,6 +19,7 @@ class ConfirmationPage: UITableViewController {
     var ref: DatabaseReference!
     let refT = Database.database().reference()
     var gamesPlayed = 0
+    var gameDetails = GamesInfo()
     
     //IB actions and more
     
@@ -43,39 +44,11 @@ class ConfirmationPage: UITableViewController {
         dismiss(animated: true)
     }
     
-    
-    
-    func viewSetup(){
-
+    func fixEmail()-> String{
         let userEmail = Auth.auth().currentUser?.email ?? ""
-        
         let changeChar = "_"
         var newString = ""
-        
-       // print(incomingGameData["playersInGameEmail"])
-        
-        gameNameOutlet.text = incomingGameData["gameName"] as? String
-        gameDescOutlet.text = incomingGameData["gameDescription"] as? String
-        enddateOutlet.text = incomingGameData["endDate"] as? String
-        startDateOutlet.text = incomingGameData["startDate"] as? String
-        publicGameOrNotOutlet.text = "\(incomingGameData["PrivateGames"] as? Bool ?? false)"
-        passwordProtectedOutlet.text = incomingGameData["gamePassword"] as? String ?? "defaultPSW"
-        startingFunds.text = incomingGameData["startingFunds"] as? String ?? ""
-        commissionEnabled.text = "\(incomingGameData["enableCommission"] as? Bool ?? false)"
-        IRCEnabled.text = "\(incomingGameData["enableInterestRateCredit"] as? Bool ?? false)"
-        IRDEnabled.text = "\(incomingGameData["enableInterestRateDebt"] as? Bool ?? false)"
-        partialShares.text = "\(incomingGameData["enablePartialShares"] as? Bool ?? false)"
-        stopLossEnabled.text = "\(incomingGameData["enableStopLoss"] as? Bool ?? false)"
-        shortSaleEnabled.text = "\(incomingGameData["shortSellingEnabled"] as? Bool ?? true)"
-        limitOrderEnabled.text = "\(incomingGameData["enableLimitOrders"] as? Bool ?? false)"
-        marginsEnabled.text = "\(incomingGameData["marginSellingEnabled"] as? Bool ?? true)"
-        
-        let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
-        let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["":[[:]]]]
-        
-        let playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String]
-        
-        //do a call to get a users settings
+
         for letter in userEmail{
             
             if letter == "." {
@@ -84,9 +57,83 @@ class ConfirmationPage: UITableViewController {
                 newString = newString + String(letter)
             }
         }
+        return newString
+    }
+    
 
-    //collects all of the needed user data
-        refT.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapShot) in
+    func viewSetup(){
+
+        let newString = fixEmail()
+        buildObject()
+        
+        
+        gameNameOutlet.text = gameDetails.gameName
+        gameDescOutlet.text = gameDetails.gameDescription
+        enddateOutlet.text = gameDetails.endDate
+        startDateOutlet.text = gameDetails.startDate
+        publicGameOrNotOutlet.text = "\(gameDetails.privateGame)"
+        passwordProtectedOutlet.text = gameDetails.gamePassword
+        startingFunds.text = gameDetails.startingFunds
+        commissionEnabled.text = "\(gameDetails.enableCommission)"
+        IRCEnabled.text = "\(gameDetails.enableInterestRateCredit)"
+        IRDEnabled.text = "\(gameDetails.enableInterestRateDebt)"
+        partialShares.text = "\(gameDetails.partialSharesEnabled)"
+        stopLossEnabled.text = "\(gameDetails.stopLossEnabled)"
+        shortSaleEnabled.text = "\(gameDetails.shortSaleEnabled)"
+        limitOrderEnabled.text = "\(gameDetails.enableLimitOrders)"
+        marginsEnabled.text = "\(gameDetails.marginEnabled)"
+        
+        let gamesInProgress = incomingGameData["gamesInProgress"] as? [String] ?? [""]
+        
+        let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
+        let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["":[[:]]]]
+        
+        let playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String]
+        
+        collectGamesInProgress(userEmailAddress: newString)
+        
+    }
+
+    func buildObject(){
+        
+        gameDetails.accountReset = incomingGameData["accountRest"] as? Bool ?? false
+        gameDetails.daysRemaining = incomingGameData["daysRemaining"] as? String ?? "0"
+        gameDetails.defaultCommission = incomingGameData["defaultCommission"] as? String ?? "3.5"
+        gameDetails.defaultIRC = incomingGameData["defaultIRC"] as? String ?? "2.55"
+        gameDetails.defaultIRD = incomingGameData["defaultIRD"] as? String ?? "12"
+        gameDetails.enableCommission = incomingGameData["enableCommission"] as? Bool ?? false
+        gameDetails.enableInterestRateCredit = incomingGameData["enableInterestRateCredit"] as? Bool ?? false
+        gameDetails.enableInterestRateDebt = incomingGameData["enableInterestRateDebit"] as? Bool ?? false
+        gameDetails.enableLimitOrders = incomingGameData["enableLimitOrders"] as? Bool ?? false
+        gameDetails.endDate = incomingGameData["endDate"] as? String ?? "\(Date())"
+        gameDetails.gameDescription = incomingGameData["gameDescription"] as? String ?? "No game description provided, Have fun!"
+        gameDetails.gameName = incomingGameData["gameName"] as? String ?? "No Game Name Provided"
+        gameDetails.gamePassword = incomingGameData["gamePassword"] as? String ?? "defaultPSW"
+        gameDetails.gamesInProgress = incomingGameData["gamesInProgress"] as? [String] ?? ["Test game Date"]
+        gameDetails.gameStillActive = incomingGameData["gameStillActive"] as? Bool ?? false
+        gameDetails.marginEnabled = incomingGameData["marginSellingEnabled"] as? Bool ?? false
+        gameDetails.numberOfPlayersInGame = incomingGameData["numberOfPlayersInGame"] as? String ?? "1"
+        gameDetails.partialSharesEnabled = incomingGameData[""] as? Bool ?? false
+        gameDetails.percentComplete = incomingGameData["percentComplete"] as? String ?? "0"
+        gameDetails.playersInGameAndCash = incomingGameData["playerInGameAndCash"] as? [[String:String]] ?? [["userTest":"10000"]]
+        gameDetails.playersInGameEmail = incomingGameData["playersInGameEmail"] as? [String] ?? ["test@test.com"]
+        gameDetails.playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["Test1":[["GoogTest":"5"]]]]
+        gameDetails.privateGame = incomingGameData["privateGame"] as? Bool ?? false
+        gameDetails.resetTodefault = incomingGameData["resetToDefault"] as? Bool ?? false
+        gameDetails.shortSaleEnabled = incomingGameData["deleteAccount"] as? Bool ?? false
+        gameDetails.startDate = incomingGameData["startDate"] as? String ?? "\(Date())"
+        gameDetails.startingFunds = incomingGameData["startingFunds"] as? String ?? "0"
+        gameDetails.stopLossEnabled = incomingGameData["enableStopLoss"] as? Bool ?? false
+        
+    }
+    
+    
+    
+    
+    func collectUserDataByEmail(edittedEmailAddress: String){
+        
+        //collects all of the needed user data to build the leaderboard database
+        refT.child("userDataByEmail").child(edittedEmailAddress).observeSingleEvent(of: .value) { (snapShot) in
             
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
             // print(pulleduserdata)
@@ -106,60 +153,24 @@ class ConfirmationPage: UITableViewController {
                     "winningPercentage":winningPercentage
                     ] as [String: Any]
                 
-                self.refT.child("leaderboard").child(newString).setValue(userInfoForLeaderboard)
+                self.refT.child("leaderboard").child(edittedEmailAddress).setValue(userInfoForLeaderboard)
             }
         }
         
-      
     }
     
+    
+    
     @IBAction func createButtonClicked(_ sender: UIButton) {
+        
         
         buildAndSend()
         
         performSegue(withIdentifier: "goToInGameView", sender: self)
     }
     
-    
-    
-    func convertData(data: [String]){
-        
-        var newdata2 = [""]
-
-        var newdata = ["andy","bob","bill"]
-        
-        var newest = ["Progress": newdata]
-        
-        ref.child("TestDB").setValue(newest)
-        
-        ref.childByAutoId().child("GamesTest").setValue(newdata)
-        
-        print(" This the data coming in: \(data)")
-        
-       // "PlayersInGameEmail": ["a@a.com","b@b.com"]
-        
-        var newFormate = ""
-        
-        var count = data.count
-        
-        for each in data{
-            newFormate = newFormate + "\(each),"
-            
-            
-        }
-        
-        var test = {"\"yet another\"\"again another\""}
-       
-        print(test)
-        print(newFormate)
-        
-        
-    }
-
-    
-    
-    
     func buildAndSend(){
+        
         SVProgressHUD.show()
         ref = Database.database().reference()
         
@@ -200,38 +211,37 @@ class ConfirmationPage: UITableViewController {
             
             ] as [String : Any]
         
+
+        collectGamesInProgress(userEmailAddress: newString)
+
+        //change games current settings
+        ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
+      //  print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
+        
+        //add the game for others to join
+        ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
+        
+        buildObject()
+        updateGameCount()
+        SVProgressHUD.dismiss()
+        
+    }
+    
+    func collectGamesInProgress(userEmailAddress: String){
+        
         //collects all of the needed user data
-        ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapShot) in
-            
+        ref.child("userDataByEmail").child(userEmailAddress).observeSingleEvent(of: .value) { (snapShot) in
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
-            // print(pulleduserdata)
             
-                var userData = pulleduserdata["gamesInProgress"] as! [String]
-                print(userData)
+            var userData = pulleduserdata["gamesInProgress"] as! [String]
             
-                let test = self.incomingGameData["gameName"] as! String
+            let test = self.incomingGameData["gameName"] as! String
             
-                userData.append(test)
-               // userData.append("\(self.incomingGameData["gameName"] ?? "")")
+            userData.append(test)
             
-             //   self.incomingGameData["gamesInProgress"] = userData
-               // print("afterwrads: \(userData)")
-            
-            print("whats Async incomingGamedata: \(String(describing: self.incomingGameData["gamesInProgress"] ?? ""))")
-              //  self.ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
-            
-                //keep track of the new changes
-               // let updates = self.incomingGameData["gamesInProgress"] as! [String]
-            
-            //makes the update to the system
-            
-            // this is the issue that needs to be addressed, i have to make this look like a string
-           // let updates = ["gamesInProgress":["\(arc4random())":"\(self.incomingGameData["gamesInProgress"])"]]
             let updates = ["gamesInProgress":userData]
             
-           // self.convertData(data: self.incomingGameData["gamesInProgress"] as! [String])
-            
-            self.ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error,
+            self.ref.child("userDataByEmail/\(userEmailAddress)").updateChildValues(updates){(Error,
                 
                 ref) in
                 if let error = Error {
@@ -239,53 +249,20 @@ class ConfirmationPage: UITableViewController {
                 }else{
                     print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
                 }
-             
-             }
-  
-        }
-        
-        
-        //change games current settings
-        ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
-      //  print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
-        
-        let testing = incomingGameData["players"] as? String ?? ""
-        print(" What is in the testing: \(testing) \n\n\n\n/n/n/n/n")
-        
-        //add the game for others to join
-        ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
-        
-        
-        
-        //update the userData by email
-      //  let updates = ["gamesInProgress":["891":"\(incomingGameData["gameName"] ?? "")"]]
-        
-       // let update = ["gamesInProgress" : ["\(incomingGameData["gameName"] ?? "")"]]
-        //ref.child("userDataByEmail/\(newString)").updateChildValues(updates){(Error, ref) in
-        
-        /*fix is as follows
-         get a snapshot of users account info
-         put what is in gamesInProgress into an array
-         add the lastest game
-         upload to firebase using update the data
- 
-         */
-        /*
-        ref.child("userDataByEmail/\(newString)").updateChildValues(update){(Error, ref) in
-            if let error = Error {
-                print("somethign went way wrong:\(error)")
-            }else{
-                print("updates made sucessfully: \(update) added /n/n/n\n\n\n")
             }
- 
         }
-        */
+        
+    }
+    
+    
+    
+    func updateGameCount(){
         
         //search for liveGames and updates by adding 1 to the number of games
         ref.child("liveGames").observeSingleEvent(of: .value) { (snapShot) in
             
             if let pulleduserdata = snapShot.value as? [String: String]{
-            
+                
                 if let numberOfGames = Int(pulleduserdata["currentActiveGames"] ?? "0"){
                     var num = numberOfGames
                     num += 1
@@ -307,8 +284,7 @@ class ConfirmationPage: UITableViewController {
                 }
             }
         }
-
-        SVProgressHUD.dismiss()
+        
     }
     
     
@@ -393,14 +369,16 @@ class ConfirmationPage: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
+ 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        let destVC = segue.destination as! GameStatsPage
+       destVC.passedData = gameDetails
+        
     }
-    */
+ 
 
 }

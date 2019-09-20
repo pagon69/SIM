@@ -94,7 +94,7 @@ class RegisterPage: UIViewController {
                         self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
                         
                       //  self.registerAUser(userEmail: <#T##String#>, userNickName: <#T##String#>)
-                        self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", fullName: self.fullNameVar)
+                        self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", fullName: self.fullNameVar ?? "")
                         
                       //  self.player.userNickName = self.nickNameOutlet.text ?? "Nil"
                       //  self.player.playerEmail = Auth.auth().currentUser?.email ?? "No user email data"
@@ -141,7 +141,7 @@ class RegisterPage: UIViewController {
         let userData = [
             "playerEmail":userEmail,
             "listOfStockAndQuantity": ["stockA":0,"stockB":0], //should be a list of dictionaries with stock name and quantities
-            "userNickName": "\(player.userNickName)",
+            "userNickName": "\(player.userNickName ?? "")",
             "firstName":"\(player.firstName)",
             "lastName":"\(player.lastName)",
             "fullName":"\(fullName)",

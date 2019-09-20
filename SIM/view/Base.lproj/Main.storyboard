@@ -5927,7 +5927,7 @@
                                                 <action selector="backButtonClicked:" destination="1kx-Uf-I2i" id="iD1-jL-ITv"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="2ic-rx-crq">
+                                        <barButtonItem key="rightBarButtonItem" title="Setting" id="2ic-rx-crq">
                                             <connections>
                                                 <action selector="gameSettingsClicked:" destination="1kx-Uf-I2i" id="okE-ln-M7c"/>
                                                 <segue destination="EFg-vb-ZpI" kind="showDetail" id="Ca7-Fe-Eie"/>
@@ -6037,7 +6037,7 @@
                                             <action selector="helpButtonClicked:" destination="1kx-Uf-I2i" eventType="touchUpInside" id="4UJ-tk-bw2"/>
                                         </connections>
                                     </button>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="E92-OH-727">
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="E92-OH-727">
                                         <rect key="frame" x="0.0" y="31" width="375" height="102"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <date key="date" timeIntervalSinceReferenceDate="586705166.766083">
@@ -7503,7 +7503,7 @@
         <segue reference="rfD-Wi-fGJ"/>
         <segue reference="Wvb-Dq-GgB"/>
         <segue reference="T2c-Ao-f6i"/>
-        <segue reference="xAb-Ie-oOO"/>
+        <segue reference="rrH-gY-ghf"/>
         <segue reference="MNh-bP-MyF"/>
     </inferredMetricsTieBreakers>
 </document>

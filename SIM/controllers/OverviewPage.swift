@@ -229,7 +229,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             
         }
         
-        
+        //profile info
         if(tableView.tag == 9){
             let cell = profileTableViewOutlet.dequeueReusableCell(withIdentifier: "quickStats", for: indexPath) as! quickStats
             
@@ -252,6 +252,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             return cell
         }
         
+        //games the user is within
         if(tableView.tag == 1){
 
             
@@ -262,11 +263,12 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                 
                 
             }else{
+                
             let cell = aboutTableView.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
                 
                 cell.gameNameOutlet.text = gameData[indexPath.row].gameName
                 cell.gamedescriptionLabel.text = gameData[indexPath.row].gameDescription
-                cell.endDateOutlet.text = gameData[indexPath.row].endDate
+                cell.endDateOutlet.text = gameData[indexPath.row].daysRemaining
                 cell.numberOfPlayersOutlet.text = gameData[indexPath.row].numberOfPlayersInGame
                 cell.percentCompleteOutlet.text = gameData[indexPath.row].percentComplete
                 cell.joinButtonOutlet.setTitle("Continue", for: .normal)
@@ -330,17 +332,47 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     func pulledData(){
 
         //good to check for changes to the DB
-        let searchResultsDBReferefence = Database.database().reference().child("userDataByEmail")
-        let gamesSearchDBReference = Database.database().reference().child("userDataByEmail")
+       // let searchResultsDBReferefence = Database.database().reference().child("userDataByEmail")
+       // let gamesSearchDBReference = Database.database().reference().child("userDataByEmail")
         
         let newString = fixEmail()
 
+        collectUserData(newString: newString)
+       
+        searchForLiveGames()
+       
+        FBSearch(newString: newString)
+        
+        userPropertySearch()
+        
+    }
+    
+    func searchForLiveGames(){
+        //use this to do a search for game names, take data from above steps
+         ref.child("gamesInProgressByGamename").child("yet another").observeSingleEvent(of: .value) { (snapshot) in
+         if snapshot.hasChildren(){
+         print("found the data")
+         print(snapshot)
+         //tell user to select another game name
+         
+         
+         }else {
+            print("Nothing found")
+                //save the created game name to the firebase database
+            }
+         }
+        
+    }
+    
+    
+    func collectUserData(newString: String){
+        
         //collects all of the needed user data
         ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapShot) in
-          
+            
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
-           // print(pulleduserdata)
-           
+            // print(pulleduserdata)
+            
             self.userData.buyPower = pulleduserdata["buyPower"] as? String ?? ""
             self.userData.currentCash = pulleduserdata["currentCash"] as? String ?? ""
             self.userData.currentStockValue = pulleduserdata["currentStockValue"] as? String ?? ""
@@ -360,7 +392,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.userData.currentGame = pulleduserdata["currentGame"] as? String ?? ""
             self.userData.firstName = pulleduserdata["firstName"] as? String ?? ""
             self.userData.lastName = pulleduserdata["lastName"] as? String ?? ""
-            self.userData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? [""]
+            self.userData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? ["Test game Data"]
             self.userData.watchListStocks = pulleduserdata["watchListStocks"] as? [String] ?? [""]
             
             
@@ -371,27 +403,12 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.checkGames(listOfGames: self.userData.gamesInProgress)
             
             //remove observers after i finish my work
-           // ref.child("userDataByEmail").removeAllObservers()
+            // ref.child("userDataByEmail").removeAllObservers()
         }
-        
-        
-       
-        /* use this to do a search for game names, take data from above steps
-        ref.child("gamesInProgressByGamename").child("yet another").observeSingleEvent(of: .value) { (snapshot) in
-            if snapshot.hasChildren(){
-                print("found the data")
-                print(snapshot)
-                //tell user to select another game name
-                
-                
-            }else {
-                print("Nothing found")
-                //save the created game name to the firebase database
-            }
-        }
-        */
-       
-        
+    }
+    
+    
+    func FBSearch(newString: String){
         
         //reworking the search
         ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapshot) in
@@ -405,65 +422,67 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             //let test = data["gamesPlayed"] as? []
             
             /*
-            for each in test{
-               
-                self.ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-                    let data = snapshot.value as? [String: Any] ?? [:]
-                    let myGameData = GamesInfo()
-                    
-                    myGameData.gameName = data["gameName"] as? String ?? ""
-                    myGameData.gameDescription = data["gameDescription"] as? String ?? ""
-                    
-                    self.gameData2.append(myGameData)
-                    
-                })
-                
-                
-                
-            }
-            */
-            
+             for each in test{
+             
+             self.ref.child("gamesInProgressByGamename").child(each).observeSingleEvent(of: .value, with: { (snapshot) in
+             
+             let data = snapshot.value as? [String: Any] ?? [:]
+             let myGameData = GamesInfo()
+             
+             myGameData.gameName = data["gameName"] as? String ?? ""
+             myGameData.gameDescription = data["gameDescription"] as? String ?? ""
+             
+             self.gameData2.append(myGameData)
+             
+             })
+             }
+             */
         }
+    }
+    
+    
+    func userPropertySearch(){
         
-        
+        let searchResultsDBReferefence = Database.database().reference().child("userDataByEmail")
+
         //working search code: i can search a DB for something and display results
         searchResultsDBReferefence.queryOrdered(byChild: "playerEmail").queryEqual(toValue: Auth.auth().currentUser?.email).observeSingleEvent(of: .value) { (snapshot) in
             let data = snapshot.value as? [String: String]
             
-             let pulleduserdata = snapshot.value as? [String:[String:String]] ?? ["":[:]]
-        
-                for each in pulleduserdata  {
-                    print(each.value["playerEmail"] ?? "", each.value["currentCash"] ?? "", each.value["userNickName"] ?? "")
-                    
-                    //put everything into player and update the tableview
-                    let currentCash = each.value["currentCash"]
-                    let listOfStock = each.value["listOfStock"]
-                    let listOfStringStock = each.value["listOfStringStock"]
-                    let numberOfTrades = each.value["numberOfTrades"]
-                    let playerEmail = each.value["playerEmail"]
-                    let totalPlayerValue = each.value["totalPlayerValue"]
-                    let totalStockValue = each.value["totalStockValue"]
-                    let userNickName = each.value["userNickName"]
-                    let netWorth = each.value["userTotalWorth"]
-                    
-                    self.player.currentCash = currentCash ?? ""
-                  //  self.player.listOfStringStock = listOfStringStock ?? ""
-                    self.player.numberOfTrades = numberOfTrades ?? "0"
-                    self.player.playerEmail = playerEmail ?? ""
-                    self.player.totalPlayerValue = totalPlayerValue ?? ""
-                    //self.player.totalStockValue = totalStockValue ?? ""
-                    self.player.userNickName = userNickName ?? ""
-                    self.player.netWorth = netWorth ?? ""
-                    
+            let pulleduserdata = snapshot.value as? [String:[String:String]] ?? ["":[:]]
+            
+            for each in pulleduserdata  {
+                print(each.value["playerEmail"] ?? "", each.value["currentCash"] ?? "", each.value["userNickName"] ?? "")
+                
+                //put everything into player and update the tableview
+                let currentCash = each.value["currentCash"]
+                let listOfStock = each.value["listOfStock"]
+                let listOfStringStock = each.value["listOfStringStock"]
+                let numberOfTrades = each.value["numberOfTrades"]
+                let playerEmail = each.value["playerEmail"]
+                let totalPlayerValue = each.value["totalPlayerValue"]
+                let totalStockValue = each.value["totalStockValue"]
+                let userNickName = each.value["userNickName"]
+                let netWorth = each.value["userTotalWorth"]
+                
+                self.player.currentCash = currentCash ?? ""
+                //  self.player.listOfStringStock = listOfStringStock ?? ""
+                self.player.numberOfTrades = numberOfTrades ?? "0"
+                self.player.playerEmail = playerEmail ?? ""
+                self.player.totalPlayerValue = totalPlayerValue ?? ""
+                //self.player.totalStockValue = totalStockValue ?? ""
+                self.player.userNickName = userNickName ?? ""
+                self.player.netWorth = netWorth ?? ""
+                
             }
-
+            
             self.aboutTableView.reloadData()
             self.profileTableViewOutlet.reloadData()
             
         }
-        
     }
+    
+    
     
     //work in games info
     func checkGames(listOfGames: [String]){
