@@ -43,10 +43,6 @@ class RegisterPage: UIViewController {
         //show some animation
         SVProgressHUD.show()
         
-        //progressHUD.show
-        var nickName = ""
-       // var fullname = ""
-        
         if firstName.text != "" || lastName.text != "" {
             
             player.firstName = "\(firstName.text ?? "")"
@@ -57,7 +53,7 @@ class RegisterPage: UIViewController {
             firstNameVar = "\(firstName.text ?? "")"
             lastNameVar = "\(lastName.text ?? "")"
             fullNameVar = "\(firstNameVar) \(lastNameVar)"
-            nickName = nickNameOutlet.text ?? ""
+           // nickName = nickNameOutlet.text ?? ""
         }
         
         if let username = emailOutlet.text, let password = passwordOutlet.text{
@@ -67,7 +63,6 @@ class RegisterPage: UIViewController {
                 Auth.auth().createUser(withEmail: username, password: password) { (FBResults, error) in
                     
                     if error != nil{
-
                         let cleanError = error.debugDescription
                         
                         var newError :[Character] = []
@@ -89,17 +84,13 @@ class RegisterPage: UIViewController {
                         
                     }else {
                         SVProgressHUD.dismiss()
-                        nickName = self.nickNameOutlet.text ?? ""
                         self.player.userNickName = self.nickNameOutlet.text ?? ""
+                       // self.player.userNickName = self.nickNameOutlet.text ?? ""
+                        self.player.playerEmail = Auth.auth().currentUser?.email ?? "Test@Test.com"
+                        self.player.fullName = self.fullNameVar
+                        
                         self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
-                        
-                      //  self.registerAUser(userEmail: <#T##String#>, userNickName: <#T##String#>)
-                        self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", fullName: self.fullNameVar ?? "")
-                        
-                      //  self.player.userNickName = self.nickNameOutlet.text ?? "Nil"
-                      //  self.player.playerEmail = Auth.auth().currentUser?.email ?? "No user email data"
-                        
-                      //  self.saveDataFB()
+                        self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", fullName: self.fullNameVar )
                         
                     }
                 }
@@ -138,29 +129,29 @@ class RegisterPage: UIViewController {
         
         let newString = fixEmail()
         
+        player.winningPercentage = (player.gamesWon / Double(player.gamesPlayed)) * 100
+        
         let userData = [
-            "playerEmail":userEmail,
-            "listOfStockAndQuantity": ["stockA":0,"stockB":0], //should be a list of dictionaries with stock name and quantities
+            "playerEmail":player.playerEmail,
+            "listOfStockAndQuantity": player.listOfStockAndQuantity, //should be a list of dictionaries with stock name and quantities
             "userNickName": "\(player.userNickName ?? "")",
             "firstName":"\(player.firstName)",
             "lastName":"\(player.lastName)",
-            "fullName":"\(fullName)",
-            "gamesInProgress": ["Test game Data"], //should be an array of strings which are the name of the various games theuser is playing
-            "currentCash": "0",
-            "netWorth": "0",
-            "buyPower": "0",
-            "numberOfTrades": 0,
-            "currentStockValue": "0",
-            "gamesPlayed": 0,
-            "gamesWon": 0,
-            "totalPlayerValue": "0",
-            "winningPercentage": 0, //divide gamesplayed by games won (used in leaderboard)
-            "stockReturnsPercentageAtGameEnd":"" //devide returns percentage by games played
+            "fullName":"\(player.fullName)",
+            "gamesInProgress": player.gamesInProgress, //should be an array of strings which are the name of the various games theuser is playing
+            "currentCash": "\(player.currentCash)",
+            "netWorth": "\(player.netWorth)",
+            "buyPower": "\(player.buyPower)",
+            "numberOfTrades": "\(player.numberOfTrades)",
+            "currentStockValue": "\(player.currentStockValue)",
+            "gamesPlayed": "\(player.gamesPlayed)",
+            "gamesWon": "\(player.gamesWon)",
+            "totalPlayerValue": "\(player.totalPlayerValue)",
+            "winningPercentage": "\(player.winningPercentage)", //divide gamesplayed by games won (used in leaderboard)
+            "stockReturnsPercentageAtGameEnd":"\(player.stockReturnpercentageAtGameEnd)" //devide returns percentage by games played
             
             ] as [String : Any]
 
-        
-        
         //follow up on this
         ref.child("userDataByEmail").child(newString).setValue(userData) { (error, snapshot) in
             
@@ -176,7 +167,7 @@ class RegisterPage: UIViewController {
     }
     
     
-
+//not being used
     func saveDataFB(){
         
         let userProfileData = [
@@ -251,8 +242,7 @@ class RegisterPage: UIViewController {
                     }
                 }
             }
-        
-        
+
         return results
         
     }
@@ -271,13 +261,10 @@ class RegisterPage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
        //do any anitmation or stuff i need here
         
         
         
     }
     
-
-
 }

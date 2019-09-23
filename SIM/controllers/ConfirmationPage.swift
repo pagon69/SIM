@@ -20,6 +20,7 @@ class ConfirmationPage: UITableViewController {
     let refT = Database.database().reference()
     var gamesPlayed = 0
     var gameDetails = GamesInfo()
+    var playersInGameEmail = [String]()
     
     //IB actions and more
     
@@ -88,9 +89,9 @@ class ConfirmationPage: UITableViewController {
         let playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
         let playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["":[[:]]]]
         
-        let playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String]
+        playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String] ?? ["Test@Test.com"]
         
-        collectGamesInProgress(userEmailAddress: newString)
+      //  collectGamesInProgress(userEmailAddress: newString)
         
     }
 
@@ -115,9 +116,13 @@ class ConfirmationPage: UITableViewController {
         gameDetails.numberOfPlayersInGame = incomingGameData["numberOfPlayersInGame"] as? String ?? "1"
         gameDetails.partialSharesEnabled = incomingGameData[""] as? Bool ?? false
         gameDetails.percentComplete = incomingGameData["percentComplete"] as? String ?? "0"
+        
         gameDetails.playersInGameAndCash = incomingGameData["playerInGameAndCash"] as? [[String:String]] ?? [["userTest":"10000"]]
+        
         gameDetails.playersInGameEmail = incomingGameData["playersInGameEmail"] as? [String] ?? ["test@test.com"]
+        
         gameDetails.playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["Test1":[["GoogTest":"5"]]]]
+        
         gameDetails.privateGame = incomingGameData["privateGame"] as? Bool ?? false
         gameDetails.resetTodefault = incomingGameData["resetToDefault"] as? Bool ?? false
         gameDetails.shortSaleEnabled = incomingGameData["deleteAccount"] as? Bool ?? false
@@ -216,7 +221,7 @@ class ConfirmationPage: UITableViewController {
 
         //change games current settings
         ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
-      //  print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
+       //print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
         
         //add the game for others to join
         ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
@@ -230,18 +235,18 @@ class ConfirmationPage: UITableViewController {
     func collectGamesInProgress(userEmailAddress: String){
         
         //collects all of the needed user data
-        ref.child("userDataByEmail").child(userEmailAddress).observeSingleEvent(of: .value) { (snapShot) in
+        refT.child("userDataByEmail").child(userEmailAddress).observeSingleEvent(of: .value) { (snapShot) in
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
             
             var userData = pulleduserdata["gamesInProgress"] as! [String]
             
-            let test = self.incomingGameData["gameName"] as! String
+            let currentgamesName = self.incomingGameData["gameName"] as! String
             
-            userData.append(test)
+            userData.append(currentgamesName)
             
             let updates = ["gamesInProgress":userData]
             
-            self.ref.child("userDataByEmail/\(userEmailAddress)").updateChildValues(updates){(Error,
+            self.refT.child("userDataByEmail/\(userEmailAddress)").updateChildValues(updates){(Error,
                 
                 ref) in
                 if let error = Error {
@@ -253,7 +258,6 @@ class ConfirmationPage: UITableViewController {
         }
         
     }
-    
     
     
     func updateGameCount(){

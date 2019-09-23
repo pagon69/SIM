@@ -4961,7 +4961,7 @@
                                         <rect key="frame" x="0.0" y="313" width="375" height="213"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7WE-Gg-sfT">
+                                    <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7WE-Gg-sfT">
                                         <rect key="frame" x="0.0" y="100" width="375" height="213"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -5000,7 +5000,7 @@
                                             <constraint firstAttribute="height" constant="263" id="KJN-BO-dWJ"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lNg-pU-GbH">
+                                            <tableViewCell clipsSubviews="YES" tag="3" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lNg-pU-GbH">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lNg-pU-GbH" id="QLN-0K-uZK">
@@ -5010,7 +5010,7 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5P5-I0-DFm" userLabel="portfolio ranking">
+                                    <tableView clipsSubviews="YES" tag="4" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5P5-I0-DFm" userLabel="portfolio ranking">
                                         <rect key="frame" x="0.0" y="263" width="375" height="263"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
@@ -6214,6 +6214,15 @@
                                     <action selector="createGameClicked:" destination="1kx-Uf-I2i" eventType="touchUpInside" id="0TO-yv-yJ8"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tP8-aW-9bm">
+                                <rect key="frame" x="24" y="557" width="335" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="qDC-Ac-2Ls"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.096948325390000006" blue="0.078222802080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -6227,8 +6236,10 @@
                             <constraint firstItem="E6S-Te-PoS" firstAttribute="trailing" secondItem="KHH-vP-h6l" secondAttribute="trailing" id="AIQ-gp-E50"/>
                             <constraint firstItem="PRu-TF-bFb" firstAttribute="leading" secondItem="KHH-vP-h6l" secondAttribute="leading" id="BQE-fR-hMt"/>
                             <constraint firstItem="KHH-vP-h6l" firstAttribute="bottom" secondItem="0Na-FM-HRl" secondAttribute="bottom" id="DKm-Kt-X7s"/>
+                            <constraint firstAttribute="trailing" secondItem="tP8-aW-9bm" secondAttribute="trailing" constant="16" id="H09-FG-cVG"/>
                             <constraint firstItem="EL4-gx-CpY" firstAttribute="top" secondItem="wH6-Ot-r5W" secondAttribute="bottom" constant="4" id="Io3-O7-6Da"/>
                             <constraint firstItem="KHH-vP-h6l" firstAttribute="trailing" secondItem="weP-pC-yX6" secondAttribute="trailing" id="JA1-lO-Bpn"/>
+                            <constraint firstItem="tP8-aW-9bm" firstAttribute="leading" secondItem="fpC-8e-1aL" secondAttribute="leading" constant="24" id="Kku-cb-WLc"/>
                             <constraint firstItem="uiu-Ar-8Mk" firstAttribute="trailing" secondItem="KHH-vP-h6l" secondAttribute="trailing" id="O8f-lt-L1x"/>
                             <constraint firstItem="u95-J1-z91" firstAttribute="top" secondItem="GeK-fx-Gdx" secondAttribute="bottom" constant="8" symbolic="YES" id="TQH-iM-1pW"/>
                             <constraint firstItem="wH6-Ot-r5W" firstAttribute="top" secondItem="E6S-Te-PoS" secondAttribute="bottom" id="UOx-rF-HOQ"/>
@@ -6247,6 +6258,7 @@
                             <constraint firstItem="uiu-Ar-8Mk" firstAttribute="leading" secondItem="KHH-vP-h6l" secondAttribute="leading" id="nkK-dA-0MY"/>
                             <constraint firstItem="KHH-vP-h6l" firstAttribute="bottom" secondItem="weP-pC-yX6" secondAttribute="bottom" id="p3j-gU-pgy"/>
                             <constraint firstItem="PRu-TF-bFb" firstAttribute="top" secondItem="RlN-W4-Ll7" secondAttribute="bottom" constant="4" id="qGP-3l-Ofc"/>
+                            <constraint firstItem="tP8-aW-9bm" firstAttribute="top" secondItem="GeK-fx-Gdx" secondAttribute="bottom" id="v3O-8a-xjh"/>
                             <constraint firstItem="RlN-W4-Ll7" firstAttribute="trailing" secondItem="KHH-vP-h6l" secondAttribute="trailing" id="zNm-NM-kTe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KHH-vP-h6l"/>
@@ -6255,6 +6267,7 @@
                         <outlet property="ShortSellMarginSwitchOutlet" destination="X6Y-s1-LgE" id="guk-EA-Ww6"/>
                         <outlet property="dateView" destination="RlN-W4-Ll7" id="XGF-rP-awd"/>
                         <outlet property="endDatePickerOutlet" destination="E92-OH-727" id="T5g-GS-Ngs"/>
+                        <outlet property="errorMsg" destination="tP8-aW-9bm" id="4DT-93-iBF"/>
                         <outlet property="gameDescOutlet" destination="hPP-nY-E82" id="fZI-U2-5RZ"/>
                         <outlet property="gameDescView" destination="EL4-gx-CpY" id="7GH-vK-So5"/>
                         <outlet property="gameNameOutlet" destination="7so-cx-qCP" id="bGs-dZ-jFb"/>
@@ -6272,7 +6285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XiQ-qh-ITb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3265" y="-5976"/>
+            <point key="canvasLocation" x="3264.8000000000002" y="-5976.1619190404799"/>
         </scene>
         <!--Game Settings Page-->
         <scene sceneID="Mji-SM-khr">

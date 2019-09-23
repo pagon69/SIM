@@ -22,7 +22,7 @@ class GamesInfo {
     
     //can I start as empty with ? and then enter values
     var playersInGameAndCash = [["test_com":"0.0"]]
-    var playersStocksAndAmount = [["GoogTest":[["tester":"0.0"]]]]
+    var playersStocksAndAmount = [["test_com":[["Goog":"0.0"]]]]
     
     var shortSaleEnabled: Bool = true
     var startingFunds: String = "0"

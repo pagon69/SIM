@@ -19,6 +19,10 @@ class CreateGamePage: UIViewController {
     var advancedSettingsUpdated = GamesInfo()
     var passedInData = GamesInfo()
     
+    var validGameName = false
+    var validEndDate = false
+    var validStartF = false
+    
     //MARK: - outlets and actions
     @IBOutlet weak var navBarOutlet: UINavigationBar!
     @IBOutlet weak var gameNameOutlet: UITextField!
@@ -26,6 +30,9 @@ class CreateGamePage: UIViewController {
     @IBOutlet weak var endDatePickerOutlet: UIDatePicker!
     @IBOutlet weak var startingFundsOutlet: UITextField!
     @IBOutlet weak var gameNametextOutelet: UITextField!
+    
+    @IBOutlet weak var errorMsg: UILabel!
+    
     
     @IBOutlet weak var marginSwitchOutlet: UISwitch!
     
@@ -39,11 +46,6 @@ class CreateGamePage: UIViewController {
     @IBAction func createButtonClicked(_ sender: UIButton) {
         
     }
-    
-    
-    
-    
-    
     
     @IBAction func gameSettingsClicked(_ sender: UIBarButtonItem) {
         
@@ -63,7 +65,8 @@ class CreateGamePage: UIViewController {
     }
     
     @IBAction func createGameClicked(_ sender: UIButton) {
-        
+       
+        collectData()
         buildFBData()
         
     }
@@ -94,6 +97,7 @@ class CreateGamePage: UIViewController {
     // create some animation or something
     func viewSetup(){
         
+        errorMsg.isHidden = true
     
     }
     
@@ -101,10 +105,8 @@ class CreateGamePage: UIViewController {
     func findDaysRemaining(todaysDate: Date, endDate: Date){
         
         if endDate < todaysDate {
-            print("attempted to use a date in the past")
             
-            //do something to indicate an issue
-            //make red, flash or display an error message
+            validEndDate = false
             
         }else{
             var time = DateInterval(start: todaysDate, end: endDate)
@@ -120,6 +122,7 @@ class CreateGamePage: UIViewController {
             let percentageComplete = oneDay / newValue * 100
             
             passedInData.percentComplete = "\(percentageComplete.rounded())%"
+            validEndDate = true
             
         }
         
@@ -127,43 +130,70 @@ class CreateGamePage: UIViewController {
     
     func buildFBObject(){
         
+        let newString = fixEmail()
+        
         let userProfileDataTwo = [
-            "gameName": gameName,
-            "defaultCommission":"3.5",
-            "enableCommission":false,
-            "gameDescription": gameDesc,
-            "endDate":"\(myEndDate)",
-            "numberOfPlayers":"1",
-            "daysRemaining":"",
+            "gameName": passedInData.gameName,
+            "defaultCommission":passedInData.defaultCommission,
+            "enableCommission":passedInData.enableCommission,
+            "gameDescription": passedInData.gameDescription,
+            "endDate":"\(passedInData.endDate)",
+            "numberOfPlayers":passedInData.numberOfPlayersInGame,
+            "daysRemaining":"\(passedInData.daysRemaining)",
             
-            "PlayersInGameEmail": usersInGame,
-            "startingFunds": startingFunds,
-            "shortSellingEnabled": ShortSellMarginSwitchOutlet.isOn,
-            "marginSellingEnabled": marginSwitchOutlet.isOn,
+            "PlayersInGameEmail": passedInData.playersInGameEmail,
+            
+            "startingFunds": passedInData.startingFunds,
+            "shortSellingEnabled": passedInData.shortSaleEnabled,
+            "marginSellingEnabled": passedInData.marginEnabled,
             "advancedSettings":[
-                "enableLimitOrders": false,
-                "enableStopLoss": false,
-                "enablePartialShares": false,
-                "enableInterestRateCredit":false,
-                "defaultIRC":"5.50",
-                "enableInterestRateDebit":false,
-                "defaultIRD":"2.65"],
-            "gameStillActive":true,
-            "startDate":"\(todayDate)",
-            "percentComplete":"",
+                "enableLimitOrders": passedInData.enableLimitOrders,
+                "enableStopLoss": passedInData.stopLossEnabled,
+                "enablePartialShares": passedInData.partialSharesEnabled,
+                "enableInterestRateCredit":passedInData.enableInterestRateCredit,
+                "defaultIRC":"\(passedInData.defaultIRC)",
+                "enableInterestRateDebit":passedInData.enableInterestRateDebt,
+                "defaultIRD":"\(passedInData.defaultIRD)"],
+            "gameStillActive":passedInData.gameStillActive,
+            "startDate":"\(passedInData.startDate)",
+            "percentComplete":passedInData.percentComplete,
             "gamesInProgress":["Another One",
                                "Yet Another"],
-            "privacySettings":["PrivateGames": false,
-                               "deleteAccount": false,
-                               "gamePassword":""],
+            "privacySettings":["PrivateGames": passedInData.privateGame,
+                               "deleteAccount": passedInData.resetTodefault,
+                               "gamePassword":"\(passedInData.gamePassword)"],
             
-            "playersInGameAndCash": [[newString:startingF]],
+            "playersInGameAndCash": [[newString:passedInData.startingFunds]],
             "playersStocksAndAmount": [[newString:[["test":"0"]]]],
             
             
             ] as [String : Any]
         
         userSelectedSettings = userProfileDataTwo
+        
+        if validGameName && validStartF && validEndDate {
+            performSegue(withIdentifier: "goToConfirmationPage", sender: self)
+            errorMsg.isHidden = true
+            
+        }else{
+            errorMsg.isHidden = false
+            
+            if !validGameName {
+                errorMsg.isHidden = false
+                errorMsg.text = "The follwoing characters are not allowed within game name ($%.)"
+                
+            } else if !validStartF{
+                errorMsg.isHidden = false
+                errorMsg.text = "please enter a valid dollar amount"
+                
+            } else if !validEndDate {
+                errorMsg.isHidden = false
+                errorMsg.text = "enter a date in the future"
+                
+            }
+            //errorMsg.text = "please check provided data and try again"
+        }
+            
         
         
     }
@@ -173,29 +203,57 @@ class CreateGamePage: UIViewController {
     func collectData(){
         
         // collects date information
-        var myEndDate = Date(timeInterval: .init(), since: endDatePickerOutlet.date)
-        var todayDate = Date()
+        let myEndDate = Date(timeInterval: .init(), since: endDatePickerOutlet.date)
+        let todayDate = Date()
         
+       // buildFBData()
         findDaysRemaining(todaysDate: todayDate, endDate: myEndDate)
         validateStartingFunds()
+        validateUserProvidedData()
+        setupDefaultValues()
         buildFBObject()
+        passedInData.playersInGameEmail = [Auth.auth().currentUser?.email ?? "test@test.com"]
+        
     }
     
+    func setupDefaultValues(){
+    
+        //setup defualt values and switch info
+        passedInData.shortSaleEnabled = ShortSellMarginSwitchOutlet.isOn
+        passedInData.marginEnabled = marginSwitchOutlet.isOn
+        passedInData.gameStillActive = true
+        passedInData.numberOfPlayersInGame = "1"
+        passedInData.playersInGameEmail = [fixEmail()]
+        
+    }
     
     func validateStartingFunds(){
+        
+        if let userInputedStartingFunds = Double(startingFundsOutlet.text ?? "0"){
+            passedInData.startingFunds = "\(userInputedStartingFunds)"
+            validStartF = true
+        }else {
+            //provide an error message
+            print("some error")
             
+            errorMsg.isHidden = false
+            errorMsg.text = "Please enter a dollar amount"
             
+            validStartF = false
+        }
+        
+        //Double(test)
         
             
     }
     
     
-    func validateUserProvidedData()-> Bool{
+    func validateUserProvidedData(){
         
         //validates game Name
         var valid: Bool = false
         
-        var providedGameName = gameNameOutlet.text ?? ""
+        let providedGameName = gameNameOutlet.text ?? ""
         
         let badChar = "$"
         let badCharTwo = "."
@@ -207,50 +265,45 @@ class CreateGamePage: UIViewController {
         if providedGameName != "" {
             
             for letter in providedGameName{
-                
-                if letter == Character(badChar) {
+    
+                if letter == "$" || letter == "." || letter == "/"{
                     goodGameName = goodGameName + String(changeChar)
                 }else {
                     goodGameName = goodGameName + String(letter)
+                    
                 }
                 
-                if letter == Character(badCharTwo) {
-                    goodGameName = goodGameName + String(changeChar)
-                }else {
-                    goodGameName = goodGameName + String(letter)
-                }
-                
-                if letter == Character(badCharThree) {
-                    goodGameName = goodGameName + String(changeChar)
-                }else {
-                    goodGameName = goodGameName + String(letter)
-                }
-                valid = true
-                collectData()
-                
-                passedInData.gameName = goodGameName
             }
-
+            
+            validGameName = true
+            passedInData.gameName = goodGameName
+            passedInData.gamesInProgress = [passedInData.gameName]
+            
+        }else{
+            
+            validGameName = false
+            // provide some error message
+            errorMsg.isHidden = false
+            errorMsg.text = "please edit the game Name"
         }
         
         //populates game Description
         if gameDescOutlet.text == "" {
             gameDescOutlet.text = "Have fun, playing S.I.M"
-            valid = true
+            //valid = true
         }else {
-            valid = true
+            //valid = true
             passedInData.gameDescription = gameDescOutlet.text ?? "Have fun, and play S.I.M"
         }
-        
 
-        return valid
+       // return valid
     }
     
     
     func buildFBData(){
     
         //validate user input, use defaults
-       let valid = validateUserProvidedData()
+       let valid = false//validateUserProvidedData()
         
         if valid {
             //used to pass something to confrim page

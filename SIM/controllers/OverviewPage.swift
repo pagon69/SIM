@@ -201,7 +201,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
+        currentIndex = indexPath.row
         performSegue(withIdentifier: "goToGameStatPage", sender: self)
         
     }
@@ -243,6 +243,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             
             if played == 0 {
                 cell.winningPercentage.text = "-"
+                //cell.gamesPlayed =
                 
             }else {
                 let percentage = won / Double(played)
@@ -255,12 +256,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         //games the user is within
         if(tableView.tag == 1){
 
-            
             if gameData.isEmpty {
                 //can i put default next here
                 let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
                 cell.detailTextLabel?.text = "Find or Create a game to get started"
-                
                 
             }else{
                 

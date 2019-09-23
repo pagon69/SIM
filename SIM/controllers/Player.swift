@@ -15,18 +15,19 @@ class Player {
     var firstName = ""
     var lastName = ""
     var playerEmail = ""
-    var currentCash = ""
-    var netWorth = ""
-    var listOfStockAndQuantity = ["":0.0]
-    var gamesInProgress = [""]
-    var currentGame = ""
-    var buyPower = ""
-    var numberOfTrades = ""
-    var currentStockValue = ""
-    var gamesPlayed = 0
+    var currentCash = "0"
+    var netWorth = "0"
+    var listOfStockAndQuantity = ["GoogTest":0.0]
+    var gamesInProgress = ["Test game Data"]
+    var currentGame = "Test game Data"
+    var buyPower = "0"
+    var numberOfTrades = "0"
+    var currentStockValue = "0"
+    var gamesPlayed = 1
     var gamesWon = 0.0
-    var totalPlayerValue = ""
-    var stockReturnpercentageAtGameEnd = ""
+    var totalPlayerValue = "0"
+    var stockReturnpercentageAtGameEnd = "0"
     var fullName = ""
     var watchListStocks: [String]?
+    var winningPercentage = 0.0
 }

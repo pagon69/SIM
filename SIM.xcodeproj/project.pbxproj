@@ -67,6 +67,8 @@
 		C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCED0229DB9F000633D00 /* portfolioViewController.swift */; };
 		C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCED2229DBC9200633D00 /* SignInViewController.swift */; };
 		C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */; };
+		C1C9B3F523391CC80094498B /* inGameDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C9B3F323391CC80094498B /* inGameDetailsCell.swift */; };
+		C1C9B3F623391CC80094498B /* inGameDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1C9B3F423391CC80094498B /* inGameDetailsCell.xib */; };
 		C1D311CF22D795F900440C1D /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D311CE22D795F900440C1D /* TestViewController.swift */; };
 		C1F0BF0822CCC74A0016FC17 /* AnimationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */; };
 		C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */; };
@@ -136,6 +138,8 @@
 		C1BCCED0229DB9F000633D00 /* portfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolioViewController.swift; sourceTree = "<group>"; };
 		C1BCCED2229DBC9200633D00 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C1C9B3F323391CC80094498B /* inGameDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inGameDetailsCell.swift; sourceTree = "<group>"; };
+		C1C9B3F423391CC80094498B /* inGameDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = inGameDetailsCell.xib; sourceTree = "<group>"; };
 		C1D311CE22D795F900440C1D /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		C1F0BF0722CCC74A0016FC17 /* AnimationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationsViewController.swift; sourceTree = "<group>"; };
 		C1F0BF0922CCEF1E0016FC17 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				C13C6375230442C000BF1221 /* leaderboardCell.xib */,
 				C15F2874232FB28E000D62EC /* quickStats.swift */,
 				C15F2875232FB28E000D62EC /* quickStats.xib */,
+				C1C9B3F323391CC80094498B /* inGameDetailsCell.swift */,
+				C1C9B3F423391CC80094498B /* inGameDetailsCell.xib */,
 			);
 			path = "custom Cells";
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 				C13C6377230442C000BF1221 /* leaderboardCell.xib in Resources */,
 				C19B03E022D6773400DC0AA9 /* searchResultsCell.xib in Resources */,
 				C1BCCEC3229D772B00633D00 /* LaunchScreen.storyboard in Resources */,
+				C1C9B3F623391CC80094498B /* inGameDetailsCell.xib in Resources */,
 				C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */,
 				C19E163722C0FE02004EE77B /* disclaimers in Resources */,
 				C14D174622DCA33600CE1B43 /* settingsCell.xib in Resources */,
@@ -474,6 +481,7 @@
 				C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */,
 				C159FBCC22CBD2CD001E0A81 /* AlertViewController.swift in Sources */,
 				C10795D42322D32F00044254 /* QuotePageViewC.swift in Sources */,
+				C1C9B3F523391CC80094498B /* inGameDetailsCell.swift in Sources */,
 				C14D174522DCA33600CE1B43 /* settingsCell.swift in Sources */,
 				C1F0BF0C22CD2FA40016FC17 /* LoadingViewController.swift in Sources */,
 				C1445E9C230C6FF900CECF0B /* ConfirmationPage.swift in Sources */,

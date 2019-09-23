@@ -169,8 +169,17 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        //handles the stocsk and symbols
+        if tableView.tag == 0 {
         userSelected = searchR?[indexPath.row].symbol ?? ""
         performSegue(withIdentifier: "goToStockSearch", sender: self)
+        }
+        
+        //handles various users in game
+        if tableView.tag == 6 {
+            
+            
+        }
         
     }
     
@@ -225,26 +234,18 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         //overview
         if tableView.tag == 6 {
             
-            let myCell = playersInGameTable.dequeueReusableCell(withIdentifier: "leaderboardCell", for: indexPath) as! leaderboardCell
+            let myCell = playersInGameTable.dequeueReusableCell(withIdentifier: "inGameDetailsCell", for: indexPath) as! inGameDetailsCell
             
-                myCell.nameLabelOutlet.text = myPlayersInfo[indexPath.row].fullName
-                myCell.netWorthOutlet.text = myPlayersInfo[indexPath.row].netWorth
+                myCell.fullName.text = myPlayersInfo[indexPath.row].fullName
+                myCell.inGameRank.text = "\(getRankings())"
+                myCell.overAllGains.text = "5%" // need to work on this
+                myCell.userNetWorth.text = "120000"
             
                 //getRankings()
+                //
             
                 //figure out how to do ranking, download player Info and networth
-                var userRank: Int = Int(arc4random_uniform(10))
             
-                if userRank <= 3 {
-                    myCell.rankViewOutlet.backgroundColor = UIColor.green
-                }
-            
-                if userRank > 3 {
-                    myCell.rankViewOutlet.backgroundColor = UIColor.brown
-                
-                }
-            
-                myCell.rankLabelOutlet.text = String(userRank)
                 return myCell
         }
         
@@ -274,10 +275,29 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
+    //MARK: - custom table view cell sizes
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        var height: CGFloat = CGFloat(exactly: NSNumber(value: 44.0)) ?? 44.0
+        
+        if tableView.tag == 6{
+            
+            height = 44.0
+        }
+        
+        if tableView.tag == 1{
+            
+            height = 90.0
+        }
+        
+        return height
+        
+    }
     
-    func getRankings(){
+    func getRankings()-> Int{
         ref = Database.database().reference()
-
+        var currentRank = 0
+        
         let usersInGame = passedData.playersInGameEmail
         
         for each in usersInGame{
@@ -288,6 +308,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             
         }
         
+        return currentRank
         
     }
     
@@ -362,7 +383,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                         var listOfUsers: [String] = [String]()
                         let userDataList = pulledData["PlayersInGameEmail"]
                         
-                        print("This is within userDatalist: \(userDataList)")
+                        print("This is within userDatalist: \(String(describing: userDataList))")
                         
                         //  listOfUsers.append(pulledData["PlayersInGameEmail"] as? String ?? "test data")
                         listOfUsers.append(contentsOf: pulledData["PlayersInGameEmail"] as? [String] ?? ["testData","TestData2"])
@@ -370,7 +391,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                         self.gameDetails.playersInGameEmail = listOfUsers
                                // self.gameDetails.playersInGameEmail = pulledData["PlayersInGameEmail"] as? [String] ?? ["test data"]
                         
-                        print("This is what i see: \(pulledData["PlayersInGameEmail"]) \n\n\n")
+                        print("This is what i see: \(String(describing: pulledData["PlayersInGameEmail"])) \n\n\n")
                         
                                 for each in self.gameDetails.playersInGameEmail{
                                     
@@ -420,7 +441,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     func registerCustomCell(){
         
-        playersInGameTable.register(UINib(nibName: "leaderboardCell", bundle: nil), forCellReuseIdentifier: "leaderboardCell")
+        playersInGameTable.register(UINib(nibName: "inGameDetailsCell", bundle: nil), forCellReuseIdentifier: "inGameDetailsCell")
         
     }
     
