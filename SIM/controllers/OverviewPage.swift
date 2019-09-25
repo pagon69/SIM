@@ -202,6 +202,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         currentIndex = indexPath.row
+        passedData = gameData[currentIndex]
         performSegue(withIdentifier: "goToGameStatPage", sender: self)
         
     }
@@ -238,6 +239,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             cell.gamesWon.text = String(userData.gamesWon)
             cell.gamesPlayed.text = String(userData.gamesPlayed)
             
+
             let won = userData.gamesWon
             let played = userData.gamesPlayed
             
@@ -246,8 +248,12 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                 //cell.gamesPlayed =
                 
             }else {
+                if(played == 0){
+                    cell.winningPercentage.text = "0%"
+                }else{
                 let percentage = won / Double(played)
                 cell.winningPercentage.text = "\(percentage * 100)%"
+                }
             }
             
             return cell
@@ -290,6 +296,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     func viewSetup() {
         
       //  profileLabel.text = "Welcome, \(String(describing: Auth.auth().currentUser?.email ?? ""))"
+        self.profileLabel.text = "Welcome, \(self.userData.fullName)"
         
         aboutTableView.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
         
@@ -338,7 +345,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
 
         collectUserData(newString: newString)
        
-        searchForLiveGames()
+       // searchForLiveGames()
        
         FBSearch(newString: newString)
         
@@ -370,8 +377,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapShot) in
             
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
-            // print(pulleduserdata)
-            
+
             self.userData.buyPower = pulleduserdata["buyPower"] as? String ?? ""
             self.userData.currentCash = pulleduserdata["currentCash"] as? String ?? ""
             self.userData.currentStockValue = pulleduserdata["currentStockValue"] as? String ?? ""
@@ -386,7 +392,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.userData.fullName = pulleduserdata["fullName"] as? String ?? ""
             
             //my array of data
-            self.userData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? []
+          //  self.userData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? []
             self.userData.listOfStockAndQuantity = pulleduserdata["listOfStockAndQuantity"] as? [String:Double] ?? [:]
             self.userData.currentGame = pulleduserdata["currentGame"] as? String ?? ""
             self.userData.firstName = pulleduserdata["firstName"] as? String ?? ""
@@ -486,7 +492,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     //work in games info
     func checkGames(listOfGames: [String]){
         for each in listOfGames{
-            if each == "" {
+            if each == "" || each == "Test game Data" {
                 //print("within for loop checkign : \(each)")
                 //test for no games joined
                 
@@ -516,10 +522,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                         myGameinfo.gameName = data["gameName"] as? String ?? ""
                         myGameinfo.gameStillActive = data["gameStillActive"] as? Bool ?? false
                         myGameinfo.marginEnabled = data["marginEnabled"] as? Bool ?? true
-                        myGameinfo.numberOfPlayersInGame = data["numberOfPlayersInGame"] as? String ?? ""
+                        myGameinfo.numberOfPlayersInGame = data["numberOfPlayers"] as? String ?? ""
                         myGameinfo.partialSharesEnabled = data["partialSharesEnabled"] as? Bool ?? false
                         myGameinfo.percentComplete = data["percentComplete"] as? String ?? ""
-                        myGameinfo.playersInGameEmail = data["playersInGameEmail"] as? [String] ?? [""]
+                        myGameinfo.playersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? [""]
                         myGameinfo.shortSaleEnabled = data["shortSaleEnabled"] as? Bool ?? true
                         myGameinfo.startDate = data["startDate"] as? String ?? ""
                         myGameinfo.startingFunds = data["startingFunds"] as? String ?? ""

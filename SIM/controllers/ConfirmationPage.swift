@@ -119,7 +119,7 @@ class ConfirmationPage: UITableViewController {
         
         gameDetails.playersInGameAndCash = incomingGameData["playerInGameAndCash"] as? [[String:String]] ?? [["userTest":"10000"]]
         
-        gameDetails.playersInGameEmail = incomingGameData["playersInGameEmail"] as? [String] ?? ["test@test.com"]
+        gameDetails.playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String] ?? ["test@test.com"]
         
         gameDetails.playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["Test1":[["GoogTest":"5"]]]]
         
@@ -150,7 +150,12 @@ class ConfirmationPage: UITableViewController {
                 let playername = pulleduserdata["fullName"] as? String ?? ""
                 var playerGamesPlayed = pulleduserdata["gamesPlayed"] as? Double ?? 0.0
                 let playerGamesWon = pulleduserdata["gamesWon"] as? Double ?? 0.0
+                
+                //build a check for zero on winning percentage
+                
                 let winningPercentage = (playerGamesWon / playerGamesPlayed) * 100
+                
+                
                 let playerEmail = pulleduserdata["playerEmail"] as? String ?? ""
                 
                 let userInfoForLeaderboard = [
@@ -158,7 +163,17 @@ class ConfirmationPage: UITableViewController {
                     "winningPercentage":winningPercentage
                     ] as [String: Any]
                 
-                self.refT.child("leaderboard").child(edittedEmailAddress).setValue(userInfoForLeaderboard)
+                self.refT.child("leaderboard").child(edittedEmailAddress).setValue(userInfoForLeaderboard, withCompletionBlock: { (error, DBReference) in
+                    
+                    if error != nil{
+                        
+                    }else{
+                        print("data saved successfully")
+                    }
+                    
+                })
+                    
+                
             }
         }
         
@@ -176,6 +191,7 @@ class ConfirmationPage: UITableViewController {
     
     func buildAndSend(){
         
+        var validationTest = false
         SVProgressHUD.show()
         ref = Database.database().reference()
         
@@ -196,29 +212,78 @@ class ConfirmationPage: UITableViewController {
         gamesPlayed = gamesPlayed + 1
         
          userSettings = [
-            "defaultCommission": "3.5",
-            "enableCommission":false,
-            "startingFunds": "\(incomingGameData["startingFunds"] ?? "0")",
-            "shortSellingEnabled": "\(incomingGameData["shortSellingEnabled"] ?? "true")",
-            "marginSellingEnabled": "\(incomingGameData["marginSellingEnabled"] ?? "true")",
-            "enableLimitOrders": false,
-            "enableStopLoss": false,
-            "enablePartialShares": false,
-            "enableInterestRateCredit":false,
-            "defaultIRC":"5.50",
-            "enableInterestRateDebit":false,
-            "defaultIRD":"2.65",
-            "PrivateGames": false,
-            "deleteAccount": false,
-            "gamePassword":"",
-            "gamesPlayed":gamesPlayed,
-            "resetToDefault": false
+            "defaultCommission": gameDetails.defaultCommission,
+            "enableCommission":gameDetails.enableCommission,
+            "startingFunds": gameDetails.startingFunds,
+            "shortSellingEnabled": gameDetails.shortSaleEnabled,
+            "marginSellingEnabled": gameDetails.marginEnabled,
+            "enableLimitOrders": gameDetails.enableLimitOrders,
+            "enableStopLoss": gameDetails.stopLossEnabled,
+            "enablePartialShares": gameDetails.partialSharesEnabled,
+            "enableInterestRateCredit":gameDetails.enableInterestRateCredit,
+            "defaultIRC": gameDetails.defaultIRC,
+            "enableInterestRateDebit":gameDetails.enableInterestRateDebt,
+            "defaultIRD": gameDetails.defaultIRD,
+            "PrivateGames": gameDetails.privateGame,
+            "deleteAccount": gameDetails.resetTodefault,
+            "gamePassword":gameDetails.gamePassword,
+            "gamesPlayed":gameDetails.numberOfPlayersInGame,
+            "daysRemaining": gameDetails.daysRemaining,
+            "endDate": gameDetails.endDate,
+            "gameDescription": gameDetails.gameDescription,
+            "gameName": gameDetails.gameName,
+            "gamesInProgress": gameDetails.gamesInProgress,
+            "gameStillActive": gameDetails.gameStillActive,
+            "numberOfPlayers": gameDetails.numberOfPlayersInGame,
+            "percentComplete":gameDetails.percentComplete,
+            "playersInGameAndCash": gameDetails.playersInGameAndCash,
+            "playersInGameEmail": gameDetails.playersInGameEmail,
+            "playersStocksAndAmount":gameDetails.playersStocksAndAmount,
+            "startDate": gameDetails.startDate
             
             ] as [String : Any]
         
 
         collectGamesInProgress(userEmailAddress: newString)
 
+         // use the below code versus what i have to handle duplicate names
+          //  Add completion error / blocks to handle dublicate game names
+        
+         ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData) { (error, dbRefenece) in
+         
+            if error != nil{
+                //validationTest = false
+                
+                //add another call and a date stamp for uniqueness
+                self.ref.child("gamesInProgressByGamename").child("\(self.incomingGameData["gameName"] as? String ?? "")_\(Date())").setValue(self.incomingGameData)
+                
+            }else{
+                validationTest = true
+            }
+         
+         }
+         
+        if validationTest{
+         
+            //change games current settings
+            ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
+            //print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
+         
+            //add the game for others to join
+          //  ref.child("gamesInProgressByGamename").child(incomingGameData["gameName"] as? String ?? "").setValue(incomingGameData)
+         
+            buildObject()
+            updateGameCount()
+            SVProgressHUD.dismiss()
+         
+         }else {
+         
+           // display an error messah eto user and let them know about duplicate gamename
+         }
+ 
+        
+       /*
+        
         //change games current settings
         ref.child("gameSettingsByUserEmail").child(newString).setValue(self.userSettings)
        //print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
@@ -229,7 +294,7 @@ class ConfirmationPage: UITableViewController {
         buildObject()
         updateGameCount()
         SVProgressHUD.dismiss()
-        
+        */
     }
     
     func collectGamesInProgress(userEmailAddress: String){
@@ -238,7 +303,7 @@ class ConfirmationPage: UITableViewController {
         refT.child("userDataByEmail").child(userEmailAddress).observeSingleEvent(of: .value) { (snapShot) in
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
             
-            var userData = pulleduserdata["gamesInProgress"] as! [String]
+            var userData = pulleduserdata["gamesInProgress"] as? [String] ?? [""]
             
             let currentgamesName = self.incomingGameData["gameName"] as! String
             

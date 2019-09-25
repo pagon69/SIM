@@ -89,8 +89,10 @@ class RegisterPage: UIViewController {
                         self.player.playerEmail = Auth.auth().currentUser?.email ?? "Test@Test.com"
                         self.player.fullName = self.fullNameVar
                         
-                        self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
-                        self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", fullName: self.fullNameVar )
+                        self.player.playerEmail = username
+            
+                      //  self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
+                       self.registerAUser(userEmail: Auth.auth().currentUser?.email ?? "", fullName: self.fullNameVar )
                         
                     }
                 }
@@ -129,26 +131,34 @@ class RegisterPage: UIViewController {
         
         let newString = fixEmail()
         
-        player.winningPercentage = (player.gamesWon / Double(player.gamesPlayed)) * 100
+        if player.gamesPlayed == 0{
+            
+        }else{
+            player.winningPercentage = (player.gamesWon / Double(player.gamesPlayed)) * 100
+        }
         
         let userData = [
-            "playerEmail":player.playerEmail,
-            "listOfStockAndQuantity": player.listOfStockAndQuantity, //should be a list of dictionaries with stock name and quantities
-            "userNickName": "\(player.userNickName ?? "")",
-            "firstName":"\(player.firstName)",
-            "lastName":"\(player.lastName)",
-            "fullName":"\(player.fullName)",
+            "playerEmail" : player.playerEmail,
+            "listOfStockAndQuantity" : player.listOfStockAndQuantity, //should be a list of dictionaries with stock name and quantities
+            "userNickName" : player.userNickName,
+            "firstName" : player.firstName,
+            "lastName" : player.lastName,
+            "fullName" : player.fullName,
             "gamesInProgress": player.gamesInProgress, //should be an array of strings which are the name of the various games theuser is playing
-            "currentCash": "\(player.currentCash)",
-            "netWorth": "\(player.netWorth)",
-            "buyPower": "\(player.buyPower)",
+            "currentCash": player.currentCash,
+            "netWorth": player.netWorth,
+            "buyPower": player.buyPower,
             "numberOfTrades": "\(player.numberOfTrades)",
             "currentStockValue": "\(player.currentStockValue)",
             "gamesPlayed": "\(player.gamesPlayed)",
             "gamesWon": "\(player.gamesWon)",
             "totalPlayerValue": "\(player.totalPlayerValue)",
             "winningPercentage": "\(player.winningPercentage)", //divide gamesplayed by games won (used in leaderboard)
-            "stockReturnsPercentageAtGameEnd":"\(player.stockReturnpercentageAtGameEnd)" //devide returns percentage by games played
+            "stockReturnsPercentageAtGameEnd":"\(player.stockReturnpercentageAtGameEnd)", //devide returns percentage by games played
+            
+            "currentGame": player.currentGame,
+            "watchListStocks": player.watchListStocks,
+            
             
             ] as [String : Any]
 
@@ -159,6 +169,8 @@ class RegisterPage: UIViewController {
                 print("it did not work")
             }else{
                 print("it worked")
+                self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
+                
             }
             
         }
@@ -167,7 +179,7 @@ class RegisterPage: UIViewController {
     }
     
     
-//not being used
+/* not being used
     func saveDataFB(){
         
         let userProfileData = [
@@ -188,7 +200,7 @@ class RegisterPage: UIViewController {
         
     }
     
-    
+   */
     
     @IBAction func cancelButtonClicked(_ sender: UIButton) {
         dismiss(animated: true){

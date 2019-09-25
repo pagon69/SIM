@@ -255,10 +255,6 @@ class CreateGamePage: UIViewController {
         
         let providedGameName = gameNameOutlet.text ?? ""
         
-        let badChar = "$"
-        let badCharTwo = "."
-        let badCharThree = "/"
-        
         let changeChar = "_"
         var goodGameName = ""
     
@@ -266,7 +262,7 @@ class CreateGamePage: UIViewController {
             
             for letter in providedGameName{
     
-                if letter == "$" || letter == "." || letter == "/"{
+                if letter == "$" || letter == "." || letter == "#" || letter == "[" || letter == "]"{
                     goodGameName = goodGameName + String(changeChar)
                 }else {
                     goodGameName = goodGameName + String(letter)

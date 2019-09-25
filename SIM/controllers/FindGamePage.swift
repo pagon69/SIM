@@ -24,11 +24,14 @@ extension FindGame: reactToJoinButtonPush{
 class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate, reactToJoinButtonPush {
     
     func passInfoFromSelectedCell(currentIndex: Int) {
-       // print("this is the current Index: \(currentIndex)")
-       // print("The current game is:\(gameInfo[currentIndex].gameName) and players in game: \(gameInfo[currentIndex].playersInGameEmail)\n\n/n/n")
-        
+    
         passedData = gameInfo[currentIndex]
+        //joins the user to the games DB
         joinUserToGame()
+        
+        //joins the user to the users profile DB
+        updateUserProfile()
+        
         performSegue(withIdentifier: "goToGameStats", sender: self)
         
     }
@@ -39,6 +42,7 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     var ref = Database.database().reference()
     var passedData = GamesInfo()
     var currentIndexPath = 0
+    var numberOfGames = 0
     
     //MARK: - IB actions
     
@@ -120,7 +124,6 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         if(tableView.tag == 0){
             
-            
         }
         
         
@@ -130,6 +133,8 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
             cell.gameNameOutlet?.text = gameInfo[indexPath.row].gameName
             cell.endDateOutlet?.text = gameInfo[indexPath.row].endDate
             cell.gamedescriptionLabel?.text = gameInfo[indexPath.row].gameDescription
+            cell.numberOfPlayersOutlet.text = gameInfo[indexPath.row].numberOfPlayersInGame
+            cell.percentCompleteOutlet.text = gameInfo[indexPath.row].percentComplete
             cell.joinButtonOutlet.setTitle("Join", for: .normal)
             
             //needed for protocol
@@ -152,34 +157,72 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
         gamestableViewOutlet.autoresizesSubviews = true
         
         collectNumberOfGames()
-        updateGameInfo()
+       // updateGameInfo()
+        
+    }
+    
+    
+    //updates the user profile info
+    func updateUserProfile(){
+        
+        ref.child("userDataByEmail").child(fixEmail()).observeSingleEvent(of: .value) { (snapshot) in
+            let userProfielData = Player()
+            
+            if let data = snapshot.value as? [String: Any]{
+                userProfielData.gamesInProgress = data["gamesInProgress"] as? [String] ?? ["Test game Data"]
+                userProfielData.gamesPlayed = data["gamesPlayed"] as? Int ?? 0
+                
+            }
+  
+            //updating values
+            if userProfielData.gamesInProgress.contains(self.passedData.gameName){
+            
+            }else{
+                userProfielData.gamesPlayed = userProfielData.gamesPlayed + 1
+                userProfielData.gamesInProgress.append(self.passedData.gameName)
+            }
+            
+            //below updates
+            let updates = [
+                "gamesInProgress": userProfielData.gamesInProgress,
+                "gamesPlayed": String(userProfielData.gamesPlayed)
+            
+            ] as [String : Any]
+            
+            
+            self.ref.child("userDataByEmail").child(self.fixEmail()).updateChildValues(updates){(error, ref) in
+                
+                if let err = error {
+                    print("An error happened:\(err)")
+                }else {
+                    // self.updateUserProfile()
+                    print("updates made successfully!")
+                }
+            }
+            
+            
+        }
         
         
         
         
     }
     
+    
+    //joins user to the games DB
     func joinUserToGame(){
         
-        //look up the gameName
-        //add user to the current game
-        //update cash based on starting fund of game
-        //update stocks and username
-        //update components that matter not everything
-        
-        
-        
-        ref.child("gamesInProgressByGamename").child(passedData.gameName).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("gamesInProgressByGamename").child(gameInfo[currentIndexPath].gameName).observeSingleEvent(of: .value, with: { (snapshot) in
             
-            var updatedGameInfo = GamesInfo()
+            let updatedGameInfo = GamesInfo()
             
             if let data = snapshot.value as? [String: Any]{
                 updatedGameInfo.startingFunds = data["startingFunds"] as? String ?? ""
                 updatedGameInfo.accountReset = data["accountReset"] as? Bool ?? false
                 updatedGameInfo.daysRemaining = data["daysRemaining"] as? String ?? ""
                 updatedGameInfo.defaultCommission = data["defaultCommission"] as? String ?? ""
-                updatedGameInfo.defaultIRC = data["defaultIRC"] as? String ?? ""
-                updatedGameInfo.defaultIRD = data["defaultIRD"] as? String ?? ""
+                updatedGameInfo.defaultIRC = data["defaultIRC"] as? String ?? "3.5"
+                updatedGameInfo.defaultIRD = data["defaultIRD"] as? String ?? "12.5"
                 updatedGameInfo.enableCommission = data["enableCommission"] as? Bool ?? true
                 updatedGameInfo.enableInterestRateCredit = data["enableInterestRateCredit"] as? Bool ?? false
                 updatedGameInfo.enableInterestRateDebt = data["enableInterestRateDebt"] as? Bool ?? false
@@ -191,7 +234,7 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
                 updatedGameInfo.gamesInProgress = data["gamesInProgress"] as? [String] ?? [""]
                 updatedGameInfo.gameStillActive = data["gameStillActive"] as? Bool ?? true
                 updatedGameInfo.marginEnabled = data["marginEnabled"] as? Bool ?? false
-                updatedGameInfo.numberOfPlayersInGame = data["numberOfPlayersInGame"] as? String ?? ""
+                updatedGameInfo.numberOfPlayersInGame = data["numberOfPlayers"] as? String ?? ""
                 updatedGameInfo.partialSharesEnabled = data["partialSharesEnabled"] as? Bool ?? false
                 updatedGameInfo.percentComplete = data["percentComplete"] as? String ?? ""
                 updatedGameInfo.privateGame = data["privateGame"] as? Bool ?? false
@@ -199,26 +242,30 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
                 updatedGameInfo.shortSaleEnabled = data["shortSaleEnabled"] as? Bool ?? true
                 updatedGameInfo.startDate = data["startDate"] as? String ?? ""
                 updatedGameInfo.stopLossEnabled = data["stopLossEnabled"] as? Bool ?? false
+                
                 //special cases i have to work on
-                updatedGameInfo.playersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? [""]
-                
-                print(data["PlayersInGameEmail"])
-                
-                updatedGameInfo.playersStocksAndAmount = data["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["":[[:]]]]
+                updatedGameInfo.playersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? ["test@test.com"]
+                updatedGameInfo.playersStocksAndAmount = data["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["Test":[["Goog":"5"]]]]
                 
                 
                 updatedGameInfo.playersInGameAndCash = data["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
                 
                 //updating and adding users
-                updatedGameInfo.playersInGameEmail.append(Auth.auth().currentUser?.email ?? "")
-                
+               // updatedGameInfo.playersInGameEmail.append(Auth.auth().currentUser?.email ?? "")
+               // var usersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? ["test"]
                 
                 let fixedUserEmail = self.fixEmail()
                 
-                updatedGameInfo.playersInGameAndCash.append([fixedUserEmail:updatedGameInfo.startingFunds])
-                
-                updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
-                
+                if updatedGameInfo.playersInGameEmail.contains(fixedUserEmail){
+                    
+                    //string exist nothing to do
+                }else{
+                    updatedGameInfo.playersInGameEmail.append(self.fixEmail())
+                    updatedGameInfo.numberOfPlayersInGame = String(Int(updatedGameInfo.numberOfPlayersInGame) ?? 0 + 1)
+                    updatedGameInfo.playersInGameAndCash.append([fixedUserEmail:updatedGameInfo.startingFunds])
+                    updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
+                }
+
                 print("current items: \(updatedGameInfo.playersStocksAndAmount.count) items: \(updatedGameInfo.playersStocksAndAmount)")
                 
                // updatedGameInfo.playersStocksAndAmount.append(<#T##newElement: [String : [[String : String]]]##[String : [[String : String]]]#>)
@@ -249,7 +296,7 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
                     "gamesInProgress":["Another One",
                                        "Yet Another"],
                     "privacySettings":["PrivateGames": updatedGameInfo.privateGame,
-                                       "deleteAccount": false,
+                                       "deleteAccount": updatedGameInfo.resetTodefault,
                                        "gamePassword": updatedGameInfo.gamePassword],
                     "playersInGameAndCash": updatedGameInfo.playersInGameAndCash,
                     "playersStocksAndAmount": updatedGameInfo.playersStocksAndAmount,
@@ -261,6 +308,7 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
                     if let err = error {
                         print("An error happened:\(err)")
                     }else {
+                       // self.updateUserProfile()
                         print("updates made successfully!")
                     }
                 }
@@ -306,7 +354,10 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
             if let data = snapshot.value as? [String:String]{
                 
                 number = Int(data["currentActiveGames"] ?? "0") ?? 0
+                
+                self.numberOfGames = number
                 self.NumberGamesLabelOutlet.text = "\(number)"
+                self.updateGameInfo()
             }
             
         }
@@ -319,7 +370,27 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     //collects all games within the system , will this be a problem in the future?
     func updateGameInfo(){
         
+        var randomNumber: UInt
+        
+        if numberOfGames > 20 {
+            randomNumber = UInt(arc4random_uniform(UInt32(numberOfGames)))
+        }else {
+            randomNumber = UInt(numberOfGames)
+        }
+        
+        //attempt to get a limited view of the available games
+        ref.child("gamesInProgressByGamename").queryLimited(toFirst: UInt(randomNumber)).observeSingleEvent(of: .value) { (snapshot) in
+          
+            /*
+            if let data = snapshot.value as? [String:[String:Any]]{
+                
+                print(" This is what i found \(data.count)")
+            }
+        }
+
+        //get all data may need a cleaner way
         ref.child("gamesInProgressByGamename").observeSingleEvent(of: .value) { (snapshot) in
+            */
             
             if let data = snapshot.value as? [String:[String:Any]]{
                 
@@ -330,8 +401,29 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
                     myGameinfo.gameDescription = each.value["gameDescription"] as? String ?? ""
                     myGameinfo.endDate = each.value["endDate"] as? String ?? ""
                     myGameinfo.startingFunds = each.value["startingFunds"] as? String ?? ""
-                    myGameinfo.numberOfPlayersInGame = each.value["numberOfPlayersInGame"] as? String ?? ""
+                    myGameinfo.numberOfPlayersInGame = each.value["numberOfPlayers"] as? String ?? ""
                     myGameinfo.percentComplete = each.value["percentComplete"] as? String ?? ""
+                    
+                    myGameinfo.accountReset = each.value["accountReset"] as? Bool ?? true
+                    myGameinfo.daysRemaining = each.value["daysRemaining"] as? String ?? ""
+                    myGameinfo.defaultCommission = each.value["defaultCommission"] as? String ?? ""
+                    myGameinfo.defaultIRC = each.value["defaultIRC"] as? String ?? "3.5"
+                    myGameinfo.defaultIRD = each.value["defaultIRD"] as? String ?? "6.5"
+                    myGameinfo.enableCommission = each.value["enableCommision"] as? Bool ?? true
+                    myGameinfo.enableInterestRateCredit = each.value["enableInterestRateCredit"] as? Bool ?? false
+                    myGameinfo.enableInterestRateDebt = each.value["enableInterestRateDebt"] as? Bool ?? false
+                    myGameinfo.gamePassword = each.value["gamePassword"] as? String ?? ""
+                    myGameinfo.gamesInProgress = each.value["gamesInProgress"] as? [String] ?? [""]
+                    myGameinfo.gameStillActive = each.value["gameStillActive"] as? Bool ?? true
+                    myGameinfo.marginEnabled = each.value["marginEnabled"] as? Bool ?? false
+                    
+                    myGameinfo.numberOfPlayersInGame = each.value["numberOfPlayers"] as? String ?? ""
+                    myGameinfo.partialSharesEnabled = each.value["partialSharesEnabled"] as? Bool ?? false
+                    myGameinfo.playersInGameAndCash = each.value["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
+                    myGameinfo.playersInGameEmail = each.value["PlayersInGameEmail"] as? [String] ?? [""]
+                    myGameinfo.playersStocksAndAmount = each.value["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["test_com":[["Good":"0"]]]]
+                    myGameinfo.privateGame = each.value["privateGame"] as? Bool ?? false
+    
                     
                     self.gameInfo.append(myGameinfo)
                    

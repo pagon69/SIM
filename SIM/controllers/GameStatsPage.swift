@@ -15,6 +15,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
 
     //MARK: - globals
     var ref: DatabaseReference!
+    var refT = Database.database().reference()
     
     var createdGameDetials = "" //pass the current game details
     var gamesInProgress: [String] = [""]
@@ -26,6 +27,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     var userInput = ""
     var searchR: [Symbol]?
     var userSelected = ""
+    var playerInfo = [Player]()
     
     
     //overview IBactions and Outlets
@@ -192,7 +194,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             
            // print(passedData.percentComplete)
           //  print(passedData.gameDescription)
-            myTitle = "Game:  \(passedData.gameName)"
+            myTitle = "Game Name:  \(passedData.gameName)"
            // print("This is what was passed: \(passedData.gameName)")
 
         }
@@ -207,7 +209,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         //players in game table
         if tableView.tag == 6 {
-            count = myPlayersInfo.count
+            count = playerInfo.count
         }
         
         //search results
@@ -236,15 +238,10 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             
             let myCell = playersInGameTable.dequeueReusableCell(withIdentifier: "inGameDetailsCell", for: indexPath) as! inGameDetailsCell
             
-                myCell.fullName.text = myPlayersInfo[indexPath.row].fullName
+                myCell.fullName.text = playerInfo[indexPath.row].fullName
                 myCell.inGameRank.text = "\(getRankings())"
-                myCell.overAllGains.text = "5%" // need to work on this
-                myCell.userNetWorth.text = "120000"
-            
-                //getRankings()
-                //
-            
-                //figure out how to do ranking, download player Info and networth
+                myCell.overAllGains.text = "\(getoverAllGains())"  // need to work on this
+                myCell.userNetWorth.text = "\(getNetWorth(path: indexPath.row))"
             
                 return myCell
         }
@@ -294,6 +291,21 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
+    func getNetWorth(path: Int)->Double{
+        var netWorth = 0.0
+        var cash = 0.0
+        var stock = 0.0
+    
+        cash = Double(playerInfo[path].currentCash) ?? 0.0
+        stock = Double(playerInfo[path].currentStockValue) ?? 0.0
+        
+        netWorth = cash + stock
+        
+        return netWorth
+    }
+    
+    
+    
     func getRankings()-> Int{
         ref = Database.database().reference()
         var currentRank = 0
@@ -310,6 +322,16 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         return currentRank
         
+    }
+    
+    func getoverAllGains()-> Double{
+        var overAll = 0.0
+        
+        
+        
+        
+        
+        return overAll
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -332,20 +354,18 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         rankingOutlet.alpha = 0
         settingsOutlet.alpha = 0
         
+        findUsersInGame()
         getSymbols()
         getRankings()
         
         
     }
     
-    func pullUserData(){
-        ref = Database.database().reference()
-
-
-        let userEmail = Auth.auth().currentUser?.email ?? ""
+    func fixEmail(userEmail: String)-> String{
+        
         let changeChar = "_"
         var newString = ""
-     //   var usersGamesInProgress: [String]
+        //   var usersGamesInProgress: [String]
         
         for letter in userEmail{
             
@@ -356,6 +376,81 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             }
         }
         
+        return newString
+    }
+    
+    
+    func findUsersInGame(){
+        ref = Database.database().reference()
+        
+        for each in passedData.playersInGameEmail{
+            var aPlayer = Player()
+            var newString = fixEmail(userEmail: each)
+            
+            ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapshot) in
+                
+                if let pulledData = snapshot.value as? [String: Any]{
+                    aPlayer.buyPower = pulledData["buyPower"] as? String ?? "0"
+                    aPlayer.currentCash = pulledData["currentCash"] as? String ?? "0"
+                    aPlayer.currentGame = pulledData["currentGame"] as? String ?? "Test game Data"
+                    aPlayer.currentStockValue = pulledData["currentStockValue"] as? String ?? "0"
+                    aPlayer.firstName = pulledData["firstName"] as? String ?? ""
+                    aPlayer.fullName = pulledData["fullName"] as? String ?? ""
+                    aPlayer.gamesInProgress = pulledData["gamesInProgress"] as? [String] ?? [""]
+                    aPlayer.gamesPlayed = pulledData["gamesPlayed"] as? Int ?? 0
+                    aPlayer.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
+                    aPlayer.lastName = pulledData["lastName"] as? String ?? ""
+                    aPlayer.listOfStockAndQuantity = pulledData["listOfStockAndQuantity"] as? [String: Double] ?? [:]
+                    aPlayer.netWorth = pulledData["networth"] as? String ?? "0"
+                    aPlayer.numberOfTrades = pulledData["numberOfTrades"] as? String ?? "0"
+                    aPlayer.playerEmail = pulledData["playerEmail"] as? String ?? ""
+                    aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnpercentageAtGameEnd"] as? String ?? ""
+                    aPlayer.totalPlayerValue = pulledData["totalPlayerValue"] as? String ?? ""
+                    aPlayer.userNickName = pulledData["userNickName"] as? String ?? "0"
+                    aPlayer.watchListStocks = pulledData["watchListStocks"] as? [String] ?? [""]
+                    aPlayer.winningPercentage = pulledData["winningPercentage"] as? Double ?? 0.0
+                    
+                    self.playerInfo.append(aPlayer)
+                    
+                    self.labelUpdate()
+                    self.playersInGameTable.reloadData()
+                    
+                }
+                
+            }
+        
+        }
+        
+       // labelUpdate()
+       // playersInGameTable.reloadData()
+        
+    }
+    
+    func labelUpdate(){
+        
+        var email = Auth.auth().currentUser?.email ?? ""
+        
+        for each in playerInfo{
+            
+            if each.playerEmail == email{
+                playerNameOutlet.text = each.fullName
+                userNameOutlet.text = each.currentCash
+                userNetWorthOutlet.text = each.currentStockValue
+                userTotalReturnOutlet.text = each.stockReturnpercentageAtGameEnd
+                
+                
+            }
+            
+        }
+        
+        
+    }
+    
+    
+    func pullUserData(){
+        ref = Database.database().reference()
+
+        let newString = fixEmail(userEmail: Auth.auth().currentUser?.email ?? "")
         
         //found nil ?
         ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapshot) in
@@ -452,7 +547,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         print("what the view sees: \(passedData.gameName)")
         
         viewSetup()
-        pullUserData()
+       // pullUserData()
         registerCustomCell()
         
     }
