@@ -22,7 +22,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     var validGameName = false
     var validEndDate = false
     var validStartF = false
-    var finalValidationCheck = true
+    var finalValidationCheck = false
     
     //MARK: - outlets and actions
     @IBOutlet weak var navBarOutlet: UINavigationBar!
@@ -47,11 +47,12 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-    
-        if duplicateCheck(userProvidedName: nameCheckForFormating()){
+    //
+       // if duplicateCheck(userProvidedName: nameCheckForFormating()){
         
-            finalValidationCheck = true
-        }
+      //  finalValidationCheck = true
+      // }
+        
     }
     
     
@@ -90,6 +91,8 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     @IBAction func createGameClicked(_ sender: UIButton) {
        
         
+        if duplicateCheck(userProvidedName: gameNameOutlet.text ?? ""){
+        
         if finalValidationCheck{
             collectData()
             buildFBData()
@@ -97,6 +100,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
             errorMsg.text = "something went wrong"
        }
         
+        }
     }
     
 
@@ -329,7 +333,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
                     
                     //self.errorMsg.isHidden = false
                     //self.finalValidationCheck = false
-                    
+                    self.finalValidationCheck = !self.finalValidationCheck
                 }
       
             }
