@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class CreateGamePage: UIViewController {
+class CreateGamePage: UIViewController, UITextFieldDelegate {
 
     //MARK: - globals
     var ref: DatabaseReference!
@@ -22,6 +22,7 @@ class CreateGamePage: UIViewController {
     var validGameName = false
     var validEndDate = false
     var validStartF = false
+    var finalValidationCheck = true
     
     //MARK: - outlets and actions
     @IBOutlet weak var navBarOutlet: UINavigationBar!
@@ -34,10 +35,32 @@ class CreateGamePage: UIViewController {
     @IBOutlet weak var errorMsg: UILabel!
     
     
+    
+    
     @IBOutlet weak var marginSwitchOutlet: UISwitch!
     
     @IBOutlet weak var ShortSellMarginSwitchOutlet: UISwitch!
     
+    @IBAction func gameNameClicked(_ sender: UITextField) {
+ 
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    
+        if duplicateCheck(userProvidedName: nameCheckForFormating()){
+        
+            finalValidationCheck = true
+        }
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
     
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
@@ -66,11 +89,17 @@ class CreateGamePage: UIViewController {
     
     @IBAction func createGameClicked(_ sender: UIButton) {
        
-        collectData()
-        buildFBData()
+        
+        if finalValidationCheck{
+            collectData()
+            buildFBData()
+       }else{
+            errorMsg.text = "something went wrong"
+       }
         
     }
     
+
     //MARK: - for animations
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var gameDescView: UIView!
@@ -98,7 +127,35 @@ class CreateGamePage: UIViewController {
     func viewSetup(){
         
         errorMsg.isHidden = true
+        gameNameOutlet.delegate = self
+        
+        
+    }
     
+    
+    func nameCheckForFormating()-> String{
+        
+        let providedGameName = gameNameOutlet.text ?? ""
+        
+        let changeChar = "_"
+        var goodGameName = ""
+        
+        if providedGameName != "" {
+            
+            for letter in providedGameName{
+                
+                if letter == "$" || letter == "." || letter == "#" || letter == "[" || letter == "]"{
+                    goodGameName = goodGameName + String(changeChar)
+                }else {
+                    goodGameName = goodGameName + String(letter)
+                    
+                }
+                
+            }
+            
+        }
+        
+        return goodGameName
     }
     
     
@@ -180,7 +237,7 @@ class CreateGamePage: UIViewController {
             
             if !validGameName {
                 errorMsg.isHidden = false
-                errorMsg.text = "The follwoing characters are not allowed within game name ($%.)"
+                errorMsg.text = "The follwoing characters are not allowed - .,#,$,[,]"
                 
             } else if !validStartF{
                 errorMsg.isHidden = false
@@ -248,7 +305,45 @@ class CreateGamePage: UIViewController {
     }
     
     
+
+    
+    func duplicateCheck(userProvidedName: String)->Bool{
+    
+        ref = Database.database().reference()
+        
+        
+        //how to do a search for a specific item
+        //checks for duplicates
+        ref.child("gamesInProgressByGamename").queryOrdered(byChild: userProvidedName).observeSingleEvent(of: .value) { (snapshot) in
+            
+            let games = ""
+            if let data = snapshot.value as? [String: Any]{
+               
+                for each in data{
+                    
+                    if each.key == userProvidedName{
+                        self.errorMsg.text = "Game name: \(userProvidedName) already exist."
+                        self.errorMsg.isHidden = false
+                        self.finalValidationCheck = false
+                    }
+                    
+                    //self.errorMsg.isHidden = false
+                    //self.finalValidationCheck = false
+                    
+                }
+      
+            }
+            
+        }
+        
+        return self.finalValidationCheck
+    }
+    
+    
+    
     func validateUserProvidedData(){
+        
+        ref = Database.database().reference()
         
         //validates game Name
         var valid: Bool = false
@@ -270,10 +365,15 @@ class CreateGamePage: UIViewController {
                 }
                 
             }
+
+          //  validGameName = duplicateCheck(userProvidedName: goodGameName)
             
-            validGameName = true
-            passedInData.gameName = goodGameName
-            passedInData.gamesInProgress = [passedInData.gameName]
+          //  if validGameName {
+                validGameName = true
+                passedInData.gameName = goodGameName
+                passedInData.gamesInProgress = [passedInData.gameName]
+                
+          //  }
             
         }else{
             
