@@ -14,10 +14,10 @@ class UserGameSettings {
     
     var enableShortSelling = true
     var enableMarginSelling = true
-    var enableLimitOrders = true
-    var enableStopLoss = true
+    var enableLimitOrders = false
+    var enableStopLoss = false
     var enablePartialShares = false
-    var enableCoommision = true
+    var enableCoommision = false
     var defaultCommision = 3.25
     var enableInterestRateCredit = false
     var defaultIRC = 6.50

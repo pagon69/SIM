@@ -397,7 +397,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                     aPlayer.firstName = pulledData["firstName"] as? String ?? ""
                     aPlayer.fullName = pulledData["fullName"] as? String ?? ""
                     aPlayer.gamesInProgress = pulledData["gamesInProgress"] as? [String] ?? [""]
-                    aPlayer.gamesPlayed = pulledData["gamesPlayed"] as? Int ?? 0
+                    aPlayer.gamesPlayed = pulledData["gamesPlayed"] as? Double ?? 0.0
                     aPlayer.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
                     aPlayer.lastName = pulledData["lastName"] as? String ?? ""
                     aPlayer.listOfStockAndQuantity = pulledData["listOfStockAndQuantity"] as? [String: Double] ?? [:]

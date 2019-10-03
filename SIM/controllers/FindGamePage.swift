@@ -10,18 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-/*
-extension FindGame: reactToJoinButtonPush{
-    
-    func passInfoFromSelectedCell(currentIndex: Int) {
-        print("this is the current Index: \(currentIndex)")
-        
-    }
-
-}
-*/
-
-class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate, reactToJoinButtonPush {
+class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, reactToJoinButtonPush {
     
     func passInfoFromSelectedCell(currentIndex: Int) {
     
@@ -43,6 +32,10 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     var passedData = GamesInfo()
     var currentIndexPath = 0
     var numberOfGames = 0
+    var searchR = [""]
+    
+    //used for new search
+    var myGameNamesArray: [String] = [""]
     
     //MARK: - IB actions
     
@@ -81,12 +74,41 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     @IBOutlet weak var topViewOutlet: UIView!
     @IBOutlet weak var midViewOutlet: UIView!
     
+    //search sryff
+    func doSearch(searchV: String){
+        
+        let searchResults = myGameNamesArray.filter { (item) -> Bool in
+            //item.contains(searchV)
+            item.lowercased().contains(searchV)
+        }
+        //questionable bit of code here
+        self.searchR = searchResults
+        
+
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        searchBar.placeholder = "search for games to join!"
+        let userInput = searchBar.text?.lowercased() ?? ""
+        doSearch(searchV: userInput)
+    }
+    
     //table view info
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        passedData = gameInfo[indexPath.row]
+        performSegue(withIdentifier: "goToGameStats", sender: self)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var count = 0
         
         if(tableView.tag == 0){
+            
+            count = searchR.count
             
         }
         
@@ -120,9 +142,13 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       //  let cell = UITableView()
         
-        let cell = UITableViewCell()
+        var cell = UITableViewCell()
         
         if(tableView.tag == 0){
+            
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+            cell.textLabel?.text = searchR[indexPath.row]
+          //  cell.detailTextLabel?.text = searchR?[indexPath.row].name
             
         }
         
@@ -170,7 +196,7 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
             
             if let data = snapshot.value as? [String: Any]{
                 userProfielData.gamesInProgress = data["gamesInProgress"] as? [String] ?? ["Test game Data"]
-                userProfielData.gamesPlayed = data["gamesPlayed"] as? Int ?? 0
+                userProfielData.gamesPlayed = data["gamesPlayed"] as? Double ?? 0.0
                 
             }
   
@@ -211,7 +237,6 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     //joins user to the games DB
     func joinUserToGame(){
-        
         ref.child("gamesInProgressByGamename").child(gameInfo[currentIndexPath].gameName).observeSingleEvent(of: .value, with: { (snapshot) in
             
             let updatedGameInfo = GamesInfo()
@@ -429,14 +454,26 @@ class FindGamePage: UIViewController, UITableViewDataSource, UITableViewDelegate
                    
                     
                 }
-                
-                    self.gamestableViewOutlet.reloadData()
+                self.prepareForGameNameSearch(value: self.gameInfo)
+                self.gamestableViewOutlet.reloadData()
             }
         
         }
         
     }
     
+    
+    func prepareForGameNameSearch(value: [GamesInfo]){
+        
+        
+        
+        for each in value{
+            
+            myGameNamesArray.append(each.gameName)
+            
+        }
+        
+    }
     
     
     override func viewDidLoad() {

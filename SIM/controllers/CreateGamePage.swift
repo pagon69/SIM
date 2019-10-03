@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import SVProgressHUD
 
 class CreateGamePage: UIViewController, UITextFieldDelegate {
 
@@ -19,10 +20,12 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     var advancedSettingsUpdated = GamesInfo()
     var passedInData = GamesInfo()
     
+    var myDispatchGroup = DispatchGroup()
+    
     var validGameName = false
     var validEndDate = false
     var validStartF = false
-    var finalValidationCheck = false
+    var finalValidationCheck = true
     
     //MARK: - outlets and actions
     @IBOutlet weak var navBarOutlet: UINavigationBar!
@@ -90,17 +93,58 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     
     @IBAction func createGameClicked(_ sender: UIButton) {
        
+        SVProgressHUD.show()
+        ref = Database.database().reference()
         
-        if duplicateCheck(userProvidedName: gameNameOutlet.text ?? ""){
+        //how to do a search for a specific item
+        //checks for duplicates
+        //  myDispatchGroup.enter()
+        var userProvidedName = gameNameOutlet.text ?? ""
         
-        if finalValidationCheck{
-            collectData()
-            buildFBData()
-       }else{
-            errorMsg.text = "something went wrong"
-       }
-        
+        ref.child("gamesInProgressByGamename").queryOrdered(byChild: userProvidedName).observeSingleEvent(of: .value) { (snapshot) in
+            
+            let games = ""
+            if let data = snapshot.value as? [String: Any]{
+                
+                for each in data{
+                    
+                    if each.key == userProvidedName{
+                       // self.errorMsg.text = "Game name: \(userProvidedName) already exist."
+                       // self.errorMsg.isHidden = false
+                        self.finalValidationCheck = false
+                        break
+                    }else{
+                        self.finalValidationCheck = true
+                        
+                        
+                    }
+                    
+                    //self.errorMsg.isHidden = false
+                    //self.finalValidationCheck = false
+                        //should i make
+                  //  self.finalValidationCheck = !self.finalValidationCheck
+
+                }
+                
+            }
+            
+            if self.finalValidationCheck{
+                self.collectData()
+                self.buildFBData()
+            }else{
+                self.errorMsg.isHidden = false
+                self.errorMsg.text = "Game name: -- \(userProvidedName) --, already exist."
+            }
+            
+            SVProgressHUD.dismiss()
+            
         }
+        
+        //  myDispatchGroup.leave()
+       
+        //    myDispatchGroup.notify(queue: DispatchQueue.main) {
+ 
+        
     }
     
 
@@ -318,6 +362,8 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
         
         //how to do a search for a specific item
         //checks for duplicates
+      //  myDispatchGroup.enter()
+        
         ref.child("gamesInProgressByGamename").queryOrdered(byChild: userProvidedName).observeSingleEvent(of: .value) { (snapshot) in
             
             let games = ""
@@ -339,6 +385,8 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
             }
             
         }
+        
+      //  myDispatchGroup.leave()
         
         return self.finalValidationCheck
     }

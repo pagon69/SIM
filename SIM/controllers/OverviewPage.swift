@@ -235,6 +235,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             let cell = profileTableViewOutlet.dequeueReusableCell(withIdentifier: "quickStats", for: indexPath) as! quickStats
             
           //  print("this is what is in fullName: \(userData.fullName)")
+            
+            print("within cell creation, games won contains: _\(userData.gamesPlayed) _")
             cell.userName.text = userData.fullName
             cell.gamesWon.text = String(userData.gamesWon)
             cell.gamesPlayed.text = String(userData.gamesPlayed)
@@ -296,7 +298,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     func viewSetup() {
         
       //  profileLabel.text = "Welcome, \(String(describing: Auth.auth().currentUser?.email ?? ""))"
-        self.profileLabel.text = "Welcome, \(self.userData.fullName)"
+      //  self.profileLabel.text = "Welcome, \(self.userData.fullName)"
         
         aboutTableView.register(UINib(nibName: "gameDetailCell", bundle: nil), forCellReuseIdentifier: "gameDetailCell")
         
@@ -381,8 +383,12 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.userData.buyPower = pulleduserdata["buyPower"] as? String ?? ""
             self.userData.currentCash = pulleduserdata["currentCash"] as? String ?? ""
             self.userData.currentStockValue = pulleduserdata["currentStockValue"] as? String ?? ""
-            self.userData.gamesPlayed = pulleduserdata["gamesPlayed"] as? Int ?? 0
-            self.userData.gamesWon = pulleduserdata["gamesWon"] as? Double ?? 0.0
+            self.userData.gamesPlayed = Double(pulleduserdata["gamesPlayed"] as? String ?? "0") ?? 0.0
+            
+            self.userData.gamesWon = Double(pulleduserdata["gamesWon"] as? String ?? "0.0") ?? 0.0
+            
+            print("this is what i found in games Won: \(self.userData.gamesWon)")
+            
             self.userData.netWorth = pulleduserdata["netWorth"] as? String ?? ""
             self.userData.numberOfTrades = pulleduserdata["numberOfTrades"] as? String ?? ""
             self.userData.playerEmail = pulleduserdata["playerEmail"] as? String ?? ""
@@ -400,7 +406,6 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.userData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? ["Test game Data"]
             self.userData.watchListStocks = pulleduserdata["watchListStocks"] as? [String] ?? [""]
             
-            
             self.profileTableViewOutlet.reloadData()
             
             self.profileLabel.text = "Welcome, \(self.userData.fullName)"
@@ -410,6 +415,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             //remove observers after i finish my work
             // ref.child("userDataByEmail").removeAllObservers()
         }
+        
+            profileTableViewOutlet.reloadData()
     }
     
     
@@ -485,6 +492,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.profileTableViewOutlet.reloadData()
             
         }
+        
+        
     }
     
     

@@ -23,7 +23,7 @@ class Player {
     var buyPower = "0"
     var numberOfTrades = "0"
     var currentStockValue = "0"
-    var gamesPlayed = 0
+    var gamesPlayed = 0.0
     var gamesWon = 0.0
     var totalPlayerValue = "0"
     var stockReturnpercentageAtGameEnd = "0"

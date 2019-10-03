@@ -174,6 +174,9 @@ class ConfirmationPage: UITableViewController {
                 })
                     
                 
+            }else{
+                self.gamesPlayed = self.gamesPlayed + 1
+    
             }
         }
         
@@ -305,11 +308,14 @@ class ConfirmationPage: UITableViewController {
             
             var userData = pulleduserdata["gamesInProgress"] as? [String] ?? [""]
             
+            
             let currentgamesName = self.incomingGameData["gameName"] as! String
             
             userData.append(currentgamesName)
             
-            let updates = ["gamesInProgress":userData]
+            let updates = ["gamesInProgress":userData,
+                "gamesPlayed": self.gamesPlayed
+                ] as [String: Any]
             
             self.refT.child("userDataByEmail/\(userEmailAddress)").updateChildValues(updates){(Error,
                 

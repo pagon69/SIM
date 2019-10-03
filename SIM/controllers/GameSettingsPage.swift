@@ -16,6 +16,7 @@ class GameSettingsPage: UITableViewController {
     
     var userSelectedSettings: [String: Any] = [:]
     var ref: DatabaseReference!
+    var defaultSettings = UserGameSettings()
     
     //MARK: - outlets and ibactions
     
@@ -96,9 +97,29 @@ class GameSettingsPage: UITableViewController {
     
     func viewSetup(){
         
+        IRCOutlet.isOn = defaultSettings.enableInterestRateCredit
+        IRCTextOutlet.isHidden = defaultSettings.enableInterestRateCredit
+        IRCTextOutlet.text = "\(defaultSettings.defaultIRC)"
+        partailSharesOutlet.isOn = defaultSettings.enablePartialShares
+        IRDOutlet.isOn = defaultSettings.enableInterestRateDebit
+        IRDTextOutlet.isHidden = defaultSettings.enableInterestRateDebit
+        IRDTextOutlet.text = "\(defaultSettings.defaultIRD)"
+
+
+        stopLossOutlet.isOn = defaultSettings.enableStopLoss
+        limitOrdersOutlet.isOn = defaultSettings.enableLimitOrders
+        comissionSwitchOutlet.isOn = defaultSettings.enableCoommision
+        comissionTextOutlet.isHidden = defaultSettings.enableCoommision
+        comissionTextOutlet.text = "\(defaultSettings.defaultCommision)"
+       //privateGameOutlet.isOn = defaultSettings.
+         //deleteGameOutlet.isOn = defaultSettings.res
+        //resetOutlet.isOn = defaultSettings
+      //  gamePasswordOutlet.text = defaultSettings.
+        
+        /*
         IRCOutlet.isOn = (userSelectedSettings["enableInterestRateCredit"] != nil)
         IRCTextOutlet.isHidden = true
-        partailSharesOutlet.isOn = userSelectedSettings["enablePartialShares"] as! Bool
+        partailSharesOutlet.isOn = userSelectedSettings["enablePartialShares"] as? Bool ?? false
         IRDOutlet.isOn = (userSelectedSettings["enableInterestRateDebt"] != nil)
         IRDTextOutlet.isHidden = true
         stopLossOutlet.isOn = userSelectedSettings["enableStopLoss"] as! Bool
@@ -110,8 +131,13 @@ class GameSettingsPage: UITableViewController {
         resetOutlet.isOn = userSelectedSettings["resetToDefault"] as! Bool
         gamePasswordOutlet.text = "\(userSelectedSettings["gamePassword"] ?? "")"
 
-        
+        */
     }
+    
+    
+    
+    
+    
     
     func updateSettings(){
         
@@ -200,7 +226,7 @@ class GameSettingsPage: UITableViewController {
                     "endDate": pulledData["endDate"] as! String,
                     "numberOfPlayers": pulledData["numberOfPlayers"] as! String,
                     "daysRemaining": pulledData["daysRemaining"] as! String,
-                    "PlayersInGameEmail": pulledData["PlayersInGameEmail"] as! [String],
+                    "PlayersInGameEmail": pulledData["playersInGameEmail"] as? [String] ?? [""],
                     "startingFunds": pulledData["startingFunds"] as! String,
                     "shortSellingEnabled": pulledData["shortSellingEnabled"] as! Bool,
                     "marginSellingEnabled": pulledData["marginSellingEnabled"] as! Bool,
@@ -267,7 +293,14 @@ class GameSettingsPage: UITableViewController {
         //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        defaultSetup()
+        viewSetup()
+        /*
+            //: - save settings to phone
+            - use the tab bar item as a save
+            - save local or to FB
+            //: - update values
+        */
+       // defaultSetup()
         
     }
 
