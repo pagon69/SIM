@@ -10,12 +10,14 @@ import Foundation
 
 class GamesInfo {
     
+    var myDateFormatter = ISO8601DateFormatter()
+    
     var defaultCommission: String = "3.5"
     var enableCommission = false
     var gameDescription: String = "Enter a Game description and have fun!"
     var gameName: String = ""
     var marginEnabled: Bool = true
-    var endDate: String = "\(Date())"
+    var endDate: String = ""
     var partialSharesEnabled: Bool = false
     var numberOfPlayersInGame: String = "0"
     var playersInGameEmail: [String] = ["test@test.com"]
@@ -26,7 +28,7 @@ class GamesInfo {
     
     var shortSaleEnabled: Bool = true
     var startingFunds: String = "0"
-    var startDate: String = "\(Date())"
+    var startDate: String = ""
     var percentComplete: String = "0"
     var stopLossEnabled: Bool = true
     var daysRemaining = "-"

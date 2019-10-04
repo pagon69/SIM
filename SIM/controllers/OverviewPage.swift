@@ -27,7 +27,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     var playerSettings = GameSettings()
     var myGameInfoArray = [GamesInfo]()
     let ref = Database.database().reference()
-    
+    var myPercentComplete = ""
     var currentIndex = 0
     //search data
     var searchR: [Symbol]?
@@ -408,7 +408,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             
             self.profileTableViewOutlet.reloadData()
             
+            //do animation here
             self.profileLabel.text = "Welcome, \(self.userData.fullName)"
+            
+            self.quickAnimation()
             
             self.checkGames(listOfGames: self.userData.gamesInProgress)
             
@@ -417,6 +420,19 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         }
         
             profileTableViewOutlet.reloadData()
+    }
+    
+    
+    func quickAnimation(){
+        
+        profileLabel.isHidden = true
+        profileLabel.transform = CGAffineTransform(translationX: 375.0, y: 0)
+        
+        UIView.animate(withDuration: 3.0) {
+            self.profileLabel.isHidden = false
+            self.profileLabel.transform = CGAffineTransform(translationX: 0, y: 0)
+        }
+        
     }
     
     
@@ -513,6 +529,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                     
                     if let data = snapshot.value as? [String: Any] {
                         let myGameinfo = GamesInfo()
+                       //var startDate = Date()
+                       // var endDate = Date()
                         
                         myGameinfo.accountReset = data["accountReset"] as? Bool ?? false
                         myGameinfo.gamePassword = data["gamePassword"] as? String ?? ""
@@ -526,7 +544,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                         myGameinfo.enableInterestRateCredit = data["enableInterestRateCredit"] as? Bool ?? false
                         myGameinfo.enableInterestRateDebt = data["enableInterestRateDebt"] as? Bool ?? false
                         myGameinfo.enableLimitOrders = data["enableLimitOrders"] as? Bool ?? false
-                        myGameinfo.endDate = data["enddate"] as? String ?? ""
+                        myGameinfo.endDate = data["endDate"] as? String ?? ""
                         myGameinfo.gameDescription = data["gameDescription"] as? String ?? ""
                         myGameinfo.gameName = data["gameName"] as? String ?? ""
                         myGameinfo.gameStillActive = data["gameStillActive"] as? Bool ?? false
@@ -541,6 +559,22 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                         myGameinfo.stopLossEnabled = data["stopLossEnabled"] as? Bool ?? false
                         myGameinfo.playersInGameAndCash = data["playersInGameAndCash"] as? [[String: String]] ?? [[:]]
                         myGameinfo.playersStocksAndAmount = data["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["":[["":""]]]]
+                        
+                        
+                        //need to get the dates converted from string
+                       // let myDateFormator = DateFormatter()
+                        
+                        let myDateFormator = ISO8601DateFormatter()
+                        
+                        var daysRemaining = 0.0
+                        
+                        let startDate = myDateFormator.date(from: myGameinfo.startDate) ?? Date()
+                        let endDate = myDateFormator.date(from: myGameinfo.endDate) ?? Date()
+                    
+                        daysRemaining = self.findDaysRemaining(todaysDate: startDate, endDate: endDate)
+                        
+                        myGameinfo.daysRemaining = "\(daysRemaining)"
+                        myGameinfo.percentComplete = "\(self.myPercentComplete)"
                         
                         self.gameData.append(myGameinfo)
                         self.aboutTableView.reloadData()
@@ -571,6 +605,24 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         }
        // self.aboutTableView.reloadData()
         
+    }
+    
+    func findDaysRemaining(todaysDate: Date, endDate: Date) -> Double{
+        
+            var time = DateInterval(start: todaysDate, end: endDate)
+            
+            let oneDay = 86400.0
+            
+            let newValue = time.duration + 3600.0
+            //let days = newValue.truncatingRemainder(dividingBy: oneDay)
+        
+            var dayCount = (newValue / oneDay).rounded()
+            
+            let percentageComplete = oneDay / newValue * 100
+            
+            myPercentComplete = "\(percentageComplete.rounded())%"
+        
+        return dayCount
     }
     
     override func viewDidLoad() {

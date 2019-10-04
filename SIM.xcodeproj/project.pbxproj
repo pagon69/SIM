@@ -39,6 +39,7 @@
 		C173A8D322B1237A001A7F97 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D222B1237A001A7F97 /* Stock.swift */; };
 		C173A8D522B1250C001A7F97 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D422B1250C001A7F97 /* Player.swift */; };
 		C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C173A8D622B12D20001A7F97 /* SIMGame.swift */; };
+		C174743F23476ABE006C82AF /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C174743E23476ABE006C82AF /* Animation.swift */; };
 		C1784E5422E0AF4300A62B5C /* gameDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784E5222E0AF4300A62B5C /* gameDetailCell.swift */; };
 		C1784E5522E0AF4300A62B5C /* gameDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1784E5322E0AF4300A62B5C /* gameDetailCell.xib */; };
 		C1784E5A22E0B71600A62B5C /* profileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784E5822E0B71600A62B5C /* profileCell.swift */; };
@@ -108,6 +109,7 @@
 		C173A8D222B1237A001A7F97 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Stock.swift; path = SIM/controllers/Stock.swift; sourceTree = SOURCE_ROOT; };
 		C173A8D422B1250C001A7F97 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Player.swift; path = SIM/controllers/Player.swift; sourceTree = SOURCE_ROOT; };
 		C173A8D622B12D20001A7F97 /* SIMGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SIMGame.swift; path = SIM/controllers/SIMGame.swift; sourceTree = SOURCE_ROOT; };
+		C174743E23476ABE006C82AF /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		C1784E5222E0AF4300A62B5C /* gameDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameDetailCell.swift; sourceTree = "<group>"; };
 		C1784E5322E0AF4300A62B5C /* gameDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = gameDetailCell.xib; sourceTree = "<group>"; };
 		C1784E5822E0B71600A62B5C /* profileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileCell.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				C1BCCEC1229D772B00633D00 /* LaunchScreen.storyboard */,
 				C1BCCEBC229D772900633D00 /* Main.storyboard */,
+				C174743E23476ABE006C82AF /* Animation.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				C15CEF2322F0706D00F620B9 /* LoginPage.swift in Sources */,
 				C19B03DB22D65FD000DC0AA9 /* TradeWindow.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
+				C174743F23476ABE006C82AF /* Animation.swift in Sources */,
 				C15AC3E322F223F700BCBDAD /* CreateGamePage.swift in Sources */,
 				C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,

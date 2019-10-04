@@ -11,6 +11,7 @@ import FirebaseAuth
 //import Alamofire
 import GoogleSignIn
 import FBSDKLoginKit
+import SVProgressHUD
 
 
 class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
@@ -92,7 +93,8 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
     }
     
     //MARK: - IBActions
-   
+    @IBOutlet weak var signInErrorButtonOutlet: UIButton!
+    
     @IBOutlet weak var userprovidedEmail: UITextField!
     @IBOutlet weak var userProvidedPassword: UITextField!
     
@@ -115,8 +117,24 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
     }
     */
     
+    func errorAnimation(){
+        
+        //allows for multiple optiosn including repeat
+        UIView.animate(withDuration: 5.0, delay: 0, options: [.curveEaseIn], animations: {
+            self.signInErrorButtonOutlet.transform = CGAffineTransform(rotationAngle: -90.0)
+            
+            
+        }) { (results) in
+           // self.signInErrorButtonOutlet.transform = CGAffineTransform(rotationAngle: -60.0)
+        }
+        
+    }
+    
+    
     @IBAction func SignInButton(_ sender: UIButton) {
         //if the user types something into username and password
+        
+        SVProgressHUD.show()
         var validate = false
         
         if let username = userprovidedEmail.text, let psw = userProvidedPassword.text{
@@ -125,15 +143,20 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
                 errorMsgOutlet.text = "Invalidate password/Username combination"
                 errorMsgOutlet.textColor = UIColor.red
                 errorMsgOutlet.isHidden = false
+                SVProgressHUD.dismiss()
+                
             }else if psw == "" {
                 errorMsgOutlet.text = "Please enter a password"
                 errorMsgOutlet.textColor = UIColor.red
                 errorMsgOutlet.isHidden = false
+                SVProgressHUD.dismiss()
+                //errorAnimation()
                 
             }else if username == "" {
                 errorMsgOutlet.text = "please enter a validate email address"
                 errorMsgOutlet.textColor = UIColor.red
                 errorMsgOutlet.isHidden = false
+                SVProgressHUD.dismiss()
                 
             }else {
                 
@@ -156,9 +179,12 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
                             if error == nil{
       
                                 self.performSegue(withIdentifier: "goToOverviewPage", sender: self)
+                                SVProgressHUD.dismiss()
                                 
                             }else {
                                
+                                SVProgressHUD.dismiss()
+
                                 let cleanError = error.debugDescription
                             
                                 var newError :[Character] = []
@@ -294,8 +320,7 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
        // GoogleSignInOutlet.colorScheme = .light
         GoogleSignInOutlet.style = .wide
         
-       print("in main body this is a test \n\n\n\n\n\n /n/n/n/n/n\n\n\n")
-        
+   
         GIDSignIn.sharedInstance()?.presentingViewController = self
         //GIDSignIn.sharedInstance()?.signIn()
         

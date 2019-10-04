@@ -219,10 +219,14 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
             let oneDay = 86400.0
             
             let newValue = time.duration + 3600.0
-            let daysRemaining = newValue.truncatingRemainder(dividingBy: oneDay)
+         //   let daysRemaining = newValue.truncatingRemainder(dividingBy: oneDay)
             var dayCount = (newValue / oneDay).rounded()
       
+            var myDateFormator = ISO8601DateFormatter()
+            
             passedInData.daysRemaining = "\(Int(dayCount))"
+            passedInData.startDate = myDateFormator.string(from: todaysDate)
+            passedInData.endDate = myDateFormator.string(from: endDate)
             
             let percentageComplete = oneDay / newValue * 100
             
@@ -242,7 +246,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
             "defaultCommission":passedInData.defaultCommission,
             "enableCommission":passedInData.enableCommission,
             "gameDescription": passedInData.gameDescription,
-            "endDate":"\(passedInData.endDate)",
+            "endDate": passedInData.endDate,
             "numberOfPlayers":passedInData.numberOfPlayersInGame,
             "daysRemaining":"\(passedInData.daysRemaining)",
             
@@ -260,7 +264,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
                 "enableInterestRateDebit":passedInData.enableInterestRateDebt,
                 "defaultIRD":"\(passedInData.defaultIRD)"],
             "gameStillActive":passedInData.gameStillActive,
-            "startDate":"\(passedInData.startDate)",
+            "startDate": passedInData.startDate,
             "percentComplete":passedInData.percentComplete,
             "gamesInProgress":["Another One",
                                "Yet Another"],
@@ -308,11 +312,23 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     func collectData(){
         
         // collects date information
-        let myEndDate = Date(timeInterval: .init(), since: endDatePickerOutlet.date)
-        let todayDate = Date()
+        
+        let dateformator = ISO8601DateFormatter()
+      //  let myEndDate = Date(timeInterval: .init(), since: endDatePickerOutlet.date)
+      //  let todayDate = Date()
+        
+        let todayDate = dateformator.string(from: Date())
+        let myEndDate = dateformator.string(from: Date(timeInterval: .init(), since: endDatePickerOutlet.date))
+
+       // var hmm = dateformator.date(from: "\(Date())")
+      //  var hmm2 = dateformator.string(from: Date())
+  
+        passedInData.endDate = myEndDate
+        
         
        // buildFBData()
-        findDaysRemaining(todaysDate: todayDate, endDate: myEndDate)
+        findDaysRemaining(todaysDate: dateformator.date(from: todayDate) ?? Date(), endDate: dateformator.date(from: myEndDate) ?? Date())
+        
         validateStartingFunds()
         validateUserProvidedData()
         setupDefaultValues()
