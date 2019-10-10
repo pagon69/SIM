@@ -20,6 +20,8 @@
 		C13C6376230442C000BF1221 /* leaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C6374230442C000BF1221 /* leaderboardCell.swift */; };
 		C13C6377230442C000BF1221 /* leaderboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C13C6375230442C000BF1221 /* leaderboardCell.xib */; };
 		C1445E9C230C6FF900CECF0B /* ConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1445E9B230C6FF900CECF0B /* ConfirmationPage.swift */; };
+		C14ADE64234FAC21007C2501 /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ADE63234FAC21007C2501 /* Charts.swift */; };
+		C14ADE66234FAD1C007C2501 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14ADE65234FAD1C007C2501 /* ChartsView.swift */; };
 		C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3422D378510018E1F6 /* LoginScreen.swift */; };
 		C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C1C3622D3A4040018E1F6 /* Portfolio.swift */; };
 		C14D174222DC9ED800CE1B43 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14D174122DC9ED800CE1B43 /* GameSettings.swift */; };
@@ -92,6 +94,8 @@
 		C13C6374230442C000BF1221 /* leaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = leaderboardCell.swift; sourceTree = "<group>"; };
 		C13C6375230442C000BF1221 /* leaderboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = leaderboardCell.xib; sourceTree = "<group>"; };
 		C1445E9B230C6FF900CECF0B /* ConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPage.swift; sourceTree = "<group>"; };
+		C14ADE63234FAC21007C2501 /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Charts.swift; path = SIM/view/Charts.swift; sourceTree = SOURCE_ROOT; };
+		C14ADE65234FAD1C007C2501 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 		C14C1C3422D378510018E1F6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		C14C1C3622D3A4040018E1F6 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		C14D174122DC9ED800CE1B43 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 				C19F310F234E73C9004F8227 /* SellStockPage.swift */,
 				C19F310D234E7397004F8227 /* BuyStockPage.swift */,
 				C174743E23476ABE006C82AF /* Animation.swift */,
+				C14ADE65234FAD1C007C2501 /* ChartsView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				C19ADCAF22E9CEC50073F5E9 /* GamesInfo.swift */,
 				C11A1F162301B2750067FAFA /* UserGameSettings.swift */,
 				C1A89C2C2327E46500FAAB3F /* Symbol.swift */,
+				C14ADE63234FAC21007C2501 /* Charts.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 				C1445E9C230C6FF900CECF0B /* ConfirmationPage.swift in Sources */,
 				C11A1F172301B2750067FAFA /* UserGameSettings.swift in Sources */,
 				C193E5BE22D52636004E16DB /* SignUp.swift in Sources */,
+				C14ADE66234FAD1C007C2501 /* ChartsView.swift in Sources */,
 				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,
 				C10795D82322D76C00044254 /* FullDetailsPageViewC.swift in Sources */,
 				C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */,
@@ -520,6 +527,7 @@
 				C19ADCB022E9CEC50073F5E9 /* GamesInfo.swift in Sources */,
 				C19F3110234E73C9004F8227 /* SellStockPage.swift in Sources */,
 				C15CEF2322F0706D00F620B9 /* LoginPage.swift in Sources */,
+				C14ADE64234FAC21007C2501 /* Charts.swift in Sources */,
 				C19B03DB22D65FD000DC0AA9 /* TradeWindow.swift in Sources */,
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
 				C174743F23476ABE006C82AF /* Animation.swift in Sources */,
