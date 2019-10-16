@@ -510,5 +510,23 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    //slick save it it works
+    func saveDailyChanges(percentData: String, daysData: String, gameName: String){
+        
+        let updates = ["percentComplete": percentData,
+                       "daysRemaining": daysData
+            ] as [String: Any]
+        
+        self.ref.child("gamesInProgressByGamename/\(gameName)").updateChildValues(updates){(Error, ref) in
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+            }else{
+                print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+            }
+        }
+        
+    }
+    
 //end of class
 }

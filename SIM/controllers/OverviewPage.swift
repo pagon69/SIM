@@ -634,7 +634,6 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             }
         }
         
-        
     }
     
     func findDaysRemaining(todaysDate: Date, endDate: Date) -> Double{

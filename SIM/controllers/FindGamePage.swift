@@ -293,6 +293,11 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                     updatedGameInfo.numberOfPlayersInGame = String(Int(updatedGameInfo.numberOfPlayersInGame) ?? 0 + 1)
                     updatedGameInfo.playersInGameAndCash.append([fixedUserEmail:updatedGameInfo.startingFunds])
                     updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
+                   
+                    //save what was changed at this point, save the above data to the function and save to firebase
+                    //saveDailyChanges(percentData: String, daysData: <#T##String#>, gameName: <#T##String#>)
+                    
+                    
                 }
 
                 print("current items: \(updatedGameInfo.playersStocksAndAmount.count) items: \(updatedGameInfo.playersStocksAndAmount)")
@@ -487,6 +492,25 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
         }
         
     }
+    
+    
+    //slick save it it works
+    func saveDailyChanges(percentData: String, daysData: String, gameName: String){
+        
+        let updates = ["percentComplete": percentData,
+                       "daysRemaining": daysData
+            ] as [String: Any]
+        
+        self.ref.child("gamesInProgressByGamename/\(gameName)").updateChildValues(updates){(Error, ref) in
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+            }else{
+                print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+            }
+        }
+        
+    }
+    
     
     
     func prepareForGameNameSearch(value: [GamesInfo]){
