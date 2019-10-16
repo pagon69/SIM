@@ -32,6 +32,7 @@
 		C15AC3DF22F1F23E00BCBDAD /* OverviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3DE22F1F23E00BCBDAD /* OverviewPage.swift */; };
 		C15AC3E122F2234B00BCBDAD /* FindGamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */; };
 		C15AC3E322F223F700BCBDAD /* CreateGamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */; };
+		C15B2980235600C200C1F9BD /* TestCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15B297F235600C200C1F9BD /* TestCharts.swift */; };
 		C15CEF2322F0706D00F620B9 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15CEF2222F0706D00F620B9 /* LoginPage.swift */; };
 		C15F2876232FB28E000D62EC /* quickStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F2874232FB28E000D62EC /* quickStats.swift */; };
 		C15F2877232FB28E000D62EC /* quickStats.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15F2875232FB28E000D62EC /* quickStats.xib */; };
@@ -106,6 +107,7 @@
 		C15AC3DE22F1F23E00BCBDAD /* OverviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewPage.swift; sourceTree = "<group>"; };
 		C15AC3E022F2234B00BCBDAD /* FindGamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindGamePage.swift; sourceTree = "<group>"; };
 		C15AC3E222F223F700BCBDAD /* CreateGamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGamePage.swift; sourceTree = "<group>"; };
+		C15B297F235600C200C1F9BD /* TestCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCharts.swift; sourceTree = "<group>"; };
 		C15CEF2222F0706D00F620B9 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		C15F2874232FB28E000D62EC /* quickStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quickStats.swift; sourceTree = "<group>"; };
 		C15F2875232FB28E000D62EC /* quickStats.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = quickStats.xib; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				C19F310D234E7397004F8227 /* BuyStockPage.swift */,
 				C174743E23476ABE006C82AF /* Animation.swift */,
 				C14ADE65234FAD1C007C2501 /* ChartsView.swift */,
+				C15B297F235600C200C1F9BD /* TestCharts.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				C19E163922C15320004EE77B /* buyViewController.swift in Sources */,
 				C1784E5A22E0B71600A62B5C /* profileCell.swift in Sources */,
 				C15AC3E122F2234B00BCBDAD /* FindGamePage.swift in Sources */,
+				C15B2980235600C200C1F9BD /* TestCharts.swift in Sources */,
 				C1F0BF0A22CCEF1E0016FC17 /* PopUpViewController.swift in Sources */,
 				C16115D223268438000CAA89 /* ProfileSettingsPage.swift in Sources */,
 				C15F2876232FB28E000D62EC /* quickStats.swift in Sources */,

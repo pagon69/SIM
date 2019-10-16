@@ -19,6 +19,8 @@ class gameDetailCell: UITableViewCell{
     @IBOutlet weak var gamedescriptionLabel: UILabel!
     @IBOutlet weak var gameNameOutlet: UILabel!
     @IBOutlet weak var endDateOutlet: UILabel!
+    
+    @IBOutlet weak var endDateLabel: UILabel!
     @IBOutlet weak var numberOfPlayersOutlet: UILabel!
     @IBOutlet weak var percentCompleteOutlet: UILabel!
     @IBOutlet weak var joinButtonOutlet: UIButton!

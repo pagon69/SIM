@@ -181,11 +181,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         FirebaseApp.configure()
         
-        // comment out the following 3 lines
+        /* comment out the following 3 lines
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = ChartsView(collectionViewLayout: UICollectionViewFlowLayout())
-        //
+        */
         
         
         //database information

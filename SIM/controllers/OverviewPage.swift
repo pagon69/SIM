@@ -279,6 +279,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                 cell.numberOfPlayersOutlet.text = gameData[indexPath.row].numberOfPlayersInGame
                 cell.percentCompleteOutlet.text = gameData[indexPath.row].percentComplete
                 cell.joinButtonOutlet.setTitle("Continue", for: .normal)
+                cell.endDateLabel.text = "Days Remaining"
             
             //needed for protocol
                 cell.cellDelegate = self
@@ -567,14 +568,33 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                         let myDateFormator = ISO8601DateFormatter()
                         
                         var daysRemaining = 0.0
+                        var diffDaysRemaining = 0.0
                         
                         let startDate = myDateFormator.date(from: myGameinfo.startDate) ?? Date()
                         let endDate = myDateFormator.date(from: myGameinfo.endDate) ?? Date()
-                    
+                        let currentDate = myDateFormator.date(from: "\(Date())") ?? Date()
+                        
+                        if (startDate.description == currentDate.description){
+                            //nothign to do if they are the same
+                            print(startDate)
+                            print(currentDate)
+                            
+                        }else{
+                            
+                            diffDaysRemaining = self.findDaysRemaining(todaysDate: startDate, endDate: currentDate)
+                            //myPercentComplete
+                        }
+                        
                         daysRemaining = self.findDaysRemaining(todaysDate: startDate, endDate: endDate)
                         
-                        myGameinfo.daysRemaining = "\(daysRemaining)"
-                        myGameinfo.percentComplete = "\(self.myPercentComplete)"
+                     //   print("this is what i have: \(daysRemaining - diffDaysRemaining)")
+                        
+                        
+                        myGameinfo.daysRemaining = "\(daysRemaining - diffDaysRemaining)"
+ 
+                        myGameinfo.percentComplete = "\((diffDaysRemaining / daysRemaining * 100).rounded())"
+                       
+                        self.saveDailyChanges(percentData: "\(myGameinfo.percentComplete)", daysData: "\(myGameinfo.daysRemaining)", gameName: each)
                         
                         self.gameData.append(myGameinfo)
                         self.aboutTableView.reloadData()
@@ -584,10 +604,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                     print("Nothing found")
                 //save the created game name to the firebase database
                     }
-                
-               // print("I just put this into myGameInfo: \(self.myGameinfo.gameName)")
-               // print("I currently have the following amount of items: \(self.gameData.count)")
-                    
+
                     self.aboutTableView.reloadData()
                 
                     for each in self.gameData{
@@ -595,34 +612,55 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                     }
                     
                 }
-                
                // self.aboutTableView.reloadData()
-                
             }
-            
           //  self.aboutTableView.reloadData()
-            
         }
        // self.aboutTableView.reloadData()
+    }
+    
+    //slick save it it works
+    func saveDailyChanges(percentData: String, daysData: String, gameName: String){
+        
+        let updates = ["percentComplete": percentData,
+                       "daysRemaining": daysData
+            ] as [String: Any]
+        
+        self.ref.child("gamesInProgressByGamename/\(gameName)").updateChildValues(updates){(Error, ref) in
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+            }else{
+                print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+            }
+        }
+        
         
     }
     
     func findDaysRemaining(todaysDate: Date, endDate: Date) -> Double{
         
-            var time = DateInterval(start: todaysDate, end: endDate)
+        if endDate <= todaysDate {
+            return 0
             
+        }else {
+        
+            var time = DateInterval(start: todaysDate, end: endDate)
+        
             let oneDay = 86400.0
             
             let newValue = time.duration + 3600.0
             //let days = newValue.truncatingRemainder(dividingBy: oneDay)
         
-            var dayCount = (newValue / oneDay).rounded()
+            let dayCount = (newValue / oneDay).rounded()
             
+            //one day is worth the currentValue of percentComplete
             let percentageComplete = oneDay / newValue * 100
             
             myPercentComplete = "\(percentageComplete.rounded())%"
         
         return dayCount
+        }
+    
     }
     
     override func viewDidLoad() {

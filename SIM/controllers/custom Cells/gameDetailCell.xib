@@ -152,6 +152,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="dataStackViewoutlet" destination="hE5-zO-fvG" id="02w-lW-teR"/>
+                <outlet property="endDateLabel" destination="lc7-0T-36C" id="Qiy-7G-5CF"/>
                 <outlet property="endDateOutlet" destination="qqK-gd-qLy" id="JAC-jd-jeU"/>
                 <outlet property="gameNameOutlet" destination="bgS-X3-FFQ" id="1uk-cX-1nn"/>
                 <outlet property="gamedescriptionLabel" destination="uWk-Ll-P5T" id="tHo-Z8-DHT"/>

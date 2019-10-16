@@ -156,12 +156,16 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
         if(tableView.tag == 1){
             let cell = gamestableViewOutlet.dequeueReusableCell(withIdentifier: "gameDetailCell", for: indexPath) as! gameDetailCell
         
+            var edittedEndDate = (gameInfo[indexPath.row].endDate).split(separator: "T")
+            //print(test)
+            
             cell.gameNameOutlet?.text = gameInfo[indexPath.row].gameName
-            cell.endDateOutlet?.text = gameInfo[indexPath.row].endDate
+            cell.endDateOutlet?.text = "\(edittedEndDate[0])"
             cell.gamedescriptionLabel?.text = gameInfo[indexPath.row].gameDescription
             cell.numberOfPlayersOutlet.text = gameInfo[indexPath.row].numberOfPlayersInGame
             cell.percentCompleteOutlet.text = gameInfo[indexPath.row].percentComplete
             cell.joinButtonOutlet.setTitle("Join", for: .normal)
+            cell.endDateLabel.text = "End Date "
             
             //needed for protocol
             cell.cellDelegate = self
@@ -397,7 +401,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
         
         var randomNumber: UInt
         
-        if numberOfGames > 20 {
+        if numberOfGames > 30 {
             randomNumber = UInt(arc4random_uniform(UInt32(numberOfGames)))
         }else {
             randomNumber = UInt(numberOfGames)
@@ -421,7 +425,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 
                 for each in data{
                     let myGameinfo = GamesInfo()
-
+        
                     myGameinfo.gameName = each.value["gameName"] as? String ?? ""
                     myGameinfo.gameDescription = each.value["gameDescription"] as? String ?? ""
                     myGameinfo.endDate = each.value["endDate"] as? String ?? ""
@@ -449,8 +453,30 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                     myGameinfo.playersStocksAndAmount = each.value["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["test_com":[["Good":"0"]]]]
                     myGameinfo.privateGame = each.value["privateGame"] as? Bool ?? false
     
+                    //check if user is within the game
+                   // var index = 0
+                    var found =  true
                     
-                    self.gameInfo.append(myGameinfo)
+                    for playersInGameEmail in myGameinfo.playersInGameEmail{
+                        let currentPlayer = self.fixEmail()
+
+                        if playersInGameEmail == currentPlayer{
+                            
+                            found = true
+                            break
+                        }else{
+                            found = false
+                        }
+                        
+                    }
+                    
+                    if found {
+                        
+                    }else{
+                        self.gameInfo.append(myGameinfo)
+                    }
+                    
+                    
                    
                     
                 }
