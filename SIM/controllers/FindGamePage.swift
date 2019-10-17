@@ -14,14 +14,16 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
     
     func passInfoFromSelectedCell(currentIndex: Int) {
     
-        passedData = gameInfo[currentIndex]
+        
         //joins the user to the games DB
         joinUserToGame()
         
         //joins the user to the users profile DB
         updateUserProfile()
         
-        performSegue(withIdentifier: "goToGameStats", sender: self)
+      //  passedData = gameInfo[currentIndex]
+
+      //  performSegue(withIdentifier: "goToGameStats", sender: self)
         
     }
     
@@ -148,7 +150,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
             
             cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
             cell.textLabel?.text = searchR[indexPath.row]
-          //  cell.detailTextLabel?.text = searchR?[indexPath.row].name
+           // cell.detailTextLabel?.text = searchR[indexPath.row]
             
         }
         
@@ -200,41 +202,62 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
             
             if let data = snapshot.value as? [String: Any]{
                 userProfielData.gamesInProgress = data["gamesInProgress"] as? [String] ?? ["Test game Data"]
-                userProfielData.gamesPlayed = data["gamesPlayed"] as? Double ?? 0.0
+                userProfielData.gamesPlayed = Double(data["gamesPlayed"] as? String ?? "0.0") ?? 0.0
+                userProfielData.gamesWon = data["gamesWon"] as? Double ?? 0.0
+                userProfielData.numberOfTrades = data["numberOfTrades"] as? String ?? "0"
+                userProfielData.winningPercentage = data["winningPercentage"] as? Double ?? 0.0
+                userProfielData.stockReturnpercentageAtGameEnd = data["stockReturnsPercentageAtGameEnd"] as? String ?? "0%"
                 
             }
   
             //updating values
             if userProfielData.gamesInProgress.contains(self.passedData.gameName){
             
+                //should never go off because i removed games the player is a part of
             }else{
-                userProfielData.gamesPlayed = userProfielData.gamesPlayed + 1
+                
+                userProfielData.gamesPlayed = userProfielData.gamesPlayed + 1.0
                 userProfielData.gamesInProgress.append(self.passedData.gameName)
+                userProfielData.currentGame = self.passedData.gameName
             }
             
             //below updates
             let updates = [
                 "gamesInProgress": userProfielData.gamesInProgress,
-                "gamesPlayed": String(userProfielData.gamesPlayed)
+                "gamesPlayed": String(userProfielData.gamesPlayed),
             
             ] as [String : Any]
             
             
-            self.ref.child("userDataByEmail").child(self.fixEmail()).updateChildValues(updates){(error, ref) in
+            self.makeFirebaseUpdates(path: "userDataByEmail/\(self.fixEmail())", myUpdates: updates)
+            
+            /*
+            self.ref.child("userDataByEmail/\(self.fixEmail())").updateChildValues(updates){(error, ref) in
                 
                 if let err = error {
                     print("An error happened:\(err)")
                 }else {
                     // self.updateUserProfile()
-                    print("updates made successfully!")
+                    print("updates made successfully!: /n/n/n\n\n \(updates) added to Firebase /n/n/n\n\n\n")
                 }
             }
+            */
             
             
         }
         
+    }
+    
+    
+    func makeFirebaseUpdates(path: String, myUpdates: [String: Any]){
         
-        
+        self.ref.child(path).updateChildValues(myUpdates){(Error, ref) in
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+            }else{
+                print("The following: /n\n \(myUpdates) added successfully /n/n/n\n\n\n")
+            }
+        }
         
     }
     
@@ -279,10 +302,6 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 
                 updatedGameInfo.playersInGameAndCash = data["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
                 
-                //updating and adding users
-               // updatedGameInfo.playersInGameEmail.append(Auth.auth().currentUser?.email ?? "")
-               // var usersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? ["test"]
-                
                 let fixedUserEmail = self.fixEmail()
                 
                 if updatedGameInfo.playersInGameEmail.contains(fixedUserEmail){
@@ -290,20 +309,31 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                     //string exist nothing to do
                 }else{
                     updatedGameInfo.playersInGameEmail.append(self.fixEmail())
-                    updatedGameInfo.numberOfPlayersInGame = String(Int(updatedGameInfo.numberOfPlayersInGame) ?? 0 + 1)
+                    
+                    //print(Int(updatedGameInfo.numberOfPlayersInGame) ?? 0)
+                   // print((Int(updatedGameInfo.numberOfPlayersInGame) ?? 0) + 1)
+                    
+                    updatedGameInfo.numberOfPlayersInGame = String((Int(updatedGameInfo.numberOfPlayersInGame) ?? 0) + 1)
                     updatedGameInfo.playersInGameAndCash.append([fixedUserEmail:updatedGameInfo.startingFunds])
                     updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
                    
                     //save what was changed at this point, save the above data to the function and save to firebase
                     //saveDailyChanges(percentData: String, daysData: <#T##String#>, gameName: <#T##String#>)
                     
+                    //should i remove the below
+                    
+                    self.passedData = updatedGameInfo
+                    self.performSegue(withIdentifier: "goToGameStats", sender: self)
+                    
+                    self.makeUpdates(gameDetails: updatedGameInfo)
                     
                 }
 
-                print("current items: \(updatedGameInfo.playersStocksAndAmount.count) items: \(updatedGameInfo.playersStocksAndAmount)")
+              //  print("current items: \(updatedGameInfo.playersStocksAndAmount.count) items: \(updatedGameInfo.playersStocksAndAmount)")
                 
                // updatedGameInfo.playersStocksAndAmount.append(<#T##newElement: [String : [[String : String]]]##[String : [[String : String]]]#>)
     
+                /*
                 let updates = [
                     "gameName": updatedGameInfo.gameName,
                     "defaultCommission":updatedGameInfo.defaultCommission,
@@ -346,6 +376,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                         print("updates made successfully!")
                     }
                 }
+                */
         
             }
             
@@ -356,6 +387,32 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
     
     }
 
+    func makeUpdates(gameDetails: GamesInfo){
+        
+       // print(gameDetails.numberOfPlayersInGame)
+        //print(gameDetails.)
+        
+        let updates = [
+        
+            "numberOfPlayers":gameDetails.numberOfPlayersInGame,
+            "gamesInProgress":gameDetails.gamesInProgress,
+            "PlayersInGameEmail":gameDetails.playersInGameEmail,
+            "playersInGameAndCash": gameDetails.playersInGameAndCash,
+            "playersStocksAndAmount": gameDetails.playersStocksAndAmount,
+            
+            ] as [String : Any]
+        
+        self.ref.child("gamesInProgressByGamename/\(gameDetails.gameName)").updateChildValues(updates){(Error, ref) in
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+            }else{
+                print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+            }
+        }
+        
+    }
+    
+    
     //remove special character from email
     func fixEmail()-> String{
     
@@ -390,7 +447,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 number = Int(data["currentActiveGames"] ?? "0") ?? 0
                 
                 self.numberOfGames = number
-                self.NumberGamesLabelOutlet.text = "\(number)"
+                self.NumberGamesLabelOutlet.text = "Games Being played: \(number)"
                 self.updateGameInfo()
             }
             

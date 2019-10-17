@@ -12,6 +12,7 @@ class Player {
     
     //displayname = usernickName may need to change this
     var userNickName = ""
+    var startingFunds = 0.0
     var firstName = ""
     var lastName = ""
     var playerEmail = ""

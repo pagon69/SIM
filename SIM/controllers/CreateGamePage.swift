@@ -37,9 +37,6 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var errorMsg: UILabel!
     
-    
-    
-    
     @IBOutlet weak var marginSwitchOutlet: UISwitch!
     
     @IBOutlet weak var ShortSellMarginSwitchOutlet: UISwitch!
@@ -50,11 +47,6 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-    //
-       // if duplicateCheck(userProvidedName: nameCheckForFormating()){
-        
-      //  finalValidationCheck = true
-      // }
         
     }
     
@@ -99,7 +91,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
         //how to do a search for a specific item
         //checks for duplicates
         //  myDispatchGroup.enter()
-        var userProvidedName = gameNameOutlet.text ?? ""
+        let userProvidedName = gameNameOutlet.text ?? ""
         
         ref.child("gamesInProgressByGamename").queryOrdered(byChild: userProvidedName).observeSingleEvent(of: .value) { (snapshot) in
             
@@ -240,6 +232,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     func buildFBObject(){
         
         let newString = fixEmail()
+        let currentPlayer = Player()
         
         let userProfileDataTwo = [
             "gameName": passedInData.gameName,
@@ -275,6 +268,28 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
             "playersInGameAndCash": [[newString:passedInData.startingFunds]],
             "playersStocksAndAmount": [[newString:[["test":"0"]]]],
             
+            //adding code for player details
+            "playersAndInfo":["\(self.fixEmail())": ["firstName": currentPlayer.firstName,
+                                                     "lastName": currentPlayer.lastName,
+                                                     "fullName": currentPlayer.fullName,
+                                                     "startingFunds": passedInData.startingFunds,
+                                                     "userNickName": currentPlayer.userNickName,
+                                                     "currentCash": currentPlayer.currentCash,
+                                                     "netWorth": currentPlayer.netWorth,
+                                                     "buyPower": currentPlayer.buyPower,
+                                                     "currentStockValue": currentPlayer.currentStockValue,
+                                                     "playerEmail":"\(self.fixEmail())",
+                                                     "listOfStockAndQuantity": currentPlayer.listOfStockAndQuantity,
+                                                     "numberOfTrades": currentPlayer.numberOfTrades,
+                                                     "gamesPlayed": currentPlayer.gamesPlayed,
+                                                     "gamesWon":currentPlayer.gamesWon,
+                                                     "totalPlayerValue": currentPlayer.totalPlayerValue,
+                                                     "stockReturnpercentageAtGameEnd": currentPlayer.stockReturnpercentageAtGameEnd,
+                                                     "watchListStock": currentPlayer.watchListStocks,
+                                                     "winningPercentage": currentPlayer.winningPercentage
+                                                        ]]
+                
+            //edit the above for users info within game
             
             ] as [String : Any]
         

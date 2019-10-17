@@ -4871,18 +4871,19 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="WT5-YJ-xpx"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsv-Ow-sth" userLabel="bannerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-MH-cBa">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconTest" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-MH-cBa">
                                                         <rect key="frame" x="160" y="0.0" width="55" height="55"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="55" id="u75-8k-yY6"/>
                                                             <constraint firstAttribute="width" constant="55" id="uTk-Bc-qS7"/>
+                                                            <constraint firstAttribute="width" secondItem="WTT-MH-cBa" secondAttribute="height" multiplier="1:1" id="uh2-ev-kuo"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
@@ -4901,7 +4902,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HZo-zz-Esk" userLabel="heads View">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Huh" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VX2-Lo-0Uf">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gains / Loss" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VX2-Lo-0Uf">
                                                                 <rect key="frame" x="255" y="0.0" width="120" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="cgM-34-N5m"/>
@@ -4931,7 +4932,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" red="0.4549019608" green="0.82745098039999998" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="kUd-Un-sbD" firstAttribute="top" secondItem="HZo-zz-Esk" secondAttribute="top" id="3Or-RU-5ke"/>
                                                             <constraint firstItem="GaR-f5-3Jh" firstAttribute="top" secondItem="HZo-zz-Esk" secondAttribute="top" id="95a-ZG-6gw"/>
@@ -6289,7 +6290,7 @@
                                                                 <rect key="frame" x="0.0" y="128" width="355" height="32"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXQ-fq-3X3">
-                                                                        <rect key="frame" x="325" y="0.0" width="30" height="32"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="335" height="32"/>
                                                                         <color key="backgroundColor" red="0.1845753916" green="1" blue="0.1705975062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <state key="normal" title="&gt;&gt;"/>
                                                                         <connections>
@@ -8342,7 +8343,7 @@
         <segue reference="rfD-Wi-fGJ"/>
         <segue reference="Wvb-Dq-GgB"/>
         <segue reference="T2c-Ao-f6i"/>
-        <segue reference="fHk-3Z-Xgt"/>
+        <segue reference="rrH-gY-ghf"/>
         <segue reference="hqA-Ih-mwe"/>
     </inferredMetricsTieBreakers>
 </document>

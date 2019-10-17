@@ -21,6 +21,8 @@ class ConfirmationPage: UITableViewController {
     var gamesPlayed = 0
     var gameDetails = GamesInfo()
     var playersInGameEmail = [String]()
+    var currentPlayersInfo = Player()
+    var myCurrentPlayersInfo = [Player]()
     
     //IB actions and more
     
@@ -61,13 +63,31 @@ class ConfirmationPage: UITableViewController {
         return newString
     }
     
-
+    func pullUserDetails(){
+        
+        let playerInfo = incomingGameData[""]
+        
+        refT.child("userDataByEmail").child(self.fixEmail()).observeSingleEvent(of: .value) { (snapShot) in
+            
+            let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
+                
+            //currentPlayersInfo =
+            
+            // print(pulleduserdata)
+        }
+        
+        
+    }
+    
+    
     func viewSetup(){
 
         let newString = fixEmail()
+        
+       // pullUserDetails()
         buildObject()
         
-        
+        //used to setup the various sliders ad enable or disable stuff
         gameNameOutlet.text = gameDetails.gameName
         gameDescOutlet.text = gameDetails.gameDescription
         enddateOutlet.text = gameDetails.endDate
@@ -130,6 +150,11 @@ class ConfirmationPage: UITableViewController {
         gameDetails.startingFunds = incomingGameData["startingFunds"] as? String ?? "0"
         gameDetails.stopLossEnabled = incomingGameData["enableStopLoss"] as? Bool ?? false
         
+        //latest parts
+       // gameDetails.
+        collectUserDataByEmail(edittedEmailAddress: fixEmail())
+        
+        
     }
     
     
@@ -142,6 +167,27 @@ class ConfirmationPage: UITableViewController {
             
             let pulleduserdata = snapShot.value as? [String: Any] ?? [:]
             // print(pulleduserdata)
+            
+            self.currentPlayersInfo.buyPower = pulleduserdata["buyPower"] as? String ?? "0"
+            self.currentPlayersInfo.currentCash = pulleduserdata["currentCash"] as? String ?? "0"
+            self.currentPlayersInfo.currentStockValue = pulleduserdata["currentStockValue"] as? String ?? "0"
+            self.currentPlayersInfo.firstName = pulleduserdata["firstName"] as? String ?? "0"
+            self.currentPlayersInfo.fullName = pulleduserdata["fullName"] as? String ?? "0"
+            self.currentPlayersInfo.gamesPlayed = pulleduserdata["gamesPlayed"] as? Double ?? 0.0
+            self.currentPlayersInfo.gamesWon = pulleduserdata["gamesWon"] as? Double ?? 0.0
+            self.currentPlayersInfo.lastName = pulleduserdata["lastName"] as? String ?? "0"
+            self.currentPlayersInfo.listOfStockAndQuantity = pulleduserdata["listOfStockAndQuantity"] as? [String: Double] ?? [:]
+            self.currentPlayersInfo.netWorth = pulleduserdata["netWorth"] as? String ?? "0"
+            self.currentPlayersInfo.numberOfTrades = pulleduserdata["numberOfTrades"] as? String ?? "0"
+            self.currentPlayersInfo.playerEmail = pulleduserdata["playerEmail"] as? String ?? "0"
+            self.currentPlayersInfo.startingFunds = pulleduserdata["startingFunds"] as? Double ?? 0.0
+            self.currentPlayersInfo.stockReturnpercentageAtGameEnd = pulleduserdata["stockReturnPercentageAtGameEnd"] as? String ?? "0"
+            self.currentPlayersInfo.totalPlayerValue = pulleduserdata["totalPlayerValue"] as? String ?? "0"
+            self.currentPlayersInfo.userNickName = pulleduserdata["userNickName"] as? String ?? "0"
+            self.currentPlayersInfo.watchListStocks = pulleduserdata["watchListStocks"] as? [String] ?? [""]
+            self.currentPlayersInfo.winningPercentage = pulleduserdata["winningPercentage"] as? Double ?? 0.0
+            
+            self.myCurrentPlayersInfo.append(self.currentPlayersInfo)
             
             self.gamesPlayed = pulleduserdata["gamesPlayed"] as? Int ?? 0
             
@@ -242,7 +288,11 @@ class ConfirmationPage: UITableViewController {
             "playersInGameAndCash": gameDetails.playersInGameAndCash,
             "playersInGameEmail": gameDetails.playersInGameEmail,
             "playersStocksAndAmount":gameDetails.playersStocksAndAmount,
-            "startDate": gameDetails.startDate
+            "startDate": gameDetails.startDate,
+            
+            //can i do the below are do i have to retype everything?
+            
+            "playerAndInfo": [self.myCurrentPlayersInfo]
             
             ] as [String : Any]
         

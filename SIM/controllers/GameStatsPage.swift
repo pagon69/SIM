@@ -28,6 +28,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     var searchR: [Symbol]?
     var userSelected = ""
     var playerInfo = [Player]()
+    var playersInCurrentGame = [Player]()
     
     
     //overview IBactions and Outlets
@@ -94,11 +95,9 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
-    
+    //takes user input, makes it lower cased then does a search against the list of stock
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //checks for changes to text
-       // print("within TextDidChange: \(searchBar.text?.lowercased() ?? "")")
-        
+    
         userInput = searchBar.text?.lowercased() ?? ""
         doSearch(searchV: userInput)
         searchBar.placeholder = "Enter stock symbol or company name"
@@ -145,11 +144,13 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
+    //searches the array of stock symbols
     func doSearch(searchV: String){
         
         let searchResults = forSymbolsSearch.filter { (item) -> Bool in
             
             item.symbol.lowercased().contains(searchV)
+            
         }
         
         self.searchR = searchResults
@@ -305,7 +306,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     }
     
     
-    
+    //how do i get the users rank? cash over what?
     func getRankings()-> Int{
         ref = Database.database().reference()
         var currentRank = 0
@@ -354,12 +355,73 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         rankingOutlet.alpha = 0
         settingsOutlet.alpha = 0
         
-        findUsersInGame()
+        //uncomment findusersingame to continue
+        //findUsersInGame()
+        setupUsersWithInGame()
+        
         getSymbols()
         getRankings()
         
         
     }
+    
+    func setupUsersWithInGame(){
+        
+        //for each user within player Email create a player object
+        /*
+        passedData.gamesInProgress
+        passedData.playersInGameAndCash
+        passedData.playersInGameEmail
+        passedData.playersStocksAndAmount
+        passedData.startingFunds
+         */
+ 
+ 
+        for each in passedData.playersInGameEmail{
+            var currentPlayer = Player()
+
+            currentPlayer.playerEmail = each
+            currentPlayer.startingFunds = Double(passedData.startingFunds) ?? 0.0
+            
+            for item in passedData.playersInGameAndCash{
+                
+                
+            }
+
+            for items in passedData.playersStocksAndAmount{
+                
+                
+            }
+
+            /*
+            currentPlayer.buyPower
+            currentPlayer.currentCash = passedData.startingFunds
+            currentPlayer.currentStockValue
+            currentPlayer.gamesPlayed
+            currentPlayer.gamesWon
+            currentPlayer.winningPercentage
+            currentPlayer.watchListStocks
+            currentPlayer.userNickName
+            currentPlayer.totalPlayerValue
+            currentPlayer.stockReturnpercentageAtGameEnd
+            currentPlayer.netWorth
+            currentPlayer.numberOfTrades
+            currentPlayer.fullName
+            currentPlayer.lastName
+            currentPlayer.firstName =
+            currentPlayer.listOfStockAndQuantity
+            currentPlayer.playerEmail
+            currentPlayer.winningPercentage
+           
+            */
+            
+            
+            
+        }
+        
+        
+    }
+    
     
     func fixEmail(userEmail: String)-> String{
         

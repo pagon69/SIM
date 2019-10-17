@@ -43,6 +43,7 @@ class GamesInfo {
     var accountReset = false
     var gamePassword = "defaultPSW"
     var resetTodefault = false
+    var playerInfo = [Player]()
     
     
     func daysRemainingCalulation()-> Int{
