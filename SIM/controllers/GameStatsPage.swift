@@ -356,8 +356,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         settingsOutlet.alpha = 0
         
         //uncomment findusersingame to continue
-        //findUsersInGame()
-        setupUsersWithInGame()
+        findUsersInGame()
+       // setupUsersWithInGame()
         
         getSymbols()
         getRankings()
@@ -466,7 +466,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                     aPlayer.netWorth = pulledData["networth"] as? String ?? "0"
                     aPlayer.numberOfTrades = pulledData["numberOfTrades"] as? String ?? "0"
                     aPlayer.playerEmail = pulledData["playerEmail"] as? String ?? ""
-                    aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnpercentageAtGameEnd"] as? String ?? ""
+                    aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnpercentageAtGameEnd"] as? [String] ?? [""]
                     aPlayer.totalPlayerValue = pulledData["totalPlayerValue"] as? String ?? ""
                     aPlayer.userNickName = pulledData["userNickName"] as? String ?? "0"
                     aPlayer.watchListStocks = pulledData["watchListStocks"] as? [String] ?? [""]
@@ -498,7 +498,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                 playerNameOutlet.text = each.fullName
                 userNameOutlet.text = each.currentCash
                 userNetWorthOutlet.text = each.currentStockValue
-                userTotalReturnOutlet.text = each.stockReturnpercentageAtGameEnd
+               // userTotalReturnOutlet.text = each.stockReturnpercentageAtGameEnd
                 
                 
             }
@@ -573,7 +573,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                                             //save network or whatever labels someplace
                                             playerInfo.netWorth = pulledData["networth"] as? String ?? "0"
                                             playerInfo.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
-                                            playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? String ?? "0"
+                                            playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? [String] ?? ["0"]
                                             playerInfo.playerEmail = pulledData["playerEmail"] as? String ?? "pagon69@hotmail.com"
                                             
                                             self.myPlayersInfo.append(playerInfo)

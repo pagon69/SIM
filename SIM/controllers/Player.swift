@@ -27,7 +27,7 @@ class Player {
     var gamesPlayed = 0.0
     var gamesWon = 0.0
     var totalPlayerValue = "0"
-    var stockReturnpercentageAtGameEnd = "0"
+    var stockReturnpercentageAtGameEnd = ["0"]
     var fullName = ""
     var watchListStocks = [String]()
     var winningPercentage = 0.0

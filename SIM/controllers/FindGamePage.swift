@@ -206,7 +206,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 userProfielData.gamesWon = data["gamesWon"] as? Double ?? 0.0
                 userProfielData.numberOfTrades = data["numberOfTrades"] as? String ?? "0"
                 userProfielData.winningPercentage = data["winningPercentage"] as? Double ?? 0.0
-                userProfielData.stockReturnpercentageAtGameEnd = data["stockReturnsPercentageAtGameEnd"] as? String ?? "0%"
+                userProfielData.stockReturnpercentageAtGameEnd = data["stockReturnsPercentageAtGameEnd"] as? [String] ?? ["0"]
                 
             }
   
