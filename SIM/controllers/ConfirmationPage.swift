@@ -209,7 +209,7 @@ class ConfirmationPage: UITableViewController {
             "numberOfPlayers": newGameData.numberOfPlayersInGame,
             "percentComplete":newGameData.percentComplete,
             "playersInGameAndCash": newGameData.playersInGameAndCash,
-            "playersInGameEmail": newGameData.playersInGameEmail,
+            "PlayersInGameEmail": newGameData.playersInGameEmail,
             "playersStocksAndAmount":newGameData.playersStocksAndAmount,
             "startDate": newGameData.startDate,
             
@@ -258,7 +258,7 @@ class ConfirmationPage: UITableViewController {
             //print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
             
             let updates = ["gamesInProgress":newPlayerData.gamesInProgress,
-                           "gamesPlayed": self.newPlayerData.gamesPlayed
+                           "gamesPlayed": (self.newPlayerData.gamesPlayed + 1)
                 ] as [String: Any]
             
             self.refT.child("userDataByEmail/\(fixEmail())").updateChildValues(updates){(Error,
@@ -501,7 +501,7 @@ class ConfirmationPage: UITableViewController {
             "numberOfPlayers": gameDetails.numberOfPlayersInGame,
             "percentComplete":gameDetails.percentComplete,
             "playersInGameAndCash": gameDetails.playersInGameAndCash,
-            "playersInGameEmail": gameDetails.playersInGameEmail,
+            "PlayersInGameEmail": gameDetails.playersInGameEmail,
             "playersStocksAndAmount":gameDetails.playersStocksAndAmount,
             "startDate": gameDetails.startDate,
             

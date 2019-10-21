@@ -384,7 +384,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.userData.buyPower = pulleduserdata["buyPower"] as? String ?? ""
             self.userData.currentCash = pulleduserdata["currentCash"] as? String ?? ""
             self.userData.currentStockValue = pulleduserdata["currentStockValue"] as? String ?? ""
-            self.userData.gamesPlayed = Double(pulleduserdata["gamesPlayed"] as? String ?? "0") ?? 0.0
+            self.userData.gamesPlayed = Double(pulleduserdata["gamesPlayed"] as? Double ?? 0.0) ?? 0.0
             
             self.userData.gamesWon = Double(pulleduserdata["gamesWon"] as? String ?? "0.0") ?? 0.0
             
@@ -493,6 +493,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                 let totalStockValue = each.value["totalStockValue"]
                 let userNickName = each.value["userNickName"]
                 let netWorth = each.value["userTotalWorth"]
+                let gamesPlayed = each.value["gamesPlayed"] as? Double ?? 0.0
                 
                 self.player.currentCash = currentCash ?? ""
                 //  self.player.listOfStringStock = listOfStringStock ?? ""
@@ -502,6 +503,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                 //self.player.totalStockValue = totalStockValue ?? ""
                 self.player.userNickName = userNickName ?? ""
                 self.player.netWorth = netWorth ?? ""
+                self.player.gamesPlayed = gamesPlayed
                 
             }
             
