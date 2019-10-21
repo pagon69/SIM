@@ -577,13 +577,12 @@ class ConfirmationPage: UITableViewController {
             
             var userData = pulleduserdata["gamesInProgress"] as? [String] ?? [""]
             
-            
-            let currentgamesName = self.incomingGameData["gameName"] as! String
+            let currentgamesName = self.incomingGameData["gameName"] as? String ?? "Tester mcTest"
             
             userData.append(currentgamesName)
             
             let updates = ["gamesInProgress":userData,
-                "gamesPlayed": self.gamesPlayed
+                           "gamesPlayed": self.gamesPlayed
                 ] as [String: Any]
             
             self.refT.child("userDataByEmail/\(userEmailAddress)").updateChildValues(updates){(Error,

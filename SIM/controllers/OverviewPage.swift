@@ -236,7 +236,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             
           //  print("this is what is in fullName: \(userData.fullName)")
             
-            print("within cell creation, games won contains: _\(userData.gamesPlayed) _")
+            print("within cell creation, games won contains: \(userData.gamesPlayed) ")
             cell.userName.text = userData.fullName
             cell.gamesWon.text = String(userData.gamesWon)
             cell.gamesPlayed.text = String(userData.gamesPlayed)
