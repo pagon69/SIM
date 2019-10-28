@@ -329,55 +329,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                     
                 }
 
-              //  print("current items: \(updatedGameInfo.playersStocksAndAmount.count) items: \(updatedGameInfo.playersStocksAndAmount)")
-                
-               // updatedGameInfo.playersStocksAndAmount.append(<#T##newElement: [String : [[String : String]]]##[String : [[String : String]]]#>)
-    
-                /*
-                let updates = [
-                    "gameName": updatedGameInfo.gameName,
-                    "defaultCommission":updatedGameInfo.defaultCommission,
-                    "enableCommission":updatedGameInfo.enableCommission,
-                    "gameDescription": updatedGameInfo.gameDescription,
-                    "endDate":updatedGameInfo.endDate,
-                    "numberOfPlayers":updatedGameInfo.numberOfPlayersInGame,
-                    "daysRemaining":updatedGameInfo.daysRemaining,
-                    "PlayersInGameEmail": updatedGameInfo.playersInGameEmail,
-                    "startingFunds": updatedGameInfo.startingFunds,
-                    "shortSellingEnabled": updatedGameInfo.shortSaleEnabled,
-                    "marginSellingEnabled": updatedGameInfo.marginEnabled,
-                    "advancedSettings":[
-                        "enableLimitOrders": updatedGameInfo.enableLimitOrders,
-                        "enableStopLoss": updatedGameInfo.stopLossEnabled,
-                        "enablePartialShares": updatedGameInfo.partialSharesEnabled,
-                        "enableInterestRateCredit": updatedGameInfo.enableInterestRateCredit,
-                        "defaultIRC": updatedGameInfo.defaultIRC,
-                        "enableInterestRateDebit": updatedGameInfo.enableInterestRateDebt,
-                        "defaultIRD": updatedGameInfo.defaultIRD],
-                    "gameStillActive": updatedGameInfo.gameStillActive,
-                    "startDate": updatedGameInfo.startDate,
-                    "percentComplete": updatedGameInfo.percentComplete,
-                    "gamesInProgress":["Another One",
-                                       "Yet Another"],
-                    "privacySettings":["PrivateGames": updatedGameInfo.privateGame,
-                                       "deleteAccount": updatedGameInfo.resetTodefault,
-                                       "gamePassword": updatedGameInfo.gamePassword],
-                    "playersInGameAndCash": updatedGameInfo.playersInGameAndCash,
-                    "playersStocksAndAmount": updatedGameInfo.playersStocksAndAmount,
-                    
-                    ] as [String : Any]
-
-                self.ref.child("gamesInProgressByGamename").child(updatedGameInfo.gameName).updateChildValues(updates){(error, ref) in
-                   
-                    if let err = error {
-                        print("An error happened:\(err)")
-                    }else {
-                       // self.updateUserProfile()
-                        print("updates made successfully!")
-                    }
-                }
-                */
-        
+               
             }
             
         }) { (error) in
@@ -447,7 +399,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 number = Int(data["currentActiveGames"] ?? "0") ?? 0
                 
                 self.numberOfGames = number
-                self.NumberGamesLabelOutlet.text = "Games Being played: \(number)"
+                self.NumberGamesLabelOutlet.text = "Games in Progress: \(number)"
                 self.updateGameInfo()
             }
             
@@ -471,17 +423,6 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
         
         //attempt to get a limited view of the available games
         ref.child("gamesInProgressByGamename").queryLimited(toFirst: UInt(randomNumber)).observeSingleEvent(of: .value) { (snapshot) in
-          
-            /*
-            if let data = snapshot.value as? [String:[String:Any]]{
-                
-                print(" This is what i found \(data.count)")
-            }
-        }
-
-        //get all data may need a cleaner way
-        ref.child("gamesInProgressByGamename").observeSingleEvent(of: .value) { (snapshot) in
-            */
             
             if let data = snapshot.value as? [String:[String:Any]]{
                 

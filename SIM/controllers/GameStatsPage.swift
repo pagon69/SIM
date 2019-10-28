@@ -240,9 +240,13 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             let myCell = playersInGameTable.dequeueReusableCell(withIdentifier: "inGameDetailsCell", for: indexPath) as! inGameDetailsCell
             
                 myCell.fullName.text = playerInfo[indexPath.row].fullName
-                myCell.inGameRank.text = "\(getRankings())"
                 myCell.overAllGains.text = "\(getoverAllGains())"  // need to work on this
-                myCell.userNetWorth.text = "\(getNetWorth(path: indexPath.row))"
+            
+                //myCell.userNetWorth.text = "\(getNetWorth(path: indexPath.row))"
+                myCell.userNetWorth.text = "\(getNetWorthTwo())"
+            
+                //will the ranking be good to go at this point?
+                myCell.inGameRank.text = "\(getRankings())"
             
                 return myCell
         }
@@ -305,21 +309,44 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         return netWorth
     }
     
+    func getNetWorthTwo(){
+        
+        for each in passedData.playerInfo{
+            
+            each.netWorth = "\(String(describing: (Double(each.currentCash) ?? 0.0) + (Double(each.currentStockValue) ?? 0.0) ))"
+            
+            print("within for each = each.netWorth: ")
+        }
+      //  print("outside: ",passedData.playerInfo[0].netWorth)
+        
+    }
     
     //how do i get the users rank? cash over what?
     func getRankings()-> Int{
         ref = Database.database().reference()
         var currentRank = 0
         
-        let usersInGame = passedData.playersInGameEmail
+        var ranking : [[String:Double]] = [[:]]
+        let usersInGame = passedData.playerInfo
         
         for each in usersInGame{
             
+            var myRanking = [each.playerEmail: Double(each.netWorth) ?? 0.0]
+            ranking.append(myRanking)
             
             
-            
-            
+        
         }
+        
+        var prep1 = 0.0
+        var prep2 = 1.0
+        
+        let sortedKeys = ranking.sorted { (prep1, prep2) -> Bool in
+            
+            return true
+        }
+        
+      //  var sortedRankedList = ranking.sorted{$0, $1}
         
         return currentRank
         

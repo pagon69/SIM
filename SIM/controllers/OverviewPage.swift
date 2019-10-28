@@ -519,6 +519,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     
     //work in games info
     func checkGames(listOfGames: [String]){
+        
+        
         for each in listOfGames{
             if each == "" || each == "Test game Data" {
                 //print("within for loop checkign : \(each)")
@@ -555,7 +557,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
                         myGameinfo.numberOfPlayersInGame = data["numberOfPlayers"] as? String ?? ""
                         myGameinfo.partialSharesEnabled = data["partialSharesEnabled"] as? Bool ?? false
                         myGameinfo.percentComplete = data["percentComplete"] as? String ?? ""
-                        myGameinfo.playersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? [""]
+                        myGameinfo.playersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? ["None found"]
                         myGameinfo.shortSaleEnabled = data["shortSaleEnabled"] as? Bool ?? true
                         myGameinfo.startDate = data["startDate"] as? String ?? ""
                         myGameinfo.startingFunds = data["startingFunds"] as? String ?? ""
@@ -669,6 +671,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
    
         viewSetup()
     
+        //The below will remove the seperators between views
+        profileTableViewOutlet.tableFooterView = UIView()
+        aboutTableView.tableFooterView = UIView()
+        
         // Do any additional setup after loading the view.
     }
     

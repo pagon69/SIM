@@ -83,6 +83,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
     @IBAction func helpButtonClicked(_ sender: UIButton) {
     }
     
+    //button clicked start the process
     @IBAction func createGameClicked(_ sender: UIButton) {
        
         SVProgressHUD.show()
@@ -101,8 +102,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
                 for each in data{
                     
                     if each.key == userProvidedName{
-                       // self.errorMsg.text = "Game name: \(userProvidedName) already exist."
-                       // self.errorMsg.isHidden = false
+
                         self.finalValidationCheck = false
                         break
                     }else{
@@ -111,18 +111,13 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
                         
                     }
                     
-                    //self.errorMsg.isHidden = false
-                    //self.finalValidationCheck = false
-                        //should i make
-                  //  self.finalValidationCheck = !self.finalValidationCheck
-
                 }
                 
             }
             
             if self.finalValidationCheck{
                 self.collectData()
-                self.buildFBData()
+                //self.buildFBData()
             }else{
                 self.errorMsg.isHidden = false
                 self.errorMsg.text = "Game name: -- \(userProvidedName) --, already exist."
@@ -132,10 +127,6 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
             
         }
         
-        //  myDispatchGroup.leave()
-       
-        //    myDispatchGroup.notify(queue: DispatchQueue.main) {
- 
         
     }
     
@@ -172,7 +163,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
         
     }
     
-    
+    //checks for duplicate game names
     func nameCheckForFormating()-> String{
         
         let providedGameName = gameNameOutlet.text ?? ""
@@ -198,7 +189,7 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
         return goodGameName
     }
     
-    
+    //tracks days remaining and updates
     func findDaysRemaining(todaysDate: Date, endDate: Date){
         
         if endDate < todaysDate {
@@ -361,6 +352,9 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
         passedInData.numberOfPlayersInGame = "1"
         passedInData.playersInGameEmail = [fixEmail()]
         
+        //working on my issues, adding 1 to games in progress here
+        //passedInData
+        
     }
     
     func validateStartingFunds(){
@@ -490,7 +484,6 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
         
         }else{
             print("somethign went wrong")
-            
         }
         
     }

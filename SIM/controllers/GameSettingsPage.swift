@@ -111,27 +111,7 @@ class GameSettingsPage: UITableViewController {
         comissionSwitchOutlet.isOn = defaultSettings.enableCoommision
         comissionTextOutlet.isHidden = defaultSettings.enableCoommision
         comissionTextOutlet.text = "\(defaultSettings.defaultCommision)"
-       //privateGameOutlet.isOn = defaultSettings.
-         //deleteGameOutlet.isOn = defaultSettings.res
-        //resetOutlet.isOn = defaultSettings
-      //  gamePasswordOutlet.text = defaultSettings.
-        
-        /*
-        IRCOutlet.isOn = (userSelectedSettings["enableInterestRateCredit"] != nil)
-        IRCTextOutlet.isHidden = true
-        partailSharesOutlet.isOn = userSelectedSettings["enablePartialShares"] as? Bool ?? false
-        IRDOutlet.isOn = (userSelectedSettings["enableInterestRateDebt"] != nil)
-        IRDTextOutlet.isHidden = true
-        stopLossOutlet.isOn = userSelectedSettings["enableStopLoss"] as! Bool
-        limitOrdersOutlet.isOn = userSelectedSettings["enableLimitOrders"] as! Bool
-        comissionSwitchOutlet.isOn = userSelectedSettings["enableCommission"] as! Bool
-        comissionTextOutlet.isHidden = true
-        privateGameOutlet.isOn = userSelectedSettings["PrivateGames"] as! Bool
-        deleteGameOutlet.isOn = userSelectedSettings["deleteAccount"] as! Bool
-        resetOutlet.isOn = userSelectedSettings["resetToDefault"] as! Bool
-        gamePasswordOutlet.text = "\(userSelectedSettings["gamePassword"] ?? "")"
-
-        */
+      
     }
     
     
@@ -294,12 +274,14 @@ class GameSettingsPage: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         viewSetup()
+        
         /*
             //: - save settings to phone
             - use the tab bar item as a save
             - save local or to FB
             //: - update values
         */
+        
        // defaultSetup()
         
     }

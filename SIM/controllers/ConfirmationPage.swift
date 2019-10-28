@@ -123,13 +123,15 @@ class ConfirmationPage: UITableViewController {
             self.newPlayerData.firstName = pulleduserdata["firstName"] as? String ?? "test"
             self.newPlayerData.lastName = pulleduserdata["lastName"] as? String ?? "mc Tester"
             self.newPlayerData.fullName = pulleduserdata["fullName"] as? String ?? "test mc tester"
-            self.newPlayerData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? ["0.0"]
+           //whats up here
+            self.newPlayerData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? ["test GameOne"]
+            
             self.newPlayerData.playerEmail = pulleduserdata["playerEmail"] as? String ?? "test@tester.com"
             self.newPlayerData.startingFunds = pulleduserdata["startingFunds"] as? Double ?? 0.0
             self.newPlayerData.stockReturnpercentageAtGameEnd = pulleduserdata["stockReturnpercentageAtGameEnd"] as? [String] ?? ["0.0"]
             self.newPlayerData.userNickName = pulleduserdata["userNickName"] as? String ?? "Mister Tester"
             
-            self.newPlayerData.gamesPlayed = (pulleduserdata["gamesPlayed"] as? Double ?? 0.0) + 1.0
+            self.newPlayerData.gamesPlayed = (pulleduserdata["gamesPlayed"] as? Double ?? 0.0) // + 1.0
             self.newPlayerData.winningPercentage = pulleduserdata["winningPercentage"] as? Double ?? 0.0
             
            
@@ -156,7 +158,9 @@ class ConfirmationPage: UITableViewController {
         newGameData.gameDescription = incomingGameData["gameDescription"] as? String ?? "None provided"
         newGameData.gameName = incomingGameData["gameName"] as? String ?? "test game"
         newGameData.gamePassword = incomingGameData["gamePassword"] as? String ?? "defaultPWD"
-        newGameData.gamesInProgress = incomingGameData["gamesInProgress"] as? [String] ?? [""]
+        
+        newGameData.gamesInProgress = incomingGameData["gamesInProgress"] as? [String] ?? ["test gameTwo"]
+        
         newGameData.gameStillActive = incomingGameData["gameStillActive"] as? Bool ?? false
         newGameData.marginEnabled = incomingGameData["marginSellingEnabled"] as? Bool ?? false
         newGameData.numberOfPlayersInGame = incomingGameData["numberOfPlayers"] as? String ?? "0.0"
@@ -166,6 +170,7 @@ class ConfirmationPage: UITableViewController {
         newGameData.playerInfo = [newPlayerData]
        
         newGameData.playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String: String]] ?? [["tester":"1.0"]]
+        
         newGameData.playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String] ?? [""]
         newGameData.playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String: [[String: String]]]] ?? [["test": [["tester":"5"]]]]
         newGameData.privateGame = incomingGameData["PrivateGames"] as? Bool ?? false
@@ -175,14 +180,19 @@ class ConfirmationPage: UITableViewController {
         newGameData.startingFunds = incomingGameData["startingFunds"] as? String ?? "0.0"
         newGameData.stopLossEnabled = incomingGameData["stopLossEnabled"] as? Bool ?? false
        
+        //whats in here and validate that i updated it
         newPlayerData.gamesInProgress.append(newGameData.gameName)
         
+        //gamesPlayed updated by 1
+       // newPlayerData.gamesPlayed = newPlayerData.gamesPlayed + 1.0
     }
     
     func buildAndSendTwo(){
         var validationTest = false
         SVProgressHUD.show()
       
+      //  gamesPlayed = gamesPlayed  + 1.0
+        
         let saveMe = [
             "defaultCommission": newGameData.defaultCommission,
             "enableCommission":newGameData.enableCommission,
@@ -199,7 +209,10 @@ class ConfirmationPage: UITableViewController {
             "PrivateGames": newGameData.privateGame,
             "deleteAccount": newGameData.resetTodefault,
             "gamePassword":newGameData.gamePassword,
-            "gamesPlayed":newGameData.numberOfPlayersInGame,
+            
+            //changed this because i dont have a good way to handle
+            "gamesPlayed":gamesPlayed,
+            
             "daysRemaining": newGameData.daysRemaining,
             "endDate": newGameData.endDate,
             "gameDescription": newGameData.gameDescription,
@@ -230,6 +243,8 @@ class ConfirmationPage: UITableViewController {
                 "listOfStockAndQuantity": newPlayerData.listOfStockAndQuantity,
                 "numberOfTrades": newPlayerData.numberOfTrades,
                 "gamesPlayed": newPlayerData.gamesPlayed,
+                // whats in gamesPlayed
+                
                 "gamesWon":newPlayerData.gamesWon,
                 "totalPlayerValue": newPlayerData.totalPlayerValue,
                 "stockReturnpercentageAtGameEnd": newPlayerData.stockReturnpercentageAtGameEnd,
@@ -240,45 +255,51 @@ class ConfirmationPage: UITableViewController {
             ] as [String : Any]
         
         
-        refT.child("gamesInProgressByGamename").child(newGameData.gameName).setValue(saveMe) { (error, dbRefenece) in
+        refT.child("gamesInProgressByGamename").child(newGameData.gameName).setValue(saveMe) {(error, dbRefenece) in
             
             if error != nil{
                 /*validationTest = false
                 self.ref.child("gamesInProgressByGamename").child("\(self.incomingGameData["gameName"] as? String ?? "")_\(Date())").setValue(self.incomingGameData)
                 */
             }else{
-                validationTest = true
+                //validationTest = true
+               // if validationTest{
+                    
+                    self.updateGameCount()
+                    
+                    self.updateUserProfile()
+                   // self.performSegue(withIdentifier: "goToInGameView", sender: self)
+                    
+                //}
             }
         }
         
-        if validationTest{
-            
-            //change games current settings
-         //   refT.child("gameSettingsByUserEmail").child(fixEmail()).setValue(s)
-            //print("first go at data inside incomingdata:\(incomingGameData["gamesInProgress"])")
-            
-            let updates = ["gamesInProgress":newPlayerData.gamesInProgress,
-                           "gamesPlayed": (self.newPlayerData.gamesPlayed + 1)
-                ] as [String: Any]
-            
-            self.refT.child("userDataByEmail/\(fixEmail())").updateChildValues(updates){(Error,
-                
-                ref) in
-                if let error = Error {
-                    print("somethign went way wrong:\(error)")
-                }else{
-                    print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
-                }
-            }
-            
-            
-        }
+       
         
         
         
     }
     
-    
+    func updateUserProfile(){
+        
+        let updates = ["gamesInProgress":newPlayerData.gamesInProgress,
+                       "gamesPlayed": (self.newPlayerData.gamesPlayed + 1)
+            ] as [String: Any]
+        
+        self.refT.child("userDataByEmail/\(fixEmail())").updateChildValues(updates){(Error,
+            ref) in
+            
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+            }else{
+                print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
+                
+                self.performSegue(withIdentifier: "goToInGameView", sender: self)
+                
+            }
+        }
+        
+    }
     
     
     
@@ -462,7 +483,7 @@ class ConfirmationPage: UITableViewController {
         buildAndSendTwo()
        // buildAndSend()
         
-        performSegue(withIdentifier: "goToInGameView", sender: self)
+        
     }
     
     func buildAndSend(){
@@ -473,7 +494,7 @@ class ConfirmationPage: UITableViewController {
         
         let userEmail = fixEmail()
         
-        gamesPlayed = gamesPlayed + 1.0
+        //gamesPlayed = gamesPlayed + 1.0
         
          userSettings = [
             "defaultCommission": gameDetails.defaultCommission,
@@ -491,14 +512,14 @@ class ConfirmationPage: UITableViewController {
             "PrivateGames": gameDetails.privateGame,
             "deleteAccount": gameDetails.resetTodefault,
             "gamePassword":gameDetails.gamePassword,
-            "gamesPlayed":gameDetails.numberOfPlayersInGame,
+            "gamesPlayed":gameDetails.playersInGameEmail.count,
             "daysRemaining": gameDetails.daysRemaining,
             "endDate": gameDetails.endDate,
             "gameDescription": gameDetails.gameDescription,
             "gameName": gameDetails.gameName,
             "gamesInProgress": gameDetails.gamesInProgress,
             "gameStillActive": gameDetails.gameStillActive,
-            "numberOfPlayers": gameDetails.numberOfPlayersInGame,
+            "numberOfPlayers": gameDetails.playersInGameEmail.count,
             "percentComplete":gameDetails.percentComplete,
             "playersInGameAndCash": gameDetails.playersInGameAndCash,
             "PlayersInGameEmail": gameDetails.playersInGameEmail,
@@ -513,12 +534,6 @@ class ConfirmationPage: UITableViewController {
         
 
         collectGamesInProgress(userEmailAddress: userEmail)
-
-         // use the below code versus what i have to handle duplicate names
-          //  Add completion error / blocks to handle dublicate game names
-        
-        //incomingGameData["gameName"] as? String ?? ""
-        //should this be userSettings ? versus incomingGameData
         
          ref.child("gamesInProgressByGamename").child(gameDetails.gameName).setValue(incomingGameData) { (error, dbRefenece) in
          
@@ -602,22 +617,22 @@ class ConfirmationPage: UITableViewController {
     func updateGameCount(){
         
         //search for liveGames and updates by adding 1 to the number of games
-        ref.child("liveGames").observeSingleEvent(of: .value) { (snapShot) in
+        refT.child("liveGames").observeSingleEvent(of: .value) { (snapShot) in
             
-            if let pulleduserdata = snapShot.value as? [String: String]{
+            if let pulleduserdata = snapShot.value as? [String: Any]{
                 
-                if let numberOfGames = Int(pulleduserdata["currentActiveGames"] ?? "0"){
+                if let numberOfGames = Int(pulleduserdata["currentActiveGames"] as? String ?? "0"){
                     var num = numberOfGames
                     num += 1
                     
                     var currentActiveGames: [String: String] = [:]
                     
                     currentActiveGames = [
-                        "currentActiveGames":"\(num)"
-                    ]
+                        "currentActiveGames": "\(num)"
+                        ]
                     
                     
-                    self.ref.child("liveGames").updateChildValues(currentActiveGames){(Error, ref) in
+                    self.refT.child("liveGames").updateChildValues(currentActiveGames){(Error, ref) in
                         if let error = Error {
                             print("An error happened:\(error)")
                         }else{
@@ -676,7 +691,7 @@ class ConfirmationPage: UITableViewController {
         // Pass the selected object to the new view controller.
         
         let destVC = segue.destination as! GameStatsPage
-       destVC.passedData = gameDetails
+       destVC.passedData = newGameData
         
     }
  
