@@ -364,6 +364,9 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                                                      "buyPower": currentPlayer.buyPower,
                                                      "currentStockValue": currentPlayer.currentStockValue,
                                                      "playerEmail":"\(self.fixEmail())",
+                
+                //string:[string:[String:String]]
+                
                 "listOfStockAndQuantity": currentPlayer.listOfStockAndQuantity,
                 "numberOfTrades": currentPlayer.numberOfTrades,
                 "gamesPlayed": currentPlayer.gamesPlayed,

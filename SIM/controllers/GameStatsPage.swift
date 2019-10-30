@@ -544,8 +544,10 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             
                 if let pulledData = snapshot.value as? [String: Any]{
                     
-                    let Test = pulledData["playersAndInfo"] as? [String:[String:String]] ?? ["Test":[:]]
+                    var Test = pulledData["playersAndInfo"] as? [String: [String: [String:String]]] ?? ["Test":["tester":["":""]]]
+                    //string:[string:[String:String]]
                     
+                    print(Test)
                     
                     for each in self.playerInfo{
                     

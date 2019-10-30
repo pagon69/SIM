@@ -279,6 +279,8 @@ class CreateGamePage: UIViewController, UITextFieldDelegate {
                                                      "watchListStock": currentPlayer.watchListStocks,
                                                      "winningPercentage": currentPlayer.winningPercentage
                                                         ]]
+            
+            //[string:[string:[String:String]]]
                 
             //edit the above for users info within game
             
