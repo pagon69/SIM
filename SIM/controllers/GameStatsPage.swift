@@ -181,6 +181,10 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         //handles various users in game
         if tableView.tag == 6 {
             
+            overviewOutlet.alpha = 0
+            portfolioiew.alpha = 1
+            rankingOutlet.alpha = 0
+            settingsOutlet.alpha = 0
             
         }
         
@@ -192,12 +196,9 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         var myTitle = ""
         
         if tableView.tag == 6 {
-            
-           // print(passedData.percentComplete)
-          //  print(passedData.gameDescription)
-            myTitle = "Game Name:  \(passedData.gameName)"
-           // print("This is what was passed: \(passedData.gameName)")
 
+            myTitle = "Game Name:  \(passedData.gameName)"
+    
         }
         return myTitle
  
@@ -242,8 +243,11 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                 myCell.fullName.text = playerInfo[indexPath.row].fullName
                 myCell.overAllGains.text = "\(getoverAllGains())"  // need to work on this
             
+                //test the bwlo
+                myCell.userNetWorth.text = "\(getNetWorth(playerInfo: playerInfo[indexPath.row]))"
+            
                 //myCell.userNetWorth.text = "\(getNetWorth(path: indexPath.row))"
-                myCell.userNetWorth.text = "\(getNetWorthTwo())"
+              //  myCell.userNetWorth.text = "\(getNetWorthTwo())"
             
                 //will the ranking be good to go at this point?
                 myCell.inGameRank.text = "\(getRankings())"
@@ -296,7 +300,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
-    func getNetWorth(path: Int)->Double{
+    /* not using the below see if it even works
+    func getNetWorth(path: Int)-> Double{
         var netWorth = 0.0
         var cash = 0.0
         var stock = 0.0
@@ -309,44 +314,57 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         return netWorth
     }
     
-    func getNetWorthTwo(){
+    */
+    
+    func getNetWorth(playerInfo : Player)-> Double{
+        var netWorth = 0.0
         
+        netWorth = (Double(playerInfo.currentCash) ?? 0.0) + (Double(playerInfo.currentStockValue) ?? 0.0)
+        
+        return netWorth
+    }
+    
+    
+    func getNetWorthTwo()-> Double{
+        
+        var netWorth = 0.0
         for each in passedData.playerInfo{
             
-            each.netWorth = "\(String(describing: (Double(each.currentCash) ?? 0.0) + (Double(each.currentStockValue) ?? 0.0) ))"
+            //netWorth = "\(String(describing: (Double(each.currentCash) ?? 0.0) + (Double(each.currentStockValue) ?? 0.0) ))"
             
-            print("within for each = each.netWorth: ")
+            netWorth = (Double(each.currentCash) ?? 0.0) + (Double(each.currentStockValue) ?? 0.0)
+           // print("within for each = \(each.netWorth)")
         }
       //  print("outside: ",passedData.playerInfo[0].netWorth)
         
+        return netWorth
     }
     
     //how do i get the users rank? cash over what?
     func getRankings()-> Int{
         ref = Database.database().reference()
-        var currentRank = 0
+        let currentRank = 0
         
         var ranking : [[String:Double]] = [[:]]
         let usersInGame = passedData.playerInfo
         
         for each in usersInGame{
             
-            var myRanking = [each.playerEmail: Double(each.netWorth) ?? 0.0]
+            let myRanking = [each.playerEmail: Double(each.netWorth) ?? 0.0]
             ranking.append(myRanking)
-            
-            
-        
+
         }
         
-        var prep1 = 0.0
-        var prep2 = 1.0
-        
+       // var prep1 = 0.0
+       // var prep2 = 1.0
+        /*
         let sortedKeys = ranking.sorted { (prep1, prep2) -> Bool in
             
             return true
         }
+        */
         
-      //  var sortedRankedList = ranking.sorted{$0, $1}
+        //  var sortedRankedList = ranking.sorted{$0, $1}
         
         return currentRank
         
@@ -355,10 +373,13 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     func getoverAllGains()-> Double{
         var overAll = 0.0
         
-        
-        
-        
-        
+        for each in passedData.playerInfo{
+            
+            (Double(passedData.startingFunds) ?? 0.0)
+            
+            
+        }
+    
         return overAll
     }
     
@@ -383,7 +404,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         settingsOutlet.alpha = 0
         
         //uncomment findusersingame to continue
-        findUsersInGame()
+        findUsersInGameTwo()
        // setupUsersWithInGame()
         
         getSymbols()
@@ -510,10 +531,59 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         }
         
-       // labelUpdate()
-       // playersInGameTable.reloadData()
-        
     }
+    
+    
+    func findUsersInGameTwo() {
+        
+        ref = Database.database().reference()
+        
+        var aPlayer = Player()
+           
+            ref.child("gamesInProgressByGamename").child(passedData.gameName).observeSingleEvent(of: .value) { (snapshot) in
+            
+                if let pulledData = snapshot.value as? [String: Any]{
+                    
+                    let Test = pulledData["playersAndInfo"] as? [String:[String:String]] ?? ["Test":[:]]
+                    
+                    
+                    for each in self.playerInfo{
+                    
+                        if each.currentGame != "Test game Data" {
+                            
+                        aPlayer.buyPower = pulledData["buyPower"] as? String ?? "0"
+                        aPlayer.currentCash = pulledData["currentCash"] as? String ?? "0"
+                        aPlayer.currentGame = pulledData["currentGame"] as? String ?? "Test game Data"
+                        aPlayer.currentStockValue = pulledData["currentStockValue"] as? String ?? "0"
+                        aPlayer.firstName = pulledData["firstName"] as? String ?? ""
+                        aPlayer.fullName = pulledData["fullName"] as? String ?? ""
+                        aPlayer.gamesInProgress = pulledData["gamesInProgress"] as? [String] ?? [""]
+                        aPlayer.gamesPlayed = pulledData["gamesPlayed"] as? Double ?? 0.0
+                        aPlayer.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
+                        aPlayer.lastName = pulledData["lastName"] as? String ?? ""
+                        aPlayer.listOfStockAndQuantity = pulledData["listOfStockAndQuantity"] as? [String: Double] ?? [:]
+                        aPlayer.netWorth = pulledData["networth"] as? String ?? "0"
+                        aPlayer.numberOfTrades = pulledData["numberOfTrades"] as? String ?? "0"
+                        aPlayer.playerEmail = pulledData["playerEmail"] as? String ?? ""
+                        aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnpercentageAtGameEnd"] as? [String] ?? [""]
+                        aPlayer.totalPlayerValue = pulledData["totalPlayerValue"] as? String ?? ""
+                        aPlayer.userNickName = pulledData["userNickName"] as? String ?? "0"
+                        aPlayer.watchListStocks = pulledData["watchListStocks"] as? [String] ?? [""]
+                        aPlayer.winningPercentage = pulledData["winningPercentage"] as? Double ?? 0.0
+                
+                        self.playerInfo.append(aPlayer)
+                
+                        }
+                        self.labelUpdate()
+                        self.playersInGameTable.reloadData()
+                        
+                }
+            }
+        
+        }
+    }
+    
+    
     
     func labelUpdate(){
         

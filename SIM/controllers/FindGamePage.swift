@@ -16,7 +16,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
     
         
         //joins the user to the games DB
-        joinUserToGame()
+        joinUserToGame(selectedIndexPath: currentIndex)
         
         //joins the user to the users profile DB
         updateUserProfile()
@@ -35,6 +35,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
     var currentIndexPath = 0
     var numberOfGames = 0
     var searchR = [""]
+    var currentPlayer = Player()
     
     //used for new search
     var myGameNamesArray: [String] = [""]
@@ -98,6 +99,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
     
     //table view info
     
+    //look at selected row however should i join user to the game?
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         passedData = gameInfo[indexPath.row]
@@ -263,8 +265,9 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
     
     
     //joins user to the games DB
-    func joinUserToGame(){
-        ref.child("gamesInProgressByGamename").child(gameInfo[currentIndexPath].gameName).observeSingleEvent(of: .value, with: { (snapshot) in
+    func joinUserToGame(selectedIndexPath: Int){
+        
+        ref.child("gamesInProgressByGamename").child(gameInfo[selectedIndexPath].gameName).observeSingleEvent(of: .value, with: { (snapshot) in
             
             let updatedGameInfo = GamesInfo()
             
@@ -295,15 +298,17 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 updatedGameInfo.startDate = data["startDate"] as? String ?? ""
                 updatedGameInfo.stopLossEnabled = data["stopLossEnabled"] as? Bool ?? false
                 
+                // investigate if this works
+                updatedGameInfo.playerInfo = data["playersAndInfo"] as? [Player] ?? [Player()]
+                
                 //special cases i have to work on
                 updatedGameInfo.playersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? ["test@test.com"]
                 updatedGameInfo.playersStocksAndAmount = data["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["Test":[["Goog":"5"]]]]
-                
-                
                 updatedGameInfo.playersInGameAndCash = data["playersInGameAndCash"] as? [[String:String]] ?? [[:]]
                 
                 let fixedUserEmail = self.fixEmail()
                 
+                //checks if the user is already in the game
                 if updatedGameInfo.playersInGameEmail.contains(fixedUserEmail){
                     
                     //string exist nothing to do
@@ -316,6 +321,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                     updatedGameInfo.numberOfPlayersInGame = String((Int(updatedGameInfo.numberOfPlayersInGame) ?? 0) + 1)
                     updatedGameInfo.playersInGameAndCash.append([fixedUserEmail:updatedGameInfo.startingFunds])
                     updatedGameInfo.playersStocksAndAmount.append([fixedUserEmail:[["test":"0"]]])
+                    updatedGameInfo.playerInfo.append(self.currentPlayer)
                    
                     //save what was changed at this point, save the above data to the function and save to firebase
                     //saveDailyChanges(percentData: String, daysData: <#T##String#>, gameName: <#T##String#>)
@@ -323,7 +329,6 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                     //should i remove the below
                     
                     self.passedData = updatedGameInfo
-                    self.performSegue(withIdentifier: "goToGameStats", sender: self)
                     
                     self.makeUpdates(gameDetails: updatedGameInfo)
                     
@@ -341,16 +346,33 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
 
     func makeUpdates(gameDetails: GamesInfo){
         
-       // print(gameDetails.numberOfPlayersInGame)
-        //print(gameDetails.)
-        
         let updates = [
-        
             "numberOfPlayers":gameDetails.numberOfPlayersInGame,
             "gamesInProgress":gameDetails.gamesInProgress,
             "PlayersInGameEmail":gameDetails.playersInGameEmail,
             "playersInGameAndCash": gameDetails.playersInGameAndCash,
             "playersStocksAndAmount": gameDetails.playersStocksAndAmount,
+            //"playersAndInfo": gameDetails.playerInfo
+            
+            "playersAndInfo":["\(self.fixEmail())": ["firstName": currentPlayer.firstName,
+                                                     "lastName": currentPlayer.lastName,
+                                                     "fullName": currentPlayer.fullName,
+                                                     "startingFunds": gameDetails.startingFunds,
+                                                     "userNickName": currentPlayer.userNickName,
+                                                     "currentCash": currentPlayer.currentCash,
+                                                     "netWorth": currentPlayer.netWorth,
+                                                     "buyPower": currentPlayer.buyPower,
+                                                     "currentStockValue": currentPlayer.currentStockValue,
+                                                     "playerEmail":"\(self.fixEmail())",
+                "listOfStockAndQuantity": currentPlayer.listOfStockAndQuantity,
+                "numberOfTrades": currentPlayer.numberOfTrades,
+                "gamesPlayed": currentPlayer.gamesPlayed,
+                "gamesWon":currentPlayer.gamesWon,
+                "totalPlayerValue": currentPlayer.totalPlayerValue,
+                "stockReturnpercentageAtGameEnd": currentPlayer.stockReturnpercentageAtGameEnd,
+                "watchListStock": currentPlayer.watchListStocks,
+                "winningPercentage": currentPlayer.winningPercentage
+                ]]
             
             ] as [String : Any]
         
@@ -358,6 +380,8 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
             if let error = Error {
                 print("somethign went way wrong:\(error)")
             }else{
+
+                self.performSegue(withIdentifier: "goToGameStats", sender: self)
                 print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
             }
         }
@@ -477,10 +501,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                         
                     }else{
                         self.gameInfo.append(myGameinfo)
-                    }
-                    
-                    
-                   
+                    }   
                     
                 }
                 self.prepareForGameNameSearch(value: self.gameInfo)
@@ -512,8 +533,6 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
     
     
     func prepareForGameNameSearch(value: [GamesInfo]){
-        
-        
         
         for each in value{
             

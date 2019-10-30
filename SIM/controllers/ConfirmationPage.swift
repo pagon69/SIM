@@ -173,6 +173,7 @@ class ConfirmationPage: UITableViewController {
         
         newGameData.playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String] ?? [""]
         newGameData.playersStocksAndAmount = incomingGameData["playersStocksAndAmount"] as? [[String: [[String: String]]]] ?? [["test": [["tester":"5"]]]]
+        
         newGameData.privateGame = incomingGameData["PrivateGames"] as? Bool ?? false
         newGameData.resetTodefault = incomingGameData["deleteAccount"] as? Bool ?? false
         newGameData.shortSaleEnabled = incomingGameData["shortSellingEnabled"] as? Bool ?? false
@@ -235,7 +236,7 @@ class ConfirmationPage: UITableViewController {
                                                      "fullName": newPlayerData.fullName,
                                                      "startingFunds": newPlayerData.startingFunds,
                                                      "userNickName": newPlayerData.userNickName,
-                                                     "currentCash": newPlayerData.currentCash,
+                                                     "currentCash": newGameData.startingFunds,
                                                      "netWorth": newPlayerData.netWorth,
                                                      "buyPower": newPlayerData.buyPower,
                                                      "currentStockValue": newPlayerData.currentStockValue,

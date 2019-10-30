@@ -214,6 +214,12 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             //destVC.passedData = myGameinfo
             destVC.passedData = passedData
         }
+        
+        if segue.identifier == "goToFindGame" {
+            let destVC = segue.destination as! FindGamePage
+            //destVC.passedData = myGameinfo
+            destVC.currentPlayer = userData
+        }
     }
     
     
