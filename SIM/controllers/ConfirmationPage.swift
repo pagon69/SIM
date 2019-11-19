@@ -169,6 +169,8 @@ class ConfirmationPage: UITableViewController {
         
         newGameData.playerInfo = [newPlayerData]
        
+        newGameData.playersAndInfo = incomingGameData["playersInGameAndCash"] as? [[String: [String:String]]] ?? [["testing":["additionalTest":"test1"]]]
+            
         newGameData.playersInGameAndCash = incomingGameData["playersInGameAndCash"] as? [[String: String]] ?? [["tester":"1.0"]]
         
         newGameData.playersInGameEmail = incomingGameData["PlayersInGameEmail"] as? [String] ?? [""]
@@ -191,7 +193,32 @@ class ConfirmationPage: UITableViewController {
     func buildAndSendTwo(){
         var validationTest = false
         SVProgressHUD.show()
-      
+      /*
+        newGameData.playersAndInfo =
+        [["\(self.fixEmail())": ["firstName": newPlayerData.firstName,
+        "lastName": newPlayerData.lastName,
+        "fullName": newPlayerData.fullName,
+        "startingFunds": newPlayerData.startingFunds,
+        "userNickName": newPlayerData.userNickName,
+        "currentCash": newGameData.startingFunds,
+        "netWorth": newPlayerData.netWorth,
+        "buyPower": newPlayerData.buyPower,
+        "currentStockValue": newPlayerData.currentStockValue,
+        "playerEmail":"\(self.fixEmail())",
+        "listOfStockAndQuantity": newPlayerData.listOfStockAndQuantity,
+        "numberOfTrades": newPlayerData.numberOfTrades,
+        "gamesPlayed": newPlayerData.gamesPlayed,
+        // whats in gamesPlayed
+        
+        "gamesWon":newPlayerData.gamesWon,
+        "totalPlayerValue": newPlayerData.totalPlayerValue,
+        "stockReturnpercentageAtGameEnd": newPlayerData.stockReturnpercentageAtGameEnd,
+        "watchListStock": newPlayerData.watchListStocks,
+        "winningPercentage": newPlayerData.winningPercentage
+            ]]] as! [[String : [String : String]]]
+        
+        */
+        
       //  gamesPlayed = gamesPlayed  + 1.0
         
         let saveMe = [
@@ -227,10 +254,14 @@ class ConfirmationPage: UITableViewController {
             "playersStocksAndAmount":newGameData.playersStocksAndAmount,
             "startDate": newGameData.startDate,
             
+            //playersStocksandAmounts [[String:[[String:String]]]]
             //can i do the below are do i have to retype everything?
             
           //"playerAndInfo": [newGameData.playerInfo]
             
+           // "playersAndInfo": newGameData.playersAndInfo
+            
+            // String : [[String:: [String: String]]]
             "playersAndInfo":["\(self.fixEmail())": ["firstName": newPlayerData.firstName,
                                                      "lastName": newPlayerData.lastName,
                                                      "fullName": newPlayerData.fullName,
@@ -253,6 +284,8 @@ class ConfirmationPage: UITableViewController {
                 "winningPercentage": newPlayerData.winningPercentage
                 ]]
             
+            //
+
             ] as [String : Any]
         
         

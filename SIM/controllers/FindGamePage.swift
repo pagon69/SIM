@@ -233,19 +233,6 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
             
             self.makeFirebaseUpdates(path: "userDataByEmail/\(self.fixEmail())", myUpdates: updates)
             
-            /*
-            self.ref.child("userDataByEmail/\(self.fixEmail())").updateChildValues(updates){(error, ref) in
-                
-                if let err = error {
-                    print("An error happened:\(err)")
-                }else {
-                    // self.updateUserProfile()
-                    print("updates made successfully!: /n/n/n\n\n \(updates) added to Firebase /n/n/n\n\n\n")
-                }
-            }
-            */
-            
-            
         }
         
     }
@@ -299,7 +286,22 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 updatedGameInfo.stopLossEnabled = data["stopLossEnabled"] as? Bool ?? false
                 
                 // investigate if this works
-                updatedGameInfo.playerInfo = data["playersAndInfo"] as? [Player] ?? [Player()]
+                //updatedGameInfo.playerInfo = data["playersAndInfo"] as? [[String: [String:String]]] ?? [["any@test_com": ["info2":"otherInfo"]]]
+ 
+                //whats in the below?
+                var playersAndInfo = data["playersAndInfo"] as? [String: Any] ?? [:]
+                
+                //i cannot cast it as anything other than int, string, array etc no complex cases
+               // updatedGameInfo.playerInfo = data["playersAndInfo"] as? [[String:[String:String]]] ?? [["test@test_com": ["test1":"test2"]]
+                //validate whats in here?
+                
+                
+                //String : [[String:: [String: String]]]
+                let playersInfo = data["playersAndInfo"] as? [[String:[String:String]]] ?? [["test@test_com": ["test1":"test2"]]]
+                    
+                var currentPlayersAndInfo = [playersInfo]
+                var currentPlayersAndInfo2 = [playersAndInfo]
+                
                 
                 //special cases i have to work on
                 updatedGameInfo.playersInGameEmail = data["PlayersInGameEmail"] as? [String] ?? ["test@test.com"]
@@ -346,14 +348,44 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
 
     func makeUpdates(gameDetails: GamesInfo){
         
+        let updates2 = [
+        
+             "firstName": currentPlayer.firstName,
+                                                     "lastName": currentPlayer.lastName,
+                                                     "fullName": currentPlayer.fullName,
+                                                     "startingFunds": gameDetails.startingFunds,
+                                                     "userNickName": currentPlayer.userNickName,
+                                                     "currentCash": "0",
+                                                     "netWorth": "0",
+                                                     "buyPower": "0",
+                                                     "currentStockValue": "0",
+                                                     "playerEmail":"\(self.fixEmail())",
+                
+                //string:[string:[String:String]]
+                
+                "listOfStockAndQuantity": currentPlayer.listOfStockAndQuantity,
+                "numberOfTrades": "0",
+                "gamesPlayed": "0",
+                "gamesWon": "0",
+                "totalPlayerValue": "0",
+                "stockReturnpercentageAtGameEnd": "0",
+                "watchListStock": currentPlayer.watchListStocks,
+                "winningPercentage": "0"
+            
+            
+            ] as [String : Any]
+        
+    
+        
         let updates = [
             "numberOfPlayers":gameDetails.numberOfPlayersInGame,
             "gamesInProgress":gameDetails.gamesInProgress,
             "PlayersInGameEmail":gameDetails.playersInGameEmail,
             "playersInGameAndCash": gameDetails.playersInGameAndCash,
-            "playersStocksAndAmount": gameDetails.playersStocksAndAmount,
-            //"playersAndInfo": gameDetails.playerInfo
+            "playersStocksAndAmount": gameDetails.playersStocksAndAmount
             
+            //"playersAndInfo": gameDetails.playerInfo
+            /*
             "playersAndInfo":["\(self.fixEmail())": ["firstName": currentPlayer.firstName,
                                                      "lastName": currentPlayer.lastName,
                                                      "fullName": currentPlayer.fullName,
@@ -376,9 +408,10 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 "watchListStock": currentPlayer.watchListStocks,
                 "winningPercentage": currentPlayer.winningPercentage
                 ]]
+            */
             
             ] as [String : Any]
-        
+        /*
         self.ref.child("gamesInProgressByGamename/\(gameDetails.gameName)").updateChildValues(updates){(Error, ref) in
             if let error = Error {
                 print("somethign went way wrong:\(error)")
@@ -388,6 +421,25 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                 print("updates made sucessfully: \(updates) added /n/n/n\n\n\n")
             }
         }
+        */
+        
+        //ref.child("/AndyLearn/\("/test/\("playersAndInfo")")").updateChildValues(saveMe2)
+        
+        //removed playerinfo from the child path child("playersAndInfo")
+
+        self.ref.child("/gamesInProgressByGamename/\(gameDetails.gameName)/\("playersAndInfo")").child("\(fixEmail())").updateChildValues(updates2) { (error, dataRef) in
+            
+        }
+        
+        self.ref.child("/gamesInProgressByGamename/\(gameDetails.gameName)").updateChildValues(updates) { (error, dataRef) in
+            self.performSegue(withIdentifier: "goToGameStats", sender: self)
+            
+        }
+        
+        //self.ref.child("gamesInProgressByGamename").child(gameDetails.gameName).updateChildValues(updates) { (error, dataRef) in
+            
+        //self.performSegue(withIdentifier: "goToGameStats", sender: self)
+        // }
         
     }
     
@@ -483,6 +535,9 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                     myGameinfo.playersStocksAndAmount = each.value["playersStocksAndAmount"] as? [[String:[[String:String]]]] ?? [["test_com":[["Good":"0"]]]]
                     myGameinfo.privateGame = each.value["privateGame"] as? Bool ?? false
     
+                    //MARK: - whats up with this?
+                    myGameinfo.playersAndInfo = each.value["playersAndInfo"] as? [[String: [String: String]]] ?? [["who": ["what":"ever"]]]
+                    
                     //check if user is within the game
                    // var index = 0
                     var found =  true
@@ -497,7 +552,6 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                         }else{
                             found = false
                         }
-                        
                     }
                     
                     if found {
@@ -522,6 +576,12 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
         let updates = ["percentComplete": percentData,
                        "daysRemaining": daysData
             ] as [String: Any]
+        
+        /*
+        ref.child("AndyLearn").child(userInput).updateChildValues(updates) { (error, dataRef) in
+            
+        }
+        */
         
         self.ref.child("gamesInProgressByGamename/\(gameName)").updateChildValues(updates){(Error, ref) in
             if let error = Error {

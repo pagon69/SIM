@@ -48,6 +48,7 @@
 		C1784E5A22E0B71600A62B5C /* profileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784E5822E0B71600A62B5C /* profileCell.swift */; };
 		C1784E5B22E0B71600A62B5C /* profileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1784E5922E0B71600A62B5C /* profileCell.xib */; };
 		C1784E5F22E0C05800A62B5C /* Overview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1784E5E22E0C05800A62B5C /* Overview.swift */; };
+		C17FD84D237C58DA000CD496 /* FBlearningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FD84C237C58DA000CD496 /* FBlearningViewController.swift */; };
 		C17FDFBB22BBF2EB0046EEF6 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */; };
 		C17FDFBD22BC1C090046EEF6 /* StockSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */; };
 		C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C193E5BB22D4EE11004E16DB /* SignIn.swift */; };
@@ -123,6 +124,7 @@
 		C1784E5822E0B71600A62B5C /* profileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileCell.swift; sourceTree = "<group>"; };
 		C1784E5922E0B71600A62B5C /* profileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = profileCell.xib; sourceTree = "<group>"; };
 		C1784E5E22E0C05800A62B5C /* Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overview.swift; sourceTree = "<group>"; };
+		C17FD84C237C58DA000CD496 /* FBlearningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBlearningViewController.swift; sourceTree = "<group>"; };
 		C17FDFBA22BBF2EB0046EEF6 /* searchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
 		C17FDFBC22BC1C090046EEF6 /* StockSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StockSymbols.swift; path = SIM/view/StockSymbols.swift; sourceTree = SOURCE_ROOT; };
 		C193E5BB22D4EE11004E16DB /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				C174743E23476ABE006C82AF /* Animation.swift */,
 				C14ADE65234FAD1C007C2501 /* ChartsView.swift */,
 				C15B297F235600C200C1F9BD /* TestCharts.swift */,
+				C17FD84C237C58DA000CD496 /* FBlearningViewController.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -459,7 +462,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SIM/Pods-SIM-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
@@ -474,7 +476,6 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
@@ -508,6 +509,7 @@
 				C14ADE66234FAD1C007C2501 /* ChartsView.swift in Sources */,
 				C19E163D22C15348004EE77B /* longViewController.swift in Sources */,
 				C10795D82322D76C00044254 /* FullDetailsPageViewC.swift in Sources */,
+				C17FD84D237C58DA000CD496 /* FBlearningViewController.swift in Sources */,
 				C193E5BC22D4EE11004E16DB /* SignIn.swift in Sources */,
 				C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */,
 				C12CD1C623170DE200FBA211 /* GameStatsPage.swift in Sources */,

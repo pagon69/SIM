@@ -25,6 +25,7 @@ class GamesInfo {
     //can I start as empty with ? and then enter values
     var playersInGameAndCash = [["test_com":"0.0"]]
     var playersStocksAndAmount = [["test_com":[["Goog":"0.0"]]]]
+    var playersAndInfo =  [["test@test_com": ["info":"moreInfo"]]]
     
     var shortSaleEnabled: Bool = true
     var startingFunds: String = "0"
