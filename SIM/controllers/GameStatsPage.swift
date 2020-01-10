@@ -30,6 +30,19 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     var playerInfo = [Player]()
     var playersInCurrentGame = [Player]()
     
+    //enum to manage the various DB references
+    
+    enum myDBReferences: String {
+        case testing = "AndyLearn",
+        gameSettings = "gameSettingsByUserEmail",
+        gameInProgress = "gamesInProgressByGamename",
+        leaderboard = "leaderboard",
+        liveGames = "liveGames",
+        userData = "userDataByEmail"
+        
+    }
+    
+    
     
     //overview IBactions and Outlets
     @IBOutlet weak var playersInGameTable: UITableView!
@@ -112,6 +125,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         doSearch(searchV: userInput)
         searchBar.placeholder = "Enter stock symbol or company name"
         
+        //myDBReferences.testing
     }
     
     //gets all the symbols currently on the exchange and put into an array of symbols
@@ -405,7 +419,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         //uncomment findusersingame to continue
         findUsersInGameTwo()
-       // setupUsersWithInGame()
+        setupUsersWithInGame()
         
         getSymbols()
         getRankings()
@@ -540,15 +554,57 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         var aPlayer = Player()
            
-            ref.child("gamesInProgressByGamename").child(passedData.gameName).observeSingleEvent(of: .value) { (snapshot) in
+            ref.child(myDBReferences.gameInProgress.rawValue).child(passedData.gameName).observeSingleEvent(of: .value) { (snapshot) in
             
                 if let pulledData = snapshot.value as? [String: Any]{
                     
-                    var Test = pulledData["playersAndInfo"] as? [String: [String: [String:String]]] ?? ["Test":["tester":["":""]]]
+                    
+                    print("This is what i found in pulledData: \(pulledData)\n\n\n/n/n/n")
+                    //String : [ String : [ String: String]]
+                    
+                    
+                    //var nextTest = pulledData["playersAndInfo"] as? [String: [String: [ String: String]]] ??
+
+                    let currentPlayersInfo = pulledData["playersAndInfo"] as? [String: [String:Any]] ?? ["tester":["Mc":"tester"]]
                     //string:[string:[String:String]]
                     
-                    print(Test)
+                  //  print("This is within findUsers data: \(currentPlayersInfo)")
                     
+                    for each in currentPlayersInfo{
+                        
+                        print("within the for each: \(each)")
+                        
+                        var aPlayer = Player()
+                       // aPlayer.buyPower = each.key["buyPower"] as? String ?? "101"
+                        
+                        aPlayer.firstName = each.value["fullName"] as? String ?? "tester"
+                        aPlayer.buyPower = each.value["buyPower"] as? String ?? "0"
+                        aPlayer.currentCash = each.value["currentCash"] as? String ?? "0"
+                        aPlayer.currentGame = each.value["currentGame"] as? String ?? "Test game Data"
+                        aPlayer.currentStockValue = each.value["currentStockValue"] as? String ?? "0"
+                        aPlayer.firstName = each.value["firstName"] as? String ?? ""
+                        aPlayer.fullName = each.value["fullName"] as? String ?? ""
+                        aPlayer.gamesInProgress = each.value["gamesInProgress"] as? [String] ?? [""]
+                        aPlayer.gamesPlayed = each.value["gamesPlayed"] as? Double ?? 0.0
+                        aPlayer.gamesWon = each.value["gamesWon"] as? Double ?? 0.0
+                        aPlayer.lastName = each.value["lastName"] as? String ?? ""
+                        aPlayer.listOfStockAndQuantity = each.value["listOfStockAndQuantity"] as? [String: Double] ?? [:]
+                        aPlayer.netWorth = each.value["networth"] as? String ?? "0"
+                        aPlayer.numberOfTrades = each.value["numberOfTrades"] as? String ?? "0"
+                        aPlayer.playerEmail = each.value["playerEmail"] as? String ?? ""
+                        aPlayer.stockReturnpercentageAtGameEnd = each.value["stockReturnpercentageAtGameEnd"] as? [String] ?? [""]
+                        aPlayer.totalPlayerValue = each.value["totalPlayerValue"] as? String ?? ""
+                        aPlayer.userNickName = each.value["userNickName"] as? String ?? "0"
+                        aPlayer.watchListStocks = each.value["watchListStocks"] as? [String] ?? [""]
+                        aPlayer.winningPercentage = each.value["winningPercentage"] as? Double ?? 0.0
+                        
+                        self.playerInfo.append(aPlayer)
+                        
+                    }
+                    
+                     self.playersInGameTable.reloadData()
+
+                    /*
                     for each in self.playerInfo{
                     
                         if each.currentGame != "Test game Data" {
@@ -576,10 +632,12 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                         self.playerInfo.append(aPlayer)
                 
                         }
-                        self.labelUpdate()
-                        self.playersInGameTable.reloadData()
+                        */
                         
-                }
+                      //  self.labelUpdate()
+                    
+                        
+               // }
             }
         
         }
@@ -708,7 +766,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         print("what the view sees: \(passedData.gameName)")
         
         viewSetup()
-       // pullUserData()
+        pullUserData()
         registerCustomCell()
         
     }

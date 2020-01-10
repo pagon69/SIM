@@ -261,13 +261,15 @@ class ConfirmationPage: UITableViewController {
             
            // "playersAndInfo": newGameData.playersAndInfo
             
+            
+            //String : [ String : [ String: String]]
             // String : [[String:: [String: String]]]
             "playersAndInfo":["\(self.fixEmail())": ["firstName": newPlayerData.firstName,
                                                      "lastName": newPlayerData.lastName,
                                                      "fullName": newPlayerData.fullName,
-                                                     "startingFunds": newPlayerData.startingFunds,
+                                                     "startingFunds": newGameData.startingFunds,
                                                      "userNickName": newPlayerData.userNickName,
-                                                     "currentCash": newGameData.startingFunds,
+                                                     "currentCash": newPlayerData.currentCash,
                                                      "netWorth": newPlayerData.netWorth,
                                                      "buyPower": newPlayerData.buyPower,
                                                      "currentStockValue": newPlayerData.currentStockValue,
