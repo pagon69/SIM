@@ -5149,6 +5149,7 @@
                         <outlet property="playersInGameTable" destination="erq-Ex-hkE" id="LN6-X5-H6B"/>
                         <outlet property="portfolioiew" destination="6f7-YK-5PQ" id="20Y-0t-phF"/>
                         <outlet property="rankingOutlet" destination="sgH-RA-wFP" id="IkP-jc-5R5"/>
+                        <outlet property="searchBarOutlet" destination="Kb6-jh-64m" id="ZZ9-DW-DNQ"/>
                         <outlet property="searchDisplayController" destination="qoc-pd-RKy" id="cvE-Lf-pBY"/>
                         <outlet property="segwayOutlet" destination="Gec-94-h3n" id="RkH-6h-HS7"/>
                         <outlet property="settingsOutlet" destination="weD-eh-2k9" id="tZF-4H-s0a"/>

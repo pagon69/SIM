@@ -8,7 +8,9 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseAnalytics
 import GoogleSignIn
+
 
 class portfolioViewController: UIViewController {
 

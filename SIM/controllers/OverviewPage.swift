@@ -399,7 +399,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             self.userData.netWorth = pulleduserdata["netWorth"] as? String ?? ""
             self.userData.numberOfTrades = pulleduserdata["numberOfTrades"] as? String ?? ""
             self.userData.playerEmail = pulleduserdata["playerEmail"] as? String ?? ""
-            self.userData.stockReturnpercentageAtGameEnd = pulleduserdata["stockReturnpercentageAtGameEnd"] as? [String] ?? [""]
+            self.userData.stockReturnpercentageAtGameEnd = pulleduserdata["stockReturnpercentageAtGameEnd"] as? [Double] ?? [0.0]
             self.userData.totalPlayerValue = pulleduserdata["totalPlayerValue"] as? String ?? ""
             self.userData.userNickName = pulleduserdata["userNickName"] as? String ?? ""
             self.userData.fullName = pulleduserdata["fullName"] as? String ?? ""

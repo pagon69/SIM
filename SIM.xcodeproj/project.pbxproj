@@ -63,6 +63,7 @@
 		C19E163922C15320004EE77B /* buyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163822C15320004EE77B /* buyViewController.swift */; };
 		C19E163B22C15335004EE77B /* sellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163A22C15335004EE77B /* sellViewController.swift */; };
 		C19E163D22C15348004EE77B /* longViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E163C22C15348004EE77B /* longViewController.swift */; };
+		C19EC56523CE375100EC0F5E /* JsonSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19EC56423CE375100EC0F5E /* JsonSerial.swift */; };
 		C19F310E234E7397004F8227 /* BuyStockPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19F310D234E7397004F8227 /* BuyStockPage.swift */; };
 		C19F3110234E73C9004F8227 /* SellStockPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19F310F234E73C9004F8227 /* SellStockPage.swift */; };
 		C1A89C2D2327E46500FAAB3F /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A89C2C2327E46500FAAB3F /* Symbol.swift */; };
@@ -139,6 +140,7 @@
 		C19E163822C15320004EE77B /* buyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buyViewController.swift; sourceTree = "<group>"; };
 		C19E163A22C15335004EE77B /* sellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sellViewController.swift; sourceTree = "<group>"; };
 		C19E163C22C15348004EE77B /* longViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longViewController.swift; sourceTree = "<group>"; };
+		C19EC56423CE375100EC0F5E /* JsonSerial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JsonSerial.swift; path = SIM/view/JsonSerial.swift; sourceTree = SOURCE_ROOT; };
 		C19F310D234E7397004F8227 /* BuyStockPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyStockPage.swift; sourceTree = "<group>"; };
 		C19F310F234E73C9004F8227 /* SellStockPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellStockPage.swift; sourceTree = "<group>"; };
 		C1A89C2C2327E46500FAAB3F /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Symbol.swift; path = SIM/controllers/Symbol.swift; sourceTree = SOURCE_ROOT; };
@@ -305,6 +307,7 @@
 				C11A1F162301B2750067FAFA /* UserGameSettings.swift */,
 				C1A89C2C2327E46500FAAB3F /* Symbol.swift */,
 				C14ADE63234FAC21007C2501 /* Charts.swift */,
+				C19EC56423CE375100EC0F5E /* JsonSerial.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				C19F310E234E7397004F8227 /* BuyStockPage.swift in Sources */,
 				C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */,
 				C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */,
+				C19EC56523CE375100EC0F5E /* JsonSerial.swift in Sources */,
 				C193E5C022D529C0004E16DB /* ForgotPassword.swift in Sources */,
 				C1D311CF22D795F900440C1D /* TestViewController.swift in Sources */,
 				C1F0BF0822CCC74A0016FC17 /* AnimationsViewController.swift in Sources */,

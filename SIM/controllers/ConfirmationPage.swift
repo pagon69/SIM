@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 import FirebaseAuth
 import FirebaseDatabase
 import SVProgressHUD
@@ -128,7 +129,7 @@ class ConfirmationPage: UITableViewController {
             
             self.newPlayerData.playerEmail = pulleduserdata["playerEmail"] as? String ?? "test@tester.com"
             self.newPlayerData.startingFunds = pulleduserdata["startingFunds"] as? Double ?? 0.0
-            self.newPlayerData.stockReturnpercentageAtGameEnd = pulleduserdata["stockReturnpercentageAtGameEnd"] as? [String] ?? ["0.0"]
+            self.newPlayerData.stockReturnpercentageAtGameEnd = pulleduserdata["stockReturnpercentageAtGameEnd"] as? [Double] ?? [0.0]
             self.newPlayerData.userNickName = pulleduserdata["userNickName"] as? String ?? "Mister Tester"
             
             self.newPlayerData.gamesPlayed = (pulleduserdata["gamesPlayed"] as? Double ?? 0.0) // + 1.0

@@ -29,6 +29,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     var userSelected = ""
     var playerInfo = [Player]()
     var playersInCurrentGame = [Player]()
+    var currentPlayer = Player()
     
     //enum to manage the various DB references
     
@@ -43,6 +44,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     }
     
     
+    @IBOutlet weak var searchBarOutlet: UISearchBar!
     
     //overview IBactions and Outlets
     @IBOutlet weak var playersInGameTable: UITableView!
@@ -132,7 +134,71 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     //Should i pass this between views that need it ?
     func getSymbols(){
         
+        //list of all symbols
         let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
+        
+        let session = URLSession.shared
+        let url = URL(string: defaultURL)
+        
+        //setup and use a response/request handler for http with json
+        let task = session.dataTask(with: url!) { (data, response, error) in
+            
+            //checks for client and basic connection errors
+            if error != nil || data == nil {
+                print("An error happened on the client side, \(error)")
+                return
+            }
+            
+            //checks for server side issues
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
+                
+                else {
+                print ("server error")
+                return
+            }
+            
+            //checks for mime or serialization errors
+            guard let mime = response.mimeType, mime == "application/json"
+            
+                else{
+                    print("mime type error check spelling or type")
+                    return
+            }
+            
+            //if everything is good then put data in Json and display it.
+            do {
+                let jsonOb = try JSONSerialization.jsonObject(with: data!, options: [])
+        
+               // print(jsonOb)
+            
+              //  print(jsonOb as? [String:String])
+                
+                if let json = jsonOb as? [String: Any]{
+                    
+                //    print(json)
+                    
+                    let name = json["name"] as? String ?? "error happened"
+                    
+                    if let name = json["name"] as? String {
+                        
+                        print(name)
+                    }
+ 
+                }
+  
+            } catch {
+                print("Json error: \(error.localizedDescription)")
+            }
+            
+            
+        }
+        
+        task.resume()
+        
+        //how to get data on a specific stock
+        //let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684")
+        
+        
         
         /*
         Alamofire.request(defaultURL).responseJSON { (JSON) in
@@ -370,16 +436,16 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             
             netWorth = (Double(each.currentCash) ?? 0.0) + (Double(each.currentStockValue) ?? 0.0)
             myDictValue = [each.fullName: netWorth]
+            
+            print(" testing if i get the correct index: \((mySortedList.firstIndex(of: myDictValue) ?? 0) + 1)")
+            
             mySortedList.append(myDictValue)
         }
         
         //have to figure out the sort funtion again
      //  var test = mySortedList.sorted(by: {$"0", $"1"})
         
-        print(" testing if i get the correct index: \((mySortedList.firstIndex(of: myDictValue) ?? 0) + 1)")
-        
-        
-        
+       
     }
     
     
@@ -467,9 +533,13 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         findUsersInGameTwo()
         setupUsersWithInGame()
         
+        searchBarOutlet.placeholder = "Search Stocks and more to trade"
+        
         getSymbols()
       //  getRankings()
        //  getRankingTwo()
+        
+        
         
     }
     
@@ -550,7 +620,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                     aPlayer.netWorth = pulledData["networth"] as? String ?? "0"
                     aPlayer.numberOfTrades = pulledData["numberOfTrades"] as? String ?? "0"
                     aPlayer.playerEmail = pulledData["playerEmail"] as? String ?? ""
-                    aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnpercentageAtGameEnd"] as? [String] ?? [""]
+                    aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnpercentageAtGameEnd"] as? [Double] ?? [0.0]
                     aPlayer.totalPlayerValue = pulledData["totalPlayerValue"] as? String ?? ""
                     aPlayer.userNickName = pulledData["userNickName"] as? String ?? "0"
                     aPlayer.watchListStocks = pulledData["watchListStocks"] as? [String] ?? [""]
@@ -569,6 +639,35 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
+    //MARK: -gamesWonPercentage - calculates the gamesplayed/gameswon
+    func gamesWonPercentage()-> Double{
+        var value = 0.0
+        //remove some of the decimal points involved
+    
+        if Double(currentPlayer.gamesWon) == 0 {
+            value = 0.0
+        }else {
+            
+            value = currentPlayer.gamesPlayed / currentPlayer.gamesWon
+        }
+        
+        return value
+    }
+    
+    
+    //MARK: - AveGainLosses - takes the various gains per game and divides by games played
+    func AveGainLosses()-> Double{
+        
+        var value = 0.0
+        
+        for each in currentPlayer.stockReturnpercentageAtGameEnd{
+            
+            value = Double(each) ?? 0.0 + value
+        }
+        
+        //do something about the decimapoints
+        return value / currentPlayer.gamesPlayed
+    }
     
     func findUsersInGameTwo() {
         
@@ -614,7 +713,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                         aPlayer.netWorth = each.value["networth"] as? String ?? "0"
                         aPlayer.numberOfTrades = each.value["numberOfTrades"] as? String ?? "0"
                         aPlayer.playerEmail = each.value["playerEmail"] as? String ?? ""
-                        aPlayer.stockReturnpercentageAtGameEnd = each.value["stockReturnpercentageAtGameEnd"] as? [String] ?? [""]
+                        aPlayer.stockReturnpercentageAtGameEnd = each.value["stockReturnpercentageAtGameEnd"] as? [Double] ?? [0.0]
                         aPlayer.totalPlayerValue = each.value["totalPlayerValue"] as? String ?? ""
                         aPlayer.userNickName = each.value["userNickName"] as? String ?? "0"
                         aPlayer.watchListStocks = each.value["watchListStocks"] as? [String] ?? [""]
@@ -659,13 +758,13 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                 aPlayer.numberOfTrades = pulledData["numberOfTrades"] as? String ?? "0"
                 aPlayer.playerEmail = pulledData["playerEmail"] as? String ?? "0"
                 aPlayer.startingFunds = pulledData["startingFunds"] as? Double ?? 0.0
-                aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? [String] ?? [""]
+                aPlayer.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? [Double] ?? [0.0]
                 aPlayer.totalPlayerValue = pulledData["totalPlayerValue"] as? String ?? "0"
                 aPlayer.userNickName = pulledData["userNickName"] as? String ?? "mcUser"
                 aPlayer.watchListStocks = pulledData["watchListStocks"] as? [String] ?? ["google test"]
                 aPlayer.winningPercentage = pulledData["winningPercentage"] as? Double ?? 0.0
                 
-                
+                self.currentPlayer = aPlayer
                 self.labelUpdate(currentPlayer: aPlayer)
                 
             }
@@ -694,8 +793,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         playerNameOutlet.text = currentPlayer.fullName
         //fake data to be replayed by player data
         userNameOutlet.text = "\(currentPlayer.gamesPlayed)"
-        userNetWorthOutlet.text = "%\(currentPlayer.winningPercentage)"
-        userTotalReturnOutlet.text = "+4500"
+        userNetWorthOutlet.text = "\(gamesWonPercentage())"
+        userTotalReturnOutlet.text = "\(AveGainLosses())"
         
         
         
@@ -768,7 +867,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                                             //save network or whatever labels someplace
                                             playerInfo.netWorth = pulledData["networth"] as? String ?? "0"
                                             playerInfo.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
-                                            playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? [String] ?? ["0"]
+                                            playerInfo.stockReturnpercentageAtGameEnd = pulledData["stockReturnPercentageAtGameEnd"] as? [Double] ?? [0.0]
                                             playerInfo.playerEmail = pulledData["playerEmail"] as? String ?? "pagon69@hotmail.com"
                                             
                                             self.myPlayersInfo.append(playerInfo)
