@@ -12,9 +12,6 @@ import GoogleMobileAds
 
 class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
-   
-    
-    
     var interstitial: GADInterstitial!
     var receivedData: [Symbol]?
     var userSearch: String?
@@ -22,6 +19,10 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
     var searchR: [Symbol]?
     var userProvidedData: String?
     var sentStockSymbols = [JsonSerial]()
+    var searchJsonR = [JsonSerial]()
+   
+    
+    //var savedResults = JsonStockCodeable()
     
     
     @IBOutlet weak var searchOutlet: UISearchBar!
@@ -36,6 +37,12 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
     @IBOutlet weak var stackviewOutlet: UIStackView!
     
     @IBOutlet weak var stackViewAnimation: NSLayoutConstraint!
+    
+    
+    @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
     
     
     @IBAction func DetialsViewClicked(_ sender: UIButton) {
@@ -74,11 +81,14 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
     
     func doSearch(searchV: String){
         
-        let searchResults = receivedData?.filter { (item) -> Bool in
-            item.symbol.lowercased().contains(searchV)
+        let searchResults = sentStockSymbols.filter { (item) -> Bool in
+            // item.symbol.lowercased().contains(searchV)
+            item.symbol.uppercased().contains(searchV.uppercased())
         }
+        
         //questionable bit of code here
-        self.searchR = searchResults ?? [Symbol]()
+        self.searchJsonR = searchResults
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -88,40 +98,108 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
         doSearch(searchV: userInput)
     }
     
+    
     func viewSetup(){
         interstitial = createAndLoadInterstitial()
         
+        getUserData(searchSymbol: userProvidedData ?? "AAPL")
+        
+        if sentStockSymbols.count < 1 {
+            getSymbols()
+        }
     }
     
-    func getUserData(){
+    
+    func getUserData(searchSymbol: String){
 
-        let defaultURL = "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684"
-        
-        print(defaultURL)
-        
-        /*
-        Alamofire.request(defaultURL).responseJSON { (JSON) in
-            print("The amount of data received: \(String(describing: JSON.data))")
-            
-            print(JSON)
-            //add all the data later on
-            if let myData = JSON.value as? [String:Any]{
-               
-                self.userStockData.companyName = myData["companyName"] as! String
-                self.userStockData.symbol = myData["symbol"] as! String
-                self.userStockData.latestPrice = String(myData["latestPrice"] as! Double)
-                self.userStockData.change = String(myData["change"]  as! Double)
-                self.userStockData.changePercent = String(myData["changePercent"]  as! Double)
-                
-                self.symbolOutlet.text = self.userStockData.symbol
-                self.changeInPrice.text = self.userStockData.change
-                self.companyNameOutlet.text = self.userStockData.companyName
-                self.stockPriceOutlet.text = self.userStockData.latestPrice
+        let defaultURL = "https://cloud.iexapis.com/stable/stock/\(searchSymbol ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684"
+        //how to get data on a specific stock
+        //let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684")
+       
+        let session = URLSession.shared
+        let url = URL(string: defaultURL)
+        //setup and use a response/request handler for http with json
+        let task = session.dataTask(with: url!) { (data, response, error) in
+            //checks for client and basic connection errors
+            if error != nil || data == nil {
+                print("An error happened on the client side, \(String(describing: error))")
+                return
             }
-            
+            //checks for server side issues
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
+                else {
+                    print ("server error")
+                    return
+            }
+            //checks for mime or serialization errors
+            guard let mime = response.mimeType, mime == "application/json"
+                else{
+                    print("mime type error check spelling or type")
+                    return
+            }
+            //working on codable?
+            do {
+                let myResults = try! JSONDecoder().decode(JsonStockCodeable.self, from: data!)
+                
+                print(myResults)
+
+             //   self.savedResults = myResults
+               // self.SearchResults = myR
+                //printing everything
+                
+                
+                if data != nil {
+                    print("collected the data successfully")
+                }
+            }catch {
+                print("JSON error", error.localizedDescription)
+            }
         }
-        */
+        task.resume()
         
+    }
+    
+    
+    func getSymbols(){
+        //list of all symbols
+        let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
+        //how to get data on a specific stock
+        //let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684")
+        let session = URLSession.shared
+        let url = URL(string: defaultURL)
+        //setup and use a response/request handler for http with json
+        let task = session.dataTask(with: url!) { (data, response, error) in
+            //checks for client and basic connection errors
+            if error != nil || data == nil {
+                print("An error happened on the client side, \(error)")
+                return
+            }
+            //checks for server side issues
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
+                else {
+                    print ("server error")
+                    return
+            }
+            //checks for mime or serialization errors
+            guard let mime = response.mimeType, mime == "application/json"
+                else{
+                    print("mime type error check spelling or type")
+                    return
+            }
+            //working on codable?
+            do {
+                let myResults = try! JSONDecoder().decode([JsonSerial].self, from: data!)
+                
+                self.sentStockSymbols = myResults
+                
+                if data != nil {
+                    print("collected the data successfully")
+                }
+            }catch {
+                print("JSON error", error.localizedDescription)
+            }
+        }
+        task.resume()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -129,7 +207,7 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
         var count = 0
         
         if tableView.tag == 0 {
-            count = searchR?.count ?? 1
+            count = searchJsonR.count
         }
         
         
@@ -144,8 +222,8 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
         if tableView.tag == 0 {
             
             cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
-            cell.textLabel?.text = searchR?[indexPath.row].symbol
-            cell.detailTextLabel?.text = searchR?[indexPath.row].name
+            cell.textLabel?.text = searchJsonR[indexPath.row].symbol
+            cell.detailTextLabel?.text = searchJsonR[indexPath.row].name
             
         }
         
@@ -164,7 +242,7 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
     
 
     override func viewWillAppear(_ animated: Bool) {
-        getUserData()
+       // getUserData(searchSymbol: userSearch ?? "AAPL")
     }
 
 }

@@ -137,10 +137,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     func getSymbols(){
         //list of all symbols
         let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
-        
         //how to get data on a specific stock
         //let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684")
-        
         let session = URLSession.shared
         let url = URL(string: defaultURL)
         //setup and use a response/request handler for http with json

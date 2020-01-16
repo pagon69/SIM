@@ -5191,7 +5191,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Quote Information" id="9wQ-S8-5Nw">
-                                        <barButtonItem key="rightBarButtonItem" title="X" id="1aq-zn-D7E"/>
+                                        <barButtonItem key="rightBarButtonItem" title="X" id="1aq-zn-D7E">
+                                            <connections>
+                                                <action selector="backButtonClicked:" destination="Eyp-Km-PUJ" id="ZgY-0N-h3L"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
