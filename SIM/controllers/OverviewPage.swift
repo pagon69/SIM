@@ -36,7 +36,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     
     //keep these remove above player and game Info
     var passedData = GamesInfo()
-    
+    var searchJSOnR = [JsonSerial]()
+    var passedSymbolsInfo = [JsonSerial]()
     var userData = Player()
     var myGameinfo = GamesInfo()
     var gameData2 = [GamesInfo]()
@@ -112,11 +113,20 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     
     func doSearch(searchV: String){
         
+        /*
         let searchResults = receivedData?.filter { (item) -> Bool in
             item.symbol.lowercased().contains(searchV)
         }
+        */
+        
+        let searchResults = passedSymbolsInfo.filter { (item) -> Bool in
+           // item.symbol.lowercased().contains(searchV)
+            item.symbol.uppercased().contains(searchV.uppercased())
+        }
+        
         //questionable bit of code here
-        self.searchR = searchResults ?? [Symbol]()
+        self.searchJSOnR = searchResults
+        
     }
     
     
@@ -184,7 +194,9 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         var count = 0
         
         if tableView.tag == 0 {
-            count = searchR?.count ?? 1
+            
+            count = searchJSOnR.count
+            
         }
         
         if(tableView.tag == 9){
@@ -213,6 +225,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             let destVC = segue.destination as! GameStatsPage
             //destVC.passedData = myGameinfo
             destVC.passedData = passedData
+            destVC.variousSymbols = passedSymbolsInfo
         }
         
         if segue.identifier == "goToFindGame" {
@@ -226,14 +239,14 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     //used to update the data in the tableview
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        let cell = UITableViewCell()
+        var cell = UITableViewCell()
         
         if tableView.tag == 0 {
             
-            let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
-            cell.textLabel?.text = searchR?[indexPath.row].symbol
-            cell.detailTextLabel?.text = searchR?[indexPath.row].name
-            
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+            cell.textLabel?.text = searchJSOnR[indexPath.row].symbol
+            cell.detailTextLabel?.text = searchJSOnR[indexPath.row].name
+        
         }
         
         //profile info

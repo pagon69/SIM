@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct JsonSerial {
+struct JsonSerial: Codable {
     
     var date: String
-    var iexID: String
-    var isEnabled: Int
+   // var iexId: Int
+   // var isEnabled: Int
     var name: String
     var symbol: String
     var type: String

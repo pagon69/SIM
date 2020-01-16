@@ -16,6 +16,7 @@ import SVProgressHUD
 
 class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
     
+    var variousSymbols = [JsonSerial]()
     
     //google sign in action
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -211,28 +212,57 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
         }
     }
 
-    
     func getSymbols(){
-        
+        //list of all symbols
         let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
-
-        /*
-        Alamofire.request(defaultURL).responseJSON { (JSON) in
-          
-            
-           print(JSON)
-            
+        let session = URLSession.shared
+        let url = URL(string: defaultURL)
+        //setup and use a response/request handler for http with json
+        let task = session.dataTask(with: url!) { (data, response, error) in
+            //checks for client and basic connection errors
+            if error != nil || data == nil {
+                print("An error happened on the client side, \(error)")
+                return
+            }
+            //checks for server side issues
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
+                else {
+                    print ("server error")
+                    return
+            }
+            //checks for mime or serialization errors
+            guard let mime = response.mimeType, mime == "application/json"
+                else{
+                    print("mime type error check spelling or type")
+                    return
+            }
+            //working on codable?
+            do {
+                let myResults = try! JSONDecoder().decode([JsonSerial].self, from: data!)
+               
+                self.variousSymbols = myResults
+                
+                if data != nil {
+                    print("collected the data successfully")
+                }
+                //for each in myResults{
+                    //print(each)
+               // }
+                
+            }catch {
+                print("JSON error", error.localizedDescription)
+            }
         }
-        */
+        
+        task.resume()
         
     }
     
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //any data needs to be transfered ?
-        
-        
+ 
+        let destVC = segue.destination as! OverviewPage
+        destVC.passedSymbolsInfo = variousSymbols
         
     }
     
@@ -297,7 +327,7 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
 
             viewSetup()
           //  getSymbols()
-        
+            getSymbols()
         
     }
     
