@@ -31,6 +31,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     var playersInCurrentGame = [Player]()
     var currentPlayer = Player()
     var variousSymbols = [JsonSerial]()
+    var searchJSOnR = [JsonSerial]()
     
     //enum to manage the various DB references
     
@@ -136,6 +137,10 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     func getSymbols(){
         //list of all symbols
         let defaultURL = "https://api.iextrading.com/1.0/ref-data/symbols"
+        
+        //how to get data on a specific stock
+        //let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684")
+        
         let session = URLSession.shared
         let url = URL(string: defaultURL)
         //setup and use a response/request handler for http with json
@@ -148,8 +153,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             //checks for server side issues
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
                 else {
-                print ("server error")
-                return
+                    print ("server error")
+                    return
             }
             //checks for mime or serialization errors
             guard let mime = response.mimeType, mime == "application/json"
@@ -160,56 +165,31 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             //working on codable?
             do {
                 let myResults = try! JSONDecoder().decode([JsonSerial].self, from: data!)
-                for each in myResults{
-                    print(each)
+                
+                self.variousSymbols = myResults
+                
+                if data != nil {
+                    print("collected the data successfully")
                 }
             }catch {
                 print("JSON error", error.localizedDescription)
             }
         }
-
         task.resume()
-        
-    //}
-        
-        //how to get data on a specific stock
-        //let url = URL(string: "https://cloud.iexapis.com/stable/stock/\(userSearch ?? "")/quote?token=pk_77b4f9e303f64472a2a520800130d684")
-
-        /*
-        Alamofire.request(defaultURL).responseJSON { (JSON) in
-            print("The amount of data received: \(String(describing: JSON.data))")
- 
-            if let myData = JSON.value as? [[String: Any]]{
-                
-                for each in myData {
-                    let data = Symbol()
-                    
-                    if each["isEnabled"] as! Int == 1{
-                        data.name = each["name"] as! String
-                        data.symbol = each["symbol"] as! String
-                        data.type = each["type"] as! String
-                        self.forSymbolsSearch.append(data)
-                    }
-                }
-            }
-        
-            self.processSymbols(jsonData: self.forSymbolsSearch)
-        }
-        */
-        
     }
     
     
     //searches the array of stock symbols
     func doSearch(searchV: String){
         
-        let searchResults = forSymbolsSearch.filter { (item) -> Bool in
-            
-            item.symbol.lowercased().contains(searchV)
-            
+        let searchResults = variousSymbols.filter { (item) -> Bool in
+            // item.symbol.lowercased().contains(searchV)
+            item.symbol.uppercased().contains(searchV.uppercased())
         }
         
-        self.searchR = searchResults
+        //questionable bit of code here
+        self.searchJSOnR = searchResults
+        
         
     }
     
@@ -230,8 +210,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         //handles the stocsk and symbols
         if tableView.tag == 0 {
-        userSelected = searchR?[indexPath.row].symbol ?? ""
-        performSegue(withIdentifier: "goToStockSearch", sender: self)
+            userSelected = searchJSOnR[indexPath.row].symbol
+            performSegue(withIdentifier: "goToStockSearch", sender: self)
         }
         
         //handles various users in game
@@ -272,7 +252,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         //search results
         if tableView.tag == 0 {
-            count = searchR?.count ?? 1
+            count = searchJSOnR.count
         }
         
         
@@ -286,8 +266,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         if tableView.tag == 0 {
             
             cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
-            cell.textLabel?.text = searchR?[indexPath.row].symbol
-            cell.detailTextLabel?.text = searchR?[indexPath.row].name
+            cell.textLabel?.text = searchJSOnR[indexPath.row].symbol
+            cell.detailTextLabel?.text = searchJSOnR[indexPath.row].name
             
         }
 
@@ -491,8 +471,14 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             let destVC = segue.destination as! QuotePageViewC
             destVC.userSearch = userSelected
             destVC.receivedData = forSymbolsSearch
+            destVC.sentStockSymbols = variousSymbols
         }
         
+        if segue.identifier == "gameJoinedSegue" {
+            let destVC = segue.destination as! OverviewPage
+            destVC.passedSymbolsInfo = variousSymbols
+            
+        }
         
     }
     
@@ -511,7 +497,11 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         searchBarOutlet.placeholder = "Search Stocks and more to trade"
         
-        getSymbols()
+        if variousSymbols.count < 1 {
+            getSymbols()
+        }
+        
+       // getSymbols()
       //  getRankings()
        //  getRankingTwo()
         

@@ -245,17 +245,11 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
                 if data != nil {
                     print("collected the data successfully")
                 }
-                //for each in myResults{
-                    //print(each)
-               // }
-                
             }catch {
                 print("JSON error", error.localizedDescription)
             }
         }
-        
         task.resume()
-        
     }
     
     

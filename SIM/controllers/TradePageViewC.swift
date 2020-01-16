@@ -11,6 +11,10 @@ import UIKit
 class TradePageViewC: UIViewController {
 
     
+    var userProvidedSearch: String?
+    var variousSymbols = [JsonSerial]()
+    
+    
     @IBAction func submitButtonClicked(_ sender: UIButton) {
         //do some animation and save data
         

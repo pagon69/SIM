@@ -1779,6 +1779,7 @@
                         <segue destination="1kx-Uf-I2i" kind="showDetail" identifier="goToNewGame" id="rfD-Wi-fGJ"/>
                         <segue destination="OW8-Bd-45t" kind="showDetail" identifier="goBackToHome" id="vq3-c8-Uay"/>
                         <segue destination="DrF-le-076" kind="showDetail" identifier="goToGameStatPage" id="Wvb-Dq-GgB"/>
+                        <segue destination="Eyp-Km-PUJ" kind="showDetail" identifier="tradingPage" id="G5w-gw-cXL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFx-93-XaD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -6291,7 +6292,7 @@
                                                                 <rect key="frame" x="0.0" y="128" width="355" height="32"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXQ-fq-3X3">
-                                                                        <rect key="frame" x="325" y="0.0" width="30" height="32"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="335" height="32"/>
                                                                         <color key="backgroundColor" red="0.1845753916" green="1" blue="0.1705975062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <state key="normal" title="&gt;&gt;"/>
                                                                         <connections>
@@ -8421,7 +8422,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="XBu-cc-aTv"/>
         <segue reference="rfD-Wi-fGJ"/>
-        <segue reference="Wvb-Dq-GgB"/>
+        <segue reference="Car-3X-Cep"/>
+        <segue reference="dwy-YR-99T"/>
         <segue reference="T2c-Ao-f6i"/>
         <segue reference="rrH-gY-ghf"/>
         <segue reference="hqA-Ih-mwe"/>

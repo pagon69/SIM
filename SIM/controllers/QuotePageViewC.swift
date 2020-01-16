@@ -20,6 +20,9 @@ class QuotePageViewC: UIViewController, UISearchBarDelegate, UITableViewDelegate
     var userSearch: String?
     var userStockData = Stock()
     var searchR: [Symbol]?
+    var userProvidedData: String?
+    var sentStockSymbols = [JsonSerial]()
+    
     
     @IBOutlet weak var searchOutlet: UISearchBar!
     @IBOutlet weak var backgroundOutlet: UIImageView!

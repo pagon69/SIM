@@ -213,9 +213,23 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        currentIndex = indexPath.row
-        passedData = gameData[currentIndex]
-        performSegue(withIdentifier: "goToGameStatPage", sender: self)
+       // currentIndex = indexPath.row
+        //passedData = gameData[currentIndex]
+       // performSegue(withIdentifier: "goToGameStatPage", sender: self)
+        
+        if tableView.tag == 0 {
+            currentIndex = indexPath.row
+            //searchJSOnR[currentIndex].symbol
+            performSegue(withIdentifier: "tradingPage", sender: self)
+            
+        }
+        
+        if tableView.tag == 1{
+            currentIndex = indexPath.row
+            passedData = gameData[currentIndex]
+            performSegue(withIdentifier: "goToGameStatPage", sender: self)
+            
+        }
         
     }
     
@@ -233,6 +247,17 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             //destVC.passedData = myGameinfo
             destVC.currentPlayer = userData
         }
+        
+        if segue.identifier == "tradingPage" {
+            let destVC =  segue.destination as! QuotePageViewC
+            destVC.userProvidedData = searchJSOnR[currentIndex].symbol
+            //destVC.variousSymbols  = searchJSOnR
+            
+        }
+        
+        
+        
+        
     }
     
     
