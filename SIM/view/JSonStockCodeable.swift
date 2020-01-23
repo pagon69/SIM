@@ -12,59 +12,50 @@ struct JsonStockCodeable: Codable {
     
     var symbol: String?
     var companyName: String?
+    var peRatio: Double?
     var latestPrice: Double?
     var change: Double?
     var week52High: Double?
     var week52Low: Double?
     var primaryExchange: String?
-    
-    
-    /*
-    var calculationPrice: String
-    var open: Double
-    var openTime: String
-    var close: Double
-    var closeTime: String
-    var high: Double
-    var low: Double
-    */
-    
-
-}
-    /*
- e
-        var latestSource =  ""
-        var latestTime = ""
-        var latestUpdate = 0
-        var latestVolume = 0
-        var iexRealtimePrice = 0.00
-        var iexRealtimeSize = 0
-        var iexLastUpdated = 0
-        var delayedPrice = 0.00
-        var delayedPriceTime = 0.00
-        var extendedPrice = 0.00
-        var extendedChange = 0.00
-        var extendedChangePercent = 0.00
-        var extendedPriceTime = 0
-        var previousClose = 0.
-        //var change = ""
-        var changePercent = ""
-        var iexMarketPercent = ""
-        var iexVolume = 0
-        var avgTotalVolume = 0
-        var iexBidPrice = 0.00
-        var iexBidSize = 0
-        var iexAskPrice = 0.00
-        var iexAskSize = 0
-        var marketCap = 0
-       // var week52High = 0.00
-       // var week52Low = 0.00
-        var ytdChange = 0.00
-        var type = ""
-    
+    var lastTradeTime: Double?
+    var calculationPrice: String?
+    var open: Double?
+    var openTime: String?
+    var close: Double?
+    var closeTime: String?
+    var high: Double?
+    var low: Double?
+    var isUSMarketOpen: Bool?
+    var latestSource: String?
+    var latestTime: String?
+        var latestUpdate: Double?
+        var latestVolume: Double?
+        var iexRealtimePrice: Double?
+        var iexRealtimeSize: Double?
+        var iexLastUpdated: Double?
+        var delayedPrice: Double?
+        var delayedPriceTime: Double?
+        var extendedPrice: Double?
+        var extendedChange: Double?
+        var extendedChangePercent: Double?
+    var extendedPriceTime: Double?
+    var previousClose: Double?
+    var previousVolume: Double?
+    var changePercent: Double?
+    var iexMarketPercent: Double?
+    var iexVolume: Double?
+    var avgTotalVolume: Double?
+    var iexBidPrice: Double?
+    var iexBidSize: Double?
+    var iexAskPrice: Double?
+    var iexAskSize: Double?
+    var marketCap: Double?
+    var ytdChange: Double?
+    var type: String?
         //needed for game
-        var sharesCurrentlyPurchased = 0
+    var sharesCurrentlyPurchased: Double?
  
  
 }
-*/
+
