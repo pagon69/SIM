@@ -466,8 +466,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "goToStockSearch" {
-            let destVC = segue.destination as! QuotePageViewC
-            destVC.userSearch = userSelected
+            let destVC = segue.destination as! QuotePage
+            destVC.userProvidedData = userSelected
             destVC.receivedData = forSymbolsSearch
             destVC.sentStockSymbols = variousSymbols
         }

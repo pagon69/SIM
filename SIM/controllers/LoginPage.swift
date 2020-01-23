@@ -239,9 +239,8 @@ class LoginPage: UIViewController, UITextFieldDelegate, GIDSignInDelegate {
             //working on codable?
             do {
                 let myResults = try! JSONDecoder().decode([JsonSerial].self, from: data!)
-               
                 self.variousSymbols = myResults
-                
+
                 if data != nil {
                     print("collected the data successfully")
                 }

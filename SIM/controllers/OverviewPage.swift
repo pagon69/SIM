@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+//import SVProgressHUD
 //import Alamofire
 
 class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate, UISearchBarDelegate, reactToJoinButtonPush {
@@ -221,7 +222,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             currentIndex = indexPath.row
             //searchJSOnR[currentIndex].symbol
             performSegue(withIdentifier: "tradingPage", sender: self)
-            
+           // SVProgressHUD.show()
         }
         
         if tableView.tag == 1{
@@ -249,10 +250,10 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         }
         
         if segue.identifier == "tradingPage" {
-            let destVC =  segue.destination as! QuotePageViewC
+            let destVC =  segue.destination as! QuotePage
             destVC.userProvidedData = searchJSOnR[currentIndex].symbol
             //destVC.variousSymbols  = searchJSOnR
-            
+            destVC.sentStockSymbols = passedSymbolsInfo
         }
         
         

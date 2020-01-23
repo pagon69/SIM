@@ -10,8 +10,14 @@ import Foundation
 
 struct JsonStockCodeable: Codable {
     
-    var symbol: String
-    var companyName: String
+    var symbol: String?
+    var companyName: String?
+    var latestPrice: Double?
+    var change: Double?
+    var week52High: Double?
+    var week52Low: Double?
+    var primaryExchange: String?
+    
     
     /*
     var calculationPrice: String
@@ -21,8 +27,9 @@ struct JsonStockCodeable: Codable {
     var closeTime: String
     var high: Double
     var low: Double
-    var latestPrice: Double
     */
+    
+
 }
     /*
  e
@@ -40,7 +47,7 @@ struct JsonStockCodeable: Codable {
         var extendedChangePercent = 0.00
         var extendedPriceTime = 0
         var previousClose = 0.
-        var change = ""
+        //var change = ""
         var changePercent = ""
         var iexMarketPercent = ""
         var iexVolume = 0
@@ -50,8 +57,8 @@ struct JsonStockCodeable: Codable {
         var iexAskPrice = 0.00
         var iexAskSize = 0
         var marketCap = 0
-        var week52High = 0.00
-        var week52Low = 0.00
+       // var week52High = 0.00
+       // var week52Low = 0.00
         var ytdChange = 0.00
         var type = ""
     
