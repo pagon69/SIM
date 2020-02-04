@@ -21,9 +21,9 @@ struct JsonStockCodeable: Codable {
     var lastTradeTime: Double?
     var calculationPrice: String?
     var open: Double?
-    var openTime: String?
+    var openTime: Double?
     var close: Double?
-    var closeTime: String?
+    var closeTime: Double?
     var high: Double?
     var low: Double?
     var isUSMarketOpen: Bool?

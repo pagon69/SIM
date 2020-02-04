@@ -471,13 +471,14 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
     
     func quickAnimation(){
         
+        //self.view.layoutIfNeeded()
         profileLabel.isHidden = true
         profileLabel.transform = CGAffineTransform(translationX: 375.0, y: 0)
         
-        UIView.animate(withDuration: 3.0) {
+        UIView.animate(withDuration: 3.0, animations: {
             self.profileLabel.isHidden = false
             self.profileLabel.transform = CGAffineTransform(translationX: 0, y: 0)
-        }
+        })
         
     }
     

@@ -9,8 +9,155 @@
 import UIKit
 //import SVProgressHUD
 
-class QuotePage: UIViewController {
+class QuotePage: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+   
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        var items = 0
+        
+        if pickerView.tag == typeActionOutlet.tag {
+            items = 1
+        }
+        
+        if pickerView.tag == marketTypePickerOutlet.tag {
+            items = 1
+        }
+        
+        return items
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        var items = 0
+        
+        if pickerView.tag == typeActionOutlet.tag {
+            items = transactionType.count
+        }
+        
+        if pickerView.tag == marketTypePickerOutlet.tag {
+            items = orderType.count
+        }
+        
+        return items
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        var itemsName = ""
+        
+        if pickerView.tag == typeActionOutlet.tag {
+            itemsName = transactionType[row]
+            
+            if itemsName == "Buy" {
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+            }
+            
+            if itemsName == "Sell" {
+                
+                marketViewOutlet.isHidden = true
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+                
+            }
+            
+        }
+        
+        if pickerView.tag == marketTypePickerOutlet.tag {
+            itemsName = orderType[row]
+            
+            if itemsName == "Market" {
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+            }
+            
+            if itemsName == "Stop" {
+                
+                quickAnimation(whoToAnimate: "Stop")
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  false
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+                
+            }
+            
+            if itemsName == "Limit" {
+                
+                quickAnimation(whoToAnimate: "Limit")
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = false
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+            }
+            
+            if itemsName == "Stop Limit" {
+                
+                quickAnimation(whoToAnimate: "StopLimit")
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = false
+                totalViewOutlet.isHidden = false
+                
+            }
+        }
+        
+        return itemsName
+    }
+    
+    
+    func quickAnimation(whoToAnimate: String){
+        
+        //stopLimitViewOutlet.isHidden = false
+        
+        stopLimitViewOutlet.transform = CGAffineTransform(translationX: 0.0, y: 190.5)
+        stopViewOutlet.transform = CGAffineTransform(translationX: 0.0, y: 180.5)
+        limitViewOutlet.transform = CGAffineTransform(translationX: 0.0, y: 164.5)
 
+        if whoToAnimate == "Stop"{
+            UIView.animate(withDuration: 2.0, animations: {
+                 self.stopViewOutlet.isHidden = false
+                self.stopViewOutlet.transform = CGAffineTransform(translationX: 0, y: 74.5)
+            })
+        }
+        
+        if whoToAnimate == "Limit"{
+            UIView.animate(withDuration: 2.0, animations: {
+                self.limitViewOutlet.isHidden = false
+                self.limitViewOutlet.transform = CGAffineTransform(translationX: 0, y: 44.5)
+            })
+        }
+        
+        if whoToAnimate == "StopLimit"{
+            UIView.animate(withDuration: 2.0, animations: {
+                self.stopLimitViewOutlet.isHidden = false
+                self.stopLimitViewOutlet.transform = CGAffineTransform(translationX: 0, y: 74.5)
+            })
+        }
+        
+       // self.view.layoutIfNeeded()
+    }
+    
+    
+ //end of picker wheel stuff
+    
+    
+    
+
+    var orderType = ["Market","Limit","Stop","Stop Limit"]
+    var transactionType = ["Buy","Sell","Futures"]
     //global variables
     var userProvidedData: String = ""
     var sentStockSymbols = [JsonSerial]()
@@ -110,7 +257,12 @@ class QuotePage: UIViewController {
     
     
     
-    
+    //responses to the picker wheel changes both type and transition
+    func responseToTypeChange(){
+        
+        
+        
+    }
     
     
     
@@ -143,7 +295,8 @@ class QuotePage: UIViewController {
                     print("mime type error check spelling or type")
                     return
             }
-            //working on codable?
+            
+            //will randomly get errors as the types are found to be wrong.
             do {
                 let myResults = try! JSONDecoder().decode(JsonStockCodeable.self, from: data!)
                 self.jsonStockObject = myResults
@@ -170,11 +323,6 @@ class QuotePage: UIViewController {
         
         
 }
-    
-    func responseToTypeChange(){
-        
-        
-    }
     
     
     func viewSetup(){
@@ -214,6 +362,9 @@ class QuotePage: UIViewController {
         super.viewDidLoad()
 
         viewSetup()
+        
+    
+        
         // Do any additional setup after loading the view.
     }
     
