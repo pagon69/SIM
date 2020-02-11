@@ -204,7 +204,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
             
             if let data = snapshot.value as? [String: Any]{
                 userProfielData.gamesInProgress = data["gamesInProgress"] as? [String] ?? ["Test game Data"]
-                userProfielData.gamesPlayed = Double(data["gamesPlayed"] as? Double ?? 0.0) ?? 0.0
+                userProfielData.gamesPlayed = Double(data["gamesPlayed"] as? Double ?? 0.0)
                 userProfielData.gamesWon = data["gamesWon"] as? Double ?? 0.0
                 userProfielData.numberOfTrades = data["numberOfTrades"] as? String ?? "0"
                 userProfielData.winningPercentage = data["winningPercentage"] as? Double ?? 0.0

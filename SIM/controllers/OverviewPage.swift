@@ -221,7 +221,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
         if tableView.tag == 0 {
             currentIndex = indexPath.row
             //searchJSOnR[currentIndex].symbol
-            performSegue(withIdentifier: "tradingPage", sender: self)
+            performSegue(withIdentifier: "randomStockDetials", sender: self)
            // SVProgressHUD.show()
         }
         
@@ -249,8 +249,8 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             destVC.currentPlayer = userData
         }
         
-        if segue.identifier == "tradingPage" {
-            let destVC =  segue.destination as! QuotePage
+        if segue.identifier == "randomStockDetials" {
+            let destVC =  segue.destination as! RandomStockDetialsPage
             destVC.userProvidedData = searchJSOnR[currentIndex].symbol
             //destVC.variousSymbols  = searchJSOnR
             destVC.sentStockSymbols = passedSymbolsInfo

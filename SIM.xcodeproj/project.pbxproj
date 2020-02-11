@@ -76,6 +76,9 @@
 		C1BCCECF229DB99400633D00 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCECE229DB99400633D00 /* loginViewController.swift */; };
 		C1BCCED1229DB9F000633D00 /* portfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCED0229DB9F000633D00 /* portfolioViewController.swift */; };
 		C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCED2229DBC9200633D00 /* SignInViewController.swift */; };
+		C1C1F31923EC50DF004447DA /* submitConfirmationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1F31823EC50DF004447DA /* submitConfirmationPage.swift */; };
+		C1C1F31B23EC6A10004447DA /* tradeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1F31A23EC6A10004447DA /* tradeInfo.swift */; };
+		C1C1F31D23EC97E0004447DA /* RandomStockDetialsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1F31C23EC97E0004447DA /* RandomStockDetialsPage.swift */; };
 		C1C8BA58229EBE4900267F75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */; };
 		C1C9B3F523391CC80094498B /* inGameDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C9B3F323391CC80094498B /* inGameDetailsCell.swift */; };
 		C1C9B3F623391CC80094498B /* inGameDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1C9B3F423391CC80094498B /* inGameDetailsCell.xib */; };
@@ -157,6 +160,9 @@
 		C1BCCECE229DB99400633D00 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		C1BCCED0229DB9F000633D00 /* portfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = portfolioViewController.swift; sourceTree = "<group>"; };
 		C1BCCED2229DBC9200633D00 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		C1C1F31823EC50DF004447DA /* submitConfirmationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = submitConfirmationPage.swift; sourceTree = "<group>"; };
+		C1C1F31A23EC6A10004447DA /* tradeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tradeInfo.swift; sourceTree = "<group>"; };
+		C1C1F31C23EC97E0004447DA /* RandomStockDetialsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomStockDetialsPage.swift; sourceTree = "<group>"; };
 		C1C8BA57229EBE4900267F75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C1C9B3F323391CC80094498B /* inGameDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inGameDetailsCell.swift; sourceTree = "<group>"; };
 		C1C9B3F423391CC80094498B /* inGameDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = inGameDetailsCell.xib; sourceTree = "<group>"; };
@@ -297,6 +303,8 @@
 				C10795D72322D76C00044254 /* FullDetailsPageViewC.swift */,
 				C16115D123268438000CAA89 /* ProfileSettingsPage.swift */,
 				C1578FDC23D8EB79007DF621 /* QuotePage.swift */,
+				C1C1F31823EC50DF004447DA /* submitConfirmationPage.swift */,
+				C1C1F31C23EC97E0004447DA /* RandomStockDetialsPage.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -314,6 +322,7 @@
 				C14ADE63234FAC21007C2501 /* Charts.swift */,
 				C19EC56423CE375100EC0F5E /* JsonSerial.swift */,
 				C1231DD623D0FDCD00ACFA7F /* JSonStockCodeable.swift */,
+				C1C1F31A23EC6A10004447DA /* tradeInfo.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -551,10 +560,12 @@
 				C15AC3E322F223F700BCBDAD /* CreateGamePage.swift in Sources */,
 				C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
+				C1C1F31D23EC97E0004447DA /* RandomStockDetialsPage.swift in Sources */,
 				C15AC3DF22F1F23E00BCBDAD /* OverviewPage.swift in Sources */,
 				C13C637323043AEF00BF1221 /* LeaderboardPage.swift in Sources */,
 				C19F310E234E7397004F8227 /* BuyStockPage.swift in Sources */,
 				C14C1C3522D378510018E1F6 /* LoginScreen.swift in Sources */,
+				C1C1F31923EC50DF004447DA /* submitConfirmationPage.swift in Sources */,
 				C14C1C3722D3A4040018E1F6 /* Portfolio.swift in Sources */,
 				C19EC56523CE375100EC0F5E /* JsonSerial.swift in Sources */,
 				C193E5C022D529C0004E16DB /* ForgotPassword.swift in Sources */,
@@ -568,6 +579,7 @@
 				C133447C22DE0070002A04BF /* Privacy.swift in Sources */,
 				C1BCCECF229DB99400633D00 /* loginViewController.swift in Sources */,
 				C19E163B22C15335004EE77B /* sellViewController.swift in Sources */,
+				C1C1F31B23EC6A10004447DA /* tradeInfo.swift in Sources */,
 				C173A8D122B12161001A7F97 /* SIMBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

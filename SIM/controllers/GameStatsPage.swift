@@ -41,8 +41,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         gameInProgress = "gamesInProgressByGamename",
         leaderboard = "leaderboard",
         liveGames = "liveGames",
-        userData = "userDataByEmail"
-        
+        userData = "userDataByEmail",
+        playerInfo = "playersAndInfo"
     }
     
     
@@ -191,7 +191,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
     }
     
-    //do i need this  now?
+    //do i need this  now? with code able?
     func processSymbols(jsonData: [Symbol]){
        
         /*example of a array search
@@ -470,6 +470,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
             destVC.userProvidedData = userSelected
             destVC.receivedData = forSymbolsSearch
             destVC.sentStockSymbols = variousSymbols
+            destVC.passedData = passedData
+            
         }
         
         if segue.identifier == "gameJoinedSegue" {
@@ -520,7 +522,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
  
  
         for each in passedData.playersInGameEmail{
-            var currentPlayer = Player()
+            let currentPlayer = Player()
 
             currentPlayer.playerEmail = each
             currentPlayer.startingFunds = Double(passedData.startingFunds) ?? 0.0
@@ -565,7 +567,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         for each in passedData.playersInGameEmail{
             var aPlayer = Player()
-            var newString = fixEmail(userEmail: each)
+            let newString = fixEmail(userEmail: each)
             
             ref.child("userDataByEmail").child(newString).observeSingleEvent(of: .value) { (snapshot) in
                 

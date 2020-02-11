@@ -8,115 +8,10 @@
 
 import UIKit
 //import SVProgressHUD
+import FirebaseDatabase
+import FirebaseAuth
 
-class QuotePage: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-   
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        var items = 0
-        
-        if pickerView.tag == typeActionOutlet.tag {
-            items = 1
-        }
-        
-        if pickerView.tag == marketTypePickerOutlet.tag {
-            items = 1
-        }
-        
-        return items
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        var items = 0
-        
-        if pickerView.tag == typeActionOutlet.tag {
-            items = transactionType.count
-        }
-        
-        if pickerView.tag == marketTypePickerOutlet.tag {
-            items = orderType.count
-        }
-        
-        return items
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        var itemsName = ""
-        
-        if pickerView.tag == typeActionOutlet.tag {
-            itemsName = transactionType[row]
-            
-            if itemsName == "Buy" {
-                
-                marketViewOutlet.isHidden = false
-                limitViewOutlet.isHidden = true
-                stopViewOutlet.isHidden =  true
-                stopLimitViewOutlet.isHidden = true
-                totalViewOutlet.isHidden = false
-            }
-            
-            if itemsName == "Sell" {
-                
-                marketViewOutlet.isHidden = true
-                limitViewOutlet.isHidden = true
-                stopViewOutlet.isHidden =  true
-                stopLimitViewOutlet.isHidden = true
-                totalViewOutlet.isHidden = false
-                
-            }
-            
-        }
-        
-        if pickerView.tag == marketTypePickerOutlet.tag {
-            itemsName = orderType[row]
-            
-            if itemsName == "Market" {
-                
-                marketViewOutlet.isHidden = false
-                limitViewOutlet.isHidden = true
-                stopViewOutlet.isHidden =  true
-                stopLimitViewOutlet.isHidden = true
-                totalViewOutlet.isHidden = false
-            }
-            
-            if itemsName == "Stop" {
-                
-                quickAnimation(whoToAnimate: "Stop")
-                
-                marketViewOutlet.isHidden = false
-                limitViewOutlet.isHidden = true
-                stopViewOutlet.isHidden =  false
-                stopLimitViewOutlet.isHidden = true
-                totalViewOutlet.isHidden = false
-                
-            }
-            
-            if itemsName == "Limit" {
-                
-                quickAnimation(whoToAnimate: "Limit")
-                
-                marketViewOutlet.isHidden = false
-                limitViewOutlet.isHidden = false
-                stopViewOutlet.isHidden =  true
-                stopLimitViewOutlet.isHidden = true
-                totalViewOutlet.isHidden = false
-            }
-            
-            if itemsName == "Stop Limit" {
-                
-                quickAnimation(whoToAnimate: "StopLimit")
-                
-                marketViewOutlet.isHidden = false
-                limitViewOutlet.isHidden = true
-                stopViewOutlet.isHidden =  true
-                stopLimitViewOutlet.isHidden = false
-                totalViewOutlet.isHidden = false
-                
-            }
-        }
-        
-        return itemsName
-    }
-    
+class QuotePage: UIViewController {
     
     func quickAnimation(whoToAnimate: String){
         
@@ -151,13 +46,27 @@ class QuotePage: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     
- //end of picker wheel stuff
     
+ //enum to manage the various DB references
+    enum myDBReferences: String {
+        case testing = "AndyLearn",
+        gameSettings = "gameSettingsByUserEmail",
+        gameInProgress = "gamesInProgressByGamename",
+        leaderboard = "leaderboard",
+        liveGames = "liveGames",
+        userData = "userDataByEmail",
+        playerInfo = "playersAndInfo"
+        
+    }
     
-    
+    var ref = Database.database().reference()
 
+    var passedData = GamesInfo()
+    var tradeInfoPassed = tradeinfo()
+    var currentIndex = 0
     var orderType = ["Market","Limit","Stop","Stop Limit"]
     var transactionType = ["Buy","Sell","Futures"]
+    
     //global variables
     var userProvidedData: String = ""
     var sentStockSymbols = [JsonSerial]()
@@ -183,10 +92,49 @@ class QuotePage: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
         
         
     }
+    
     //submit order and open up a confirmation window
     @IBAction func submitOrderAction(_ sender: UIButton) {
+        
+        //validate values then continue
+        
+        
+        tradeInfoPassed.accountType = jsonStockObject.type ?? "N/A"
+        
+        //commission is static until i fix
+        tradeInfoPassed.commission = 3.50
+        
+        //fees are static until i figure this out
+        tradeInfoPassed.estimatedFee = 7.80
+            
+        tradeInfoPassed.name = jsonStockObject.companyName ?? "N/A"
+        tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
+        tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
+        tradeInfoPassed.quantity = Int(quantityFieldOutlet.text ?? "0") ?? 0
+        tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
+        tradeInfoPassed.tradeTpye = "Stock/ETF"
+        tradeInfoPassed.transaction = transactionType[currentIndex]
+        
     }
     
+    
+    func fixEmail(userEmail: String)-> String{
+        
+        let changeChar = "_"
+        var newString = ""
+        //   var usersGamesInProgress: [String]
+        
+        for letter in userEmail{
+            
+            if letter == "." {
+                newString = newString + String(changeChar)
+            }else{
+                newString = newString + String(letter)
+            }
+        }
+        
+        return newString
+    }
     
     @IBAction func addingToStockQuantity(_ sender: UIButton) {
         var value1 = 0.0
@@ -324,11 +272,20 @@ class QuotePage: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
         
 }
     
+    func userStockAndGameInfo(){
+        
+       // ref.child("gamesInProgressByGamename").
+        
+        
+        
+    }
+    
+    
     
     func viewSetup(){
         
         getStockData(userSearchResults: userProvidedData)
-        
+        searchForCurrentlyOwnedStock()
         
         
     }
@@ -353,6 +310,40 @@ class QuotePage: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     
+    func searchForCurrentlyOwnedStock(){
+         ref = Database.database().reference()
+        
+       // print(passedData.gameName)
+        ref.child(myDBReferences.gameInProgress.rawValue).child(passedData.gameName).child(myDBReferences.playerInfo.rawValue).child(fixEmail(userEmail: Auth.auth().currentUser?.email ?? "testUser.com")).observeSingleEvent(of: .value) { (snapshot) in
+            
+          //  print("I found this in the snapshot:", snapshot)
+            
+            //i stored the data as dictionary of a key stock name and value number of stock
+                if let pulledData = snapshot.value as? [String: Any] {
+                
+                  //  print(pulledData)
+                    
+                    let stockList = pulledData["listOfStockAndQuantity"] as? [String:Int] ?? ["Test":0]
+                    
+                    
+                    print(stockList)
+                
+            }
+            
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     ///////
     //
     // MARK: view did Load
@@ -369,16 +360,137 @@ class QuotePage: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
+
+
+
+
+//move the pickerview stuff to the bottom
+extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        var items = 0
+        
+        if pickerView.tag == typeActionOutlet.tag {
+            items = 1
+        }
+        
+        if pickerView.tag == marketTypePickerOutlet.tag {
+            items = 1
+        }
+        
+        return items
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        var items = 0
+        
+        if pickerView.tag == typeActionOutlet.tag {
+            items = transactionType.count
+        }
+        
+        if pickerView.tag == marketTypePickerOutlet.tag {
+            items = orderType.count
+        }
+        
+        return items
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        var itemsName = ""
+        currentIndex = row
+        
+        if pickerView.tag == typeActionOutlet.tag {
+            itemsName = transactionType[row]
+            
+            if itemsName == "Buy" {
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+            }
+            
+            if itemsName == "Sell" {
+                marketViewOutlet.isHidden = true
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+            }
+            
+        }
+    
+        if pickerView.tag == marketTypePickerOutlet.tag {
+            itemsName = orderType[row]
+            
+            if itemsName == "Market" {
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+                
+                marketViewOutlet.alpha = 1
+                limitViewOutlet.alpha = 0
+                stopViewOutlet.alpha =  0
+                stopLimitViewOutlet.alpha = 0
+                totalViewOutlet.alpha = 1
+            }
+            
+            if itemsName == "Stop" {
+                quickAnimation(whoToAnimate: "Stop")
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  false
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+                marketViewOutlet.alpha = 1
+                limitViewOutlet.alpha = 0
+                stopViewOutlet.alpha =  1
+                stopLimitViewOutlet.alpha = 0
+                totalViewOutlet.alpha = 1
+            }
+            
+            if itemsName == "Limit" {
+                quickAnimation(whoToAnimate: "Limit")
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = false
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = true
+                totalViewOutlet.isHidden = false
+                marketViewOutlet.alpha = 1
+                limitViewOutlet.alpha = 1
+                stopViewOutlet.alpha =  0
+                stopLimitViewOutlet.alpha = 0
+                totalViewOutlet.alpha = 1
+            }
+            
+            if itemsName == "Stop Limit" {
+                
+                quickAnimation(whoToAnimate: "StopLimit")
+                
+                marketViewOutlet.isHidden = false
+                limitViewOutlet.isHidden = true
+                stopViewOutlet.isHidden =  true
+                stopLimitViewOutlet.isHidden = false
+                totalViewOutlet.isHidden = false
+                
+                marketViewOutlet.alpha = 1
+                limitViewOutlet.alpha = 0
+                stopViewOutlet.alpha =  0
+                stopLimitViewOutlet.alpha = 1
+                totalViewOutlet.alpha = 1
+            }
+        }
+        
+        return itemsName
+    }
+    
+}
 
