@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import SVProgressHUD
+import SVProgressHUD
 import FirebaseDatabase
 import FirebaseAuth
 
@@ -42,7 +42,6 @@ class QuotePage: UIViewController {
             })
         }
         
-       // self.view.layoutIfNeeded()
     }
     
     
@@ -66,7 +65,10 @@ class QuotePage: UIViewController {
     var currentIndex = 0
     var orderType = ["Market","Limit","Stop","Stop Limit"]
     var transactionType = ["Buy","Sell","Futures"]
-    
+    var stocksOwnedForSale = [String]()
+    var numberOfEachStockOwned = [Int]()
+    var transactionHappening = "Buy"
+    var currentRow = 0
     //global variables
     var userProvidedData: String = ""
     var sentStockSymbols = [JsonSerial]()
@@ -76,6 +78,12 @@ class QuotePage: UIViewController {
     //for codeable/decodable
     var jsonStockObject = JsonStockCodeable()
     
+    
+    
+    @IBOutlet weak var previousCloseOutlet: UILabel!
+    @IBOutlet weak var peRatioOutlet: UILabel!
+    @IBOutlet weak var stockSellPickerOutlet: UIPickerView!
+    @IBOutlet weak var sellWindowViewOutlet: UIView!
     //ibactions and outlets
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
@@ -84,6 +92,8 @@ class QuotePage: UIViewController {
     //get the latest quote data
     @IBAction func refreshRequested(_ sender: UIButton) {
         
+        getStockData(userSearchResults: userProvidedData)
+        updateViewDetails()
     }
     
     //do a big add or 15 second thing at this point.
@@ -99,22 +109,60 @@ class QuotePage: UIViewController {
         //validate values then continue
         
         
-        tradeInfoPassed.accountType = jsonStockObject.type ?? "N/A"
         
-        //commission is static until i fix
-        tradeInfoPassed.commission = 3.50
+        // if a buy do x versus sell
         
-        //fees are static until i figure this out
-        tradeInfoPassed.estimatedFee = 7.80
+        if transactionHappening == "Sell" {
             
-        tradeInfoPassed.name = jsonStockObject.companyName ?? "N/A"
-        tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
-        tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
-        tradeInfoPassed.quantity = Int(quantityFieldOutlet.text ?? "0") ?? 0
-        tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
-        tradeInfoPassed.tradeTpye = "Stock/ETF"
-        tradeInfoPassed.transaction = transactionType[currentIndex]
+            tradeInfoPassed.symbol = stocksOwnedForSale[currentRow]
+            tradeInfoPassed.quantity = Double(numberOfEachStockOwned[currentRow])
+            
+            tradeInfoPassed.accountType = jsonStockObject.type ?? "N/A"
+            
+            //commission is static until i fix
+            tradeInfoPassed.commission = 3.50
+            //fees are static until i figure this out
+            tradeInfoPassed.estimatedFee = 7.80
+            
+            getStockData(userSearchResults: tradeInfoPassed.symbol)
+            
+           
+            
+        }
         
+        if transactionHappening == "Buy"{
+        
+            tradeInfoPassed.accountType = jsonStockObject.type ?? "N/A"
+        
+            //commission is static until i fix
+            tradeInfoPassed.commission = 3.50
+        
+            //fees are static until i figure this out
+            tradeInfoPassed.estimatedFee = 7.80
+            
+            tradeInfoPassed.name = jsonStockObject.companyName ?? "N/A"
+            tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
+            tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
+            tradeInfoPassed.quantity = Double(quantityFieldOutlet.text ?? "1.0") ?? 1.0
+            tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
+            tradeInfoPassed.tradeTpye = "Stock/ETF"
+            tradeInfoPassed.transaction = transactionType[currentIndex]
+            
+            performSegue(withIdentifier: "submitSegue", sender: self)
+            
+        }
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "submitSegue" {
+            let destVC = segue.destination as! submitConfirmationPage
+            //destVC.passedData = myGameinfo
+            destVC.sentData = tradeInfoPassed
+            
+        }
     }
     
     
@@ -234,7 +282,7 @@ class QuotePage: UIViewController {
             //checks for server side issues
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
                 else {
-                    print ("server error")
+                    print ("Could not find stock with symbol: \(userSearchResults)")
                     return
             }
             //checks for mime or serialization errors
@@ -250,6 +298,21 @@ class QuotePage: UIViewController {
                 self.jsonStockObject = myResults
                 if data != nil {
                     print("collected the data successfully\n\n\n\n/n/n/n")
+                    
+                    if self.transactionHappening == "Sell"{
+                        
+                        self.tradeInfoPassed.price = myResults.latestPrice ?? 0.0
+                        self.tradeInfoPassed.name = myResults.companyName ?? "N/A"
+                       // tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
+                       // tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
+                      //  tradeInfoPassed.quantity = Int(quantityFieldOutlet.text ?? "0") ?? 0
+                      //  tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
+                        self.tradeInfoPassed.tradeTpye = "Stock/ETF"
+                        self.tradeInfoPassed.transaction = self.transactionType[self.currentIndex]
+                        
+                        self.performSegue(withIdentifier: "submitSegue", sender: self)
+                    }
+                    
                     print(self.jsonStockObject)
                     
                     //uneed to uyse this if i update data within the closure.
@@ -293,12 +356,17 @@ class QuotePage: UIViewController {
     func updateViewDetails(){
         
         symbalNameOutlet.text = "\(jsonStockObject.symbol ?? "") : \(jsonStockObject.primaryExchange ?? "")"
+        
+        peRatioOutlet.text = "\(jsonStockObject.peRatio ?? 0.0)"
+        previousCloseOutlet.text = "\(jsonStockObject.previousClose ?? 0.0)"
         companyNameOutlet.text = jsonStockObject.companyName ?? ""
         latestPriceOutlet.text = "\(jsonStockObject.latestPrice ?? 0.0)"
         changeValueOutlet.text = "\(jsonStockObject.change ?? 0.0)"
         lowOutlet52W.text =  "\(jsonStockObject.week52Low ?? 0.0)"
         highOutlet52W.text = "\(jsonStockObject.week52High ?? 0.0)"
         symbolSearch.text = "\(jsonStockObject.symbol ?? "")"
+        defaultRefreshWords.text = "Time of last update, \(jsonStockObject.lastTradeTime ?? 0.0)"
+        
         
        // tatalValueOutlet.text = "\((jsonStockObject.latestPrice ?? 0.0) * Double(quantityFieldOutlet.text) ?? 0.0)"
         
@@ -320,14 +388,25 @@ class QuotePage: UIViewController {
             
             //i stored the data as dictionary of a key stock name and value number of stock
                 if let pulledData = snapshot.value as? [String: Any] {
-                
-                  //  print(pulledData)
-                    
+
                     let stockList = pulledData["listOfStockAndQuantity"] as? [String:Int] ?? ["Test":0]
                     
+                    for each in stockList{
+                        
+                        //change the GooGTest to GoogTest before moving forward
+                        if each.key == "GooGTest"{
+                            print("Test stock can ignore")
+                        }else{
+                        
+                        print("I own : \(each.value) of \(each.key) ")
+                        self.stocksOwnedForSale.append(each.key)
+                        self.numberOfEachStockOwned.append(each.value)
+                        }
+                        
+                    }
                     
-                    print(stockList)
-                
+                  //  self.stockSellPickerOutlet.reloadAllComponents()
+                    
             }
             
         }
@@ -381,6 +460,10 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             items = 1
         }
         
+        if pickerView.tag == stockSellPickerOutlet.tag {
+            items = 1
+        }
+        
         return items
     }
     
@@ -395,17 +478,31 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             items = orderType.count
         }
         
+        if pickerView.tag == stockSellPickerOutlet.tag {
+            
+            items = stocksOwnedForSale.count
+        }
+        
         return items
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        var itemsName = ""
+        var itemsName = "XXX"
         currentIndex = row
         
         if pickerView.tag == typeActionOutlet.tag {
             itemsName = transactionType[row]
             
             if itemsName == "Buy" {
+                
+                transactionHappening = "Buy"
+                marketViewOutlet.alpha = 1
+                limitViewOutlet.alpha = 0
+                stopViewOutlet.alpha =  0
+                stopLimitViewOutlet.alpha = 0
+                totalViewOutlet.alpha = 1
+                sellWindowViewOutlet.alpha = 0
+                
                 marketViewOutlet.isHidden = false
                 limitViewOutlet.isHidden = true
                 stopViewOutlet.isHidden =  true
@@ -414,26 +511,49 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             
             if itemsName == "Sell" {
+                transactionHappening = "Sell"
+                marketViewOutlet.alpha = 0
+                limitViewOutlet.alpha = 0
+                stopViewOutlet.alpha =  0
+                stopLimitViewOutlet.alpha = 0
+                totalViewOutlet.alpha = 1
+                
                 marketViewOutlet.isHidden = true
                 limitViewOutlet.isHidden = true
                 stopViewOutlet.isHidden =  true
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
+                
+                sellWindowViewOutlet.alpha = 1
             }
             
         }
     
+        if pickerView.tag == stockSellPickerOutlet.tag {
+           
+            //check the value of stocksownedforsale against = GoogTest
+            
+            itemsName = stocksOwnedForSale[row]
+            currentRow = row
+            
+           // print("current number of items: ", stocksOwnedForSale.count)
+            
+        }
+        
+        
         if pickerView.tag == marketTypePickerOutlet.tag {
             itemsName = orderType[row]
             
             if itemsName == "Market" {
                 
+                transactionHappening = "Buy"
                 marketViewOutlet.isHidden = false
                 limitViewOutlet.isHidden = true
                 stopViewOutlet.isHidden =  true
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
                 
+                sellWindowViewOutlet.alpha = 0
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 0
                 stopViewOutlet.alpha =  0
@@ -442,6 +562,8 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             
             if itemsName == "Stop" {
+                
+                transactionHappening = "Buy"
                 quickAnimation(whoToAnimate: "Stop")
                 
                 marketViewOutlet.isHidden = false
@@ -449,6 +571,8 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 stopViewOutlet.isHidden =  false
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
+                
+                sellWindowViewOutlet.alpha = 0
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 0
                 stopViewOutlet.alpha =  1
@@ -459,11 +583,14 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             if itemsName == "Limit" {
                 quickAnimation(whoToAnimate: "Limit")
                 
+                transactionHappening = "Buy"
                 marketViewOutlet.isHidden = false
                 limitViewOutlet.isHidden = false
                 stopViewOutlet.isHidden =  true
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
+                
+                sellWindowViewOutlet.alpha = 0
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 1
                 stopViewOutlet.alpha =  0
@@ -475,12 +602,14 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 
                 quickAnimation(whoToAnimate: "StopLimit")
                 
+                transactionHappening = "Buy"
                 marketViewOutlet.isHidden = false
                 limitViewOutlet.isHidden = true
                 stopViewOutlet.isHidden =  true
                 stopLimitViewOutlet.isHidden = false
                 totalViewOutlet.isHidden = false
                 
+                sellWindowViewOutlet.alpha = 0
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 0
                 stopViewOutlet.alpha =  0
