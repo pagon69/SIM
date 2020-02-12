@@ -7,17 +7,20 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class submitConfirmationPage: UIViewController {
 
     
     
     var sentData = tradeinfo()
+    var usersCurrentCash = 0.0
+    var validation = false
+    var anyErrorMessgae = ""
+
     
     
-    
-    
-    
+    @IBOutlet weak var errorMsgOutlet: UILabel!
     @IBOutlet weak var estimatedFeesOutlet: UILabel!
     @IBOutlet weak var accountTypeOutlet: UILabel!
     @IBOutlet weak var quantityOutlet: UILabel!
@@ -33,7 +36,7 @@ class submitConfirmationPage: UIViewController {
     
     func viewSetup(){
         
-        
+        errorMsgOutlet.isHidden = true
         estimatedFeesOutlet.text = "$\(sentData.estimatedFee)"
         accountTypeOutlet.text = sentData.accountType
         quantityOutlet.text = "\(sentData.quantity)"
@@ -51,21 +54,66 @@ class submitConfirmationPage: UIViewController {
         dismiss(animated: true)
         
     }
-    
+  
     @IBAction func purchaseButtonClicked(_ sender: UIButton) {
         
-        saveDataToFB()
+        checkUserCash()
+        
+        
+        if validation{
+            saveDataToFB()
+        }else {
+            
+            //display error
+            errorMsgOutlet.text = anyErrorMessgae
+            errorMsgOutlet.isHidden = false
+            
+        }
+    }
+    
+    func buildupdateObject(){
+        
+        
         
     }
     
+    
     func saveDataToFB() {
         //google save code below
+        //update validation if everything saves
+        let ref = Database.database().reference()
+        
+        
+        
         
         
         //after we confirm that a save worked
         performSegue(withIdentifier: "goToDetailView", sender: self)
     }
     
+    
+    //checks the user cash on hand to validate ability to make purchase
+    func checkUserCash(){
+        
+        //change this point for debt or Margin purchasing
+        if (sentData.userCurrentCash - (sentData.netAmount + sentData.commission + sentData.estimatedFee)) >= 0.0 {
+            validation = true
+        
+        }else {
+            //display an error message
+            validation = false
+            anyErrorMessgae = "Not enough funds to make the purchase."
+            
+        }
+        
+        
+    }
+    
+    
+    
+    ////////
+    // View is loaded
+    /////////
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -124,9 +124,11 @@ class QuotePage: UIViewController {
             //fees are static until i figure this out
             tradeInfoPassed.estimatedFee = 7.80
             
-            getStockData(userSearchResults: tradeInfoPassed.symbol)
             
-           
+            tradeInfoPassed.user = fixEmail(userEmail: Auth.auth().currentUser?.email ?? "testUser.com")
+            tradeInfoPassed.currentGame = passedData.gameName
+            
+            getStockData(userSearchResults: tradeInfoPassed.symbol)
             
         }
         
@@ -147,6 +149,10 @@ class QuotePage: UIViewController {
             tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
             tradeInfoPassed.tradeTpye = "Stock/ETF"
             tradeInfoPassed.transaction = transactionType[currentIndex]
+            
+            tradeInfoPassed.user = fixEmail(userEmail: Auth.auth().currentUser?.email ?? "testUser.com")
+            tradeInfoPassed.currentGame = passedData.gameName
+            
             
             performSegue(withIdentifier: "submitSegue", sender: self)
             
@@ -390,6 +396,9 @@ class QuotePage: UIViewController {
                 if let pulledData = snapshot.value as? [String: Any] {
 
                     let stockList = pulledData["listOfStockAndQuantity"] as? [String:Int] ?? ["Test":0]
+                    
+                    let currentCash = pulledData["currentCash"] as? String ?? "0.0"
+                    self.tradeInfoPassed.userCurrentCash = Double(currentCash) ?? 0.0
                     
                     for each in stockList{
                         

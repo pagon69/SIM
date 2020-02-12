@@ -10,6 +10,7 @@ import Foundation
 
 class tradeinfo {
     
+    //trade info
     var netAmount = 0.0
     var tradeTpye = ""
     var symbol = ""
@@ -21,5 +22,11 @@ class tradeinfo {
     var orderType = ""
     var commission = 0.0
     var price = 0.0
+    
+    //user info to avoid reconnecting
+    var user = ""
+    var currentGame = ""
+    var userCurrentCash = 0.0
+    
     
 }
