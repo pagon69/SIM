@@ -17,8 +17,11 @@ class submitConfirmationPage: UIViewController {
     var usersCurrentCash = 0.0
     var validation = false
     var anyErrorMessgae = ""
-
+    let ref = Database.database().reference()
     
+    var userDataToSend = GamesInfo()
+    
+    var transactionsMadeData: [String: Any] = [:]
     
     @IBOutlet weak var errorMsgOutlet: UILabel!
     @IBOutlet weak var estimatedFeesOutlet: UILabel!
@@ -47,6 +50,7 @@ class submitConfirmationPage: UIViewController {
         marketTypeOutlet.text = sentData.orderType
         commissionOutletValue.text = "\(sentData.commission)"
         totalTradeValue.text = "\(sentData.netAmount)"
+
     }
     
     @IBAction func cancelButtonClicked(_ sender: UIButton) {
@@ -61,7 +65,8 @@ class submitConfirmationPage: UIViewController {
         
         
         if validation{
-            saveDataToFB()
+            
+            updateStockInfo()
         }else {
             
             //display error
@@ -73,23 +78,93 @@ class submitConfirmationPage: UIViewController {
     
     func buildupdateObject(){
         
+        sentData.listOfStocksAndAmounts.append([sentData.symbol: sentData.quantity])
+        sentData.numberOfTrades = sentData.numberOfTrades + 1
         
+        
+        let updates = ["listOfStockAndQuantity":sentData.listOfStocksAndAmounts,
+                       "numberOfTrades":"\(sentData.numberOfTrades + 1)"
+        
+        ] as [String: Any]
+        
+        transactionsMadeData = updates
         
     }
     
+    /* /// add versus update /////
+    ref.child("gamesInProgressByGamename").child(newGameData.gameName).setValue(saveMe) {(error, dbRefenece) in
     
+    if error != nil{
+    /*validationTest = false
+     self.ref.child("gamesInProgressByGamename").child("\(self.incomingGameData["gameName"] as? String ?? "")_\(Date())").setValue(self.incomingGameData)
+     */
+    }else{
+    //validationTest = true
+    // if validationTest{
+    
+    self.updateGameCount()
+    
+    self.updateUserProfile()
+    // self.performSegue(withIdentifier: "goToInGameView", sender: self)
+    
+    //}
+    }
+    }
+    */
+    
+    func updateStockInfo(){
+    
+        buildupdateObject()
+        
+        //puts data into transactionsMadeData
+        
+        ref.child("gamesInProgressByGamename/\(sentData.currentGame)/playersAndInfo/\(sentData.user)").updateChildValues(transactionsMadeData){(Error, ref) in
+            
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+                
+            }else{
+                print("updates made sucessfully: \(self.transactionsMadeData) added /n/n/n\n\n\n")
+                
+                self.performSegue(withIdentifier: "goToDetailView", sender: self)
+                
+            }
+        }
+
+        /* this update removes and replaces for some reason
+        ref.child("gamesInProgressByGamename/\(sentData.currentGame)/playersAndInfo/\(sentData.user)").updateChildValues(transactionsMadeData){(Error, ref) in
+    
+            if let error = Error {
+                print("somethign went way wrong:\(error)")
+                
+            }else{
+                print("updates made sucessfully: \(self.transactionsMadeData) added /n/n/n\n\n\n")
+    
+                self.performSegue(withIdentifier: "goToDetailView", sender: self)
+                
+            }
+        }
+    
+         */
+    
+    
+    
+    }
+    
+    /*
+    //
     func saveDataToFB() {
         //google save code below
         //update validation if everything saves
-        let ref = Database.database().reference()
+      //  let ref = Database.database().reference()
         
-        
-        
-        
-        
+        updateStockInfo()
+
         //after we confirm that a save worked
         performSegue(withIdentifier: "goToDetailView", sender: self)
     }
+    
+    */
     
     
     //checks the user cash on hand to validate ability to make purchase
@@ -109,6 +184,18 @@ class submitConfirmationPage: UIViewController {
         
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destVC = segue.destination as! GameStatsPage
+        
+       // userDataToSend.
+        userDataToSend.gameName = sentData.currentGame
+        
+        destVC.passedData = userDataToSend
+        
+        
+    }
     
     
     ////////

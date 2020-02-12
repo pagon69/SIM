@@ -27,6 +27,9 @@ class tradeinfo {
     var user = ""
     var currentGame = ""
     var userCurrentCash = 0.0
+    var numberOfTrades = 0
+    
+    var listOfStocksAndAmounts = [[String:Double]]()
     
     
 }

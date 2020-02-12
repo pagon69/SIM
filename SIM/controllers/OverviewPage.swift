@@ -445,7 +445,7 @@ class OverviewPage: UIViewController, UITableViewDataSource,UITableViewDelegate,
             
             //my array of data
           //  self.userData.gamesInProgress = pulleduserdata["gamesInProgress"] as? [String] ?? []
-            self.userData.listOfStockAndQuantity = pulleduserdata["listOfStockAndQuantity"] as? [String:Double] ?? [:]
+            self.userData.listOfStockAndQuantity = pulleduserdata["listOfStockAndQuantity"] as? [[String:Double]] ?? [[:]]
             self.userData.currentGame = pulleduserdata["currentGame"] as? String ?? ""
             self.userData.firstName = pulleduserdata["firstName"] as? String ?? ""
             self.userData.lastName = pulleduserdata["lastName"] as? String ?? ""

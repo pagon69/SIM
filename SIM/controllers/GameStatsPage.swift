@@ -582,7 +582,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                     aPlayer.gamesPlayed = pulledData["gamesPlayed"] as? Double ?? 0.0
                     aPlayer.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
                     aPlayer.lastName = pulledData["lastName"] as? String ?? ""
-                    aPlayer.listOfStockAndQuantity = pulledData["listOfStockAndQuantity"] as? [String: Double] ?? [:]
+                    aPlayer.listOfStockAndQuantity = pulledData["listOfStockAndQuantity"] as? [[String: Double]] ?? [[:]]
                     aPlayer.netWorth = pulledData["networth"] as? String ?? "0"
                     aPlayer.numberOfTrades = pulledData["numberOfTrades"] as? String ?? "0"
                     aPlayer.playerEmail = pulledData["playerEmail"] as? String ?? ""
@@ -675,7 +675,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                         aPlayer.gamesPlayed = each.value["gamesPlayed"] as? Double ?? 0.0
                         aPlayer.gamesWon = each.value["gamesWon"] as? Double ?? 0.0
                         aPlayer.lastName = each.value["lastName"] as? String ?? ""
-                        aPlayer.listOfStockAndQuantity = each.value["listOfStockAndQuantity"] as? [String: Double] ?? [:]
+                        aPlayer.listOfStockAndQuantity = each.value["listOfStockAndQuantity"] as? [[String: Double]] ?? [[:]]
                         aPlayer.netWorth = each.value["networth"] as? String ?? "0"
                         aPlayer.numberOfTrades = each.value["numberOfTrades"] as? String ?? "0"
                         aPlayer.playerEmail = each.value["playerEmail"] as? String ?? ""
@@ -719,7 +719,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
                 aPlayer.gamesPlayed = pulledData["gamesPlayed"] as? Double ?? 0.0
                 aPlayer.gamesWon = pulledData["gamesWon"] as? Double ?? 0.0
                 aPlayer.lastName = pulledData["lastName"] as? String ?? "tester"
-                aPlayer.listOfStockAndQuantity = pulledData["listOfStockAndQuantity"] as? [String:Double] ?? ["tester":3]
+                aPlayer.listOfStockAndQuantity = pulledData["listOfStockAndQuantity"] as? [[String:Double]] ?? [["tester":3]]
                 aPlayer.netWorth = pulledData["netWorth"] as? String ?? "0"
                 aPlayer.numberOfTrades = pulledData["numberOfTrades"] as? String ?? "0"
                 aPlayer.playerEmail = pulledData["playerEmail"] as? String ?? "0"

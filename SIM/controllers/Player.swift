@@ -18,7 +18,7 @@ class Player {
     var playerEmail = ""
     var currentCash = "0"
     var netWorth = "0"
-    var listOfStockAndQuantity = ["GoogTest":0.0]
+    var listOfStockAndQuantity = [["GoogTest":0.0]]
     var gamesInProgress = ["Test game Data"]
     var currentGame = "Test game Data"
     var buyPower = "0"

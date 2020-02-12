@@ -445,7 +445,7 @@ class ConfirmationPage: UITableViewController {
            // self.currentPlayersInfo.gamesWon = pulleduserdata["gamesWon"] as? Double ?? 0.0
            
             self.currentPlayersInfo.lastName = pulleduserdata["lastName"] as? String ?? "0.0"
-            self.currentPlayersInfo.listOfStockAndQuantity = pulleduserdata["listOfStockAndQuantity"] as? [String: Double] ?? [:]
+            self.currentPlayersInfo.listOfStockAndQuantity = pulleduserdata["listOfStockAndQuantity"] as? [[String: Double]] ?? [[:]]
            // self.currentPlayersInfo.netWorth = pulleduserdata["netWorth"] as? String ?? "0.0"
            // self.currentPlayersInfo.numberOfTrades = pulleduserdata["numberOfTrades"] as? String ?? "0.0"
            

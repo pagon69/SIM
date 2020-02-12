@@ -80,6 +80,7 @@ class QuotePage: UIViewController {
     
     
     
+    @IBOutlet weak var sellTextBoxOutlet: UITextField!
     @IBOutlet weak var previousCloseOutlet: UILabel!
     @IBOutlet weak var peRatioOutlet: UILabel!
     @IBOutlet weak var stockSellPickerOutlet: UIPickerView!
@@ -115,7 +116,8 @@ class QuotePage: UIViewController {
         if transactionHappening == "Sell" {
             
             tradeInfoPassed.symbol = stocksOwnedForSale[currentRow]
-            tradeInfoPassed.quantity = Double(numberOfEachStockOwned[currentRow])
+            tradeInfoPassed.quantity = Double(sellTextBoxOutlet.text ?? "0.0") ?? 0.0
+                //Int(numberOfEachStockOwned[currentRow])
             
             tradeInfoPassed.accountType = jsonStockObject.type ?? "N/A"
             
@@ -146,6 +148,8 @@ class QuotePage: UIViewController {
             tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
             tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
             tradeInfoPassed.quantity = Double(quantityFieldOutlet.text ?? "1.0") ?? 1.0
+            print(quantityFieldOutlet.text)
+            
             tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
             tradeInfoPassed.tradeTpye = "Stock/ETF"
             tradeInfoPassed.transaction = transactionType[currentIndex]
@@ -311,7 +315,7 @@ class QuotePage: UIViewController {
                         self.tradeInfoPassed.name = myResults.companyName ?? "N/A"
                        // tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
                        // tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
-                      //  tradeInfoPassed.quantity = Int(quantityFieldOutlet.text ?? "0") ?? 0
+                        self.tradeInfoPassed.quantity = Double(self.sellTextBoxOutlet.text ?? "0.0") ?? 0.0
                       //  tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
                         self.tradeInfoPassed.tradeTpye = "Stock/ETF"
                         self.tradeInfoPassed.transaction = self.transactionType[self.currentIndex]
@@ -395,23 +399,29 @@ class QuotePage: UIViewController {
             //i stored the data as dictionary of a key stock name and value number of stock
                 if let pulledData = snapshot.value as? [String: Any] {
 
-                    let stockList = pulledData["listOfStockAndQuantity"] as? [String:Int] ?? ["Test":0]
+                    let stockList = pulledData["listOfStockAndQuantity"] as? [[String:Double]] ?? [["BetaTest":0.0]]
                     
                     let currentCash = pulledData["currentCash"] as? String ?? "0.0"
                     self.tradeInfoPassed.userCurrentCash = Double(currentCash) ?? 0.0
                     
-                    for each in stockList{
+                    let numTrades = pulledData["numberOfTrades"] as? Int ?? 0
+                    self.tradeInfoPassed.numberOfTrades = numTrades
+                    
+                    self.tradeInfoPassed.listOfStocksAndAmounts = stockList
+                    
+                    for item in stockList{
+                        for each in item{
+                            //change the GooGTest to GoogTest before moving forward
+                             if each.key == "GooGTest"{
+                             print("Test stock can ignore")
+                             }else{
                         
-                        //change the GooGTest to GoogTest before moving forward
-                        if each.key == "GooGTest"{
-                            print("Test stock can ignore")
-                        }else{
-                        
-                        print("I own : \(each.value) of \(each.key) ")
-                        self.stocksOwnedForSale.append(each.key)
-                        self.numberOfEachStockOwned.append(each.value)
+                             print("I own : \(each.value) of \(each.key) ")
+                             self.stocksOwnedForSale.append(each.key)
+                             self.numberOfEachStockOwned.append(Int(each.value))
+                             }
+                             //
                         }
-                        
                     }
                     
                   //  self.stockSellPickerOutlet.reloadAllComponents()

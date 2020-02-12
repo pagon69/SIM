@@ -6083,6 +6083,7 @@
                         <outlet property="previousCloseOutlet" destination="ChY-Y0-PdJ" id="3xb-CY-Wjw"/>
                         <outlet property="quantityFieldOutlet" destination="GFu-kS-IOm" id="JNT-vj-Epz"/>
                         <outlet property="searchBarOutlet" destination="DgN-re-dFd" id="AEv-un-lHQ"/>
+                        <outlet property="sellTextBoxOutlet" destination="j3e-PY-MYg" id="vx7-pP-jFa"/>
                         <outlet property="sellWindowViewOutlet" destination="jZs-U4-FY8" id="SoR-Rw-tjD"/>
                         <outlet property="stockSellPickerOutlet" destination="knc-5W-558" id="0gB-qu-h8Y"/>
                         <outlet property="stopLimitValueOutlet" destination="WxV-PB-Hgm" id="7x5-x9-bbY"/>
@@ -9640,9 +9641,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g8R-5Y-tQV"/>
-        <segue reference="rfD-Wi-fGJ"/>
+        <segue reference="9A8-of-3II"/>
         <segue reference="YFa-4E-qVd"/>
-        <segue reference="yna-iZ-0IJ"/>
+        <segue reference="dwy-YR-99T"/>
         <segue reference="T2c-Ao-f6i"/>
         <segue reference="rrH-gY-ghf"/>
         <segue reference="hqA-Ih-mwe"/>
