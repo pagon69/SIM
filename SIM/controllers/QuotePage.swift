@@ -315,10 +315,12 @@ class QuotePage: UIViewController {
                         self.tradeInfoPassed.name = myResults.companyName ?? "N/A"
                        // tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
                        // tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
-                        self.tradeInfoPassed.quantity = Double(self.sellTextBoxOutlet.text ?? "0.0") ?? 0.0
+                     //   self.tradeInfoPassed.quantity = Double(self.sellTextBoxOutlet.text ?? "0.0") ?? 0.0
                       //  tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
                         self.tradeInfoPassed.tradeTpye = "Stock/ETF"
-                        self.tradeInfoPassed.transaction = self.transactionType[self.currentIndex]
+                       // self.tradeInfoPassed.transaction = self.transactionType[self.currentIndex]
+                        self.tradeInfoPassed.transaction = "Sell"
+
                         
                         self.performSegue(withIdentifier: "submitSegue", sender: self)
                     }
