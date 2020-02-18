@@ -85,6 +85,14 @@ class QuotePage: UIViewController {
     @IBOutlet weak var peRatioOutlet: UILabel!
     @IBOutlet weak var stockSellPickerOutlet: UIPickerView!
     @IBOutlet weak var sellWindowViewOutlet: UIView!
+    
+    //update the quantity of stocks
+    @IBAction func addOrSubStepper(_ sender: UIStepper) {
+        
+        
+    }
+    
+    
     //ibactions and outlets
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
@@ -130,7 +138,8 @@ class QuotePage: UIViewController {
             tradeInfoPassed.user = fixEmail(userEmail: Auth.auth().currentUser?.email ?? "testUser.com")
             tradeInfoPassed.currentGame = passedData.gameName
             
-            getStockData(userSearchResults: tradeInfoPassed.symbol)
+            //why run the stock price check again?
+            
             
         }
         
@@ -322,7 +331,7 @@ class QuotePage: UIViewController {
                         self.tradeInfoPassed.transaction = "Sell"
 
                         
-                        self.performSegue(withIdentifier: "submitSegue", sender: self)
+                     //   self.performSegue(withIdentifier: "submitSegue", sender: self)
                     }
                     
                     print(self.jsonStockObject)
@@ -532,6 +541,7 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             
             if itemsName == "Sell" {
+                
                 transactionHappening = "Sell"
                 marketViewOutlet.alpha = 0
                 limitViewOutlet.alpha = 0
@@ -557,6 +567,7 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             itemsName = stocksOwnedForSale[row]
             currentRow = row
             
+            getStockData(userSearchResults: itemsName)
            // print("current number of items: ", stocksOwnedForSale.count)
             
         }

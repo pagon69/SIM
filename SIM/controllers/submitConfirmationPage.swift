@@ -21,6 +21,10 @@ class submitConfirmationPage: UIViewController {
     
     var userDataToSend = GamesInfo()
     
+    var stockAfterSale = ""
+    var cashAfterSale = 0.0
+    var quantityAfterSale = 0
+    
     var transactionsMadeData: [String: Any] = [:]
     
     @IBOutlet weak var errorMsgOutlet: UILabel!
@@ -76,14 +80,18 @@ class submitConfirmationPage: UIViewController {
         }
     }
     
+    //update anything needed here
     func buildupdateObject(){
         
         sentData.listOfStocksAndAmounts.append([sentData.symbol: sentData.quantity])
         sentData.numberOfTrades = sentData.numberOfTrades + 1
         
+        var value = sentData.userCurrentCash - (sentData.commission + sentData.estimatedFee + sentData.netAmount)
+        var currentCash = value
         
         let updates = ["listOfStockAndQuantity":sentData.listOfStocksAndAmounts,
-                       "numberOfTrades":"\(sentData.numberOfTrades + 1)"
+                       "numberOfTrades":"\(sentData.numberOfTrades + 1)",
+                        "currentCash":"\(currentCash)"
         
         ] as [String: Any]
         
@@ -91,26 +99,7 @@ class submitConfirmationPage: UIViewController {
         
     }
     
-    /* /// add versus update /////
-    ref.child("gamesInProgressByGamename").child(newGameData.gameName).setValue(saveMe) {(error, dbRefenece) in
-    
-    if error != nil{
-    /*validationTest = false
-     self.ref.child("gamesInProgressByGamename").child("\(self.incomingGameData["gameName"] as? String ?? "")_\(Date())").setValue(self.incomingGameData)
-     */
-    }else{
-    //validationTest = true
-    // if validationTest{
-    
-    self.updateGameCount()
-    
-    self.updateUserProfile()
-    // self.performSegue(withIdentifier: "goToInGameView", sender: self)
-    
-    //}
-    }
-    }
-    */
+   
     
     func updateStockInfo(){
     
@@ -130,56 +119,88 @@ class submitConfirmationPage: UIViewController {
                 
             }
         }
-
-        /* this update removes and replaces for some reason
-        ref.child("gamesInProgressByGamename/\(sentData.currentGame)/playersAndInfo/\(sentData.user)").updateChildValues(transactionsMadeData){(Error, ref) in
-    
-            if let error = Error {
-                print("somethign went way wrong:\(error)")
-                
-            }else{
-                print("updates made sucessfully: \(self.transactionsMadeData) added /n/n/n\n\n\n")
-    
-                self.performSegue(withIdentifier: "goToDetailView", sender: self)
-                
-            }
-        }
-    
-         */
-    
-    
-    
+      
     }
-    
-    /*
-    //
-    func saveDataToFB() {
-        //google save code below
-        //update validation if everything saves
-      //  let ref = Database.database().reference()
-        
-        updateStockInfo()
-
-        //after we confirm that a save worked
-        performSegue(withIdentifier: "goToDetailView", sender: self)
-    }
-    
-    */
-    
-    
+ 
     //checks the user cash on hand to validate ability to make purchase
     func checkUserCash(){
         
         //change this point for debt or Margin purchasing
-        if (sentData.userCurrentCash - (sentData.netAmount + sentData.commission + sentData.estimatedFee)) >= 0.0 {
-            validation = true
-        
-        }else {
-            //display an error message
-            validation = false
-            anyErrorMessgae = "Not enough funds to make the purchase."
+        if sentData.transaction == "Buy" {
+            
+            if (sentData.userCurrentCash - (sentData.netAmount + sentData.commission + sentData.estimatedFee)) >= 0.0 {
+                validation = true
+                
+            }else {
+                //display an error message
+                validation = false
+                anyErrorMessgae = "Not enough funds to make the purchase."
+                
+            }
             
         }
+        
+        if sentData.transaction == "Sell" {
+        
+            var stockList = sentData.listOfStocksAndAmounts
+            var stocksOwned = [String]()
+            var numberOfStocksOwned = [Int]()
+            
+            for item in stockList{
+                for each in item{
+                    //change the GooGTest to GoogTest before moving forward
+                    if each.key == "GooGTest"{
+                        //Do nothing if i see googtets or beta test
+                        print("Test stock can ignore")
+                    }else{
+                       // print("I own : \(each.value) of \(each.key) ")
+                        stocksOwned.append(each.key)
+                        numberOfStocksOwned.append(Int(each.value))
+                    }
+                    
+                }
+            }
+            
+            var myIndex = stocksOwned.firstIndex(of: sentData.symbol)
+            
+            if Int(sentData.quantity) > numberOfStocksOwned[myIndex ?? 0] {
+                
+                validation = false
+                errorMsgOutlet.text = "You do not have enough shares of: \(sentData.symbol)"
+            }else {
+                validation = true
+                
+                self.quantityAfterSale = Int(sentData.quantity) - numberOfStocksOwned[myIndex ?? 0]
+                
+                if quantityAfterSale == 0 {
+                    
+                    stocksOwned.remove(at: myIndex ?? 0)
+                    numberOfStocksOwned.remove(at: myIndex ?? 0)
+                    
+                    print("the index is currently: \(myIndex)")
+                    print("what is in the array at myindex: \(sentData.listOfStocksAndAmounts[myIndex ?? 0])")
+                    
+                    let valueToRemove = Double(numberOfStocksOwned[myIndex ?? 0])
+                   // let value = sentData.symbol
+                        
+                    sentData.listOfStocksAndAmounts.firstIndex(of: [sentData.symbol : valueToRemove])
+                    
+                    print("what is in the array at myindex: \(sentData.listOfStocksAndAmounts[myIndex ?? 0])")
+                    
+                   // self.stockAfterSale
+                    
+                }
+                
+                self.cashAfterSale = sentData.userCurrentCash + (sentData.commission + sentData.estimatedFee + sentData.netAmount)
+                
+            }
+            
+            
+            
+            
+        }
+        
+        
         
         
     }
@@ -210,14 +231,5 @@ class submitConfirmationPage: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

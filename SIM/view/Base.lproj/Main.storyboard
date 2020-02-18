@@ -5744,6 +5744,9 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" priority="750" constant="40" id="bjF-Ud-Efa"/>
                                                         </constraints>
+                                                        <connections>
+                                                            <action selector="addOrSubStepper:" destination="eRM-oX-evp" eventType="valueChanged" id="yOb-dg-bKc"/>
+                                                        </connections>
                                                     </stepper>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j3e-PY-MYg">
                                                         <rect key="frame" x="160" y="5" width="60" height="50"/>
@@ -7483,7 +7486,7 @@
                                                                 <rect key="frame" x="0.0" y="128" width="355" height="32"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXQ-fq-3X3">
-                                                                        <rect key="frame" x="325" y="0.0" width="30" height="32"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="335" height="32"/>
                                                                         <color key="backgroundColor" red="0.1845753916" green="1" blue="0.1705975062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <state key="normal" title="&gt;&gt;"/>
                                                                         <connections>
