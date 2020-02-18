@@ -139,8 +139,7 @@ class QuotePage: UIViewController {
             tradeInfoPassed.currentGame = passedData.gameName
             
             //why run the stock price check again?
-            
-            
+            performSegue(withIdentifier: "submitSegue", sender: self)
         }
         
         if transactionHappening == "Buy"{
