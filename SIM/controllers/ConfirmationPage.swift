@@ -270,11 +270,12 @@ class ConfirmationPage: UITableViewController {
                                                      "fullName": newPlayerData.fullName,
                                                      "startingFunds": newGameData.startingFunds,
                                                      "userNickName": newPlayerData.userNickName,
-                                                     "currentCash": newPlayerData.currentCash,
+                                                     "currentCash": newGameData.startingFunds,
                                                      "netWorth": newPlayerData.netWorth,
-                                                     "buyPower": newPlayerData.buyPower,
-                                                     "currentStockValue": newPlayerData.currentStockValue,
+                                                     "buyPower": "\(calculateBuyPower())",
+                                                     "currentStockValue": "\(calculateNetWorth())",
                                                      "playerEmail":"\(self.fixEmail())",
+                                                    "debtFunds": newPlayerData.debtFunds,
                 "listOfStockAndQuantity": newPlayerData.listOfStockAndQuantity,
                 "numberOfTrades": newPlayerData.numberOfTrades,
                 "gamesPlayed": newPlayerData.gamesPlayed,
@@ -423,6 +424,27 @@ class ConfirmationPage: UITableViewController {
         
     }
     
+    func calculateBuyPower() -> Double{
+        
+        var total = 0.0
+        
+        let value2 = Double(newGameData.startingFunds) ?? 0.0
+        let value3 = Double(newPlayerData.debtFunds) ?? 0.0
+        
+        total = value2 + value3
+        
+        return total
+    }
+    
+    func calculateNetWorth() -> Double{
+        var total = 0.0
+        
+        let value1 = Double(newPlayerData.currentStockValue) ?? 0.0
+        
+        total = calculateBuyPower() + value1
+        
+        return total
+    }
     
     
     

@@ -7486,7 +7486,7 @@
                                                                 <rect key="frame" x="0.0" y="128" width="355" height="32"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXQ-fq-3X3">
-                                                                        <rect key="frame" x="20" y="0.0" width="335" height="32"/>
+                                                                        <rect key="frame" x="325" y="0.0" width="30" height="32"/>
                                                                         <color key="backgroundColor" red="0.1845753916" green="1" blue="0.1705975062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <state key="normal" title="&gt;&gt;"/>
                                                                         <connections>

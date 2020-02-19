@@ -355,7 +355,7 @@ class FindGamePage: UIViewController, UISearchBarDelegate, UITableViewDataSource
                                                      "fullName": currentPlayer.fullName,
                                                      "startingFunds": gameDetails.startingFunds,
                                                      "userNickName": currentPlayer.userNickName,
-                                                     "currentCash": "0",
+                                                     "currentCash": "\(gameDetails.startingFunds)",
                                                      "netWorth": "0",
                                                      "buyPower": "0",
                                                      "currentStockValue": "0",

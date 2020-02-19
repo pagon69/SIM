@@ -283,9 +283,7 @@ class QuotePage: UIViewController {
     func getStockData(userSearchResults: String){
         
         if userSearchResults != "" {
-    
             //https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_77b4f9e303f64472a2a520800130d684
-            
         let defaultURL = "https://cloud.iexapis.com/stable/stock/\(userSearchResults)/quote?token=pk_77b4f9e303f64472a2a520800130d684"
             
         let session = URLSession.shared

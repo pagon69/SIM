@@ -22,6 +22,7 @@ class Player {
     var gamesInProgress = ["Test game Data"]
     var currentGame = "Test game Data"
     var buyPower = "0"
+    var debtFunds = 0.0
     var numberOfTrades = "0"
     var currentStockValue = "0"
     var gamesPlayed = 0.0

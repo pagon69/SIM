@@ -287,7 +287,7 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
               //  myCell.userNetWorth.text = "\(getNetWorthTwo())"
             
                 //will the ranking be good to go at this point?
-                myCell.inGameRank.text = "\(getRankings())"
+                myCell.inGameRank.text = "\(getRankings(usersNetWorth: getNetWorth(playerInfo: playerInfo[indexPath.row])))"
             
                 return myCell
         }
@@ -421,32 +421,62 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     
     //how do i get the users rank? cash over what?
-    func getRankings()-> Int{
+    func getRankings(usersNetWorth: Double)-> Int{
         ref = Database.database().reference()
         let currentRank = 0
         
-        var ranking : [[String:Double]] = [[:]]
-        let usersInGame = passedData.playerInfo
-        
-        for each in usersInGame{
-            
-            let myRanking = [each.playerEmail: Double(each.netWorth) ?? 0.0]
-            ranking.append(myRanking)
 
-        }
+        //var ranking2 : [[String:Double]] = [[:]]
+        var usersInGame = passedData.playerInfo
+        var ranking = [Player]()
         
-       // var prep1 = 0.0
-       // var prep2 = 1.0
+        ranking.append(usersInGame[0]) //add first item to the ranking collection
+        usersInGame.remove(at: 0) // remove the item we just added to ranking
+        
+        var currentIndex = 0
+        var trackingIndex = 0
+        
         /*
-        let sortedKeys = ranking.sorted { (prep1, prep2) -> Bool in
+        for items in usersInGame{
             
-            return true
+            if Double(items.netWorth) ?? 0.0 > Double(ranking[currentIndex].netWorth) ?? 0.0 {
+             ranking.insert(items, at: currentIndex)
+                
+            }else {
+                ranking.append(items)
+                
+            }
+
         }
         */
         
-        //  var sortedRankedList = ranking.sorted{$0, $1}
+        print(usersInGame)
+       var test = usersInGame.sorted { (items, ranking) -> Bool in
         
-        return currentRank
+            items.netWorth > ranking.netWorth
+        }
+        
+        print(test)
+        
+        for each in test{
+            
+            if Double(each.netWorth) ?? 0.0 == usersNetWorth{
+            
+            }else {
+                trackingIndex = trackingIndex + 1
+            }
+        }
+        
+       // usersInGame.filter(<#T##isIncluded: (Player) throws -> Bool##(Player) throws -> Bool#>)
+        
+        /*
+        let searchResults = passedSymbolsInfo.filter { (item) -> Bool in
+            // item.symbol.lowercased().contains(searchV)
+            item.symbol.uppercased().contains(searchV.uppercased())
+        }
+        */
+        
+        return trackingIndex
         
     }
     

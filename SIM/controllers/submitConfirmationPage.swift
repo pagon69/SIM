@@ -18,6 +18,7 @@ class submitConfirmationPage: UIViewController {
     var validation = false
     var anyErrorMessgae = ""
     let ref = Database.database().reference()
+    var jsonStockObject = JsonStockCodeable()
     
     var userDataToSend = GamesInfo()
     
@@ -80,6 +81,95 @@ class submitConfirmationPage: UIViewController {
         }
     }
     
+    //grabs the current stock price, i should grab the least amount of data
+    func getStockPrice(stockSymbol: String)->Double{
+        var stockPrice = 0.0
+        
+        if stockSymbol != "" {
+            let defaultURL = "https://cloud.iexapis.com/stable/stock/\(stockSymbol)/quote?token=pk_77b4f9e303f64472a2a520800130d684"
+        
+            let session = URLSession.shared
+            let url = URL(string: defaultURL)
+            //setup and use a response/request handler for http with json
+            let task = session.dataTask(with: url!) { (data, response, error) in
+                //checks for client and basic connection errors
+                if error != nil || data == nil {
+                    print("An error happened on the client side, \(String(describing: error))")
+                    return
+                }
+                //checks for server side issues
+                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
+                    else {
+                        print ("Could not find stock with symbol: \(stockSymbol)")
+                        return
+                }
+                //checks for mime or serialization errors
+                guard let mime = response.mimeType, mime == "application/json"
+                    else{
+                        print("mime type error check spelling or type")
+                        return
+                }
+                //will randomly get errors as the types are found to be wrong.
+                do {
+                    let myResults = try! JSONDecoder().decode(JsonStockCodeable.self, from: data!)
+                    self.jsonStockObject = myResults
+                    if data != nil {
+                        print("collected the data successfully: \(myResults) \n\n\n\n/n/n/n")
+                        
+                        stockPrice = myResults.latestPrice ?? 0.0
+                        
+                        //need to use this if i update data within the closure.
+                        //DispatchQueue.main.async {
+                         //   self.updateViewDetails()
+                        //}
+                        
+                    }
+                    
+                }
+            }
+            
+            task.resume()
+            //updateViewDetails()
+            
+        }
+                        
+        return stockPrice
+    }
+    
+    
+    //calculates the currently owned stock prices and updates the users data
+    func calculateStockValue() ->Double{
+     
+        var total = 0.0
+        
+        for items in sentData.listOfStocksAndAmounts{
+            for each in items{
+                total = total + (getStockPrice(stockSymbol: each.key) * Double(each.value))
+            }
+        }
+        return total
+    }
+    
+    //calculates the current BuyPower for the user
+    func calculateBuyPower() -> Double{
+        let value = sentData.userCurrentCash - (sentData.commission + sentData.estimatedFee + sentData.netAmount)
+      //  var currentCash = value
+        var total = 0.0
+        var debtFunds = 0.0
+
+        total = value + debtFunds
+        
+        return total
+    }
+    
+    //calculates the users current NetWorth
+    func calculateNetWorth() ->Double{
+        var total = calculateBuyPower() + calculateStockValue()
+        
+        return total
+    }
+    
+    
     //update anything needed here
     func buildupdateObject(){
         
@@ -87,11 +177,11 @@ class submitConfirmationPage: UIViewController {
         sentData.numberOfTrades = sentData.numberOfTrades + 1
         
         var value = sentData.userCurrentCash - (sentData.commission + sentData.estimatedFee + sentData.netAmount)
-        var currentCash = value
+       // var currentCash = value
         
         let updates = ["listOfStockAndQuantity":sentData.listOfStocksAndAmounts,
                        "numberOfTrades":"\(sentData.numberOfTrades + 1)",
-                        "currentCash":"\(currentCash)"
+                        "currentCash":"\(value)"
         
         ] as [String: Any]
         
