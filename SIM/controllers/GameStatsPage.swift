@@ -426,12 +426,12 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         let currentRank = 0
         
 
-        //var ranking2 : [[String:Double]] = [[:]]
+     //   //var ranking2 : [[String:Double]] = [[:]]
         var usersInGame = passedData.playerInfo
-        var ranking = [Player]()
+   //     var ranking = [Player]()
         
-        ranking.append(usersInGame[0]) //add first item to the ranking collection
-        usersInGame.remove(at: 0) // remove the item we just added to ranking
+//        ranking.append(usersInGame[0]) //add first item to the ranking collection
+      //  usersInGame.remove(at: 0) // remove the item we just added to ranking
         
         var currentIndex = 0
         var trackingIndex = 0

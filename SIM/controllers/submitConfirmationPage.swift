@@ -12,7 +12,8 @@ import FirebaseDatabase
 class submitConfirmationPage: UIViewController {
 
     
-    
+    var globalPrice = 0.0
+    var currentNetStockValue = 0.0
     var sentData = tradeinfo()
     var usersCurrentCash = 0.0
     var validation = false
@@ -21,6 +22,11 @@ class submitConfirmationPage: UIViewController {
     var jsonStockObject = JsonStockCodeable()
     
     var userDataToSend = GamesInfo()
+    
+    //is there a smarter way to do this?
+    var myCalculatedBuyPower = 0.0
+    var myCalculateNetWorth = 0.0
+    var myCalculateStockValue = 0.0
     
     var stockAfterSale = ""
     var cashAfterSale = 0.0
@@ -55,7 +61,10 @@ class submitConfirmationPage: UIViewController {
         marketTypeOutlet.text = sentData.orderType
         commissionOutletValue.text = "\(sentData.commission)"
         totalTradeValue.text = "\(sentData.netAmount)"
-
+        
+        myCalculateStockValue = calculateStockValue()
+        myCalculatedBuyPower = calculateBuyPower()
+        myCalculateNetWorth = calculateNetWorth()
     }
     
     @IBAction func cancelButtonClicked(_ sender: UIButton) {
@@ -117,7 +126,7 @@ class submitConfirmationPage: UIViewController {
                         print("collected the data successfully: \(myResults) \n\n\n\n/n/n/n")
                         
                         stockPrice = myResults.latestPrice ?? 0.0
-                        
+                        self.currentNetStockValue = self.currentNetStockValue + stockPrice
                         //need to use this if i update data within the closure.
                         //DispatchQueue.main.async {
                          //   self.updateViewDetails()
@@ -144,6 +153,7 @@ class submitConfirmationPage: UIViewController {
         
         for items in sentData.listOfStocksAndAmounts{
             for each in items{
+                
                 total = total + (getStockPrice(stockSymbol: each.key) * Double(each.value))
             }
         }
@@ -152,6 +162,7 @@ class submitConfirmationPage: UIViewController {
     
     //calculates the current BuyPower for the user
     func calculateBuyPower() -> Double{
+     
         let value = sentData.userCurrentCash - (sentData.commission + sentData.estimatedFee + sentData.netAmount)
       //  var currentCash = value
         var total = 0.0
@@ -181,7 +192,10 @@ class submitConfirmationPage: UIViewController {
         
         let updates = ["listOfStockAndQuantity":sentData.listOfStocksAndAmounts,
                        "numberOfTrades":"\(sentData.numberOfTrades + 1)",
-                        "currentCash":"\(value)"
+                        "currentCash":"\(value)",
+                        "buyPower":"\(myCalculatedBuyPower)",
+                        "currentStockValue":"\(myCalculateStockValue)",
+                        "netWorth":"\(myCalculateNetWorth)"
         
         ] as [String: Any]
         
@@ -214,6 +228,9 @@ class submitConfirmationPage: UIViewController {
  
     //checks the user cash on hand to validate ability to make purchase
     func checkUserCash(){
+        
+        
+
         
         //change this point for debt or Margin purchasing
         if sentData.transaction == "Buy" {
