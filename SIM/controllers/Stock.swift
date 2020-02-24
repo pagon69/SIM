@@ -48,6 +48,7 @@ class Stock {
     var week52Low = 0.00
     var ytdChange = 0.00
     var type = ""
+    var peRatio = 0.0
     
     //needed for game
     var sharesCurrentlyPurchased = 0

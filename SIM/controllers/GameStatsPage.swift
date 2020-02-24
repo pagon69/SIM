@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import SVProgressHUD
 //import Alamofire
 
 class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate {
@@ -17,6 +18,8 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     var ref: DatabaseReference!
     var refT = Database.database().reference()
     
+    var stockDetails = JsonStockCodeable()
+    var tradedInfo = tradeinfo()
     var createdGameDetials = "" //pass the current game details
     var gamesInProgress: [String] = [""]
     var gamesInProgressDetails = [GamesInfo]()
@@ -177,6 +180,63 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
     }
     
     
+    func getStockDataTwo(stockSearch: String){
+        
+        if stockSearch != "" {
+            //https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_77b4f9e303f64472a2a520800130d684
+            let defaultURL = "https://cloud.iexapis.com/stable/stock/\(stockSearch)/quote?token=pk_77b4f9e303f64472a2a520800130d684"
+            
+            let session = URLSession.shared
+            let url = URL(string: defaultURL)
+            //setup and use a response/request handler for http with json
+            let task = session.dataTask(with: url!) { (data, response, error) in
+                //checks for client and basic connection errors
+                if error != nil || data == nil {
+                    print("An error happened on the client side, \(String(describing: error))")
+                    return
+                }
+                //checks for server side issues
+                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
+                    else {
+                        print ("Could not find stock with symbol: \(stockSearch)")
+                        return
+                }
+                //checks for mime or serialization errors
+                guard let mime = response.mimeType, mime == "application/json"
+                    else{
+                        print("mime type error check spelling or type")
+                        return
+                }
+                //will randomly get errors as the types are found to be wrong.
+                do {
+                    let myResults = try! JSONDecoder().decode(JsonStockCodeable.self, from: data!)
+                   self.stockDetails = myResults
+                    if data != nil {
+                        print("collected the data successfully\n\n\n\n/n/n/n")
+                        
+                       // tradedInfo.accountType = myResults.primaryExchange
+                      //  myResul
+
+                           // SVProgressHUD.dismiss()
+                        DispatchQueue.main.async {
+                            SVProgressHUD.dismiss()
+                        self.performSegue(withIdentifier: "goToStockSearch", sender: self)
+                        }
+                    }
+                    
+                }catch {
+                    print("JSON error", error.localizedDescription)
+                }
+            }
+            task.resume()
+            //  updateViewDetails()
+            
+        }
+        
+    }
+                        
+    
+    
     //searches the array of stock symbols
     func doSearch(searchV: String){
         
@@ -209,7 +269,10 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         //handles the stocsk and symbols
         if tableView.tag == 0 {
             userSelected = searchJSOnR[indexPath.row].symbol
-            performSegue(withIdentifier: "goToStockSearch", sender: self)
+            SVProgressHUD.show()
+            getStockDataTwo(stockSearch: userSelected)
+            //should i do the search and segue after i have results moved to after results come in
+           // performSegue(withIdentifier: "goToStockSearch", sender: self)
         }
         
         //handles various users in game
@@ -498,9 +561,10 @@ class GameStatsPage: UIViewController,UITableViewDelegate,UITableViewDataSource,
         if segue.identifier == "goToStockSearch" {
             let destVC = segue.destination as! QuotePage
             destVC.userProvidedData = userSelected
-            destVC.receivedData = forSymbolsSearch
+            destVC.tradeInfoPassed = tradedInfo // what is this? it has no values
             destVC.sentStockSymbols = variousSymbols
             destVC.passedData = passedData
+            destVC.stockDetailsSent = stockDetails
             
         }
         

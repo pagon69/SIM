@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 class submitConfirmationPage: UIViewController {
 
-    
+    var asyncCount = 0
     var globalPrice = 0.0
     var currentNetStockValue = 0.0
     var sentData = tradeinfo()
@@ -77,6 +77,9 @@ class submitConfirmationPage: UIViewController {
         
         checkUserCash()
         
+        //myCalculateStockValue = calculateStockValue()
+        myCalculatedBuyPower = calculateBuyPower()
+        myCalculateNetWorth = calculateNetWorth()
         
         if validation{
             
@@ -125,12 +128,20 @@ class submitConfirmationPage: UIViewController {
                     if data != nil {
                         print("collected the data successfully: \(myResults) \n\n\n\n/n/n/n")
                         
+                        self.asyncCount = self.asyncCount - 1
+                        
                         stockPrice = myResults.latestPrice ?? 0.0
                         self.currentNetStockValue = self.currentNetStockValue + stockPrice
                         //need to use this if i update data within the closure.
                         //DispatchQueue.main.async {
                          //   self.updateViewDetails()
                         //}
+                        
+                        if self.asyncCount == 0 {
+                            
+                            print("This is when i should segue and save data")
+                            
+                        }
                         
                     }
                     
@@ -153,9 +164,10 @@ class submitConfirmationPage: UIViewController {
         
         for items in sentData.listOfStocksAndAmounts{
             for each in items{
-                
+                asyncCount = asyncCount + 1
                 total = total + (getStockPrice(stockSymbol: each.key) * Double(each.value))
             }
+            print("The number of items in the array: \(sentData.listOfStocksAndAmounts.count) ....... the number of items in count: \(asyncCount)")
         }
         return total
     }
@@ -175,7 +187,7 @@ class submitConfirmationPage: UIViewController {
     
     //calculates the users current NetWorth
     func calculateNetWorth() ->Double{
-        var total = calculateBuyPower() + calculateStockValue()
+        var total = myCalculatedBuyPower + myCalculateStockValue
         
         return total
     }
@@ -183,6 +195,8 @@ class submitConfirmationPage: UIViewController {
     
     //update anything needed here
     func buildupdateObject(){
+        
+        if asyncCount <= 0 {
         
         sentData.listOfStocksAndAmounts.append([sentData.symbol: sentData.quantity])
         sentData.numberOfTrades = sentData.numberOfTrades + 1
@@ -201,6 +215,7 @@ class submitConfirmationPage: UIViewController {
         
         transactionsMadeData = updates
         
+        }
     }
     
    
@@ -229,9 +244,6 @@ class submitConfirmationPage: UIViewController {
     //checks the user cash on hand to validate ability to make purchase
     func checkUserCash(){
         
-        
-
-        
         //change this point for debt or Margin purchasing
         if sentData.transaction == "Buy" {
             
@@ -242,9 +254,7 @@ class submitConfirmationPage: UIViewController {
                 //display an error message
                 validation = false
                 anyErrorMessgae = "Not enough funds to make the purchase."
-                
             }
-            
         }
         
         if sentData.transaction == "Sell" {
@@ -302,13 +312,7 @@ class submitConfirmationPage: UIViewController {
                 
             }
             
-            
-            
-            
         }
-        
-        
-        
         
     }
     

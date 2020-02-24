@@ -60,6 +60,7 @@ class QuotePage: UIViewController {
     
     var ref = Database.database().reference()
 
+    var continueForward = false
     var passedData = GamesInfo()
     var tradeInfoPassed = tradeinfo()
     var currentIndex = 0
@@ -74,6 +75,7 @@ class QuotePage: UIViewController {
     var sentStockSymbols = [JsonSerial]()
     var searchJsonR = [JsonSerial]()
     var receivedData: [Symbol]?
+    var stockDetailsSent = JsonStockCodeable()
     
     //for codeable/decodable
     var jsonStockObject = JsonStockCodeable()
@@ -100,7 +102,7 @@ class QuotePage: UIViewController {
     
     //get the latest quote data
     @IBAction func refreshRequested(_ sender: UIButton) {
-        
+        SVProgressHUD.show()
         getStockData(userSearchResults: userProvidedData)
         updateViewDetails()
     }
@@ -108,6 +110,20 @@ class QuotePage: UIViewController {
     //do a big add or 15 second thing at this point.
     @IBAction func researchStock(_ sender: UIBarButtonItem) {
         //launch an interstail and then give details.
+        
+        
+    }
+    
+    
+    func validateTransaction(){
+        
+        if continueForward {
+            performSegue(withIdentifier: "submitSegue", sender: self)
+        }else {
+            
+            print("something went wrong")
+            
+        }
         
         
     }
@@ -138,8 +154,10 @@ class QuotePage: UIViewController {
             tradeInfoPassed.user = fixEmail(userEmail: Auth.auth().currentUser?.email ?? "testUser.com")
             tradeInfoPassed.currentGame = passedData.gameName
             
+            continueForward = true
             //why run the stock price check again?
-            performSegue(withIdentifier: "submitSegue", sender: self)
+            validateTransaction()
+           // performSegue(withIdentifier: "submitSegue", sender: self)
         }
         
         if transactionHappening == "Buy"{
@@ -165,9 +183,9 @@ class QuotePage: UIViewController {
             tradeInfoPassed.user = fixEmail(userEmail: Auth.auth().currentUser?.email ?? "testUser.com")
             tradeInfoPassed.currentGame = passedData.gameName
             
-            
-            performSegue(withIdentifier: "submitSegue", sender: self)
-            
+            continueForward = true
+           // performSegue(withIdentifier: "submitSegue", sender: self)
+            validateTransaction()
         }
         
         
@@ -212,7 +230,7 @@ class QuotePage: UIViewController {
         
         value1 = jsonStockObject.latestPrice ?? 0.0
         value2 = (Double(quantityFieldOutlet.text ?? "0.0") ?? 0.0)
-        total = value1 * value2
+        total = (value1 * value2) + (tradeInfoPassed.estimatedFee + tradeInfoPassed.commission)
         
         tatalValueOutlet.text = "\(total)"
         
@@ -228,7 +246,7 @@ class QuotePage: UIViewController {
             
             value1 = jsonStockObject.latestPrice ?? 0.0
             value2 = (Double(quantityFieldOutlet.text ?? "0.0") ?? 0.0)
-            total = value1 * value2
+            total = (value1 * value2) + (tradeInfoPassed.estimatedFee + tradeInfoPassed.commission)
             
             tatalValueOutlet.text = "\(total)"
             
@@ -278,6 +296,82 @@ class QuotePage: UIViewController {
         
     }
     
+    func getStockDataTwo(stockSearch: String){
+        
+        if stockSearch != "" {
+            //https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_77b4f9e303f64472a2a520800130d684
+            let defaultURL = "https://cloud.iexapis.com/stable/stock/\(stockSearch)/quote?token=pk_77b4f9e303f64472a2a520800130d684"
+            
+            let session = URLSession.shared
+            let url = URL(string: defaultURL)
+            //setup and use a response/request handler for http with json
+            let task = session.dataTask(with: url!) { (data, response, error) in
+                //checks for client and basic connection errors
+                if error != nil || data == nil {
+                    print("An error happened on the client side, \(String(describing: error))")
+                    return
+                }
+                //checks for server side issues
+                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode)
+                    else {
+                        print ("Could not find stock with symbol: \(stockSearch)")
+                        return
+                }
+                //checks for mime or serialization errors
+                guard let mime = response.mimeType, mime == "application/json"
+                    else{
+                        print("mime type error check spelling or type")
+                        return
+                }
+                //will randomly get errors as the types are found to be wrong.
+                do {
+                    let myResults = try! JSONDecoder().decode(JsonStockCodeable.self, from: data!)
+                    self.jsonStockObject = myResults
+                    if data != nil {
+                        print("collected the data successfully\n\n\n\n/n/n/n")
+                        
+                        if self.transactionHappening == "Sell"{
+                            
+                            self.tradeInfoPassed.price = myResults.latestPrice ?? 0.0
+                            self.tradeInfoPassed.name = myResults.companyName ?? "N/A"
+                            // tradeInfoPassed.netAmount = Double(tatalValueOutlet.text ?? "0.0") ?? 0.0
+                            // tradeInfoPassed.orderType = jsonStockObject.type ?? "N/A"
+                            //   self.tradeInfoPassed.quantity = Double(self.sellTextBoxOutlet.text ?? "0.0") ?? 0.0
+                            //  tradeInfoPassed.symbol = jsonStockObject.symbol ?? "N/A"
+                            self.tradeInfoPassed.tradeTpye = "Stock/ETF"
+                            // self.tradeInfoPassed.transaction = self.transactionType[self.currentIndex]
+                            self.tradeInfoPassed.transaction = "Sell"
+                            
+                            // self.updateViewDetails()
+                            
+                            DispatchQueue.main.async {
+                                SVProgressHUD.dismiss()
+                                self.updateViewDetails()
+                                
+                            }
+                            //   self.performSegue(withIdentifier: "submitSegue", sender: self)
+                        }
+                        
+                        //  print(self.jsonStockObject)
+                        
+                        //uneed to uyse this if i update data within the closure.
+                        // DispatchQueue.main.async {
+                        //     SVProgressHUD.dismiss()
+                        //     self.updateViewDetails()
+                        // }
+                        
+                    }
+                    
+                }catch {
+                    print("JSON error", error.localizedDescription)
+                }
+            }
+            task.resume()
+            //  updateViewDetails()
+            
+        }
+        
+    }
     
     
     func getStockData(userSearchResults: String){
@@ -326,17 +420,24 @@ class QuotePage: UIViewController {
                         self.tradeInfoPassed.tradeTpye = "Stock/ETF"
                        // self.tradeInfoPassed.transaction = self.transactionType[self.currentIndex]
                         self.tradeInfoPassed.transaction = "Sell"
-
+                       
+                       // self.updateViewDetails()
                         
+                        DispatchQueue.main.async {
+                            SVProgressHUD.dismiss()
+                            self.updateViewDetails()
+                            
+                        }
                      //   self.performSegue(withIdentifier: "submitSegue", sender: self)
                     }
                     
-                    print(self.jsonStockObject)
+                  //  print(self.jsonStockObject)
                     
                     //uneed to uyse this if i update data within the closure.
-                    DispatchQueue.main.async {
-                        self.updateViewDetails()
-                    }
+                   // DispatchQueue.main.async {
+                   //     SVProgressHUD.dismiss()
+                   //     self.updateViewDetails()
+                   // }
                     
                 }
                 
@@ -345,7 +446,7 @@ class QuotePage: UIViewController {
             }
         }
         task.resume()
-        //updateViewDetails()
+      //  updateViewDetails()
             
         }
     
@@ -364,10 +465,12 @@ class QuotePage: UIViewController {
     
     
     func viewSetup(){
+        //SVProgressHUD.show()
+        updatedUI()
         
         getStockData(userSearchResults: userProvidedData)
         searchForCurrentlyOwnedStock()
-        
+      //  updateViewDetails()
         
     }
     
@@ -396,8 +499,35 @@ class QuotePage: UIViewController {
     }
     
     
+    func updatedUI(){
+        
+        symbalNameOutlet.text = stockDetailsSent.symbol ?? ""
+        
+        peRatioOutlet.text = "\(stockDetailsSent.peRatio ?? 0.0)"
+        previousCloseOutlet.text = "\(stockDetailsSent.previousClose ?? 0.0)"
+        companyNameOutlet.text = stockDetailsSent.companyName ?? ""
+        latestPriceOutlet.text = "\(stockDetailsSent.latestPrice ?? 0.0)"
+        changeValueOutlet.text = "\(stockDetailsSent.change ?? 0.0)"
+        lowOutlet52W.text =  "\(stockDetailsSent.week52Low ?? 0.0)"
+        highOutlet52W.text = "\(stockDetailsSent.week52High ?? 0.0)"
+        symbolSearch.text = "\(stockDetailsSent.symbol ?? "")"
+        defaultRefreshWords.text = "Time of last update, \(stockDetailsSent.lastTradeTime ?? 0.0)"
+        
+        
+        // tatalValueOutlet.text = "\((jsonStockObject.latestPrice ?? 0.0) * Double(quantityFieldOutlet.text) ?? 0.0)"
+        
+        tatalValueOutlet.text = "\(stockDetailsSent.latestPrice ?? 0.0 * (Double(quantityFieldOutlet.text ?? "0.0") ?? 0.0))"
+        
+        // jsonStockObject.latestPrice ?? 0.0 * (Double(quantityFieldOutlet.text ?? "0.0") ?? 0.0)
+        
+        // SVProgressHUD.dismiss()
+    }
+    
+    
+    
     func searchForCurrentlyOwnedStock(){
          ref = Database.database().reference()
+        SVProgressHUD.show()
         
        // print(passedData.gameName)
         ref.child(myDBReferences.gameInProgress.rawValue).child(passedData.gameName).child(myDBReferences.playerInfo.rawValue).child(fixEmail(userEmail: Auth.auth().currentUser?.email ?? "testUser.com")).observeSingleEvent(of: .value) { (snapshot) in
@@ -407,13 +537,27 @@ class QuotePage: UIViewController {
             //i stored the data as dictionary of a key stock name and value number of stock
                 if let pulledData = snapshot.value as? [String: Any] {
 
-                    let stockList = pulledData["listOfStockAndQuantity"] as? [[String:Double]] ?? [["BetaTest":0.0]]
+                    var stockList = pulledData["listOfStockAndQuantity"] as? [[String:Double]] ?? [["BetaTest":0.0]]
                     
                     let currentCash = pulledData["currentCash"] as? String ?? "0.0"
                     self.tradeInfoPassed.userCurrentCash = Double(currentCash) ?? 0.0
                     
                     let numTrades = pulledData["numberOfTrades"] as? Int ?? 0
                     self.tradeInfoPassed.numberOfTrades = numTrades
+                    
+                    print("check before removing:", stockList.count)
+
+                    if stockList.contains(["BetaTest":0]) || stockList.contains(["GoogTest":0]){
+                        if let newIndex = stockList.firstIndex(of: ["BetaTest":0]){
+                            stockList.remove(at: newIndex)
+                        }
+                        if let newIndex = stockList.firstIndex(of: ["GoogTest":0]){
+                            stockList.remove(at: newIndex)
+                        }
+                        
+                    }
+
+                    print("check after removes:", stockList.count)
                     
                     self.tradeInfoPassed.listOfStocksAndAmounts = stockList
                     
@@ -432,6 +576,7 @@ class QuotePage: UIViewController {
                         }
                     }
                     
+                    SVProgressHUD.dismiss()
                   //  self.stockSellPickerOutlet.reloadAllComponents()
                     
             }
@@ -458,10 +603,7 @@ class QuotePage: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewSetup()
-        
-    
-        
+        viewSetup()     
         // Do any additional setup after loading the view.
     }
     
@@ -557,8 +699,9 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
             
         }
     
+        //not very clear on what is happening here
         if pickerView.tag == stockSellPickerOutlet.tag {
-           
+         //  SVProgressHUD.show()
             //check the value of stocksownedforsale against = GoogTest
             
             itemsName = stocksOwnedForSale[row]
