@@ -69,6 +69,7 @@
 		C19F310E234E7397004F8227 /* BuyStockPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19F310D234E7397004F8227 /* BuyStockPage.swift */; };
 		C19F3110234E73C9004F8227 /* SellStockPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19F310F234E73C9004F8227 /* SellStockPage.swift */; };
 		C1A89C2D2327E46500FAAB3F /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A89C2C2327E46500FAAB3F /* Symbol.swift */; };
+		C1AF2D592404567B00B51822 /* BigGoogleAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AF2D582404567B00B51822 /* BigGoogleAd.swift */; };
 		C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCEB8229D772900633D00 /* AppDelegate.swift */; };
 		C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBC229D772900633D00 /* Main.storyboard */; };
 		C1BCCEC0229D772B00633D00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBF229D772B00633D00 /* Assets.xcassets */; };
@@ -151,6 +152,7 @@
 		C19F310D234E7397004F8227 /* BuyStockPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyStockPage.swift; sourceTree = "<group>"; };
 		C19F310F234E73C9004F8227 /* SellStockPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellStockPage.swift; sourceTree = "<group>"; };
 		C1A89C2C2327E46500FAAB3F /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Symbol.swift; path = SIM/controllers/Symbol.swift; sourceTree = SOURCE_ROOT; };
+		C1AF2D582404567B00B51822 /* BigGoogleAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigGoogleAd.swift; sourceTree = "<group>"; };
 		C1BCCEB5229D772900633D00 /* SIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BCCEB8229D772900633D00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1BCCEBD229D772900633D00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			children = (
 				C1BCCEC1229D772B00633D00 /* LaunchScreen.storyboard */,
 				C1BCCEBC229D772900633D00 /* Main.storyboard */,
+				C1AF2D582404567B00B51822 /* BigGoogleAd.swift */,
 				C19F310F234E73C9004F8227 /* SellStockPage.swift */,
 				C19F310D234E7397004F8227 /* BuyStockPage.swift */,
 				C174743E23476ABE006C82AF /* Animation.swift */,
@@ -558,6 +561,7 @@
 				C173A8D722B12D20001A7F97 /* SIMGame.swift in Sources */,
 				C174743F23476ABE006C82AF /* Animation.swift in Sources */,
 				C15AC3E322F223F700BCBDAD /* CreateGamePage.swift in Sources */,
+				C1AF2D592404567B00B51822 /* BigGoogleAd.swift in Sources */,
 				C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
 				C1C1F31D23EC97E0004447DA /* RandomStockDetialsPage.swift in Sources */,

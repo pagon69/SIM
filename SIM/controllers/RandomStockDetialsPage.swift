@@ -24,6 +24,22 @@ class RandomStockDetialsPage: UIViewController {
         
     }
     
+    @IBOutlet weak var newsPageOutlet: UIPageControl!
+    
+    
+    
+    @IBAction func newsPageControlClicked(_ sender: UIPageControl) {
+    }
+    
+    @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
+        
+        dismiss(animated: true)
+    }
+    
+    @IBAction func addToWatchList(_ sender: UIBarButtonItem) {
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
