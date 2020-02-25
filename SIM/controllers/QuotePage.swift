@@ -673,7 +673,11 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 stopViewOutlet.alpha =  0
                 stopLimitViewOutlet.alpha = 0
                 totalViewOutlet.alpha = 1
+                
+                //removge one of the below sell windows
                 sellWindowViewOutlet.alpha = 0
+                
+                sellWindowTakeTwo.alpha = 0
                 
                 marketViewOutlet.isHidden = false
                 limitViewOutlet.isHidden = true
@@ -697,7 +701,10 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
                 
-                sellWindowViewOutlet.alpha = 1
+                //remove one of the below sell windows
+                sellWindowViewOutlet.alpha = 0
+                sellWindowTakeTwo.alpha = 1
+                
             }
             
         }
@@ -728,7 +735,10 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
                 
+                //remove one of the below
                 sellWindowViewOutlet.alpha = 0
+                sellWindowTakeTwo.alpha = 0
+                
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 0
                 stopViewOutlet.alpha =  0
@@ -747,7 +757,10 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
                 
+                //remove one of the below
                 sellWindowViewOutlet.alpha = 0
+                sellWindowTakeTwo.alpha = 0
+                
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 0
                 stopViewOutlet.alpha =  1
@@ -765,7 +778,10 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 stopLimitViewOutlet.isHidden = true
                 totalViewOutlet.isHidden = false
                 
+                //remove of the below
                 sellWindowViewOutlet.alpha = 0
+                sellWindowTakeTwo.alpha = 0
+                
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 1
                 stopViewOutlet.alpha =  0
@@ -784,7 +800,10 @@ extension QuotePage: UIPickerViewDelegate, UIPickerViewDataSource {
                 stopLimitViewOutlet.isHidden = false
                 totalViewOutlet.isHidden = false
                 
+                //remove one of the below
                 sellWindowViewOutlet.alpha = 0
+                sellWindowTakeTwo.alpha = 0
+                
                 marketViewOutlet.alpha = 1
                 limitViewOutlet.alpha = 0
                 stopViewOutlet.alpha =  0
