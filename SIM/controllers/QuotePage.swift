@@ -81,6 +81,9 @@ class QuotePage: UIViewController {
     var jsonStockObject = JsonStockCodeable()
     
     
+    @IBOutlet weak var sellTableViewOutlet: UITableView!
+    
+    @IBOutlet weak var sellWindowTakeTwo: UIView!
     
     @IBOutlet weak var sellTextBoxOutlet: UITextField!
     @IBOutlet weak var previousCloseOutlet: UILabel!

@@ -69,6 +69,8 @@
 		C19F310E234E7397004F8227 /* BuyStockPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19F310D234E7397004F8227 /* BuyStockPage.swift */; };
 		C19F3110234E73C9004F8227 /* SellStockPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19F310F234E73C9004F8227 /* SellStockPage.swift */; };
 		C1A89C2D2327E46500FAAB3F /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A89C2C2327E46500FAAB3F /* Symbol.swift */; };
+		C1A9FB4A24059DDC000EFBA8 /* sellObjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A9FB4824059DDC000EFBA8 /* sellObjectCell.swift */; };
+		C1A9FB4B24059DDC000EFBA8 /* sellObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A9FB4924059DDC000EFBA8 /* sellObjectCell.xib */; };
 		C1AF2D592404567B00B51822 /* BigGoogleAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AF2D582404567B00B51822 /* BigGoogleAd.swift */; };
 		C1BCCEB9229D772900633D00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BCCEB8229D772900633D00 /* AppDelegate.swift */; };
 		C1BCCEBE229D772900633D00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1BCCEBC229D772900633D00 /* Main.storyboard */; };
@@ -152,6 +154,8 @@
 		C19F310D234E7397004F8227 /* BuyStockPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyStockPage.swift; sourceTree = "<group>"; };
 		C19F310F234E73C9004F8227 /* SellStockPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellStockPage.swift; sourceTree = "<group>"; };
 		C1A89C2C2327E46500FAAB3F /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Symbol.swift; path = SIM/controllers/Symbol.swift; sourceTree = SOURCE_ROOT; };
+		C1A9FB4824059DDC000EFBA8 /* sellObjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sellObjectCell.swift; sourceTree = "<group>"; };
+		C1A9FB4924059DDC000EFBA8 /* sellObjectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = sellObjectCell.xib; sourceTree = "<group>"; };
 		C1AF2D582404567B00B51822 /* BigGoogleAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigGoogleAd.swift; sourceTree = "<group>"; };
 		C1BCCEB5229D772900633D00 /* SIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BCCEB8229D772900633D00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 				C15F2875232FB28E000D62EC /* quickStats.xib */,
 				C1C9B3F323391CC80094498B /* inGameDetailsCell.swift */,
 				C1C9B3F423391CC80094498B /* inGameDetailsCell.xib */,
+				C1A9FB4824059DDC000EFBA8 /* sellObjectCell.swift */,
+				C1A9FB4924059DDC000EFBA8 /* sellObjectCell.xib */,
 			);
 			path = "custom Cells";
 			sourceTree = "<group>";
@@ -413,6 +419,7 @@
 			files = (
 				C1784E5522E0AF4300A62B5C /* gameDetailCell.xib in Resources */,
 				C15F2877232FB28E000D62EC /* quickStats.xib in Resources */,
+				C1A9FB4B24059DDC000EFBA8 /* sellObjectCell.xib in Resources */,
 				C13C6377230442C000BF1221 /* leaderboardCell.xib in Resources */,
 				C19B03E022D6773400DC0AA9 /* searchResultsCell.xib in Resources */,
 				C1BCCEC3229D772B00633D00 /* LaunchScreen.storyboard in Resources */,
@@ -564,6 +571,7 @@
 				C1AF2D592404567B00B51822 /* BigGoogleAd.swift in Sources */,
 				C133447A22DE0047002A04BF /* TermsOfService.swift in Sources */,
 				C1BCCED3229DBC9200633D00 /* SignInViewController.swift in Sources */,
+				C1A9FB4A24059DDC000EFBA8 /* sellObjectCell.swift in Sources */,
 				C1C1F31D23EC97E0004447DA /* RandomStockDetialsPage.swift in Sources */,
 				C15AC3DF22F1F23E00BCBDAD /* OverviewPage.swift in Sources */,
 				C13C637323043AEF00BF1221 /* LeaderboardPage.swift in Sources */,
